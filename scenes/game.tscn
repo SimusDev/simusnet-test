@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://dpstgq7tmwwpx" path="res://scenes/connection.tscn" id="1_uwrxv"]
 [ext_resource type="Script" uid="uid://doxf33wt4344v" path="res://scenes/game.gd" id="1_yqjtg"]
+[ext_resource type="Script" uid="uid://cgcf58eaiehq1" path="res://addons/simusdev/SimusNet/SimusNetNodeSceneReplicator.gd" id="3_lnu2h"]
 
 [node name="Game" type="Node3D" unique_id=1979558274]
 script = ExtResource("1_yqjtg")
@@ -10,5 +11,10 @@ script = ExtResource("1_yqjtg")
 
 [node name="Timer" type="Timer" parent="." unique_id=392021193]
 autostart = true
+
+[node name="SimusNetNodeSceneReplicator" type="Node" parent="." unique_id=785923384 node_paths=PackedStringArray("root")]
+script = ExtResource("3_lnu2h")
+root = NodePath("..")
+metadata/_custom_type_script = "uid://cgcf58eaiehq1"
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -17,8 +17,10 @@ func get_channel() -> int:
 	return SimusNetChannels.BUILTIN.SCENE_REPLICATION
 
 func _ready() -> void:
-	set_multiplayer_authority(SimusNetConnection.SERVER_ID)
 	super()
+	set_multiplayer_authority(SimusNetConnection.SERVER_ID)
+	
+	SimusNetNodeAutoVisible.register_or_get(self)
 	
 	SimusNetVisibility.set_method_always_visible(
 		[_send]

@@ -6,10 +6,6 @@ static var _queue_delete: Array[SimusNetIdentity] = []
 
 static var _instance: SimusNetVisibility
 
-const _META_PUBLIC: StringName = &"simusnet_public_visible"
-const _META_VISIBLES: StringName = &"simusnet_visibles"
-const _META_METHODS: StringName = &"simusnet_visibles_m"
-
 func _ready() -> void:
 	pass
 
@@ -28,40 +24,27 @@ static func _serialize_array(array: Array[SimusNetIdentity]) -> void:
 static func _deserialize_array(array: Array[PackedByteArray]) -> void:
 	pass
 
-static func set_public_visibility(object: Object, visibility: bool) -> void:
-	object.set_meta(_META_PUBLIC, visibility)
+static func set_public_visibility(object: Object, visibility: bool) -> SimusNetVisibility:
+	SimusNetVisible.get_or_create(object).set_public_visibility(visibility)
+	return _instance
 
-static func set_visible_for(peer: int, object: Object, visible: bool) -> void:
-	var visibles: PackedInt32Array = get_visibles_for(object)
-	if visible and !visibles.has(peer):
-		visibles.append(peer)
-		return
-	visibles.erase(peer)
+static func set_visible_for(peer: int, object: Object, visible: bool) -> SimusNetVisibility:
+	SimusNetVisible.get_or_create(object).set_visible_for(peer, visible)
+	return _instance
 
 static func is_public_visible(object: Object) -> bool:
-	if object.has_meta(_META_PUBLIC):
-		return object.get_meta(_META_PUBLIC)
-	return true
+	return SimusNetVisible.get_or_create(object).is_public_visible()
 
-static func get_visibles_for(object: Object) -> PackedInt32Array:
-	if object.has_meta(_META_VISIBLES):
-		return object.get_meta(_META_VISIBLES)
-	var result: PackedInt32Array = []
-	object.set_meta(_META_VISIBLES, result)
-	return result
+static func get_peers_from(object: Object) -> PackedInt32Array:
+	return SimusNetVisible.get_or_create(object).get_peers()
 
 static func is_visible_for(peer: int, object: Object) -> bool:
-	if is_public_visible(object) or peer == SimusNetConnection.get_unique_id():
-		return true
-	return get_visibles_for(object).has(peer)
+	return SimusNetVisible.get_or_create(object).is_visible_for(peer)
 
 static func is_method_always_visible(callable: Callable) -> bool:
-	var dict: Dictionary[String, bool] = SD_Variables.get_or_add_object_meta(callable.get_object(), _META_METHODS, {} as Dictionary[String, bool])
-	var value: bool = dict.get(callable.get_method(), false)
-	return value
+	return SimusNetVisible.get_or_create(callable.get_object()).is_method_always_visible(callable)
 
 static func set_method_always_visible(callables: Array[Callable], visibility: bool = true) -> SimusNetVisibility:
-	for callable in callables:
-		var dict: Dictionary[String, bool] = SD_Variables.get_or_add_object_meta(callable.get_object(), _META_METHODS, {} as Dictionary[String, bool])
-		dict[callable.get_method()] = visibility
+	for i in callables:
+		SimusNetVisible.get_or_create(i.get_object()).set_method_always_visible([i], visibility)
 	return _instance
