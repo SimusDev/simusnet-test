@@ -9,6 +9,7 @@ enum BUILTIN {
 	REGISTER,
 	IDENTITY,
 	VISIBILITY,
+	SCENE_REPLICATION,
 }
 
 const DEFAULT: String = "main"

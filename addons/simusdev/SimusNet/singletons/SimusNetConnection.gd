@@ -105,3 +105,18 @@ static func get_unique_id() -> int:
 	if is_active():
 		return singleton.api.get_unique_id()
 	return SERVER_ID
+
+static func connect_network_node_callables(object: Node, on_ready: Callable, on_disconnect: Callable, on_not_connected: Callable) -> void:
+	if !is_active():
+		on_not_connected.call()
+		await SimusNetEvents.event_connected.published
+	
+	SimusNetEvents.event_connected.listen(on_ready)
+	
+	if !object.is_node_ready():
+		await object.ready
+	
+	on_ready.call()
+	
+	SimusNetEvents.event_disconnected.listen(on_disconnect)
+	

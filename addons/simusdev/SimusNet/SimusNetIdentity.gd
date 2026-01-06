@@ -69,6 +69,10 @@ func _initialize_dynamic() -> void:
 	if !SimusNetConnection.is_active():
 		await SimusNetEvents.event_connected.published
 	
+	if owner is Node:
+		if !owner.is_inside_tree():
+			await owner.tree_entered
+	
 	if is_initialized:
 		return
 	
@@ -88,8 +92,8 @@ func _initialize_dynamic() -> void:
 				await _on_awaited_and_cached
 				print_debug("(%s) cached!" % str(_generated_unique_id))
 		
-		get_cached_unique_ids_values().erase(_generated_unique_id)
-		get_cached_unique_ids().erase(_unique_id)
+		#get_cached_unique_ids_values().erase(_generated_unique_id)
+		#get_cached_unique_ids().erase(_unique_id)
 		
 		_set_ready()
 
@@ -150,9 +154,7 @@ func _tree_exited() -> void:
 	if !is_ready:
 		await is_ready
 	
-	if owner.has_method("is_queued_for_deletion"):
-		if owner.is_queued_for_deletion():
-			_destroy()
+	_destroy()
 
 
 func _destroy() -> void:

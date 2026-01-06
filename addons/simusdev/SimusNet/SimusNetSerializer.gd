@@ -20,6 +20,7 @@ enum TYPE {
 	IMAGE,
 	IDENTITY,
 	NODE,
+	NODE_FROM,
 	ARRAY,
 	DICTIONARY,
 }
@@ -102,7 +103,6 @@ static func parse_node(node: Node) -> Variant:
 		return _create_parsed(TYPE.NODE, str(node.get_path()))
 	
 	return _create_parsed(TYPE.NODE)
-	
 
 static func parse_array(array: Array) -> Variant:
 	var result: Array = []
