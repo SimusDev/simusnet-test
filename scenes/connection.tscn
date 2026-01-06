@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://dpstgq7tmwwpx"]
+
+[ext_resource type="Script" uid="uid://kvcip5tma5jl" path="res://scenes/connection.gd" id="1_u7hla"]
+
+[node name="Connection" type="Control" unique_id=922191719]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_u7hla")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=734393912]
+custom_minimum_size = Vector2(624, 648)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.22900002
+anchor_right = 0.771
+anchor_bottom = 1.0
+offset_left = 0.19198608
+offset_right = -0.1920166
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="_server" type="Button" parent="VBoxContainer" unique_id=714222980]
+custom_minimum_size = Vector2(439, 59)
+layout_mode = 2
+text = "SERVER"
+
+[node name="_client" type="Button" parent="VBoxContainer" unique_id=545316283]
+custom_minimum_size = Vector2(439, 59)
+layout_mode = 2
+text = "CLIENT"
+
+[connection signal="pressed" from="VBoxContainer/_server" to="." method="_on__server_pressed"]
+[connection signal="pressed" from="VBoxContainer/_client" to="." method="_on__client_pressed"]

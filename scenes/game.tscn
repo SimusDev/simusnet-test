@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://e55eek63c86k"]
+
+[ext_resource type="PackedScene" uid="uid://dpstgq7tmwwpx" path="res://scenes/connection.tscn" id="1_uwrxv"]
+[ext_resource type="Script" uid="uid://doxf33wt4344v" path="res://scenes/game.gd" id="1_yqjtg"]
+
+[node name="Game" type="Node3D" unique_id=1979558274]
+script = ExtResource("1_yqjtg")
+
+[node name="Connection" parent="." unique_id=922191719 instance=ExtResource("1_uwrxv")]
+
+[node name="Timer" type="Timer" parent="." unique_id=392021193]
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

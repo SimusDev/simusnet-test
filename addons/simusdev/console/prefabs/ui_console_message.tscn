@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://dhndchwxw8pbx"]
+
+[ext_resource type="Script" uid="uid://4xh5q4rn0t16" path="res://addons/simusdev/console/prefabs/ui_console_message.gd" id="1_1q6um"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_dyb4x"]
+
+[node name="ui_console_message" type="Label"]
+offset_right = 187.0
+offset_bottom = 11.0
+size_flags_horizontal = 3
+size_flags_vertical = 0
+text = "trextdasdas"
+label_settings = SubResource("LabelSettings_dyb4x")
+vertical_alignment = 1
+autowrap_mode = 1
+script = ExtResource("1_1q6um")
