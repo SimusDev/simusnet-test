@@ -3,7 +3,6 @@
 [ext_resource type="PackedScene" uid="uid://dpstgq7tmwwpx" path="res://scenes/connection.tscn" id="1_uwrxv"]
 [ext_resource type="Script" uid="uid://doxf33wt4344v" path="res://scenes/game.gd" id="1_yqjtg"]
 [ext_resource type="Script" uid="uid://cgcf58eaiehq1" path="res://addons/simusdev/SimusNet/SimusNetNodeSceneReplicator.gd" id="3_lnu2h"]
-[ext_resource type="PackedScene" uid="uid://cj60ivebm0ek4" path="res://addons/simusdev/Game/build/interface.tscn" id="4_lbhrr"]
 
 [node name="Game" type="Node3D" unique_id=1979558274]
 script = ExtResource("1_yqjtg")
@@ -19,19 +18,5 @@ autostart = true
 script = ExtResource("3_lnu2h")
 root = NodePath("..")
 metadata/_custom_type_script = "uid://cgcf58eaiehq1"
-
-[node name="Interface" parent="Repilcation" unique_id=1485013195 instance=ExtResource("4_lbhrr")]
-
-[node name="Interface2" parent="Repilcation" unique_id=1191521006 instance=ExtResource("4_lbhrr")]
-
-[node name="Interface3" parent="Repilcation" unique_id=307080858 instance=ExtResource("4_lbhrr")]
-
-[node name="Interface4" parent="Repilcation" unique_id=343278413 instance=ExtResource("4_lbhrr")]
-
-[node name="Interface5" parent="Repilcation" unique_id=1751456251 instance=ExtResource("4_lbhrr")]
-
-[node name="Interface6" parent="Repilcation" unique_id=316678254 instance=ExtResource("4_lbhrr")]
-
-[node name="Interface7" parent="Repilcation" unique_id=92006316 instance=ExtResource("4_lbhrr")]
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
