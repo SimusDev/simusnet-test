@@ -4,8 +4,9 @@
 [ext_resource type="Script" uid="uid://doxf33wt4344v" path="res://scenes/game.gd" id="1_yqjtg"]
 [ext_resource type="Script" uid="uid://cgcf58eaiehq1" path="res://addons/simusdev/SimusNet/SimusNetNodeSceneReplicator.gd" id="3_lnu2h"]
 
-[node name="Game" type="Node3D" unique_id=1979558274]
+[node name="Game" type="Node3D" unique_id=1979558274 node_paths=PackedStringArray("_ECS")]
 script = ExtResource("1_yqjtg")
+_ECS = [NodePath("Repilcation/SimusNetNodeSceneReplicator")]
 
 [node name="Connection" parent="." unique_id=922191719 instance=ExtResource("1_uwrxv")]
 

@@ -86,14 +86,15 @@ func _exit_tree() -> void:
 	SimusNetRPCGodot.invoke(_send_not_visible)
 
 func _enter_tree() -> void:
+	if !is_node_ready():
+		SimusNetRPCGodot.register_any_peer_reliable([
+			_send_visible,
+			_send_not_visible,
+		], SimusNetChannels.BUILTIN.VISIBILITY)
+	
 	if !is_network_ready:
 		await on_network_ready
-	
-	SimusNetRPCGodot.register_any_peer_reliable([
-		_send_visible,
-		_send_not_visible,
-	], SimusNetChannels.BUILTIN.VISIBILITY)
-	
+		
 	if broadcast_to == BROADCAST_TO.TO_SERVER:
 		SimusNetRPCGodot.invoke_on_server(_send_visible)
 		return

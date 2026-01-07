@@ -1,5 +1,14 @@
 extends Node3D
 
+@export var _ECS: Array[Node] = []
+
+func get_ECS() -> Array:
+	return [
+		$Repilcation/SimusNetNodeSceneReplicator,
+		R_Object.new(),
+		R_Entity.new()
+	]
+
 func _ready() -> void:
 	SimusNetRPC.register([
 		_test
