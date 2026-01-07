@@ -11,6 +11,18 @@ enum PICK_RETURN {
 	RANDOM_VALUE,
 }
 
+static func erase_component(object: Object, component: Variant) -> void:
+	var components: Array = get_components_from(object)
+	if components.has(component):
+		components.erase(component)
+	else:
+		_debug_log_from_object(object, "doesn't have a component %s" % component, SD_ConsoleCategories.ERROR)
+
+static func try_erase_component(object: Object, component: Variant) -> void:
+	var components: Array = get_components_from(object)
+	if components.has(component):
+		components.erase(component)
+
 static func append_to(object: Object, component: Variant) -> void:
 	var components: Array = get_components_from(object)
 	if !components.has(component):
