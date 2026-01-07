@@ -2,7 +2,7 @@
 extends RefCounted
 class_name SD_ECS
 
-const METHOD: StringName= "get_ECS"
+static var METHOD: StringName = "get_ECS"
 const _LOG_NAME: StringName = "[SD_ECS]: %s"
 
 enum PICK_RETURN {
