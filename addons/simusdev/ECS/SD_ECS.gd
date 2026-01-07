@@ -23,6 +23,7 @@ static func try_erase_component(object: Object, component: Variant) -> void:
 	if components.has(component):
 		components.erase(component)
 
+
 static func append_to(object: Object, component: Variant) -> void:
 	var components: Array = get_components_from(object)
 	if !components.has(component):
