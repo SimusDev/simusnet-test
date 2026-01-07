@@ -16,7 +16,7 @@ func _ready() -> void:
 	SimusNetRPCConfig.new().flag_mode_server_only()
 	)
 	
-	SD_ECS.get_components_from(self)
+	print(SD_ECS.get_components_from(self))
 	
 
 func _input(event: InputEvent) -> void:
