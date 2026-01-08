@@ -121,6 +121,8 @@ func _tree_entered() -> void:
 	if settings.get_unique_id() == null:
 		if owner is Node:
 			_generated_unique_id = owner.get_path()
+			if !owner.is_node_ready():
+				await owner.ready
 	else:
 		_generated_unique_id = settings.get_unique_id()
 	

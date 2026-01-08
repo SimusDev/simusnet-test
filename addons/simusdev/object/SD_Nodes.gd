@@ -33,4 +33,8 @@ static func async_queue_free(node: Node) -> void:
 static func async_for_ready(node: Node) -> void:
 	if !node.is_node_ready():
 		await node.ready
-	
+
+static func call_method_if_exists(object: Object, method: StringName, args: Array = []) -> Variant:
+	if object.has_method(method):
+		return object.callv(method, args)
+	return null

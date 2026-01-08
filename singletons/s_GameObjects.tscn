@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://crobxq3ukja01"]
+
+[ext_resource type="Script" uid="uid://xcmvm4rf4tpg" path="res://singletons/s_GameObjects.gd" id="1_cpc2v"]
+
+[node name="SGameObjects" type="Node" unique_id=2005953495]
+script = ExtResource("1_cpc2v")
+
+[node name="Handlers" type="Node" parent="." unique_id=699385165]

@@ -111,7 +111,8 @@ static func get_connected_peers() -> PackedInt32Array:
 
 static func get_connected_peers_include_self() -> PackedInt32Array:
 	var peers: PackedInt32Array = get_connected_peers()
-	peers.append(get_unique_id())
+	if !is_dedicated_server():
+		peers.append(get_unique_id())
 	return peers
 
 static func get_unique_id() -> int:

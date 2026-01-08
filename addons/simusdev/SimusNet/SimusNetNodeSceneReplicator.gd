@@ -11,6 +11,8 @@ class_name SimusNetNodeSceneReplicator
 var _queue: Array[Node] = []
 var _queue_delete: Array[Node] = []
 
+@export var client_replace: Dictionary[PackedScene, PackedScene] = {}
+
 enum KEY {
 	SCENE,
 	NAME,
@@ -48,12 +50,12 @@ func _ready() -> void:
 	)
 	
 
-static func can_serialize_node(node: Node) -> bool:
+func can_serialize_node(node: Node) -> bool:
 	if node.scene_file_path.is_empty():
 		return false
 	return true
 
-static func serialize_node(node: Node) -> PackedByteArray:
+func serialize_node(node: Node) -> PackedByteArray:
 	var result: Dictionary = {}
 	result[KEY.SCENE] = SimusNetSerializer.parse_resource(load(node.scene_file_path))
 	result[KEY.NAME] = node.name
@@ -66,41 +68,49 @@ static func serialize_node(node: Node) -> PackedByteArray:
 	
 	return SimusNetCompressor.parse(result)
 
-static func deserialize_node(bytes: PackedByteArray) -> Node:
+func scene_deserialized(scene: PackedScene) -> PackedScene:
+	return client_replace.get(scene, scene)
+
+func deserialize_node(bytes: PackedByteArray) -> Node:
 	var data: Dictionary = SimusNetDecompressor.parse(bytes)
 	
 	var scene: PackedScene = SimusNetDeserializer.parse_resource(data[KEY.SCENE])
+	scene = scene_deserialized(scene)
+	
+	if SimusNetConnection.is_client():
+		scene = client_replace.get(scene, scene)
+	
 	var node: Node = scene.instantiate()
 	node.name = data[KEY.NAME]
 	
 	if data.has(KEY.TRANSFORM):
-		node.transform = data.transform
+		node.transform = data[KEY.TRANSFORM]
 	if data.has(KEY.MULTIPLAYER_AUTHORITY):
 		node.set_multiplayer_authority(data[KEY.MULTIPLAYER_AUTHORITY])
 	
 	return node
 
-static func serialize_nodes(nodes: Array[Node]) -> PackedByteArray:
+func serialize_nodes(nodes: Array[Node]) -> PackedByteArray:
 	var result: Array = []
 	for i in nodes:
 		if can_serialize_node(i):
 			result.append(serialize_node(i))
 	return SimusNetCompressor.parse(result)
 
-static func deserialize_nodes(bytes: PackedByteArray) -> Array[Node]:
+func deserialize_nodes(bytes: PackedByteArray) -> Array[Node]:
 	var data: Array = SimusNetDecompressor.parse(bytes)
 	var result: Array[Node] = []
 	for i in data:
 		result.append(deserialize_node(i))
 	return result
 
-static func serialize_nodes_to_delete(nodes: Array[Node], _root: Node) -> PackedByteArray:
+func serialize_nodes_to_delete(nodes: Array[Node], _root: Node) -> PackedByteArray:
 	var result: Array = []
 	for i in nodes:
 		result.append(str(_root.get_path_to(i)))
 	return SimusNetCompressor.parse(result)
 
-static func deserialize_nodes_to_delete(bytes: PackedByteArray, _root: Node) -> Array[Node]:
+func deserialize_nodes_to_delete(bytes: PackedByteArray, _root: Node) -> Array[Node]:
 	var data: Array = SimusNetDecompressor.parse(bytes)
 	var result: Array[Node] = []
 	for path: String in data:
@@ -109,10 +119,10 @@ static func deserialize_nodes_to_delete(bytes: PackedByteArray, _root: Node) -> 
 			result.append(node)
 	return result
 
-static func serialize_custom(node: Node, data: Dictionary) -> void:
+func serialize_custom(node: Node, data: Dictionary) -> void:
 	pass
 
-static func deserialize_custom(data: Dictionary, node: Node) -> void:
+func deserialize_custom(data: Dictionary, node: Node) -> void:
 	pass
 
 func _clear_children() -> void:
@@ -136,6 +146,7 @@ func _send() -> void:
 	SimusNetRPCGodot.invoke_on(multiplayer.get_remote_sender_id(), _receive, serialize_nodes(root.get_children()))
 
 func _receive(packet: Variant) -> void:
+	
 	var nodes: Array[Node] = deserialize_nodes(packet)
 	for i in nodes:
 		root.add_child(i)
@@ -169,11 +180,12 @@ func _process(delta: float) -> void:
 		return
 	
 	if !_queue.is_empty():
-		SimusNetRPC.invoke(_receive, serialize_nodes(_queue))
+		SimusNetRPCGodot.invoke(_receive, serialize_nodes(_queue))
+		_queue.clear()
 	
 	if !_queue_delete.is_empty():
-		SimusNetRPC.invoke(_receive_deletion, serialize_nodes_to_delete(_queue_delete, root))
-	
+		SimusNetRPCGodot.invoke(_receive_deletion, serialize_nodes_to_delete(_queue_delete, root))
+		_queue_delete.clear()
 
 func _network_ready() -> void:
 	super()
@@ -189,8 +201,8 @@ func _network_ready() -> void:
 				i.name = str(_child_count)
 				_child_count += 1
 		
-		child_entered_tree.connect(_on_child_entered_tree)
-		child_exiting_tree.connect(_on_child_exiting_tree)
+		root.child_entered_tree.connect(_on_child_entered_tree)
+		root.child_exiting_tree.connect(_on_child_exiting_tree)
 	else:
 		_synchronize()
 
@@ -199,8 +211,8 @@ func _network_disconnect() -> void:
 	set_process(false)
 	
 	if SimusNetConnection.is_was_server():
-		child_entered_tree.disconnect(_on_child_entered_tree)
-		child_exiting_tree.disconnect(_on_child_exiting_tree)
+		root.child_entered_tree.disconnect(_on_child_entered_tree)
+		root.child_exiting_tree.disconnect(_on_child_exiting_tree)
 	else:
 		_clear_children()
 

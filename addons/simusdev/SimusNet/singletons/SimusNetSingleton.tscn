@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://dw6wbflch2xcm" path="res://addons/simusdev/SimusNet/singletons/SimusNetChannels.gd" id="3_e7adu"]
 [ext_resource type="Script" uid="uid://dq0hs106g58xm" path="res://addons/simusdev/SimusNet/singletons/SimusNetConnection.gd" id="4_qc1ra"]
 [ext_resource type="Script" uid="uid://dx1ggnf2fcfjs" path="res://addons/simusdev/SimusNet/events/SimusNetEvents.gd" id="5_3i2gk"]
+[ext_resource type="Script" uid="uid://cb5806kx7kn45" path="res://addons/simusdev/SimusNet/singletons/SimusNetTime.gd" id="6_fowo7"]
 [ext_resource type="Script" uid="uid://cf18slr8p28s1" path="res://addons/simusdev/SimusNet/singletons/SimusNetHandShake.gd" id="6_h5gd7"]
 [ext_resource type="Script" uid="uid://22nubuf7jkle" path="res://addons/simusdev/SimusNet/singletons/SimusNetMethods.gd" id="7_iveyx"]
 [ext_resource type="Script" uid="uid://b1d3f8qui38ty" path="res://addons/simusdev/SimusNet/singletons/SimusNetRPC.gd" id="7_jxvxf"]
@@ -12,20 +13,25 @@
 [ext_resource type="Script" uid="uid://b3fahcohgd3he" path="res://addons/simusdev/SimusNet/singletons/SimusNetVisibility.gd" id="10_q4njy"]
 [ext_resource type="Script" uid="uid://bunnx0ci8fr2h" path="res://addons/simusdev/SimusNet/singletons/SimusNetResources.gd" id="11_6mgeb"]
 [ext_resource type="Script" uid="uid://ckxdwc6gvxl6y" path="res://addons/simusdev/SimusNet/singletons/SimusNetRPCGodot.gd" id="12_khclw"]
+[ext_resource type="Script" uid="uid://c3keevwbvt0s5" path="res://addons/simusdev/SimusNet/SimusNetVars.gd" id="14_gf6h6"]
+[ext_resource type="Script" uid="uid://s54mtevhf8la" path="res://addons/simusdev/SimusNet/singletons/SimusNetSynchronization.gd" id="14_y0guf"]
 
-[node name="SimusNetSingleton" type="Node" unique_id=1723475864 node_paths=PackedStringArray("events", "cache", "channels", "connection", "handshake", "methods", "RPC", "RPCgodot", "visibility", "resources")]
+[node name="SimusNetSingleton" type="Node" unique_id=1723475864 node_paths=PackedStringArray("events", "cache", "channels", "connection", "time", "handshake", "methods", "RPC", "RPCgodot", "visibility", "resources", "vars", "synchronization")]
 process_mode = 4
 script = ExtResource("1_6nds0")
 events = NodePath("Events")
 cache = NodePath("Cache")
 channels = NodePath("Channels")
 connection = NodePath("Connection")
+time = NodePath("Time")
 handshake = NodePath("HandShake")
 methods = NodePath("Methods")
 RPC = NodePath("RPC")
 RPCgodot = NodePath("RPCGodot")
 visibility = NodePath("Visibility")
 resources = NodePath("Resources")
+vars = NodePath("Vars")
+synchronization = NodePath("Synchronization")
 
 [node name="Events" type="Node" parent="." unique_id=2137078033]
 script = ExtResource("5_3i2gk")
@@ -42,6 +48,10 @@ metadata/_custom_type_script = "uid://dw6wbflch2xcm"
 [node name="Connection" type="Node" parent="." unique_id=2119321392]
 script = ExtResource("4_qc1ra")
 metadata/_custom_type_script = "uid://dq0hs106g58xm"
+
+[node name="Time" type="Node" parent="." unique_id=1260362360]
+script = ExtResource("6_fowo7")
+metadata/_custom_type_script = "uid://cb5806kx7kn45"
 
 [node name="HandShake" type="Node" parent="." unique_id=809197882]
 script = ExtResource("6_h5gd7")
@@ -86,3 +96,11 @@ metadata/_custom_type_script = "uid://b3fahcohgd3he"
 [node name="Resources" type="Node" parent="." unique_id=1372469252]
 script = ExtResource("11_6mgeb")
 metadata/_custom_type_script = "uid://bunnx0ci8fr2h"
+
+[node name="Vars" type="Node" parent="." unique_id=1312938959]
+script = ExtResource("14_gf6h6")
+metadata/_custom_type_script = "uid://c3keevwbvt0s5"
+
+[node name="Synchronization" type="Node" parent="." unique_id=1274883065]
+script = ExtResource("14_y0guf")
+metadata/_custom_type_script = "uid://s54mtevhf8la"

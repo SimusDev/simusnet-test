@@ -2,21 +2,69 @@
 
 [ext_resource type="PackedScene" uid="uid://dpstgq7tmwwpx" path="res://scenes/connection.tscn" id="1_uwrxv"]
 [ext_resource type="Script" uid="uid://doxf33wt4344v" path="res://scenes/game.gd" id="1_yqjtg"]
-[ext_resource type="Script" uid="uid://cgcf58eaiehq1" path="res://addons/simusdev/SimusNet/SimusNetNodeSceneReplicator.gd" id="3_lnu2h"]
+[ext_resource type="Texture2D" uid="uid://6gbwciiempf8" path="res://addons/kenney_prototype_textures/orange/texture_09.png" id="3_lnu2h"]
+[ext_resource type="Script" uid="uid://imhh1kugqh4m" path="res://addons/simusdev/SimusNet/SimusNetNodePlayerSpawner.gd" id="4_lbhrr"]
+[ext_resource type="PackedScene" uid="uid://deashx71fo0da" path="res://src/prefabs/player.tscn" id="5_iywne"]
+[ext_resource type="PackedScene" uid="uid://cydrv2iocpeu2" path="res://src/prefabs/network-object.tscn" id="6_p57ef"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_iywne"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_p57ef"]
+sky_material = SubResource("ProceduralSkyMaterial_iywne")
+
+[sub_resource type="Environment" id="Environment_u5sy4"]
+background_mode = 2
+sky = SubResource("Sky_p57ef")
+tonemap_mode = 2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lbhrr"]
+albedo_texture = ExtResource("3_lnu2h")
+uv1_triplanar = true
 
 [node name="Game" type="Node3D" unique_id=1979558274]
 script = ExtResource("1_yqjtg")
 
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1016202050]
+environment = SubResource("Environment_u5sy4")
+
 [node name="Connection" parent="." unique_id=922191719 instance=ExtResource("1_uwrxv")]
 
-[node name="Timer" type="Timer" parent="." unique_id=392021193]
-autostart = true
+[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=1607342566]
+material_override = SubResource("StandardMaterial3D_lbhrr")
+use_collision = true
+size = Vector3(30, 1, 30)
 
-[node name="Repilcation" type="Node3D" parent="." unique_id=1361677300]
+[node name="Players" type="Node3D" parent="." unique_id=883189378]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.3166523, 0)
 
-[node name="SimusNetNodeSceneReplicator" type="Node" parent="Repilcation" unique_id=785923384 node_paths=PackedStringArray("root")]
-script = ExtResource("3_lnu2h")
+[node name="SimusNetNodePlayerSpawner" type="Node" parent="Players" unique_id=1297185614 node_paths=PackedStringArray("spawnpoints", "root")]
+script = ExtResource("4_lbhrr")
+prefabs = Array[PackedScene]([ExtResource("5_iywne")])
+spawnpoints = [NodePath("..")]
 root = NodePath("..")
-metadata/_custom_type_script = "uid://cgcf58eaiehq1"
+metadata/_custom_type_script = "uid://imhh1kugqh4m"
 
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[node name="Test" type="Node3D" parent="." unique_id=205341816]
+
+[node name="NetworkObject" parent="Test" unique_id=218810537 instance=ExtResource("6_p57ef")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5536976, 8.23698, 0)
+
+[node name="NetworkObject2" parent="Test" unique_id=958375453 instance=ExtResource("6_p57ef")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.5536976, 8.23698, 0)
+
+[node name="NetworkObject3" parent="Test" unique_id=41985314 instance=ExtResource("6_p57ef")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5536976, 8.23698, 0)
+
+[node name="NetworkObject4" parent="Test" unique_id=869535481 instance=ExtResource("6_p57ef")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5536976, 8.23698, 0)
+
+[node name="NetworkObject5" parent="Test" unique_id=1568261242 instance=ExtResource("6_p57ef")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4463024, 8.23698, 0)
+
+[node name="NetworkObject6" parent="Test" unique_id=2106632302 instance=ExtResource("6_p57ef")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4463024, 8.23698, 0)
+
+[node name="NetworkObject7" parent="Test" unique_id=1641566461 instance=ExtResource("6_p57ef")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.4463024, 8.23698, 0)

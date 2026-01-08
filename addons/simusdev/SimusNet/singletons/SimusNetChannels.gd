@@ -9,10 +9,14 @@ enum BUILTIN {
 	REGISTER,
 	IDENTITY,
 	VISIBILITY,
+	TIME,
 	SCENE_REPLICATION,
+	TRANSFORM,
+	VARS,
+	VARS_RELIABLE,
 }
 
-const DEFAULT: String = "main"
+const DEFAULT: String = ""
 const DEFAULT_ID: int = 0
 
 static var _instance: SimusNetChannels
@@ -41,17 +45,25 @@ static func get_id(channel: String) -> int:
 static func get_name_by_id(id: int) -> String:
 	return get_list().get(id)
 
-static func register(c_name: String) -> void:
+static func register(c_name: String) -> String:
+	if get_list().has(c_name):
+		return c_name
+	
 	if get_list().size() >= MAX:
 		_instance.logger.debug_error("cant create channel (%s), reached max channels limit(%s)!" % [c_name, MAX])
-		return
+		return c_name
 	
 	if SimusNetConnection.is_server():
 		_instance._register_rpc.rpc(c_name)
+	return c_name
 
 @rpc("authority", "call_local", "reliable", BUILTIN.REGISTER)
 func _register_rpc(c_name: String) -> void:
+	if get_list().has(c_name):
+		return
+	
 	get_list().append(c_name)
+	logger.push_warning("channel registered: %s" % c_name)
 
 static func unregister(c_name: String) -> void:
 	if SimusNetConnection.is_server():

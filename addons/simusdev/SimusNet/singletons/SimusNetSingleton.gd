@@ -7,12 +7,15 @@ class_name SimusNetSingleton
 @export var cache: SimusNetCache
 @export var channels: SimusNetChannels
 @export var connection: SimusNetConnection
+@export var time: SimusNetTime
 @export var handshake: SimusNetHandShake
 @export var methods: SimusNetMethods
 @export var RPC: SimusNetRPC
 @export var RPCgodot: SimusNetRPCGodot
 @export var visibility: SimusNetVisibility
 @export var resources: SimusNetResources
+@export var vars: SimusNetVars
+@export var synchronization: SimusNetSynchronization
 
 var info: Node
 
@@ -48,6 +51,8 @@ func _ready() -> void:
 			i.logger = SimusNetLogger.create_for(i.get_script().get_global_name())
 			i.logger.enabled = settings.debug_enable
 			i.initialize()
+	
+	
 
 func _set_active(value: bool, server: bool) -> void:
 	if value == false:

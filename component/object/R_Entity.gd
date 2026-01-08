@@ -1,2 +1,2 @@
-extends R_Object
+extends R_WorldObject
 class_name R_Entity

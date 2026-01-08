@@ -56,6 +56,8 @@ func _ready() -> void:
 	
 	node.set_meta(_META_NAME, self)
 	
+	_peers.append(SimusNetConnection.SERVER_ID)
+	
 	SimusNetVisibility.set_public_visibility(node, false)
 	
 	SimusNetEvents.event_peer_disconnected.listen(_on_peer_disconnected, true)
@@ -102,6 +104,7 @@ func _enter_tree() -> void:
 
 func _network_ready() -> void:
 	super()
+	
 
 func _network_disconnect() -> void:
 	super()
