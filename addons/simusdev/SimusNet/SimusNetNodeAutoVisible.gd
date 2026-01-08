@@ -81,13 +81,18 @@ func _send_not_visible() -> void:
 	#print(node, " is not visible for %s" % peer)
 
 func _exit_tree() -> void:
-	#print(get_path())
+	if Engine.is_editor_hint():
+		return
+	
 	if broadcast_to == BROADCAST_TO.TO_SERVER:
 		SimusNetRPCGodot.invoke_on_server(_send_not_visible)
 		return
 	SimusNetRPCGodot.invoke(_send_not_visible)
 
 func _enter_tree() -> void:
+	if Engine.is_editor_hint():
+		return
+	
 	if !is_node_ready():
 		SimusNetRPCGodot.register_any_peer_reliable([
 			_send_visible,

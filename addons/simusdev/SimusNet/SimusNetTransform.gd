@@ -15,6 +15,8 @@ func _ready() -> void:
 	if !node.is_node_ready():
 		await node.ready
 		SimusNetIdentity.register(self)
+	
+	SimusNetSynchronization._instance._transform_ready(self)
 
 func _process(delta: float) -> void:
 	if Engine.is_editor_hint():

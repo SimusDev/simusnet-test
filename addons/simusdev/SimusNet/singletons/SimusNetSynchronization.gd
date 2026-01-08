@@ -111,7 +111,9 @@ func _on_vars_tick() -> void:
 func _recieve_transform(packet: Variant) -> void:
 	var data: Dictionary = SimusNetDecompressor.parse(packet)
 	_parse_properties_receiver(data)
-	
+
+func _transform_ready(transform: SimusNetTransform) -> void:
+	pass
 
 func _transform_enter_tree(transform: SimusNetTransform) -> void:
 	_transforms.append(transform)
