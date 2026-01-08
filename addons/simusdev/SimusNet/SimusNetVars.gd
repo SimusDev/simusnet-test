@@ -100,6 +100,10 @@ func _on_tick() -> void:
 		_handle_replicate_server(_queue_replicate_server)
 		_queue_replicate_server.clear()
 	
+	if !_queue_send.is_empty():
+		_handle_send(_queue_send)
+		_queue_send.clear()
+	
 
 static func replicate(object: Object, properties: PackedStringArray, reliable: bool = true) -> void:
 	var identity: SimusNetIdentity = SimusNetIdentity.register(object)
@@ -181,30 +185,87 @@ func _replicate_client(packet: Variant) -> void:
 				var value: Variant = data[identity_id][s_p]
 				identity.owner.set(property, value)
 
-@rpc("any_peer", "call_remote", "reliable", SimusNetChannels.BUILTIN.VARS_RELIABLE)
+@rpc("authority", "call_remote", "reliable", SimusNetChannels.BUILTIN.VARS_RELIABLE)
 func _replicate_client_recieve(packet: Variant) -> void:
-	_replicate_client(packet)
+	if multiplayer.get_remote_sender_id() == SimusNet.SERVER_ID:
+		_replicate_client(packet)
 
-@rpc("any_peer", "call_remote", "reliable", SimusNetChannels.BUILTIN.VARS)
+@rpc("authority", "call_remote", "unreliable", SimusNetChannels.BUILTIN.VARS)
 func _replicate_client_recieve_unreliable(packet: Variant) -> void:
-	_replicate_client(packet)
+	if multiplayer.get_remote_sender_id() == SimusNet.SERVER_ID:
+		_replicate_client(packet)
 
 @rpc("any_peer", "call_remote", "reliable", SimusNetChannels.BUILTIN.VARS_RELIABLE)
 func _replicate_rpc(packet: Variant) -> void:
-	_replicate_rpc_server(packet, multiplayer.get_remote_sender_id(), true)
-
-@rpc("any_peer", "call_remote", "reliable", SimusNetChannels.BUILTIN.VARS)
-func _replicate_rpc_unreliable(packet: Variant) -> void:
-	_replicate_rpc_server(packet, multiplayer.get_remote_sender_id(), false)
-
-static func send(object: Object, properties: PackedStringArray, reliable: bool = true) -> void:
 	if SimusNetConnection.is_server():
+		_replicate_rpc_server(packet, multiplayer.get_remote_sender_id(), true)
+
+@rpc("any_peer", "call_remote", "unreliable", SimusNetChannels.BUILTIN.VARS)
+func _replicate_rpc_unreliable(packet: Variant) -> void:
+	if SimusNetConnection.is_server():
+		_replicate_rpc_server(packet, multiplayer.get_remote_sender_id(), false)
+
+static func send(object: Object, properties: PackedStringArray, reliable: bool = true, log_error: bool = true) -> void:
+	if SimusNet.is_network_authority(object):
 		var identity: SimusNetIdentity = SimusNetIdentity.register(object)
 		if !identity.is_ready:
 			await identity.on_ready
 		
+		var transfer: Dictionary = _instance._queue_send.get_or_add(reliable, {})
+		
+		var identity_data: Dictionary = transfer.get_or_add(identity.try_serialize_into_variant(), {})
+		
+		for p_name: String in properties:
+			cache(p_name)
+			identity_data.set(try_serialize_into_variant(p_name), SimusNetSerializer.parse(identity.owner.get(p_name)))
+		
 	else:
-		_instance.logger.debug_error("only server can send variables. %s, %s" % [object, properties])
+		_instance.logger.debug_error("only network authority can send variables. %s, %s" % [object, properties])
+
+func _handle_send(_queue: Dictionary) -> void:
+	var reliable: Dictionary = _queue.get(true, {})
+	var unreliable: Dictionary = _queue.get(false, {})
+	
+	if !reliable.is_empty():
+		_send_handle_packet(reliable, true)
+	
+	if !unreliable.is_empty():
+		_send_handle_packet(unreliable, false)
+	
+
+func _send_handle_packet(packet: Dictionary, reliable: bool) -> void:
+	for id in packet:
+		var identity: SimusNetIdentity = SimusNetIdentity.try_deserialize_from_variant(id)
+		if !identity:
+			continue
+		
+		var callable: Callable = _recieve_send_unreliable
+		if reliable:
+			callable = _recieve_send
+		
+		for peer in SimusNetConnection.get_connected_peers():
+			if SimusNetVisibility.is_visible_for(peer, identity.owner):
+				callable.rpc_id(peer, SimusNetCompressor.parse(packet))
+
+func _recieve_send_packet_local(packet: Variant, from_peer: int) -> void:
+	var data: Dictionary = SimusNetDecompressor.parse(packet)
+	for id in data:
+		var identity: SimusNetIdentity = SimusNetIdentity.try_deserialize_from_variant(id)
+		if !identity:
+			continue
+		
+		for s_p in data[id]:
+			var property: String = try_deserialize_from_variant(s_p)
+			var value: Variant = data[id][s_p]
+			identity.owner.set(property, value)
+
+@rpc("any_peer", "call_remote", "reliable", SimusNetChannels.BUILTIN.VARS_SEND_RELIABLE)
+func _recieve_send(packet: Variant) -> void:
+	_recieve_send_packet_local(packet, multiplayer.get_remote_sender_id())
+
+@rpc("any_peer", "call_remote", "unreliable", SimusNetChannels.BUILTIN.VARS)
+func _recieve_send_unreliable(packet: Variant) -> void:
+	_recieve_send_packet_local(packet, multiplayer.get_remote_sender_id())
 
 static func cache(property: String) -> void:
 	if SimusNetConnection.is_server():
