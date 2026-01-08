@@ -72,6 +72,15 @@ var _static: Array = [
 
 func set_active(value: bool) -> void:
 	_active = value
+	
+	info.name = "Not Active"
+	
+	if get_peer().get_connection_status() != MultiplayerPeer.ConnectionStatus.CONNECTION_DISCONNECTED:
+		if value:
+			info.name = "Is Client"
+			if is_server():
+				info.name = "Is Server"
+	
 	on_active_status_changed.emit(_active)
 
 func get_cached_resources() -> PackedStringArray:
@@ -131,8 +140,8 @@ func get_peers() -> PackedInt32Array:
 		return multiplayer.get_peers()
 	return PackedInt32Array()
 
-func get_peer() -> PacketPeer:
-	return _peer
+func get_peer() -> MultiplayerPeer:
+	return multiplayer.multiplayer_peer
 
 func is_active() -> bool:
 	return _active
@@ -153,9 +162,12 @@ func _process(delta: float) -> void:
 	if !get_peer():
 		return
 	
+	
 	if get_peer() is OfflineMultiplayerPeer:
 		return
 	
+	
+
 	if get_peer().get_connection_status() == MultiplayerPeer.ConnectionStatus.CONNECTION_CONNECTED:
 		if !_active:
 			set_active(true)
@@ -212,6 +224,7 @@ func _ready() -> void:
 
 func _on_connected_to_server() -> void:
 	players._on_connected_to_server()
+	set_active(true)
 
 func _on_connection_failed() -> void:
 	on_connection_failed.emit()
@@ -225,12 +238,12 @@ func _on_peer_disconnected(peer: int) -> void:
 	on_peer_disconnected.emit(peer)
 
 func _on_server_disconnected() -> void:
-	info.name = "Status Not Active"
 	players._on_server_disconnected()
 	on_server_disconnected.emit()
 	
 	set_active(false)
 	debug_print("Server Disconnected!")
+	process_mode = Node.PROCESS_MODE_ALWAYS
 
 func terminate_connection(error: int = SD_NetConnectionErrors.ERRORS.DEFAULT, message: String = "") -> void:
 	if _peer:

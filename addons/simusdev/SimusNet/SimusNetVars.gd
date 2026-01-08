@@ -254,10 +254,11 @@ func _recieve_send_packet_local(packet: Variant, from_peer: int) -> void:
 		if !identity:
 			continue
 		
-		for s_p in data[id]:
-			var property: String = try_deserialize_from_variant(s_p)
-			var value: Variant = data[id][s_p]
-			identity.owner.set(property, value)
+		if SimusNet.get_network_authority(identity.owner) == from_peer:
+			for s_p in data[id]:
+				var property: String = try_deserialize_from_variant(s_p)
+				var value: Variant = data[id][s_p]
+				identity.owner.set(property, value)
 
 @rpc("any_peer", "call_remote", "reliable", SimusNetChannels.BUILTIN.VARS_SEND_RELIABLE)
 func _recieve_send(packet: Variant) -> void:
