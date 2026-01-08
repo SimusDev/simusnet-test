@@ -51,8 +51,6 @@ func _ready() -> void:
 			i.logger = SimusNetLogger.create_for(i.get_script().get_global_name())
 			i.logger.enabled = settings.debug_enable
 			i.initialize()
-	
-	
 
 func _set_active(value: bool, server: bool) -> void:
 	if value == false:

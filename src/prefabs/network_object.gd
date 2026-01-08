@@ -1,5 +1,7 @@
 extends Node3D
 
+@export var sync_var: String = ""
+
 func _ready() -> void:
 	SimusNetConnection.connect_network_node_callables(self, _connect, _disconnect, func(): pass)
 

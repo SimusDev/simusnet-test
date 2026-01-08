@@ -50,21 +50,3 @@ metadata/_custom_type_script = "uid://imhh1kugqh4m"
 
 [node name="NetworkObject" parent="Test" unique_id=218810537 instance=ExtResource("6_p57ef")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5536976, 8.23698, 0)
-
-[node name="NetworkObject2" parent="Test" unique_id=958375453 instance=ExtResource("6_p57ef")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.5536976, 8.23698, 0)
-
-[node name="NetworkObject3" parent="Test" unique_id=41985314 instance=ExtResource("6_p57ef")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5536976, 8.23698, 0)
-
-[node name="NetworkObject4" parent="Test" unique_id=869535481 instance=ExtResource("6_p57ef")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5536976, 8.23698, 0)
-
-[node name="NetworkObject5" parent="Test" unique_id=1568261242 instance=ExtResource("6_p57ef")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4463024, 8.23698, 0)
-
-[node name="NetworkObject6" parent="Test" unique_id=2106632302 instance=ExtResource("6_p57ef")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4463024, 8.23698, 0)
-
-[node name="NetworkObject7" parent="Test" unique_id=1641566461 instance=ExtResource("6_p57ef")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.4463024, 8.23698, 0)

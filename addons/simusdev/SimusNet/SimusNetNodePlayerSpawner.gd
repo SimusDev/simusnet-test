@@ -4,6 +4,8 @@ class_name SimusNetNodePlayerSpawner
 @export var prefabs: Array[PackedScene] = []
 @export var spawnpoints: Array[Node] = []
 
+var _players: Dictionary[int, Node] = {}
+
 func pick_prefab() -> PackedScene:
 	return prefabs.pick_random()
 
@@ -42,6 +44,8 @@ func _add_player(peer: int) -> void:
 	var spawnpoint: Node = pick_spawnpoint()
 	root.add_child.call_deferred(instance)
 	
+	_players[peer] = instance
+	
 	if spawnpoint:
 		if "transform" in spawnpoint and "transform" in instance:
 			await instance.tree_entered
@@ -51,7 +55,10 @@ func _add_player(peer: int) -> void:
 	
 
 func _remove_player(peer: int) -> void:
-	pass
+	var founded: Node = _players.get(peer)
+	if is_instance_valid(founded):
+		founded.queue_free()
+	_players.erase(peer)
 
 func _peer_connected_server(event: SimusNetEvent) -> void:
 	_add_player(event.get_arguments())
