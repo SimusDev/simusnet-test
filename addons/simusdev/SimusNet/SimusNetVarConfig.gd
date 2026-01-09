@@ -63,11 +63,11 @@ func flag_unreliable(channel: Variant = SimusNetChannels.BUILTIN.VARS_SEND) -> S
 	_async_apply_channel(channel)
 	return self
 
-func flag_authority() -> SimusNetVarConfig:
+func flag_mode_authority() -> SimusNetVarConfig:
 	_mode = MODE.AUTHORITY
 	return self
 
-func flag_server_only() -> SimusNetVarConfig:
+func flag_mode_server_only() -> SimusNetVarConfig:
 	_mode = MODE.SERVER_ONLY
 	return self
 

@@ -65,8 +65,11 @@ func flag_get_transfer_mode() -> SimusNetRPC.TRANSFER_MODE:
 func flag_set_channel(channel: Variant) -> SimusNetRPCConfig:
 	if channel is String:
 		SimusNetChannels.register(channel)
-	_channel = SimusNetChannels.parse_and_get_id(channel)
+	_f_s_c_async(channel)
 	return self
+
+func _f_s_c_async(channel: Variant) -> void:
+	_channel = await SimusNetChannels.async_parse_and_get_id(channel)
 
 func flag_set_transfer_mode(mode: SimusNetRPC.TRANSFER_MODE) -> SimusNetRPCConfig:
 	_transfer_mode = mode
@@ -131,6 +134,7 @@ func _validate() -> bool:
 	
 	if _mode == MODE.AUTHORITY:
 		var a: bool = SimusNet.is_network_authority(object)
+		
 		
 		if !a:
 			SimusNetRPC._instance.logger.debug_error("failed to validate authority rpc: %s" % callable)

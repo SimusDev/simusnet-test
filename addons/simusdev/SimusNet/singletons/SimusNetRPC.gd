@@ -20,10 +20,11 @@ func _setup_remote_sender(id: int, channel: int) -> void:
 	SimusNetRemote.sender_channel = SimusNetChannels.get_name_by_id(channel)
 	SimusNetRemote.sender_channel_id = channel
 
-static func register(callables: Array[Callable], config := SimusNetRPCConfig.new()) -> void:
+static func register(callables: Array[Callable], config := SimusNetRPCConfig.new()) -> bool:
 	for function in callables:
 		SimusNetIdentity.register(function.get_object())
 		SimusNetRPCConfig._append_to(function, config)
+	return true
 
 func initialize() -> void:
 	_stream_peer.big_endian = true
@@ -90,10 +91,10 @@ func _invoke_on_without_validating(peer: int, callable: Callable, args: Array, c
 	if args.is_empty():
 		p_callable.rpc_id(peer, serialized_unique_id, serialized_method_id)
 	else:
-		if args.size() == 1:
-			p_callable.rpc_id(peer, serialized_unique_id, serialized_method_id, SimusNetSerializer.parse(args[0], config._serialization))
-		else:
-			p_callable.rpc_id(peer, serialized_unique_id, serialized_method_id, SimusNetSerializer.parse(args, config._serialization))
+		#if args.size() == 1:
+			#p_callable.rpc_id(peer, serialized_unique_id, serialized_method_id, SimusNetSerializer.parse(args[0], config._serialization))
+		#else:
+		p_callable.rpc_id(peer, serialized_unique_id, serialized_method_id, SimusNetSerializer.parse(args, config._serialization))
 	
 	_start_cooldown(callable)
 
@@ -117,6 +118,8 @@ func _processor_recieve_rpc_from_peer(peer: int, channel: int, serialized_identi
 	
 	var args: Array = []
 	
+	
+	
 	if serialized_args != null:
 		var deserialized: Variant = SimusNetDeserializer.parse(serialized_args, config._serialization)
 		if deserialized is Array:
@@ -139,9 +142,6 @@ func _processor_recieve_rpc_from_peer(peer: int, channel: int, serialized_identi
 	
 	if !callable:
 		logger.push_error("(identity ID: %s): callable with %s ID not found. failed to call rpc." % [serialized_identity, serialized_method])
-		return
-	
-	if !await config._validate():
 		return
 	
 	callable.callv(args)

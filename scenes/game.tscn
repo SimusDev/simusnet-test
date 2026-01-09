@@ -5,7 +5,6 @@
 [ext_resource type="Texture2D" uid="uid://6gbwciiempf8" path="res://addons/kenney_prototype_textures/orange/texture_09.png" id="3_lnu2h"]
 [ext_resource type="Script" uid="uid://imhh1kugqh4m" path="res://addons/simusdev/SimusNet/SimusNetNodePlayerSpawner.gd" id="4_lbhrr"]
 [ext_resource type="PackedScene" uid="uid://deashx71fo0da" path="res://src/prefabs/player.tscn" id="5_iywne"]
-[ext_resource type="PackedScene" uid="uid://cydrv2iocpeu2" path="res://src/prefabs/network-object.tscn" id="6_p57ef"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_iywne"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -36,17 +35,12 @@ material_override = SubResource("StandardMaterial3D_lbhrr")
 use_collision = true
 size = Vector3(30, 1, 30)
 
-[node name="Players" type="Node3D" parent="." unique_id=883189378]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.3166523, 0)
+[node name="Players" type="Node3D" parent="." unique_id=1438571494]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.3066907, 0)
 
-[node name="SimusNetNodePlayerSpawner" type="Node" parent="Players" unique_id=1297185614 node_paths=PackedStringArray("spawnpoints", "root")]
+[node name="SimusNetNodePlayerSpawner" type="Node" parent="Players" unique_id=1974200488 node_paths=PackedStringArray("spawnpoints", "root")]
 script = ExtResource("4_lbhrr")
 prefabs = Array[PackedScene]([ExtResource("5_iywne")])
 spawnpoints = [NodePath("..")]
 root = NodePath("..")
 metadata/_custom_type_script = "uid://imhh1kugqh4m"
-
-[node name="Test" type="Node3D" parent="." unique_id=205341816]
-
-[node name="NetworkObject" parent="Test" unique_id=218810537 instance=ExtResource("6_p57ef")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5536976, 8.23698, 0)

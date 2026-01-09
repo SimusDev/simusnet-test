@@ -59,8 +59,8 @@ func _initialize() -> void:
 	SimusNetEvents.event_disconnected.listen(_deinitialize_dynamic)
 	
 	if owner is Node:
-		if !owner.is_inside_tree():
-			await owner.tree_entered
+		if !owner.is_node_ready():
+			await owner.ready
 		
 		owner.tree_entered.connect(_tree_entered)
 		owner.tree_exited.connect(_tree_exited)

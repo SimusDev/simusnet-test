@@ -160,8 +160,6 @@ func _receive_deletion(packet: Variant) -> void:
 var _child_count: int = 0
 
 func _on_child_entered_tree(node: Node) -> void:
-	if !node.is_node_ready():
-		await node.ready
 	
 	node.name = node.name.validate_node_name()
 	if optimize_paths:
