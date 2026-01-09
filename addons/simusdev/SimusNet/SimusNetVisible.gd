@@ -59,3 +59,6 @@ static func get_or_create(object: Object) -> SimusNetVisible:
 	visible._initialize()
 	object.set_meta(_META, visible)
 	return visible
+
+static func set_visibile(object: Object, visible: SimusNetVisible) -> void:
+	object.set_meta(_META, visible)

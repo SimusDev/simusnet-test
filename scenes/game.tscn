@@ -5,6 +5,8 @@
 [ext_resource type="Texture2D" uid="uid://6gbwciiempf8" path="res://addons/kenney_prototype_textures/orange/texture_09.png" id="3_lnu2h"]
 [ext_resource type="Script" uid="uid://imhh1kugqh4m" path="res://addons/simusdev/SimusNet/SimusNetNodePlayerSpawner.gd" id="4_lbhrr"]
 [ext_resource type="PackedScene" uid="uid://deashx71fo0da" path="res://src/prefabs/player.tscn" id="5_iywne"]
+[ext_resource type="Script" uid="uid://dehqcsswxyu8a" path="res://component/inventory/CT_Inventory.gd" id="6_u5sy4"]
+[ext_resource type="Script" uid="uid://dmwy4xv7t1dip" path="res://component/inventory/CT_ItemStack.gd" id="7_gee14"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_iywne"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -44,3 +46,47 @@ prefabs = Array[PackedScene]([ExtResource("5_iywne")])
 spawnpoints = [NodePath("..")]
 root = NodePath("..")
 metadata/_custom_type_script = "uid://imhh1kugqh4m"
+
+[node name="CT_Inventory" type="Node" parent="." unique_id=667475946]
+script = ExtResource("6_u5sy4")
+metadata/_custom_type_script = "uid://dehqcsswxyu8a"
+
+[node name="CT_ItemStack" type="Node" parent="CT_Inventory" unique_id=1236481523]
+script = ExtResource("7_gee14")
+metadata/_custom_type_script = "uid://dmwy4xv7t1dip"
+
+[node name="CT_ItemStack2" type="Node" parent="CT_Inventory" unique_id=866099023]
+script = ExtResource("7_gee14")
+metadata/_custom_type_script = "uid://dmwy4xv7t1dip"
+
+[node name="CT_ItemStack3" type="Node" parent="CT_Inventory" unique_id=279797121]
+script = ExtResource("7_gee14")
+metadata/_custom_type_script = "uid://dmwy4xv7t1dip"
+
+[node name="CT_ItemStack4" type="Node" parent="CT_Inventory" unique_id=1281613355]
+script = ExtResource("7_gee14")
+metadata/_custom_type_script = "uid://dmwy4xv7t1dip"
+
+[node name="CT_ItemStack5" type="Node" parent="CT_Inventory" unique_id=1840531883]
+script = ExtResource("7_gee14")
+metadata/_custom_type_script = "uid://dmwy4xv7t1dip"
+
+[node name="CT_ItemStack6" type="Node" parent="CT_Inventory" unique_id=573324460]
+script = ExtResource("7_gee14")
+metadata/_custom_type_script = "uid://dmwy4xv7t1dip"
+
+[node name="CT_ItemStack7" type="Node" parent="CT_Inventory" unique_id=1629055158]
+script = ExtResource("7_gee14")
+metadata/_custom_type_script = "uid://dmwy4xv7t1dip"
+
+[node name="CT_ItemStack8" type="Node" parent="CT_Inventory" unique_id=196111154]
+script = ExtResource("7_gee14")
+metadata/_custom_type_script = "uid://dmwy4xv7t1dip"
+
+[node name="CT_ItemStack9" type="Node" parent="CT_Inventory" unique_id=1440505013]
+script = ExtResource("7_gee14")
+metadata/_custom_type_script = "uid://dmwy4xv7t1dip"
+
+[node name="CT_ItemStack10" type="Node" parent="CT_Inventory" unique_id=1311799316]
+script = ExtResource("7_gee14")
+metadata/_custom_type_script = "uid://dmwy4xv7t1dip"

@@ -122,3 +122,12 @@ static func find_first_component_by_value(from: Object, by: Array[Variant]) -> V
 
 static func _debug_log_from_object(object: Object, text: Variant, category: int) -> SD_ConsoleMessage:
 	return SD_Console.i().write_from_object(object, _LOG_NAME % text, category)
+
+static func node_find_above_by_script(from: Node, script: Script) -> Node:
+	if find_base_script(from.get_script()) == script or from.get_script() == script:
+		return from
+	
+	if from == SimusDev.get_tree().root:
+		return null
+	
+	return node_find_above_by_script(from.get_parent(), script)

@@ -24,6 +24,7 @@ static func register(callables: Array[Callable], config := SimusNetRPCConfig.new
 	for function in callables:
 		SimusNetIdentity.register(function.get_object())
 		SimusNetRPCConfig._append_to(function, config)
+	
 	return true
 
 func initialize() -> void:
@@ -81,6 +82,8 @@ func _invoke_on_without_validating(peer: int, callable: Callable, args: Array, c
 		return
 	
 	var identity: SimusNetIdentity = SimusNetIdentity.try_find_in(object)
+	if !identity.is_ready:
+		await identity.on_ready
 	
 	var serialized_unique_id: Variant = identity.try_serialize_into_variant()
 	var serialized_method_id: Variant = SimusNetMethods.try_serialize_into_variant(callable)
