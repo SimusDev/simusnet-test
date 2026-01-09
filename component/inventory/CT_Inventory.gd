@@ -31,9 +31,15 @@ func _network_setup() -> void:
 	
 
 func _send() -> void:
-	var data: Array = []
-	SimusNetRPC.invoke_on(SimusNetRemote.sender_id, _receive, SD_Variables.compress(data))
+	SimusNetRPC.invoke_on(SimusNetRemote.sender_id, _receive, CT_ItemStack.serialize_array(_items))
 
-func _receive(compressed: Variant) -> void:
-	var data: Array = SD_Variables.decompress(compressed)
-	print(data)
+func _receive(raw: PackedByteArray) -> void:
+	for i in get_children():
+		if i is CT_ItemStack:
+			i.queue_free()
+			await i.tree_exited
+		
+	var data: Array[CT_ItemStack] = CT_ItemStack.deserialize_array(raw)
+	for item in data:
+		add_child(item)
+	
