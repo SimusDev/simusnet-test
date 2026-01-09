@@ -56,3 +56,4 @@ func _exit_tree() -> void:
 		return
 	
 	SimusNetSynchronization._instance._transform_exit_tree(self)
+	

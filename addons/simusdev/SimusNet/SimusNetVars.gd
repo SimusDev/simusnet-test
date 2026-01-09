@@ -8,7 +8,12 @@ const BUILTIN_CACHE: PackedStringArray = [
 	"scale",
 ]
 
+signal on_tick()
+
 static var _instance: SimusNetVars
+
+static func get_instance() -> SimusNetVars:
+	return _instance
 
 static var _event_cached: SimusNetEventVariableCached
 static var _event_uncached: SimusNetEventVariableUncached
@@ -68,7 +73,9 @@ func initialize() -> void:
 	
 	
 
-
+static func register(object: Object, properties: PackedStringArray, config: SimusNetVarConfig = SimusNetVarConfig.new()) -> bool:
+	config._initialize(object, properties)
+	return true
 
 func _on_connected() -> void:
 	process_mode = Node.PROCESS_MODE_PAUSABLE
@@ -104,27 +111,30 @@ func _on_tick() -> void:
 		_handle_send(_queue_send)
 		_queue_send.clear()
 	
+	on_tick.emit()
+	
 
 static func replicate(object: Object, properties: PackedStringArray, reliable: bool = true) -> void:
-	var identity: SimusNetIdentity = SimusNetIdentity.register(object)
-	
-	if SimusNetConnection.is_server():
-		for p in properties:
-			cache(p)
-		return
+	for p_name in properties:
+		var config: SimusNetVarConfig = SimusNetVarConfig.get_config(object, p_name)
+		if !config:
+			_instance.logger.debug_error("replicate(), cant find config for %s, property: %s" % [object, p_name])
+			continue
 		
-	if !identity.is_ready:
-		await identity.on_ready
-	
-	
-	var packet: Dictionary = _instance._queue_replicate_unreliable
-	if reliable:
-		packet = _instance._queue_replicate
-	
-	var data_properties: Array = packet.get_or_add(identity.try_serialize_into_variant(), [])
-	for i in try_serialize_array_into_variant(properties):
-		if !data_properties.has(i):
-			data_properties.append(i)
+		var validate: bool = await config._validate_replicate()
+		if !validate:
+			continue
+		
+		var identity: SimusNetIdentity = config.get_identity()
+		var packet: Dictionary = _instance._queue_replicate_unreliable
+		if reliable:
+			packet = _instance._queue_replicate
+		
+		var data_properties: Array = packet.get_or_add(identity.try_serialize_into_variant(), [])
+		
+		var p_name_serialized: Variant = try_serialize_into_variant(p_name)
+		if !data_properties.has(p_name_serialized):
+			data_properties.append(p_name_serialized)
 	
 
 func _handle_replicate(data: Dictionary, reliable: bool) -> void:
@@ -150,9 +160,16 @@ func _replicate_rpc_server(packet: Variant, peer: int, reliable: bool) -> void:
 		var identity_data: Dictionary = reliable_data.get_or_add(identity_id, {})
 		
 		for p_name: String in properties:
-			cache(p_name)
+			var config: SimusNetVarConfig = SimusNetVarConfig.get_config(identity.owner, p_name)
+			if !config:
+				continue
+			
+			var validated: bool = await config._validate_replicate_receive(peer)
+			if !validated:
+				continue
+			
 			if p_name in identity.owner:
-				identity_data.set(try_serialize_into_variant(p_name), SimusNetSerializer.parse(identity.owner.get(p_name)))
+				identity_data.set(try_serialize_into_variant(p_name), SimusNetSerializer.parse(identity.owner.get(p_name), config._serialize))
 		
 	
 	
@@ -182,7 +199,11 @@ func _replicate_client(packet: Variant) -> void:
 		if identity:
 			for s_p in data[identity_id]:
 				var property: String = try_deserialize_from_variant(s_p)
-				var value: Variant = data[identity_id][s_p]
+				var config: SimusNetVarConfig = SimusNetVarConfig.get_config(identity.owner, s_p)
+				if !config:
+					continue
+				
+				var value: Variant = SimusNetDeserializer.parse(data[identity_id][s_p], config._serialize)
 				identity.owner.set(property, value)
 
 @rpc("authority", "call_remote", "reliable", SimusNetChannels.BUILTIN.VARS_RELIABLE)
@@ -207,18 +228,31 @@ func _replicate_rpc_unreliable(packet: Variant) -> void:
 
 static func send(object: Object, properties: PackedStringArray, reliable: bool = true, log_error: bool = true) -> void:
 	if SimusNet.is_network_authority(object):
-		var identity: SimusNetIdentity = SimusNetIdentity.register(object)
-		if !identity.is_ready:
-			await identity.on_ready
-		
-		var transfer: Dictionary = _instance._queue_send.get_or_add(reliable, {})
-		
-		var identity_data: Dictionary = transfer.get_or_add(identity.try_serialize_into_variant(), {})
-		
-		for p_name: String in properties:
-			cache(p_name)
-			identity_data.set(try_serialize_into_variant(p_name), SimusNetSerializer.parse(identity.owner.get(p_name)))
-		
+		var changed_properties: Dictionary[StringName, Variant] = SimusNetSynchronization.get_changed_properties(object)
+		for property in properties:
+			if changed_properties.get_or_add(property, null) == object.get(property):
+				continue
+			
+			var config: SimusNetVarConfig = SimusNetVarConfig.get_config(object, property)
+			if !config:
+				_instance.logger.debug_error("send(), cant find config for %s, property: %s" % [object, property])
+				continue
+			
+			var validate: bool = await config._validate_send()
+			if !validate:
+				continue
+			
+			if !config.is_ready:
+				await config.on_ready
+			
+			var identity: SimusNetIdentity = config.get_identity()
+			
+			var transfer: Dictionary = _instance._queue_send.get_or_add(reliable, {})
+			
+			var identity_data: Dictionary = transfer.get_or_add(identity.try_serialize_into_variant(), {})
+			
+			identity_data.set(try_serialize_into_variant(property), SimusNetSerializer.parse(identity.owner.get(property), config._serialize))
+			changed_properties.set(property, identity.owner.get(property))
 	else:
 		_instance.logger.debug_error("only network authority can send variables. %s, %s" % [object, properties])
 
@@ -257,7 +291,11 @@ func _recieve_send_packet_local(packet: Variant, from_peer: int) -> void:
 		if SimusNet.get_network_authority(identity.owner) == from_peer:
 			for s_p in data[id]:
 				var property: String = try_deserialize_from_variant(s_p)
-				var value: Variant = data[id][s_p]
+				var config: SimusNetVarConfig = SimusNetVarConfig.get_config(identity.owner, property)
+				if !config:
+					continue
+				
+				var value: Variant = SimusNetDeserializer.parse(data[id][s_p], config._serialize)
 				identity.owner.set(property, value)
 
 @rpc("any_peer", "call_remote", "reliable", SimusNetChannels.BUILTIN.VARS_SEND_RELIABLE)

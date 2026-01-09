@@ -66,11 +66,14 @@ func _ready() -> void:
 func _on_peer_disconnected(event: SimusNetEvent) -> void:
 	_peers.erase(event.get_arguments())
 	SimusNetVisibility.set_visible_for(event.get_arguments(), node, false)
+	
 
 func _send_visible() -> void:
 	var peer: int = multiplayer.get_remote_sender_id()
 	if !_peers.has(peer):
 		_peers.append(peer)
+	
+	#print(_peers)
 	SimusNetVisibility.set_visible_for(peer, node, true)
 	#print(node, " is visible for %s" % peer)
 
@@ -78,6 +81,7 @@ func _send_not_visible() -> void:
 	var peer: int = multiplayer.get_remote_sender_id()
 	_peers.erase(peer)
 	SimusNetVisibility.set_visible_for(peer, node, false)
+	#print(_peers)
 	#print(node, " is not visible for %s" % peer)
 
 func _exit_tree() -> void:
@@ -98,18 +102,22 @@ func _enter_tree() -> void:
 			_send_visible,
 			_send_not_visible,
 		], SimusNetChannels.BUILTIN.VISIBILITY)
+		SimusNetVisibility.set_method_always_visible(
+			[_send_visible, _send_not_visible, ]
+		)
 	
 	if !is_network_ready:
 		await on_network_ready
 		
 	if broadcast_to == BROADCAST_TO.TO_SERVER:
 		SimusNetRPCGodot.invoke_on_server(_send_visible)
+		
 		return
 	SimusNetRPCGodot.invoke(_send_visible)
 
 func _network_ready() -> void:
 	super()
-	
+	_enter_tree()
 
 func _network_disconnect() -> void:
 	super()

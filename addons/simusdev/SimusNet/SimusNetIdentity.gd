@@ -19,6 +19,9 @@ var _net_settings: SimusNetSettings
 
 signal _on_awaited_and_cached()
 
+signal on_tree_entered()
+signal on_tree_exited()
+
 static var _list_by_id: Dictionary[int, SimusNetIdentity] = {}
 static var _list_by_generated_id: Dictionary[Variant, SimusNetIdentity] = {}
 
@@ -105,7 +108,7 @@ func _deinitialize_dynamic() -> void:
 	
 	is_initialized = false
 	
-	_initialize_dynamic()
+	
 	
 
 func _await_for_cache() -> void:
@@ -133,6 +136,8 @@ func _tree_entered() -> void:
 	if SimusNetConnection.is_server():
 		_set_ready()
 	
+	on_tree_entered.emit()
+	
 
 func _set_ready() -> void:
 	if is_ready:
@@ -157,6 +162,7 @@ func _tree_exited() -> void:
 		await is_ready
 	
 	_destroy()
+	on_tree_exited.emit()
 
 
 func _destroy() -> void:
@@ -165,6 +171,7 @@ func _destroy() -> void:
 	SimusNetCache._uncache_identity(self)
 	
 	_list_by_id.erase(get_unique_id())
+	
 
 func get_generated_unique_id() -> Variant:
 	return _generated_unique_id

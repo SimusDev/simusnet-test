@@ -105,8 +105,8 @@ func _ready() -> void:
 		SD_Network.singleton.on_peer_disconnected.connect(_on_peer_disconnected)
 	
 		var commands: Array[SD_ConsoleCommand] = [
-			console.create_command("connect"),
-			console.create_command("disconnect"),
+			#console.create_command("connect"),
+			#console.create_command("disconnect"),
 		]
 		
 		for cmd in commands:

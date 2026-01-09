@@ -3,6 +3,12 @@ class_name SimusNetChannels
 
 const MAX: int = 72
 
+signal on_channel_cached(channel: String, id: int)
+signal on_channel_uncached(channel: String, id: int)
+
+var _channel_cached: String = ""
+var _channel_uncached: String = ""
+
 enum BUILTIN {
 	HANDSHAKE = MAX,
 	CACHE,
@@ -35,6 +41,20 @@ static func parse_and_get_id(channel: Variant) -> int:
 		return get_id(channel)
 	return DEFAULT_ID
 
+static func async_parse_and_get_id(channel: Variant) -> int:
+	if channel is int:
+		return channel
+	
+	if channel is String:
+		var founded: int = get_list().find(channel)
+		if founded < 0:
+			await _instance.on_channel_cached
+			if _instance._channel_cached == channel:
+				return get_list().find(channel)
+			async_parse_and_get_id(channel)
+	
+	return DEFAULT_ID
+
 static func get_list() -> PackedStringArray:
 	return SimusNetCache.data_get_or_add("cns", PackedStringArray())
 
@@ -65,6 +85,8 @@ func _register_rpc(c_name: String) -> void:
 		return
 	
 	get_list().append(c_name)
+	_channel_cached = c_name
+	on_channel_cached.emit(c_name, get_list().find(c_name))
 	logger.push_warning("channel registered: %s" % c_name)
 
 static func unregister(c_name: String) -> void:
@@ -73,4 +95,7 @@ static func unregister(c_name: String) -> void:
 
 @rpc("authority", "call_local", "reliable", BUILTIN.REGISTER)
 func _unregister_rpc(c_name: String) -> void:
+	var id: int = get_list().find(c_name)
 	get_list().erase(c_name)
+	_channel_uncached = c_name
+	on_channel_uncached.emit(c_name, id)

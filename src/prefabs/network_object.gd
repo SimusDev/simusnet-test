@@ -1,13 +1,10 @@
 extends Node3D
 
-@export var sync_var: String = ""
+@export var sync_var: String
+@onready var _sync_var_s = SimusNetVars.register(self, ["sync_var"], SimusNetVarConfig.new().flag_replication())
 
 func _ready() -> void:
 	SimusNetConnection.connect_network_node_callables(self, _connect, _disconnect, func(): pass)
-
-func _physics_process(delta: float) -> void:
-	if SimusNet.is_network_authority(self):
-		SimusNetVars.send(self, ["sync_var"], false)
 
 func _connect() -> void:
 	if SimusNetConnection.is_server():

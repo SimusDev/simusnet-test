@@ -1,6 +1,8 @@
+@static_unload
 extends SimusNetSingletonChild
 class_name SimusNetEvents
 
+static var event_singleton_initialized := SimusNetEvent.new()
 static var event_active_status_changed := SimusNetEvent.new()
 static var event_connected := SimusNetEvent.new()
 static var event_disconnected := SimusNetEvent.new()

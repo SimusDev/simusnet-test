@@ -33,12 +33,16 @@ static func create(state_id: String) -> SD_State:
 	return state
 
 func switch() -> void:
+	if _state_machine.get_current_state() == self:
+		return
+	
 	if SD_Network.is_authority(_state_machine):
-		_switch_net()
+		_switch_synchronized()
 		SD_Network.call_func_on_server(_switch_net, [], SD_Network.CALLMODE.RELIABLE, _state_machine.network_channel)
 
 func _switch_net() -> void:
 	if _state_machine.get_multiplayer_authority() == SD_Network.get_remote_sender_id():
+		#print(SD_Network.is_server())
 		SD_Network.call_func(_switch_synchronized, [], SD_Network.CALLMODE.RELIABLE, _state_machine.network_channel)
 	
 
