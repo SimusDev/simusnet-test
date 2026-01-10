@@ -1,2 +1,2 @@
-extends R_Entity
+extends R_EntityLiving
 class_name R_Player

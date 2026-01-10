@@ -9,6 +9,9 @@ signal on_network_not_connected()
 var is_network_ready: bool = false
 
 func _ready() -> void:
+	if Engine.is_editor_hint():
+		return
+	
 	SimusNetConnection.connect_network_node_callables(self,
 	_network_ready,
 	_network_disconnect,

@@ -6,6 +6,8 @@
 [ext_resource type="Script" uid="uid://imhh1kugqh4m" path="res://addons/simusdev/SimusNet/SimusNetNodePlayerSpawner.gd" id="4_lbhrr"]
 [ext_resource type="PackedScene" uid="uid://deashx71fo0da" path="res://src/prefabs/player.tscn" id="5_iywne"]
 [ext_resource type="Script" uid="uid://dehqcsswxyu8a" path="res://component/inventory/CT_Inventory.gd" id="6_u5sy4"]
+[ext_resource type="Script" uid="uid://dgp0pmmh5blth" path="res://component/object/CT_ObjectSpawn.gd" id="7_gee14"]
+[ext_resource type="Resource" uid="uid://c27wsx5yo7iuh" path="res://src/objects/player/player.tres" id="8_0tnpc"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_iywne"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -49,3 +51,9 @@ metadata/_custom_type_script = "uid://imhh1kugqh4m"
 [node name="CT_Inventory" type="Node" parent="." unique_id=667475946]
 script = ExtResource("6_u5sy4")
 metadata/_custom_type_script = "uid://dehqcsswxyu8a"
+
+[node name="CT_ObjectSpawn" type="Node3D" parent="." unique_id=635537670]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.915879, 0)
+script = ExtResource("7_gee14")
+object = ExtResource("8_0tnpc")
+metadata/_custom_type_script = "uid://dgp0pmmh5blth"

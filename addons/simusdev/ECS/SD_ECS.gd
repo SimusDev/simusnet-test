@@ -3,6 +3,7 @@ extends RefCounted
 class_name SD_ECS
 
 const METHOD: StringName = "get_ECS"
+const META: StringName = "SD_ECS"
 const _LOG_NAME: StringName = "[SD_ECS]: %s"
 
 enum PICK_RETURN {
@@ -46,8 +47,14 @@ static func get_components_from(object: Object) -> Array:
 			return value
 		_debug_log_from_object(object, "%s must return an Array!" % METHOD, SD_ConsoleCategories.ERROR)
 	else:
-		_debug_log_from_object(object, "method %s was not found." % METHOD, SD_ConsoleCategories.ERROR)
-	return []
+		_debug_log_from_object(object, "method %s was not found." % METHOD, SD_ConsoleCategories.WARNING)
+	
+	if object.has_meta(META):
+		return object.get_meta(META)
+	
+	var result: Array = []
+	object.set_meta(META, result)
+	return result
 
 static func find_base_script(script: Script, recursive: bool = true) -> Script:
 	if not script:
