@@ -32,7 +32,7 @@ func unregister(id: String) -> bool:
 
 func async_load_directory(path: String) -> void:
 	for file in SD_FileSystem.get_all_files_with_extension_from_directory(path, SD_FileExtensions.EC_RESOURCE):
-		var resource: Resource = load(path)
+		var resource: Resource = load(file)
 		if resource is R_Object:
 			var id: String = resource.id
 			if id.is_empty():

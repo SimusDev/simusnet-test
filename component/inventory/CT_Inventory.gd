@@ -7,8 +7,8 @@ func get_items() -> Array[CT_ItemStack]:
 	return _items
 
 func _ready() -> void:
-	super()
 	_network_setup()
+	super()
 
 func _network_ready() -> void:
 	if !SimusNetConnection.is_server():

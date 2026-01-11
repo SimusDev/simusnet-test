@@ -24,9 +24,6 @@ func get_channel() -> int:
 	return SimusNetChannels.BUILTIN.SCENE_REPLICATION
 
 func _ready() -> void:
-	super()
-	set_multiplayer_authority(SimusNetConnection.SERVER_ID)
-	
 	SimusNetNodeAutoVisible.register_or_get(self)
 	
 	SimusNetVisibility.set_method_always_visible(
@@ -49,6 +46,10 @@ func _ready() -> void:
 		get_channel()
 	)
 	
+	set_multiplayer_authority(SimusNetConnection.SERVER_ID)
+	
+	
+	super()
 
 func can_serialize_node(node: Node) -> bool:
 	if node.scene_file_path.is_empty():
