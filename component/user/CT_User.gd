@@ -10,6 +10,14 @@ var _server_data: R_LocalData
 
 var _nickname: String = ""
 
+static var _local: CT_User
+
+static func get_local() -> CT_User:
+	return _local
+
+func is_local() -> bool:
+	return self == _local
+
 func server_get_login() -> String:
 	return _server_data.get_value_or_add("login", "user")
 
@@ -63,12 +71,14 @@ static func deserialize(data: Dictionary) -> CT_User:
 	user._nickname = data[1]
 	return user
 
-static func server_create(user_input: Dictionary) -> CT_User:
+static func server_create(user_input: Dictionary, peer: int) -> CT_User:
 	var user := CT_User.new()
+	user._peer = peer
 	var data: R_LocalData = R_LocalData.get_or_create_server("users", user_input.login)
 	user._server_data = data
 	data.get_value_or_add("login", user_input.login)
 	data.get_value_or_add("password", user_input.password)
 	user._nickname = data.get_value_or_add("nickname", user_input.login)
+	user.name = (data.get_value_or_add("login", "") as String).validate_node_name()
 	data.save()
 	return user

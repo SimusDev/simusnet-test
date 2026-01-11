@@ -56,6 +56,7 @@ func _on_transform_tick() -> void:
 	
 	for transform in _transforms:
 		
+		
 		if !SimusNet.is_network_authority(transform):
 			continue
 		
