@@ -4,6 +4,8 @@
 [ext_resource type="Script" uid="uid://d1jwapkumdp1u" path="res://addons/simusdev/SimusNet/SimusNetTransform.gd" id="2_744qn"]
 [ext_resource type="PackedScene" uid="uid://bb30gdt6q8ij" path="res://addons/simusdev/components/fp_controller/source_like/W_FPCSourceLikeCamera.tscn" id="3_j7lg1"]
 [ext_resource type="PackedScene" uid="uid://be7h2lkvpihn3" path="res://addons/simusdev/components/fp_controller/source_like/W_FPCSourceLikeMovement.tscn" id="4_d5u4l"]
+[ext_resource type="Script" uid="uid://dpblk4cnhdonv" path="res://component/viewmodel/ViewModelRoot3D.gd" id="4_heeeb"]
+[ext_resource type="Resource" uid="uid://cic3i440xvcwv" path="res://src/objects/item/weapon/crowbar.tres" id="5_lhjlg"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_d5u4l"]
 
@@ -27,6 +29,11 @@ body = NodePath("..")
 script = ExtResource("2_744qn")
 node = NodePath("..")
 metadata/_custom_type_script = "uid://d1jwapkumdp1u"
+
+[node name="ViewModelRoot3D" type="Node3D" parent="Camera" unique_id=370646152]
+script = ExtResource("4_heeeb")
+object = ExtResource("5_lhjlg")
+metadata/_custom_type_script = "uid://dpblk4cnhdonv"
 
 [node name="Movement" parent="." unique_id=240765583 node_paths=PackedStringArray("actor") instance=ExtResource("4_d5u4l")]
 actor = NodePath("..")

@@ -50,7 +50,6 @@ func _handle() -> void:
 			if resource is R_Level:
 				resource.register()
 
-
 func clear(safe:bool = true) -> void:
 	if safe:
 		if not is_instance_valid(level_holder):
