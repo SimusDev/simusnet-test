@@ -62,8 +62,9 @@ func change_level(to:R_Level) -> void:
 		return
 	clear(false)
 	current_level = to
-	if to:
-		to.instantiate(level_holder)
+	if current_level:
+		var level_instance = current_level.prefab.instantiate()
+		level_holder.add_child(level_instance)
 	level_changed.emit()
 
 func change_level_by_code(level_code:StringName) -> void:

@@ -17,11 +17,6 @@ func register() -> void:
 		return
 	_begin_register()
 	_reference_list.append(self)
-	SimusNetRPC.register(
-		[
-			local_instantiate
-		]
-	)
 	_registred()
 
 func unregister() -> void:
@@ -38,23 +33,3 @@ func _registred() -> void:
 	SimusDev.console.write_info("Level registred: %s" % [self])
 func _unregistred() -> void:
 	SimusDev.console.write_info("Level unregistred: %s" % [self])
-
-func local_instantiate(node:Node) -> void:
-	if not prefab:
-		SimusDev.console.write_error("Unable to instantiate level '%s': prefab is null" % [self])
-		return
-	if not is_instance_valid(node):
-		SimusDev.console.write_error("Unable to instantiate level '%s': node is not a valid instance" % [self])
-		return
-	
-	var level_prefab:Node = prefab.instantiate()
-	node.add_child(level_prefab)
-
-func instantiate(node:Node) -> void:
-	if not SimusNetConnection.is_server():
-		SimusDev.console.write_error("Unable to instantiate level '%s': not server" % [self])
-		return
-	SimusNetRPC.invoke_all(
-		local_instantiate,
-		node
-	)
