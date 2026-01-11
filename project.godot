@@ -19,12 +19,12 @@ config/icon="res://icon.svg"
 
 SimusDev="*uid://cvfrshw18g5he"
 Network="*uid://bsyf0r8q8t3ej"
-s_GameObjects="*uid://cwty7i2e35hu0"
+s_GameObjects="*uid://crobxq3ukja01"
 s_SceneChanger="*uid://d01y2tsu3u5ql"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/simusdev/plugin.cfg")
+enabled=PackedStringArray("res://addons/simusdev/plugin.cfg", "res://addons/sky_3d/plugin.cfg")
 
 [input]
 
@@ -78,5 +78,3 @@ common/physics_interpolation=true
 [rendering]
 
 rendering_device/driver.windows="d3d12"
-renderer/rendering_method="gl_compatibility"
-renderer/rendering_method.mobile="gl_compatibility"

@@ -1,0 +1,51 @@
+[gd_scene format=3 uid="uid://dbxq4udu4u41q"]
+
+[ext_resource type="Script" uid="uid://cc7paot8xkxdj" path="res://component/level/level_handler.gd" id="1_m0kjj"]
+[ext_resource type="Script" uid="uid://bptu8uuecjoc5" path="res://addons/simusdev/console/SD_NodeCommandObject.gd" id="2_uj0g7"]
+[ext_resource type="Script" uid="uid://mtgs568pxn5x" path="res://addons/simusdev/console/SD_NodeCommandObjectBind.gd" id="3_3a8my"]
+
+[sub_resource type="GDScript" id="GDScript_kvuet"]
+resource_name = "level_handler_console_commands"
+script/source = "extends SD_NodeConsoleCommands
+
+@export var level_handler:LevelHandler
+
+func _ready() -> void:
+	on_executed.connect(_on_command_executed)
+
+func _on_command_executed(cmd:SD_ConsoleCommand) -> void:
+	if not is_instance_valid(level_handler):
+		return
+	match cmd.get_code():
+		\"level_handler.change_level\":
+			if cmd.get_arguments().size() == 1:
+				level_handler.change_level_by_code(cmd.get_value_as_string())
+		\"level_handler.clear_level\":
+			if cmd.get_arguments().size() == 0:
+				level_handler.clear()
+"
+
+[sub_resource type="Resource" id="Resource_trtic"]
+resource_name = "level_handler.change_level"
+script = ExtResource("2_uj0g7")
+code = "level_handler.change_level"
+metadata/_custom_type_script = "uid://bptu8uuecjoc5"
+
+[sub_resource type="Resource" id="Resource_ir15t"]
+resource_name = "level_handler.clear_level"
+script = ExtResource("2_uj0g7")
+code = "level_handler.clear_level"
+metadata/_custom_type_script = "uid://bptu8uuecjoc5"
+
+[node name="LevelHandler" type="Node" unique_id=579608183 node_paths=PackedStringArray("level_holder")]
+script = ExtResource("1_m0kjj")
+base_path = "res://src/"
+directories = PackedStringArray("levels")
+level_holder = NodePath("")
+metadata/_custom_type_script = "uid://cc7paot8xkxdj"
+
+[node name="ConsoleCommands" type="Node" parent="." unique_id=1153458905 node_paths=PackedStringArray("level_handler")]
+script = SubResource("GDScript_kvuet")
+level_handler = NodePath("..")
+commands = Array[ExtResource("2_uj0g7")]([SubResource("Resource_trtic"), SubResource("Resource_ir15t")])
+metadata/_custom_type_script = "uid://38osx81mny15"

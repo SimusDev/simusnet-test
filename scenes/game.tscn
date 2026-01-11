@@ -1,56 +1,24 @@
 [gd_scene format=3 uid="uid://e55eek63c86k"]
 
 [ext_resource type="Script" uid="uid://doxf33wt4344v" path="res://scenes/game.gd" id="1_yqjtg"]
-[ext_resource type="Texture2D" uid="uid://6gbwciiempf8" path="res://addons/kenney_prototype_textures/orange/texture_09.png" id="3_lnu2h"]
-[ext_resource type="Script" uid="uid://imhh1kugqh4m" path="res://addons/simusdev/SimusNet/SimusNetNodePlayerSpawner.gd" id="4_lbhrr"]
-[ext_resource type="PackedScene" uid="uid://deashx71fo0da" path="res://src/prefabs/player.tscn" id="5_iywne"]
-[ext_resource type="Script" uid="uid://dehqcsswxyu8a" path="res://component/inventory/CT_Inventory.gd" id="6_u5sy4"]
-[ext_resource type="Script" uid="uid://dgp0pmmh5blth" path="res://component/object/CT_ObjectSpawn.gd" id="7_gee14"]
-[ext_resource type="Resource" uid="uid://c27wsx5yo7iuh" path="res://src/objects/player/player.tres" id="8_0tnpc"]
-
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_iywne"]
-sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
-ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
-
-[sub_resource type="Sky" id="Sky_p57ef"]
-sky_material = SubResource("ProceduralSkyMaterial_iywne")
-
-[sub_resource type="Environment" id="Environment_u5sy4"]
-background_mode = 2
-sky = SubResource("Sky_p57ef")
-tonemap_mode = 2
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lbhrr"]
-albedo_texture = ExtResource("3_lnu2h")
-uv1_triplanar = true
+[ext_resource type="PackedScene" uid="uid://dbxq4udu4u41q" path="res://scenes/prefabs/level_handler.tscn" id="7_0tnpc"]
+[ext_resource type="Resource" uid="uid://cebiccjge2f1l" path="res://src/levels/main_level.tres" id="8_kvpfn"]
+[ext_resource type="PackedScene" uid="uid://bb30gdt6q8ij" path="res://addons/simusdev/components/fp_controller/source_like/W_FPCSourceLikeCamera.tscn" id="8_vtaks"]
 
 [node name="Game" type="Node3D" unique_id=1979558274]
 script = ExtResource("1_yqjtg")
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1016202050]
-environment = SubResource("Environment_u5sy4")
+[node name="LevelHandler" parent="." unique_id=579608183 node_paths=PackedStringArray("level_holder") instance=ExtResource("7_0tnpc")]
+level_at_start = ExtResource("8_kvpfn")
+level_holder = NodePath("../LevelHolder")
 
-[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=1607342566]
-material_override = SubResource("StandardMaterial3D_lbhrr")
-use_collision = true
-size = Vector3(30, 1, 30)
+[node name="LevelHolder" type="Node3D" parent="." unique_id=1933042641]
 
-[node name="Players" type="Node3D" parent="." unique_id=1438571494]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.3066907, 0)
-
-[node name="SimusNetNodePlayerSpawner" type="Node" parent="Players" unique_id=1974200488 node_paths=PackedStringArray("spawnpoints", "root")]
-script = ExtResource("4_lbhrr")
-prefabs = Array[PackedScene]([ExtResource("5_iywne")])
-spawnpoints = [NodePath("..")]
-root = NodePath("..")
-metadata/_custom_type_script = "uid://imhh1kugqh4m"
-
-[node name="CT_Inventory" type="Node" parent="." unique_id=667475946]
-script = ExtResource("6_u5sy4")
-metadata/_custom_type_script = "uid://dehqcsswxyu8a"
-
-[node name="CT_ObjectSpawn" type="Node3D" parent="." unique_id=635537670]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.915879, 0)
-script = ExtResource("7_gee14")
-object = ExtResource("8_0tnpc")
-metadata/_custom_type_script = "uid://dgp0pmmh5blth"
+[node name="FreeCamera" parent="." unique_id=52967810 instance=ExtResource("8_vtaks")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.3, 0)
+key_forward = "move_forward"
+key_backward = "move_backward"
+key_left = "move_left"
+key_right = "move_right"
+key_boost = "sprint"
+key_slowdown = "crouch"

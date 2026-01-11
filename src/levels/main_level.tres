@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="R_Level" format=3 uid="uid://cebiccjge2f1l"]
+
+[ext_resource type="Script" uid="uid://d1rhnuo4fnolv" path="res://component/level/r_level.gd" id="1_lgvt8"]
+[ext_resource type="PackedScene" uid="uid://b700hdjmhxkbb" path="res://scenes/prefabs/levels/main_level/main_level.tscn" id="1_pj8d0"]
+
+[resource]
+script = ExtResource("1_lgvt8")
+code = &"main_level"
+prefab = ExtResource("1_pj8d0")
+metadata/_custom_type_script = "uid://d1rhnuo4fnolv"
