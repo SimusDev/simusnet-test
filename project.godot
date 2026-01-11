@@ -21,6 +21,8 @@ SimusDev="*uid://cvfrshw18g5he"
 Network="*uid://bsyf0r8q8t3ej"
 s_GameObjects="*uid://crobxq3ukja01"
 s_SceneChanger="*uid://d01y2tsu3u5ql"
+s_Users="*uid://bto55864uvcno"
+s_Authentication="*uid://buylsm416h7w4"
 
 [editor_plugins]
 

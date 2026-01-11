@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bto55864uvcno"]
+
+[ext_resource type="Script" uid="uid://cn81wkssy6xge" path="res://singletons/s_Users.gd" id="1_u61i0"]
+
+[node name="SUsers" type="Node" unique_id=1914685928]
+script = ExtResource("1_u61i0")
