@@ -5,8 +5,6 @@
 [ext_resource type="PackedScene" uid="uid://bb30gdt6q8ij" path="res://addons/simusdev/components/fp_controller/source_like/W_FPCSourceLikeCamera.tscn" id="3_j7lg1"]
 [ext_resource type="PackedScene" uid="uid://be7h2lkvpihn3" path="res://addons/simusdev/components/fp_controller/source_like/W_FPCSourceLikeMovement.tscn" id="4_d5u4l"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_d5u4l"]
-
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_d5u4l"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_d5u4l"]
@@ -24,10 +22,6 @@ metadata/_custom_type_script = "uid://d1jwapkumdp1u"
 [node name="Camera" parent="." unique_id=782780030 node_paths=PackedStringArray("body") instance=ExtResource("3_j7lg1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.65773225, 0)
 body = NodePath("..")
-
-[node name="cube" type="MeshInstance3D" parent="Camera" unique_id=1194069633]
-transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, -0.75271547)
-mesh = SubResource("BoxMesh_d5u4l")
 
 [node name="SimusNetTransform" type="Node" parent="Camera" unique_id=1270936250 node_paths=PackedStringArray("node")]
 script = ExtResource("2_744qn")

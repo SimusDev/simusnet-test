@@ -1,8 +1,7 @@
-[gd_scene format=3 uid="uid://crobxq3ukja01"]
+[gd_scene format=3 uid="uid://cwty7i2e35hu0"]
 
-[ext_resource type="Script" uid="uid://xcmvm4rf4tpg" path="res://singletons/s_GameObjects.gd" id="1_cpc2v"]
+[ext_resource type="Script" uid="uid://8v6qn372c048" path="res://component/object/CT_ObjectHandler.gd" id="1_6hjmx"]
 
-[node name="SGameObjects" type="Node" unique_id=2005953495]
-script = ExtResource("1_cpc2v")
-
-[node name="Handlers" type="Node" parent="." unique_id=699385165]
+[node name="GameObjects" type="Node" unique_id=1051485630]
+script = ExtResource("1_6hjmx")
+metadata/_custom_type_script = "uid://8v6qn372c048"

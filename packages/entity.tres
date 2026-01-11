@@ -1,9 +1,0 @@
-[gd_resource type="Resource" script_class="R_GamePackage" format=3 uid="uid://bpswog6ad8es"]
-
-[ext_resource type="Script" uid="uid://bn4n8w3p61tfc" path="res://component/packages/R_GamePackage.gd" id="1_jbhv7"]
-
-[resource]
-script = ExtResource("1_jbhv7")
-id = &"entity"
-objects_dir = "res://src/objects/entity"
-metadata/_custom_type_script = "uid://bn4n8w3p61tfc"
