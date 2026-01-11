@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="R_GameSettings" format=3 uid="uid://3tqsqqksy01e"]
+
+[ext_resource type="Script" uid="uid://7opx5t4ruh1u" path="res://component/R_GameSettings.gd" id="1_pynj7"]
+
+[resource]
+script = ExtResource("1_pynj7")
+objects_path = "res://src/objects"
+metadata/_custom_type_script = "uid://7opx5t4ruh1u"

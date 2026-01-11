@@ -1,2 +1,0 @@
-extends W_FPCSource
-class_name W_FPCSourceMovement
