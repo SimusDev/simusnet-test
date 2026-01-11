@@ -18,7 +18,9 @@ func _ready() -> void:
 	)
 	SimusNetRPC.register(
 		[_receive],
-		SimusNetRPCConfig.new().flag_mode_server_only()
+		SimusNetRPCConfig.new()
+			.flag_mode_server_only()
+			.flag_serialization()
 	)
 	_handle()
 	
