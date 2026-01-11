@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://67y8e2hng6vf"]
+
+[ext_resource type="PackedScene" uid="uid://dy5pg5df2wsi2" path="res://3d/crowbar/crowbar_model.tscn" id="1_anmxn"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_anmxn"]
+radius = 0.033691406
+height = 1.5629883
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4k61f"]
+radius = 0.033691406
+height = 0.3010254
+
+[node name="CrowbarWorld" type="RigidBody3D" unique_id=160219386]
+
+[node name="CrowbarModel" parent="." unique_id=1948536088 instance=ExtResource("1_anmxn")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2037814842]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05883789, 0)
+shape = SubResource("CapsuleShape3D_anmxn")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="." unique_id=549394656]
+transform = Transform3D(1, 0, 0, 0, 0.6176263, -0.7864717, 0, 0.7864717, 0.6176263, 0, 0.76040196, -0.12773788)
+shape = SubResource("CapsuleShape3D_4k61f")

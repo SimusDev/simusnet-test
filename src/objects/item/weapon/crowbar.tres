@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="R_WorldObject" format=3 uid="uid://cic3i440xvcwv"]
+
+[ext_resource type="Script" uid="uid://cxyhi06aga6j1" path="res://component/object/R_WorldObject.gd" id="1_gx2a1"]
+[ext_resource type="PackedScene" uid="uid://dy5pg5df2wsi2" path="res://3d/crowbar/crowbar_model.tscn" id="2_msam4"]
+[ext_resource type="Script" uid="uid://cqdfkwb1galvp" path="res://component/viewmodel/R_ViewModel.gd" id="2_mspl3"]
+[ext_resource type="PackedScene" uid="uid://67y8e2hng6vf" path="res://scenes/prefabs/object/item/weapon/crowbar/crowbar_world.tscn" id="4_g2v7l"]
+
+[sub_resource type="Resource" id="Resource_msam4"]
+script = ExtResource("2_mspl3")
+world = ExtResource("4_g2v7l")
+view = ExtResource("2_msam4")
+player = ExtResource("2_msam4")
+metadata/_custom_type_script = "uid://cqdfkwb1galvp"
+
+[resource]
+script = ExtResource("1_gx2a1")
+viewmodel = SubResource("Resource_msam4")
+metadata/_custom_type_script = "uid://cxyhi06aga6j1"
