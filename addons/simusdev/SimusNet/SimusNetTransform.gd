@@ -3,8 +3,14 @@
 extends SimusNetNodeAutoVisible
 class_name SimusNetTransform
 
-@export var interpolate: bool = true
-@export var interpolate_speed: float = 15.0
+@export var interpolate: bool = true : get = is_interpolated
+@export var interpolate_speed: float = 15.0 : get = get_interpolate_speed
+
+func is_interpolated() -> bool:
+	return interpolate
+
+func get_interpolate_speed() -> float:
+	return interpolate_speed
 
 func _ready() -> void:
 	super()
