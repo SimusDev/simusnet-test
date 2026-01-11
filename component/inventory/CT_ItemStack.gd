@@ -1,4 +1,4 @@
-extends Node
+extends Resource
 class_name CT_ItemStack
 
 @export var object: R_WorldObject
@@ -8,22 +8,22 @@ class_name CT_ItemStack
 
 var _inventory: CT_Inventory
 
-func get_slot() -> int:
-	return get_index()
+var is_ready: bool = false
 
 func get_inventory() -> CT_Inventory:
 	return _inventory
 
-func _enter_tree() -> void:
-	_inventory = SD_ECS.node_find_above_by_script(self, CT_Inventory)
-	SimusNetVisible.set_visibile(self, SimusNetVisible.get_or_create(_inventory))
+func set_inventory(inventory: CT_Inventory) -> CT_ItemStack:
+	var identity: SimusNetIdentity = SimusNetIdentity.register(self)
+	identity.set_generated_unique_id(str(inventory.get_path()))
+	if !is_ready:
+		_ready()
 	
-	_inventory._items.append(self)
-
-func _exit_tree() -> void:
-	_inventory._items.erase(self)
+	return self
 
 func _ready() -> void:
+	is_ready = true
+	
 	SimusNetVars.register(
 		self,
 		[
@@ -35,18 +35,18 @@ func _ready() -> void:
 		SimusNetVarConfig.new().flag_reliable(Network.CHANNEL_INVENTORY).
 		flag_mode_server_only().flag_replication()
 	)
+	
 
 func serialize() -> Dictionary:
 	var data: Dictionary = {}
 	if get_script().get_global_name() != "CT_ItemStack":
 		data[0] = SimusNetSerializer.parse_resource(get_script())
-	data[1] = name
+	
 	return data
 
 static func deserialize(data: Dictionary) -> CT_ItemStack:
 	var script: GDScript = data.get(0, CT_ItemStack)
 	var item: CT_ItemStack = script.new()
-	item.name = data[1]
 	return item
 
 static func serialize_array(array: Array[CT_ItemStack]) -> PackedByteArray:
