@@ -9,10 +9,14 @@ func _ready() -> void:
 	
 	SimusNetEvents.event_peer_disconnected.listen(_on_peer_disconnected, true)
 	
-	
+	SimusNetRPC.register([_send], SimusNetRPCConfig.new().
+	flag_set_channel(Network.CHANNEL_USERS).flag_mode_any_peer())
+	SimusNetRPC.register([_receive], SimusNetRPCConfig.new().
+	flag_set_channel(Network.CHANNEL_USERS).flag_mode_server_only())
 
 func _network_ready() -> void:
-	SimusNetRPC.invoke_on_server(_send)
+	if !SimusNetConnection.is_server():
+		SimusNetRPC.invoke_on_server(_send)
 
 func _send() -> void:
 	var data: Array = []
