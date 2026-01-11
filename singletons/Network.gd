@@ -1,5 +1,6 @@
 extends Node
 
+@onready var CHANNEL_USERS: String = SimusNetChannels.register("users")
 @onready var CHANNEL_INVENTORY: String = SimusNetChannels.register("inventory")
 
 const MAX_PLAYERS: int = 1000

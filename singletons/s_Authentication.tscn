@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://buylsm416h7w4"]
+
+[ext_resource type="Script" uid="uid://dftnbvgueva3o" path="res://singletons/s_Authentication.gd" id="1_fr0ik"]
+
+[node name="SAuthentication" type="Node" unique_id=821144740]
+script = ExtResource("1_fr0ik")

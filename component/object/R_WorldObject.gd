@@ -3,8 +3,6 @@ class_name R_WorldObject
 
 @export var viewmodel: R_ViewModel : get = get_viewmodel
 
-
-
 func _registered() -> void:
 	super()
 

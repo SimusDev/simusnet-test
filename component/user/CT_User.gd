@@ -1,0 +1,74 @@
+extends Node
+class_name CT_User
+
+var _peer: int = -1
+
+static var _dictionary: Dictionary[int, CT_User]
+static var _list: Array[CT_User]
+
+var _server_data: R_LocalData
+
+var _nickname: String = ""
+
+func server_get_login() -> String:
+	return _server_data.get_value_or_add("login", "user")
+
+func server_get_password() -> String:
+	return _server_data.get_value("password", "")
+
+static func server_find_by_login(login: String) -> CT_User:
+	for i in _list:
+		if i.server_get_login() == login:
+			return i
+	return null
+
+static func find_by_peer(peer: int) -> CT_User:
+	return _dictionary.get(peer)
+
+func get_nickname() -> String:
+	return _nickname
+
+func get_server_data() -> R_LocalData:
+	return _server_data
+
+static func get_dictionary() -> Dictionary[int, CT_User]:
+	return _dictionary
+
+static func get_list() -> Array[CT_User]:
+	return _list
+
+func get_peer() -> int:
+	return _peer
+
+func _ready() -> void:
+	set_multiplayer_authority(SimusNet.SERVER_ID)
+
+func _enter_tree() -> void:
+	_dictionary[get_peer()] = self
+	_list.append(self)
+
+func _exit_tree() -> void:
+	_dictionary.erase(get_peer())
+	_list.erase(self)
+
+func serialize() -> Dictionary:
+	var data: Dictionary = {}
+	data[0] = get_peer()
+	data[1] = get_nickname()
+	return data
+
+static func deserialize(data: Dictionary) -> CT_User:
+	var user := CT_User.new()
+	user._peer = data[0]
+	user._nickname = data[1]
+	return user
+
+static func server_create(user_input: Dictionary) -> CT_User:
+	var user := CT_User.new()
+	var data: R_LocalData = R_LocalData.get_or_create_server("users", user_input.login)
+	user._server_data = data
+	data.get_value_or_add("login", user_input.login)
+	data.get_value_or_add("password", user_input.password)
+	user._nickname = data.get_value_or_add("nickname", user_input.login)
+	data.save()
+	return user
