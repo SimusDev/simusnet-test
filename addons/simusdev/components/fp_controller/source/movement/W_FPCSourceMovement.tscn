@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://b6cktswldetaq"]
+
+[ext_resource type="Script" uid="uid://la0tjjwknyj5" path="res://addons/simusdev/components/fp_controller/source/movement/W_FPCSourceMovement.gd" id="1_tkb8i"]
+[ext_resource type="Script" uid="uid://d1rs65k2sdmp8" path="res://addons/simusdev/components/state_machine/SD_FiniteStateMachine.gd" id="2_fvfxf"]
+[ext_resource type="Script" uid="uid://c7udlgip4axd" path="res://addons/simusdev/components/state_machine/SD_FiniteState.gd" id="3_stxis"]
+
+[node name="W_FPCSourceMovement" type="Node3D" unique_id=1835791139]
+script = ExtResource("1_tkb8i")
+
+[node name="StateMachine" type="Node" parent="." unique_id=582293295]
+script = ExtResource("2_fvfxf")
+metadata/_custom_type_script = "uid://d1rs65k2sdmp8"
+
+[node name="SD_FiniteState" type="Node" parent="StateMachine" unique_id=1140845645]
+script = ExtResource("3_stxis")
+metadata/_custom_type_script = "uid://c7udlgip4axd"
