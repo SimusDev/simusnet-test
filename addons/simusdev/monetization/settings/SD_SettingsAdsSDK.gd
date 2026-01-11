@@ -3,6 +3,7 @@ extends Resource
 class_name SD_SettingsAdsSDK
 
 @export var _data: Dictionary[String, Variant] = {}
+@export var os_feature_list: PackedStringArray = [] : get = get_os_feature_list
 
 static var SAVE_PATH: String = SD_EngineSettings.BASE_PATH.path_join("ads")
 
@@ -12,6 +13,12 @@ func init(data: Dictionary[String, Variant] = {}) -> void:
 
 func _on_initialized() -> void:
 	pass
+
+func _created_on_disk() -> void:
+	pass
+
+func get_os_feature_list() -> PackedStringArray:
+	return []
 
 static func save_or_load(script: GDScript, data: Dictionary[String, Variant] = {}, path: String = "") -> SD_SettingsAdsSDK:
 	SD_FileSystem.make_directory(SAVE_PATH)
@@ -27,6 +34,7 @@ static func save_or_load(script: GDScript, data: Dictionary[String, Variant] = {
 	
 	var settings: SD_SettingsAdsSDK = script.new() as SD_SettingsAdsSDK
 	settings.init(data)
+	settings._created_on_disk()
 	ResourceSaver.save(settings, filepath)
 	return settings
 

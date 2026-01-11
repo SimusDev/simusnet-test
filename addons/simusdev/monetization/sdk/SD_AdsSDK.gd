@@ -140,3 +140,6 @@ func _load_reward_placeholder_() -> void:
 
 func _load_and_show_reward_placeholder_() -> void:
 	pass
+
+func _selected() -> void:
+	pass

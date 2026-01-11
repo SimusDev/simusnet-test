@@ -21,6 +21,9 @@ static func switch_sdk_by_code(code: String) -> SD_AdsSDK:
 static func get_current_sdk() -> SD_AdsSDK:
 	return _trunk.get_current_sdk()
 
+static func get_sdk_list() -> Array[SD_AdsSDK]:
+	return _trunk.get_sdk_list()
+
 static func is_enabled() -> bool:
 	return _trunk.is_enabled()
 

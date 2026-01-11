@@ -1,7 +1,7 @@
 @tool
 extends Node
 
-var VERSION: String = "4.14"
+var VERSION: String = "4.15"
 
 signal on_notification(what: int)
 
@@ -60,10 +60,17 @@ var _autoload_classes = [
 var _settings: SD_EngineSettings
 
 func _ready() -> void:
+	
 	_settings = SD_EngineSettings.create_or_get()
 	canvas._ready()
 	console._ready()
 	write_engine_info()
+	
+	var user_device: SD_UserDevice = SD_UserDevice.new()
+	_autoload_classes.append(user_device)
+	user_device._instance = user_device
+	user_device._ready()
+	
 	eventbus._ready()
 	localization._ready()
 	window._ready()
@@ -86,10 +93,12 @@ func _ready() -> void:
 	
 	_settings._ready()
 	
+	
 	gamestate.name = "GameState"
 	add_child(gamestate)
 	
 	_initialize_commands()
+	
 	
 	if !_settings.network:
 		_settings.network = SD_NetworkSettings.new()

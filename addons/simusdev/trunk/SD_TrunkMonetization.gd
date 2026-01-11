@@ -12,6 +12,12 @@ signal on_reward_closed()
 signal on_reward_rewarded()
 signal on_reward_error()
 
+signal on_request_set_game_ready()
+signal on_request_show_interstitial()
+signal on_request_load_interstitial()
+signal on_request_load_reward()
+signal on_request_show_reward()
+
 var _sdks: Array[SD_AdsSDK] = [
 	SD_AdsSDKDesktop.new("desktop"),
 	SD_AdsSDKYandex.new("yandex"),
@@ -24,6 +30,9 @@ var _enabled: bool = true
 var _interstital_enabled: bool = true
 
 var _s_monetization: SD_Monetization
+
+func get_sdk_list() -> Array[SD_AdsSDK]:
+	return _sdks
 
 static func console() -> SD_TrunkConsole:
 	return SimusDev.console
@@ -89,8 +98,9 @@ func switch_sdk(sdk: SD_AdsSDK) -> SD_AdsSDK:
 		return _current_sdk
 	
 	_current_sdk = sdk
+	_current_sdk._selected()
 	
-	console().write_from_object(sdk, "monetization sdk switched!", SD_ConsoleCategories.CATEGORY.SUCCESS)
+	console().write_from_object(self, "sdk switched to: %s" % sdk.get_code(), SD_ConsoleCategories.CATEGORY.SUCCESS)
 	return sdk
 
 func switch_sdk_by_code(code: String) -> SD_AdsSDK:
@@ -109,19 +119,26 @@ func is_enabled() -> bool:
 	return _enabled
 
 func set_game_ready() -> void:
+	on_request_set_game_ready.emit()
 	call_method_on_current_sdk("set_game_ready")
 
 func load_interstitial() -> void:
+	on_request_load_interstitial.emit()
 	call_method_on_current_sdk("load_interstitial")
 
 func load_reward() -> void:
+	on_request_load_reward.emit()
 	call_method_on_current_sdk("load_reward")
 
 func load_and_show_reward() -> void:
+	on_request_load_reward.emit()
+	on_request_show_reward.emit()
 	call_method_on_current_sdk("load_and_show_reward")
 
 func show_interstitial() -> void:
+	on_request_show_interstitial.emit()
 	call_method_on_current_sdk("show_interstitial")
 
 func show_reward() -> void:
+	on_request_show_reward.emit()
 	call_method_on_current_sdk("show_reward")

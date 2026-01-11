@@ -39,16 +39,14 @@ func _ready() -> void:
 func _select_proper_sdk() -> SD_AdsSDK:
 	var current_code: String = "desktop"
 	
-	if SD_Platforms.is_mobile():
-		current_code = "yandex_mobile"
-	
-	if SD_Platforms.is_web():
-		current_code = "yandex"
-	
+	for sdk in SD_Monetization.get_sdk_list():
+		for feature in sdk.get_settings().os_feature_list:
+			if OS.has_feature(feature):
+				current_code = sdk.get_code()
 	
 	var to_switch: SD_AdsSDK = SD_Monetization.switch_sdk_by_code(current_code)
-	
 	return to_switch
+	
 
 
 func _setup_all_sdk() -> void:
