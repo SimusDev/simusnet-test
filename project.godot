@@ -20,10 +20,11 @@ config/icon="res://icon.svg"
 SimusDev="*uid://cvfrshw18g5he"
 Network="*uid://bsyf0r8q8t3ej"
 s_GameObjects="*uid://cwty7i2e35hu0"
+s_GamePackages="*uid://bxj2p06j8madr"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/simusdev/plugin.cfg")
+enabled=PackedStringArray("res://addons/simusdev/plugin.cfg", "res://addons/sky_3d/plugin.cfg")
 
 [input]
 
