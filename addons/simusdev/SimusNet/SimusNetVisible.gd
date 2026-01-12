@@ -28,8 +28,9 @@ func set_public_visibility(visibility: bool) -> SimusNetVisible:
 	return self 
 
 func set_visible_for(peer: int, visible: bool) -> SimusNetVisible:
-	if visible and !_peers.has(peer):
-		_peers.append(peer)
+	if visible:
+		if !_peers.has(peer):
+			_peers.append(peer)
 		return
 	_peers.erase(peer)
 	return self

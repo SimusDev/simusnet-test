@@ -41,7 +41,7 @@ static func invoke(callable: Callable, ...args: Array) -> void:
 
 static func _invoke(callable: Callable, args: Array) -> void:
 	for peer in SimusNetConnection.get_connected_peers():
-		if SimusNetVisibility.is_visible_for(peer, callable.get_object()) and !SimusNetVisibility.is_method_always_visible(callable):
+		if SimusNetVisibility.is_visible_for(peer, callable.get_object()) or SimusNetVisibility.is_method_always_visible(callable):
 				_invoke_on(peer, callable, args)
 
 static func invoke_all(callable: Callable, ...args: Array) -> void:
