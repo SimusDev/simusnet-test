@@ -7,6 +7,7 @@ signal level_changed
 @export var level_at_start:R_Level
 @export var level_holder:Node
 
+var _registry: Array[R_Level]
 var current_level:R_Level
 
 func _ready() -> void:
@@ -33,8 +34,7 @@ func _ready() -> void:
 	
 
 func _send() -> void:
-	SimusNetRPC.invoke_on(
-		SimusNetRemote.sender_id,
+	SimusNetRPC.invoke_on_sender(
 		_receive,
 		current_level
 	)
@@ -48,21 +48,28 @@ func _handle() -> void:
 		for file in SD_FileSystem.get_all_files_with_extension_from_directory(base_path.path_join(directory), SD_FileExtensions.EC_RESOURCE):
 			var resource:Resource = load(file)
 			if resource is R_Level:
-				resource.register()
+				var status: bool = resource.register()
+				if status:
+					_registry.append(resource)
+
+func _exit_tree() -> void:
+	for level in _registry:
+		level.unregister()
+		_registry.erase(level)
 
 func clear(safe:bool = true) -> void:
 	if safe:
 		if not is_instance_valid(level_holder):
 			return
-	SD_Nodes.clear_all_children(level_holder)
+	await SD_Nodes.async_clear_all_children(level_holder)
 
 func change_level(to:R_Level) -> void:
 	if not is_instance_valid(level_holder):
 		return
-	clear(false)
+	await clear(false)
 	current_level = to
 	if current_level:
-		var level_instance = current_level.prefab.instantiate()
+		var level_instance: LevelInstance = LevelInstance._create(current_level)
 		level_holder.add_child(level_instance)
 	level_changed.emit()
 
