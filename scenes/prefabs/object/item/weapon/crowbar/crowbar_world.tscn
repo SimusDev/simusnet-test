@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://67y8e2hng6vf"]
 
 [ext_resource type="PackedScene" uid="uid://dy5pg5df2wsi2" path="res://3d/crowbar/crowbar_model.tscn" id="1_anmxn"]
+[ext_resource type="Script" uid="uid://d1jwapkumdp1u" path="res://addons/simusdev/SimusNet/SimusNetTransform.gd" id="2_4k61f"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_anmxn"]
 radius = 0.033691406
@@ -21,3 +22,8 @@ shape = SubResource("CapsuleShape3D_anmxn")
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="." unique_id=549394656]
 transform = Transform3D(1, 0, 0, 0, 0.6176263, -0.7864717, 0, 0.7864717, 0.6176263, 0, 0.76040196, -0.12773788)
 shape = SubResource("CapsuleShape3D_4k61f")
+
+[node name="SimusNetTransform" type="Node" parent="." unique_id=103642018 node_paths=PackedStringArray("node")]
+script = ExtResource("2_4k61f")
+node = NodePath("..")
+metadata/_custom_type_script = "uid://d1jwapkumdp1u"

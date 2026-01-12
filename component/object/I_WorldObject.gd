@@ -12,7 +12,7 @@ func get_object() -> R_WorldObject:
 func get_level() -> LevelInstance:
 	return _level
 
-func get_instance() -> Node:
+func get_instance() -> Node3D:
 	return _instance
 
 func _init(level: LevelInstance, object: R_WorldObject) -> void:

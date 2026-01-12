@@ -42,6 +42,7 @@ func async_load_directory(path: String) -> void:
 			
 			id = resource.get_group() + ":" + id
 			
+			resource.id = id
 			register(id, resource)
 	
 	await get_tree().physics_frame
