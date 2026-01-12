@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://b36ise4k4tg7d"]
+
+[node name="PlayerUI" type="Control" unique_id=1578783826]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="." unique_id=1668101445]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0069444445
+anchor_top = 0.8626543
+anchor_right = 0.21614583
+anchor_bottom = 0.97530866
+metadata/_edit_use_anchors_ = true

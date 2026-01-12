@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://c04sd4mj5rmef"]
+
+[ext_resource type="Script" uid="uid://cntf64oap5uqy" path="res://addons/QuakeLamp/LampComponent.gd" id="1_8v3te"]
+[ext_resource type="Script" uid="uid://6pevvh4ucdx" path="res://addons/QuakeLamp/FlickerComponent.gd" id="2_bm2jb"]
+
+[node name="OmniLight3D" type="OmniLight3D" unique_id=2105551723]
+light_energy = 0.0
+light_indirect_energy = 0.0
+shadow_enabled = true
+omni_range = 7.929664
+
+[node name="cLampComponent" type="Node" parent="." unique_id=1203643786 node_paths=PackedStringArray("LightInstances", "FlickerComponent")]
+script = ExtResource("1_8v3te")
+Lit = false
+LightInstances = [NodePath("..")]
+FlickerComponent = NodePath("cFlickerComponent")
+metadata/_custom_type_script = "uid://cntf64oap5uqy"
+
+[node name="cFlickerComponent" type="Node" parent="cLampComponent" unique_id=1869313303]
+script = ExtResource("2_bm2jb")
+metadata/_custom_type_script = "uid://6pevvh4ucdx"

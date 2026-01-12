@@ -28,6 +28,10 @@ s_Authentication="*uid://buylsm416h7w4"
 
 enabled=PackedStringArray("res://addons/simusdev/plugin.cfg", "res://addons/sky_3d/plugin.cfg")
 
+[gui]
+
+theme/custom="uid://bn0751ku2d5fx"
+
 [input]
 
 move_forward={

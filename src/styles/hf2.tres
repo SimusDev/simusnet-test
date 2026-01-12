@@ -1,3 +1,6 @@
 [gd_resource type="Theme" format=3 uid="uid://bn0751ku2d5fx"]
 
+[ext_resource type="FontFile" uid="uid://dfvxd06k3ubg3" path="res://fonts/Verdana.ttf" id="1_pyfl4"]
+
 [resource]
+default_font = ExtResource("1_pyfl4")
