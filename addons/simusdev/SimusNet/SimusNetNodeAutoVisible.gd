@@ -59,6 +59,7 @@ func _ready() -> void:
 	_peers.append(SimusNetConnection.SERVER_ID)
 	
 	SimusNetVisibility.set_public_visibility(node, false)
+	print(node)
 	
 	SimusNetEvents.event_peer_disconnected.listen(_on_peer_disconnected, true)
 	

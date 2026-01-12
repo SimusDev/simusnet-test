@@ -24,7 +24,7 @@ func get_peers() -> PackedInt32Array:
 	return _peers
 
 func set_public_visibility(visibility: bool) -> SimusNetVisible:
-	_public_visible = true
+	_public_visible = visibility
 	return self 
 
 func set_visible_for(peer: int, visible: bool) -> SimusNetVisible:
