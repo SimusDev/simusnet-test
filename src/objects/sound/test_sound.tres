@@ -2,13 +2,15 @@
 
 [ext_resource type="Script" uid="uid://comfyg2dac6fj" path="res://component/object/sound/R_SoundObject.gd" id="1_mfhfx"]
 [ext_resource type="Script" uid="uid://xha6xbf0d6g2" path="res://component/object/sound/R_SoundSource.gd" id="2_xibg7"]
+[ext_resource type="AudioStream" uid="uid://c8qdrb3o1iq14" path="res://audio/gm_death.mp3" id="3_xibg7"]
 
 [sub_resource type="Resource" id="Resource_mfhfx"]
 script = ExtResource("2_xibg7")
-streams = Array[AudioStream]([null])
+streams = Array[AudioStream]([ExtResource("3_xibg7")])
 metadata/_custom_type_script = "uid://xha6xbf0d6g2"
 
 [resource]
 script = ExtResource("1_mfhfx")
 sources = Array[ExtResource("2_xibg7")]([SubResource("Resource_mfhfx")])
+id = &"test_sound"
 metadata/_custom_type_script = "uid://comfyg2dac6fj"
