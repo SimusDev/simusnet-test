@@ -1,0 +1,97 @@
+[gd_scene format=3 uid="uid://doc3v4vgjj4ti"]
+
+[ext_resource type="Script" uid="uid://shetmtfhr6l1" path="res://src/ui/authentification/authentification.gd" id="1_a2erf"]
+[ext_resource type="Script" uid="uid://d1l1jkmj6s53f" path="res://addons/simusdev/ui/SD_UIInterfaceMenu.gd" id="2_0nmpa"]
+
+[node name="Authentification" type="Control" unique_id=1887314113 node_paths=PackedStringArray("_line_login", "_line_password", "_message")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_a2erf")
+_line_login = NodePath("Panel/_line_login")
+_line_password = NodePath("Panel/_line_password")
+_message = NodePath("Panel/_message")
+
+[node name="Panel" type="Panel" parent="." unique_id=1684555183]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.20300001
+anchor_top = 0.231
+anchor_right = 0.79700005
+anchor_bottom = 0.76900005
+offset_left = 0.14398193
+offset_top = 0.31199646
+offset_right = -0.14404297
+offset_bottom = -0.31204224
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="_line_login" type="LineEdit" parent="Panel" unique_id=1383137674]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.23600002
+anchor_right = 1.0
+anchor_bottom = 0.356
+offset_top = -0.12800598
+offset_bottom = 0.11199951
+placeholder_text = "LOGIN"
+alignment = 1
+
+[node name="_line_password" type="LineEdit" parent="Panel" unique_id=1103098327]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.397
+anchor_right = 1.0
+anchor_bottom = 0.517
+offset_top = -0.15600586
+offset_bottom = 0.083999634
+placeholder_text = "PASSWORD"
+alignment = 1
+
+[node name="_message" type="Label" parent="Panel" unique_id=481779229]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.80500007
+anchor_right = 1.0
+anchor_bottom = 0.9250001
+offset_top = -0.14001465
+offset_bottom = 0.099975586
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="authentification" type="Label" parent="Panel" unique_id=1626464345]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.155
+offset_bottom = 0.060001373
+text = "AUTHENTIFICATION"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="enter" type="Button" parent="Panel" unique_id=168915392]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.14600001
+anchor_top = 0.592
+anchor_right = 0.85400003
+anchor_bottom = 0.753
+offset_left = 0.13599396
+offset_top = -0.01600647
+offset_right = -0.13604736
+offset_bottom = -0.044006348
+grow_horizontal = 2
+grow_vertical = 2
+text = "ENTER"
+
+[node name="SD_UIInterfaceMenu" type="Node" parent="." unique_id=1115464735 node_paths=PackedStringArray("target")]
+script = ExtResource("2_0nmpa")
+target = NodePath("..")
+open_at_start = true
+close_on_escape = false
+metadata/_custom_type_script = "uid://d1l1jkmj6s53f"
+
+[connection signal="pressed" from="Panel/enter" to="." method="_on_enter_pressed"]

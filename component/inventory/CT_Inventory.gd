@@ -1,10 +1,12 @@
 extends SimusNetNode
 class_name CT_Inventory
 
+@export var node: Node
+@export var initial_slot_count: int = 16
+
 var _item_stacks: Array[CT_ItemStack]
 var _slots: Array[CT_InventorySlot]
 
-@export var initial_slot_count: int = 16
 
 func get_item_stacks() -> Array[CT_ItemStack]:
 	return _item_stacks
@@ -18,6 +20,8 @@ func get_slots() -> Array[CT_InventorySlot]:
 func _ready() -> void:
 	_network_setup()
 	super()
+	
+	SD_ECS.append_to(node, self)
 
 func _network_ready() -> void:
 	super()

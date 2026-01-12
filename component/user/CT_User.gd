@@ -12,6 +12,13 @@ var _nickname: String = ""
 
 static var _local: CT_User
 
+func set_in(node: Node) -> CT_User:
+	node.set_meta("CT_User", self)
+	return self
+
+static func find_in(node: Node) -> CT_User:
+	return node.get_meta("CT_User")
+
 static func get_local() -> CT_User:
 	return _local
 

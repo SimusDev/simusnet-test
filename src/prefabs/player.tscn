@@ -55,8 +55,9 @@ mesh = SubResource("CapsuleMesh_d5u4l")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.014526367, 0)
 shape = SubResource("BoxShape3D_d5u4l")
 
-[node name="CT_Inventory" type="Node" parent="." unique_id=1466658098]
+[node name="CT_Inventory" type="Node" parent="." unique_id=1466658098 node_paths=PackedStringArray("node")]
 script = ExtResource("7_4gg6d")
+node = NodePath("..")
 metadata/_custom_type_script = "uid://dehqcsswxyu8a"
 
 [node name="CT_InventorySlot" type="Node" parent="CT_Inventory" unique_id=1072217943]

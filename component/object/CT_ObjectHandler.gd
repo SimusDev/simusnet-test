@@ -5,10 +5,10 @@ var _registry: Dictionary[String, Object] = {}
 
 @onready var _logger: SD_Logger = SD_Logger.new(self)
 
-const GROUP_DEFAULT: String = "game"
+signal on_registered(object: Object, id: String)
+signal on_unregistered(object: Object, id: String)
 
-func register(id: String, object: Object, group: String = GROUP_DEFAULT) -> bool:
-	id = group + ":" + id
+func register(id: String, object: Object) -> bool:
 	
 	if _registry.has(id):
 		_logger.debug("is already registered!: %s, %s" % [id, _logger.variant_to_string(object)], SD_ConsoleCategories.ERROR)
@@ -17,6 +17,7 @@ func register(id: String, object: Object, group: String = GROUP_DEFAULT) -> bool
 	SD_Nodes.call_method_if_exists(object, "_registered")
 	
 	_registry[id] = object
+	on_registered.emit(object, id)
 	_logger.debug("registered: %s, %s" % [id, _logger.variant_to_string(object)])
 	return true
 
@@ -28,6 +29,7 @@ func unregister(id: String) -> bool:
 	
 	SD_Nodes.call_method_if_exists(object, "_unregistered")
 	_registry.erase(id)
+	on_unregistered.emit(object, id)
 	return true
 
 func async_load_directory(path: String) -> void:
@@ -38,6 +40,8 @@ func async_load_directory(path: String) -> void:
 			if id.is_empty():
 				id = resource.resource_path.get_file().get_basename()
 			
-			register(id, resource, resource.get_group())
+			id = resource.get_group() + ":" + id
+			
+			register(id, resource)
 	
 	await get_tree().physics_frame

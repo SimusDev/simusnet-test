@@ -13,8 +13,7 @@
 [ext_resource type="Script" uid="uid://deo0gxkmk2ahd" path="res://addons/sky_3d/src/Sky3D.gd" id="9_h0r5j"]
 [ext_resource type="Script" uid="uid://b46vr0tfi3khi" path="res://addons/sky_3d/src/SkyDome.gd" id="10_gc45m"]
 [ext_resource type="Script" uid="uid://cjmkcj8hwm7ts" path="res://addons/sky_3d/src/TimeOfDay.gd" id="11_vdkmh"]
-[ext_resource type="Script" uid="uid://dgp0pmmh5blth" path="res://component/object/CT_ObjectSpawn.gd" id="12_1dl0r"]
-[ext_resource type="Resource" uid="uid://c27wsx5yo7iuh" path="res://src/objects/player/player.tres" id="13_7ptks"]
+[ext_resource type="Script" uid="uid://fc6kpuv5syvv" path="res://component/level/CT_SpawnPoint3D.gd" id="13_1dl0r"]
 [ext_resource type="PackedScene" uid="uid://c04sd4mj5rmef" path="res://scenes/prefabs/lighting/omni_light_3d.tscn" id="16_jk8u2"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_oanou"]
@@ -80,8 +79,8 @@ shader_parameter/cirrus_sky_tint_fade = 0.5
 shader_parameter/cirrus_intensity = 10.0
 shader_parameter/cirrus_size = 1.0
 shader_parameter/cirrus_uv = Vector2(0.16, 0.11)
-shader_parameter/cirrus_position1 = Vector2(0.3298672, 0.3298672)
-shader_parameter/cirrus_position2 = Vector2(0.3298672, 0.3298672)
+shader_parameter/cirrus_position1 = Vector2(0.4622332, 0.4622332)
+shader_parameter/cirrus_position2 = Vector2(0.4622332, 0.4622332)
 shader_parameter/cirrus_day_color = Color(0.824, 0.875, 1, 1)
 shader_parameter/cirrus_horizon_light_color = Color(0.98, 0.43, 0.15, 1)
 shader_parameter/cirrus_night_color = Color(0.09, 0.094, 0.129, 1)
@@ -94,7 +93,7 @@ shader_parameter/cumulus_noise_freq = 2.7
 shader_parameter/cumulus_sky_tint_fade = 0.0
 shader_parameter/cumulus_intensity = 0.6
 shader_parameter/cumulus_size = 0.5
-shader_parameter/cumulus_position = Vector2(6.6490993, 6.6490993)
+shader_parameter/cumulus_position = Vector2(7.310427, 7.310427)
 shader_parameter/cumulus_texture = ExtResource("4_1dl0r")
 shader_parameter/cumulus_day_color = Color(0.823529, 0.87451, 1, 1)
 shader_parameter/cumulus_horizon_light_color = Color(0.98, 0.43, 0.15, 1)
@@ -132,21 +131,15 @@ material = SubResource("StandardMaterial3D_jk8u2")
 
 [node name="MainLevel" type="Node3D" unique_id=658119017]
 
-[node name="Players" type="Node3D" parent="." unique_id=866383274]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.3066907, 0)
+[node name="Players" type="Node3D" parent="." unique_id=1359783398]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.0249274, 0)
 
-[node name="SimusNetNodePlayerSpawner" type="Node" parent="Players" unique_id=340588472 node_paths=PackedStringArray("spawnpoints", "root")]
+[node name="SimusNetNodePlayerSpawner" type="Node" parent="Players" unique_id=1489335201 node_paths=PackedStringArray("spawnpoints", "root")]
 script = ExtResource("1_spqat")
 prefabs = Array[PackedScene]([ExtResource("2_jk8u2")])
 spawnpoints = [NodePath("..")]
 root = NodePath("..")
 metadata/_custom_type_script = "uid://imhh1kugqh4m"
-
-[node name="CT_ObjectSpawn" type="Node3D" parent="." unique_id=1520449089]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.915879, 0)
-script = ExtResource("12_1dl0r")
-object = ExtResource("13_7ptks")
-metadata/_custom_type_script = "uid://dgp0pmmh5blth"
 
 [node name="SEX" type="CSGBox3D" parent="." unique_id=1728282914]
 use_collision = true
@@ -264,11 +257,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.743187, 2.5113976, 11.4253
 mesh = SubResource("BoxMesh_n0uqs")
 
 [node name="OmniLight3D" parent="CubeLight" unique_id=2105551723 instance=ExtResource("16_jk8u2")]
-light_energy = 0.96
-light_indirect_energy = 0.96
 
 [node name="cLampComponent" parent="CubeLight/OmniLight3D" index="0" unique_id=1203643786 node_paths=PackedStringArray("MeshInstances")]
 Lit = true
 MeshInstances = [NodePath("../..")]
+
+[node name="CT_SpawnPoint3D" type="Node3D" parent="." unique_id=257207125]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.9947934, 0)
+script = ExtResource("13_1dl0r")
+metadata/_custom_type_script = "uid://fc6kpuv5syvv"
 
 [editable path="CubeLight/OmniLight3D"]

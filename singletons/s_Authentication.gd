@@ -5,6 +5,20 @@ signal on_success()
 
 var is_authenticated: bool = false
 
+@onready var _cmd_login: SD_ConsoleCommand = SD_ConsoleCommand.get_or_create("login", "user")
+@onready var _cmd_password: SD_ConsoleCommand = SD_ConsoleCommand.get_or_create("password", "")
+
+func get_last_login() -> String:
+	return _cmd_login.get_value_as_string()
+
+func get_last_password() -> String:
+	return _cmd_password.get_value_as_string()
+
+func clear_login_and_password() -> void:
+	_cmd_login.set_value("")
+	_cmd_password.set_value("")
+	
+
 func _ready() -> void:
 	SimusNetRPC.register([
 		_request,
@@ -50,9 +64,10 @@ func _request(user_input: Dictionary) -> void:
 		return
 	
 	var data: R_LocalData = R_LocalData.get_or_create_server("users", user_input.login)
-	if data.password != password:
-		SimusNetRPC.invoke_on(SimusNetRemote.sender_id, _receive_error, "error.wrong_password")
-		return
+	if data.has_key("password"):
+		if data.get_value("password") != password:
+			SimusNetRPC.invoke_on(SimusNetRemote.sender_id, _receive_error, "error.wrong_password")
+			return
 	
 	var user: CT_User = CT_User.server_create(user_input, SimusNetRemote.sender_id)
 	s_Users._connect_user(user)

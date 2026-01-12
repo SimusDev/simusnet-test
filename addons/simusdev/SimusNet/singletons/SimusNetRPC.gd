@@ -157,6 +157,9 @@ static func invoke_on(peer: int, callable: Callable, ...args: Array) -> void:
 static func invoke_on_server(callable: Callable, ...args: Array) -> void:
 	_instance._invoke_on(SimusNetConnection.SERVER_ID, callable, args)
 
+static func invoke_on_sender(callable: Callable, ...args: Array) -> void:
+	_instance._invoke_on(SimusNetRemote.sender_id, callable, args)
+
 func _invoke_on(peer: int, callable: Callable, args: Array) -> void:
 	var config: SimusNetRPCConfig = await _validate_callable(callable)
 	if !config:

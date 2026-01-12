@@ -8,6 +8,8 @@ static var _loaded: Dictionary[String, R_LocalData] = {}
 
 @export var _storage: Dictionary = {}
 
+var last_path: String = ""
+
 func get_value(key: Variant, default: Variant = null) -> Variant:
 	return _storage.get(key, default)
 
@@ -28,23 +30,26 @@ static func get_or_create(folder: String, filename: String) -> R_LocalData:
 	SD_FileSystem.make_directory(folder_path)
 	
 	var filepath: String = folder_path.path_join(filename) + EXTENSION
+	filepath = SD_FileSystem.normalize_path(filepath)
 	if _loaded.has(filepath):
-		return _loaded.get(filepath)
+		return _loaded[filepath]
 	
 	var loaded: Resource = ResourceLoader.load(filepath)
 	if loaded:
 		if loaded is R_LocalData:
+			loaded.last_path = filepath
 			_loaded[filepath] = loaded
 			return loaded
 	
 	
 	var data := R_LocalData.new()
-	ResourceSaver.save(data)
+	data.last_path = filepath
+	ResourceSaver.save(data, filepath)
 	_loaded[filepath] = data
 	return data
 
 func save() -> void:
-	ResourceSaver.save(self, resource_path)
+	ResourceSaver.save(self, last_path)
 
 static func get_or_create_server(folder: String, filename: String) -> R_LocalData:
 	return get_or_create("server/".path_join(folder), filename)
