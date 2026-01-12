@@ -288,7 +288,7 @@ func _recieve_send_packet_local(packet: Variant, from_peer: int) -> void:
 		if !identity:
 			continue
 		
-		if SimusNet.get_network_authority(identity.owner) == from_peer:
+		if SimusNet.get_network_authority(identity.owner) == from_peer or (from_peer == SimusNet.SERVER_ID):
 			for s_p in data[id]:
 				var property: String = try_deserialize_from_variant(s_p)
 				var config: SimusNetVarConfig = SimusNetVarConfig.get_config(identity.owner, property)

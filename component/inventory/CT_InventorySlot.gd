@@ -13,6 +13,7 @@ func get_item_stack() -> CT_ItemStack:
 
 func _enter_tree() -> void:
 	_inventory = SD_ECS.node_find_above_by_script(self, CT_Inventory)
+	SimusNetVisible.set_visibile(self, SimusNetVisible.get_or_create(_inventory))
 	_inventory._slots.append(self)
 
 func _exit_tree() -> void:

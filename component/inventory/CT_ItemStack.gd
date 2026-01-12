@@ -46,12 +46,19 @@ func serialize() -> Dictionary:
 	if get_script().get_global_name() != "CT_ItemStack":
 		data[0] = SimusNetSerializer.parse_resource(get_script())
 	data[1] = name
+	if object:
+		data[2] = SimusNetSerializer.parse_resource(object)
 	return data
 
 static func deserialize(data: Dictionary) -> CT_ItemStack:
 	var script: GDScript = data.get(0, CT_ItemStack)
 	var item: CT_ItemStack = script.new()
 	item.name = data[1]
+	
+	var _object: Variant = data.get(2, null)
+	if _object:
+		item.object = SimusNetDeserializer.parse_resource(_object)
+	
 	return item
 
 static func serialize_array(array: Array[CT_ItemStack]) -> PackedByteArray:
