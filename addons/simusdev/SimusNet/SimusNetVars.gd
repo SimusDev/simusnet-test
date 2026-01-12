@@ -227,9 +227,10 @@ func _replicate_rpc_unreliable(packet: Variant) -> void:
 		_replicate_rpc_server(packet, multiplayer.get_remote_sender_id(), false)
 
 static func send(object: Object, properties: PackedStringArray, reliable: bool = true, log_error: bool = true) -> void:
-	if SimusNet.is_network_authority(object):
+	if SimusNet.is_network_authority(object) or SimusNetConnection.is_server():
 		var changed_properties: Dictionary[StringName, Variant] = SimusNetSynchronization.get_changed_properties(object)
 		for property in properties:
+			
 			if changed_properties.get_or_add(property, null) == object.get(property):
 				continue
 			
@@ -266,7 +267,6 @@ func _handle_send(_queue: Dictionary) -> void:
 	if !unreliable.is_empty():
 		_send_handle_packet(unreliable, false)
 	
-
 func _send_handle_packet(packet: Dictionary, reliable: bool) -> void:
 	for id in packet:
 		var identity: SimusNetIdentity = SimusNetIdentity.try_deserialize_from_variant(id)
@@ -297,6 +297,7 @@ func _recieve_send_packet_local(packet: Variant, from_peer: int) -> void:
 				
 				var value: Variant = SimusNetDeserializer.parse(data[id][s_p], config._serialize)
 				identity.owner.set(property, value)
+				
 
 @rpc("any_peer", "call_remote", "reliable", SimusNetChannels.BUILTIN.VARS_SEND_RELIABLE)
 func _recieve_send(packet: Variant) -> void:

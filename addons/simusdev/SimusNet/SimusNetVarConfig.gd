@@ -7,6 +7,7 @@ var _channel: int = SimusNetChannels.BUILTIN.VARS_SEND_RELIABLE
 var _reliable: bool = true
 
 var _replication: bool = false
+var _replicate_on_spawn: bool = true
 var _serialize: bool = false
 
 var is_ready: bool = false
@@ -32,7 +33,8 @@ func get_object() -> SimusNetObject:
 func get_properties() -> PackedStringArray:
 	return _properties
 
-func flag_replication(value: bool = true) -> SimusNetVarConfig:
+func flag_replication(on_spawn: bool = true, value: bool = true) -> SimusNetVarConfig:
+	_replicate_on_spawn = on_spawn
 	_f_rep(value)
 	return self
 
@@ -88,10 +90,14 @@ func _on_spawn_replicate() -> void:
 	if not _replication:
 		return
 	
-	SimusNetVars.replicate(_object, _properties, _reliable)
+	if _replicate_on_spawn:
+		SimusNetVars.replicate(_object, _properties, _reliable)
 
 func _on_tick() -> void:
-	if !SimusNet.is_network_authority(_object):
+	if !SimusNetConnection.is_server() and _mode == MODE.SERVER_ONLY:
+		return
+	 
+	if !SimusNet.is_network_authority(_object) and _mode == MODE.AUTHORITY:
 		return
 	
 	SimusNetVars.send(_object, _properties, _reliable)

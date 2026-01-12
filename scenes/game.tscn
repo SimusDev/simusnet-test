@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://e55eek63c86k"]
 
 [ext_resource type="Script" uid="uid://doxf33wt4344v" path="res://scenes/game.gd" id="1_yqjtg"]
+[ext_resource type="PackedScene" uid="uid://dpstgq7tmwwpx" path="res://scenes/connection.tscn" id="5_iywne"]
 [ext_resource type="PackedScene" uid="uid://dbxq4udu4u41q" path="res://scenes/prefabs/level_handler.tscn" id="7_0tnpc"]
 [ext_resource type="Resource" uid="uid://cebiccjge2f1l" path="res://src/levels/main_level.tres" id="8_kvpfn"]
-[ext_resource type="PackedScene" uid="uid://bb30gdt6q8ij" path="res://addons/simusdev/components/fp_controller/source_like/W_FPCSourceLikeCamera.tscn" id="8_vtaks"]
 
 [node name="Game" type="Node3D" unique_id=1979558274]
 script = ExtResource("1_yqjtg")
@@ -14,11 +14,4 @@ level_holder = NodePath("../LevelHolder")
 
 [node name="LevelHolder" type="Node3D" parent="." unique_id=1933042641]
 
-[node name="FreeCamera" parent="." unique_id=52967810 instance=ExtResource("8_vtaks")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.3, 0)
-key_forward = "move_forward"
-key_backward = "move_backward"
-key_left = "move_left"
-key_right = "move_right"
-key_boost = "sprint"
-key_slowdown = "crouch"
+[node name="Connection" parent="." unique_id=922191719 instance=ExtResource("5_iywne")]
