@@ -8,7 +8,7 @@ const BUILTIN_CACHE: PackedStringArray = [
 	"scale",
 ]
 
-signal on_tick()
+signal on_tick(delta: float)
 
 static var _instance: SimusNetVars
 
@@ -17,8 +17,6 @@ static func get_instance() -> SimusNetVars:
 
 static var _event_cached: SimusNetEventVariableCached
 static var _event_uncached: SimusNetEventVariableUncached
-
-var _timer: Timer
 
 static func get_cached() -> PackedStringArray:
 	return SimusNetCache.data_get_or_add("v", PackedStringArray())
@@ -66,11 +64,6 @@ func initialize() -> void:
 	
 	process_mode = Node.PROCESS_MODE_DISABLED
 	
-	_timer = Timer.new()
-	_timer.timeout.connect(_on_tick)
-	_timer.wait_time = 1.0 / singleton.settings.synchronization_vars_tickrate
-	add_child(_timer)
-	
 	
 
 static func register(object: Object, properties: PackedStringArray, config: SimusNetVarConfig = SimusNetVarConfig.new()) -> bool:
@@ -79,11 +72,9 @@ static func register(object: Object, properties: PackedStringArray, config: Simu
 
 func _on_connected() -> void:
 	process_mode = Node.PROCESS_MODE_PAUSABLE
-	_timer.start()
 	
 func _on_disconnected() -> void:
 	process_mode = Node.PROCESS_MODE_DISABLED
-	_timer.stop()
 
 var _queue_replicate: Dictionary = {}
 var _queue_replicate_unreliable: Dictionary = {}
@@ -92,8 +83,7 @@ var _queue_replicate_server: Dictionary = {}
 
 var _queue_send: Dictionary = {}
 
-func _on_tick() -> void:
-	_timer.wait_time = 1.0 / singleton.settings.synchronization_vars_tickrate
+func _physics_process(delta: float) -> void:
 	
 	if !_queue_replicate.is_empty():
 		_handle_replicate(_queue_replicate, true)
@@ -111,7 +101,7 @@ func _on_tick() -> void:
 		_handle_send(_queue_send)
 		_queue_send.clear()
 	
-	on_tick.emit()
+	on_tick.emit(delta)
 	
 
 static func replicate(object: Object, properties: PackedStringArray, reliable: bool = true) -> void:
@@ -150,6 +140,7 @@ func _replicate_rpc_server(packet: Variant, peer: int, reliable: bool) -> void:
 	for identity_id in data:
 		var identity: SimusNetIdentity = SimusNetIdentity.try_deserialize_from_variant(identity_id)
 		if !identity:
+			logger.debug_error("_replicate_rpc_server() identity with %s ID was not found." % identity_id)
 			continue
 		
 		var peer_data: Dictionary = _queue_replicate_server.get_or_add(peer, {})
@@ -231,7 +222,7 @@ static func send(object: Object, properties: PackedStringArray, reliable: bool =
 		var changed_properties: Dictionary[StringName, Variant] = SimusNetSynchronization.get_changed_properties(object)
 		for property in properties:
 			
-			if changed_properties.get_or_add(property, null) == object.get(property):
+			if changed_properties.get_or_add(property, object.get(property)) == object.get(property):
 				continue
 			
 			var config: SimusNetVarConfig = SimusNetVarConfig.get_config(object, property)
@@ -286,6 +277,7 @@ func _recieve_send_packet_local(packet: Variant, from_peer: int) -> void:
 	for id in data:
 		var identity: SimusNetIdentity = SimusNetIdentity.try_deserialize_from_variant(id)
 		if !identity:
+			logger.debug_error("recieve vars from peer(%s), identity with %s ID was not found." % [from_peer, id])
 			continue
 		
 		if SimusNet.get_network_authority(identity.owner) == from_peer or (from_peer == SimusNet.SERVER_ID):

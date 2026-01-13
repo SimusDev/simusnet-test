@@ -3,7 +3,7 @@ class_name SimusNetSettings
 
 @export_group("Synchronization", "synchronization")
 @export var synchronization_transform_tickrate: float = 32.0
-@export var synchronization_vars_tickrate: float = 64.0
+#@export var synchronization_vars_tickrate: float = 64.0
 
 #@export_group("Time", "time")
 #@export var time_tickrate: float = 48.0 : set = set_time_tickrate

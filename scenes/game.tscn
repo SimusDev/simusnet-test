@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://e55eek63c86k"]
 
 [ext_resource type="Script" uid="uid://doxf33wt4344v" path="res://scenes/game.gd" id="1_yqjtg"]
+[ext_resource type="PackedScene" uid="uid://doaq5fchetdqp" path="res://component/sky/sky_3d.tscn" id="4_lbhrr"]
 [ext_resource type="PackedScene" uid="uid://dbxq4udu4u41q" path="res://scenes/prefabs/level_handler.tscn" id="7_0tnpc"]
 [ext_resource type="Resource" uid="uid://cebiccjge2f1l" path="res://src/levels/main_level.tres" id="8_kvpfn"]
 
@@ -12,3 +13,10 @@ level_at_start = ExtResource("8_kvpfn")
 level_holder = NodePath("../LevelHolder")
 
 [node name="LevelHolder" type="Node3D" parent="." unique_id=1933042641]
+
+[node name="Sky3D" parent="." unique_id=1126287609 instance=ExtResource("4_lbhrr")]
+editor_time_enabled = false
+current_time = 9.0
+minutes_per_day = 40.0
+moon_energy = 0.3
+wind_direction = 2.35619451204804

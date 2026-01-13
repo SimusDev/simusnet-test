@@ -6,7 +6,6 @@ static var _instance: SimusNetSynchronization
 var _transforms: Array[SimusNetTransform] = []
 
 var _timer_transform: Timer
-var _timer_vars: Timer
 
 func _init() -> void:
 	_instance = self
@@ -23,12 +22,8 @@ func initialize() -> void:
 	
 	_timer_transform = Timer.new()
 	_timer_transform.wait_time = 1.0 / singleton.settings.synchronization_transform_tickrate
-	_timer_vars = Timer.new()
-	_timer_vars.wait_time = 1.0 / singleton.settings.synchronization_vars_tickrate
 	_timer_transform.timeout.connect(_on_transform_tick)
-	_timer_vars.timeout.connect(_on_vars_tick)
 	add_child(_timer_transform)
-	add_child(_timer_vars)
 	
 	SimusNetEvents.event_connected.listen(_on_connected)
 	SimusNetEvents.event_disconnected.listen(_on_disconnected)
@@ -40,12 +35,10 @@ func initialize() -> void:
 func _on_connected() -> void:
 	process_mode = Node.PROCESS_MODE_PAUSABLE
 	_timer_transform.start()
-	_timer_vars.start()
 
 func _on_disconnected() -> void:
 	process_mode = Node.PROCESS_MODE_DISABLED
 	_timer_transform.stop()
-	_timer_vars.stop()
 
 func _on_transform_tick() -> void:
 	_timer_transform.wait_time = 1.0 / singleton.settings.synchronization_transform_tickrate

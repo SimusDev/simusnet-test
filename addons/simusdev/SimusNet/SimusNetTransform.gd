@@ -6,6 +6,8 @@ class_name SimusNetTransform
 @export var interpolate: bool = true : get = is_interpolated
 @export var interpolate_speed: float = 15.0 : get = get_interpolate_speed
 
+const _META: StringName = &"SimusNetTransform"
+
 func is_interpolated() -> bool:
 	return interpolate
 
@@ -21,10 +23,17 @@ func _ready() -> void:
 	if not "transform" in node:
 		return
 	
+	node.set_meta(_META, self)
+	
 	if !node.is_node_ready():
 		await node.ready
 		SimusNetIdentity.register(self)
 	
+
+static func find_transform(target: Node) -> SimusNetTransform:
+	if target.has_meta(_META):
+		return target.get_meta(_META)
+	return null
 
 func _process(delta: float) -> void:
 	if Engine.is_editor_hint():
