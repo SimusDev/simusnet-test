@@ -18,7 +18,7 @@ func _input(event: InputEvent) -> void:
 		return
 	
 	if Input.is_action_just_pressed("interact"):
-		sound.local_play(self, Vector3.ZERO)
+		sound.local_play(_level.get_local_group("group"), Vector3(0, 4, 0) )
 		
 		
 		if SimusNetConnection.is_server():
