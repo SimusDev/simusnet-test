@@ -69,7 +69,7 @@ static func set_cooldown(callable: Callable, time: float = 0.0) -> SimusNetRPCGo
 	SimusNetRPC.set_cooldown(callable, time)
 	return singleton.RPCgodot
 
-static func get_cooldown(callable: Callable) -> SD_CooldownTimer:
+static func get_cooldown(callable: Callable) -> SimusNetCooldownTimer:
 	return SimusNetRPC.get_cooldown(callable)
 
 static func is_cooldown_active(callable: Callable) -> bool:

@@ -60,7 +60,6 @@ static func invoke_all(callable: Callable, ...args: Array) -> void:
 	_instance._invoke(callable, args)
 
 func _invoke(callable: Callable, args: Array) -> void:
-	
 	if !SimusNetConnection.is_active():
 		return
 	
@@ -69,16 +68,14 @@ func _invoke(callable: Callable, args: Array) -> void:
 		return
 	
 	for id in SimusNetConnection.get_connected_peers():
-		_invoke_on_without_validating(id, callable, args, config)
+		if SimusNetVisibility.is_visible_for(id, callable.get_object()) or SimusNetVisibility.is_method_always_visible(callable):
+			_invoke_on_without_validating(id, callable, args, config)
 	
 
 func _invoke_on_without_validating(peer: int, callable: Callable, args: Array, config: SimusNetRPCConfig) -> void:
 	var object: Object = callable.get_object()
 	
 	if is_cooldown_active(callable):
-		return
-		
-	if !SimusNetVisibility.is_visible_for(peer, object) and !SimusNetVisibility.is_method_always_visible(callable):
 		return
 	
 	var identity: SimusNetIdentity = SimusNetIdentity.try_find_in(object)
@@ -174,9 +171,9 @@ func _invoke_on(peer: int, callable: Callable, args: Array) -> void:
 
 const _META_COOLDOWN: String = "netrpcs_cooldown"
 
-static func _cooldown_create_or_get_storage(callable: Callable) -> Dictionary[String, SD_CooldownTimer]:
+static func _cooldown_create_or_get_storage(callable: Callable) -> Dictionary[String, SimusNetCooldownTimer]:
 	var object: Object = callable.get_object()
-	var storage: Dictionary[String, SD_CooldownTimer] = {}
+	var storage: Dictionary[String, SimusNetCooldownTimer] = {}
 	
 	if object.has_meta(_META_COOLDOWN):
 		storage = object.get_meta(_META_COOLDOWN)
@@ -185,22 +182,22 @@ static func _cooldown_create_or_get_storage(callable: Callable) -> Dictionary[St
 	return storage
 
 static func set_cooldown(callable: Callable, time: float = 0.0) -> SimusNetRPC:
-	var timer := SD_CooldownTimer.new()
+	var timer := SimusNetCooldownTimer.new()
 	_cooldown_create_or_get_storage(callable)[callable.get_method()] = timer
 	return _instance
 
-static func get_cooldown(callable: Callable) -> SD_CooldownTimer:
-	var storage: Dictionary[String, SD_CooldownTimer] = _cooldown_create_or_get_storage(callable)
+static func get_cooldown(callable: Callable) -> SimusNetCooldownTimer:
+	var storage: Dictionary[String, SimusNetCooldownTimer] = _cooldown_create_or_get_storage(callable)
 	return storage.get(callable.get_method())
 
 static func is_cooldown_active(callable: Callable) -> bool:
-	var timer: SD_CooldownTimer = get_cooldown(callable)
+	var timer: SimusNetCooldownTimer = get_cooldown(callable)
 	if timer:
 		return timer.is_active()
 	return false
 
 static func _start_cooldown(callable: Callable) -> SimusNetRPC:
-	var timer: SD_CooldownTimer = get_cooldown(callable)
+	var timer: SimusNetCooldownTimer = get_cooldown(callable)
 	if timer:
 		timer.start()
 	return _instance
