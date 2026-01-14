@@ -1,7 +1,10 @@
 [gd_scene format=3 uid="uid://c02tkhar84byp"]
 
 [ext_resource type="PackedScene" uid="uid://dy5pg5df2wsi2" path="res://3d/crowbar/crowbar_model.tscn" id="1_lcmwy"]
+[ext_resource type="Script" uid="uid://d0q02rkjl2np2" path="res://component/item/Item.gd" id="1_pbp70"]
 
-[node name="CrowbarView" type="Node3D" unique_id=559489058]
+[node name="CrowbarView" type="Node" unique_id=1071723439]
+script = ExtResource("1_pbp70")
+metadata/_custom_type_script = "uid://d0q02rkjl2np2"
 
 [node name="CrowbarModel" parent="." unique_id=1948536088 instance=ExtResource("1_lcmwy")]

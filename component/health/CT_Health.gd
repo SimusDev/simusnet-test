@@ -9,6 +9,7 @@ signal on_value_max_changed()
 @export var value_max: float = 100.0 : set = set_value_max
 
 func _ready() -> void:
+	SD_Components.append_to(Player.get_local(), self)
 	SimusNetNodeAutoVisible.register_or_get(self)
 	SimusNetVars.register(self, [
 		"value",
@@ -28,4 +29,12 @@ func set_value_max(new: float) -> CT_Health:
 
 func apply_damage(damage: R_Damage) -> CT_Health:
 	damage.apply(self)
+	return self
+
+func kill() -> CT_Health:
+	(
+		R_Damage.new()
+			.set_value(value_max)
+			.apply(self)
+	)
 	return self

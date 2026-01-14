@@ -9,14 +9,15 @@ signal detected
 var _was_detected:bool = false
 
 func _ready() -> void:
-	set_notify_transform(true)
+	if SimusNet.is_network_authority(self):
+		set_notify_transform(true)
 
 func _notification(what):
 	if what == NOTIFICATION_TRANSFORM_CHANGED:
 		_handle()
 
 func _handle() -> void:
-	if not SimusNetConnection.is_server():
+	if not SimusNet.is_network_authority(self):
 		return
 	if not enabled or _was_detected:
 		return

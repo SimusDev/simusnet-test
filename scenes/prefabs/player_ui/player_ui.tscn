@@ -1,18 +1,7 @@
 [gd_scene format=3 uid="uid://b36ise4k4tg7d"]
 
-[ext_resource type="Script" uid="uid://851bhpxqx0n8" path="res://addons/simusdev/localization/SD_RichTextLabelSimple.gd" id="1_3yttw"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nask7"]
-content_margin_left = 0.0
-content_margin_top = 0.0
-content_margin_right = 0.0
-content_margin_bottom = 0.0
-bg_color = Color(0.101960786, 0.101960786, 0.101960786, 0.2)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
-corner_detail = 5
+[ext_resource type="Script" uid="uid://bf6yqsfyrvv86" path="res://scenes/prefabs/player_ui/player_ui.gd" id="1_nask7"]
+[ext_resource type="PackedScene" uid="uid://cv4ck2wbf677e" path="res://scenes/prefabs/player_ui/health_panel.tscn" id="2_nask7"]
 
 [node name="PlayerUI" type="Control" unique_id=1578783826]
 layout_mode = 3
@@ -22,34 +11,15 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+script = ExtResource("1_nask7")
 
-[node name="Panel" type="Panel" parent="." unique_id=1668101445]
+[node name="HealthPanel" parent="." unique_id=1881134861 instance=ExtResource("2_nask7")]
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.0069444445
-anchor_top = 0.8626543
-anchor_right = 0.21614583
-anchor_bottom = 0.97530866
-mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_nask7")
-metadata/_edit_use_anchors_ = true
-
-[node name="HealthLabel" type="RichTextLabel" parent="Panel" unique_id=1276316375]
-self_modulate = Color(1, 1, 1, 0.9019608)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchor_left = 0.020833334
+anchor_top = 0.8518519
+anchor_right = 0.22916667
+anchor_bottom = 0.9675926
+offset_right = 0.0
+offset_bottom = 0.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
-theme_override_font_sizes/normal_font_size = 21
-bbcode_enabled = true
-text = "[color=#fb7e14]HEALTH [font_size=46]100"
-scroll_active = false
-shortcut_keys_enabled = false
-horizontal_alignment = 1
-vertical_alignment = 1
-script = ExtResource("1_3yttw")
-font_size = 21
-metadata/_custom_type_script = "uid://851bhpxqx0n8"
