@@ -1,4 +1,4 @@
-@icon("CT_Health.png")
+@icon("./icons/health.png")
 extends Node
 class_name CT_Health
 

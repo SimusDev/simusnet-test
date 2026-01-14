@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="R_Player" format=3 uid="uid://c27wsx5yo7iuh"]
 
-[ext_resource type="Script" uid="uid://krog7c2ovqsb" path="res://component/object/player/R_Player.gd" id="1_dfqpu"]
+[ext_resource type="Script" uid="uid://krog7c2ovqsb" path="res://component/player/R_Player.gd" id="1_dfqpu"]
 [ext_resource type="Script" uid="uid://cqdfkwb1galvp" path="res://component/viewmodel/R_ViewModel.gd" id="2_0is2m"]
 [ext_resource type="PackedScene" uid="uid://deashx71fo0da" path="res://src/prefabs/player.tscn" id="3_5p0gq"]
 

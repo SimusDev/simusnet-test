@@ -38,13 +38,33 @@ func _ready() -> void:
 		flag_mode_server_only().flag_replication()
 	)
 	
+	SimusNetRPC.register(
+		[
+			queue_free
+		],
+		SimusNetRPCConfig.new().flag_mode_server_only().flag_serialization()
+		.flag_set_channel(Network.CHANNEL_INVENTORY)
+	)
+	
+	var item_config: R_ItemStackConfig = object.get_itemstack_config()
+	stackable = item_config.stackable
+	stack_size = item_config.stack_size
+	
 	
 
+func remove() -> void:
+	if SimusNetConnection.is_server():
+		SimusNetRPC.invoke_all(queue_free)
+
+static func create_from_object(_object: R_WorldObject) -> CT_ItemStack:
+	var item: CT_ItemStack = null
+	return item
 
 func serialize() -> Dictionary:
 	var data: Dictionary = {}
 	if get_script().get_global_name() != "CT_ItemStack":
 		data[0] = SimusNetSerializer.parse_resource(get_script())
+	name = name.validate_node_name()
 	data[1] = name
 	if object:
 		data[2] = SimusNetSerializer.parse_resource(object)

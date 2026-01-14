@@ -61,6 +61,9 @@ func flag_serialize(value: bool = true) -> SimusNetVarConfig:
 	return self
 
 func _async_apply_channel(channel: Variant) -> void:
+	if channel is String:
+		SimusNetChannels.register(channel)
+	_channel = SimusNetChannels.parse_and_get_id(channel)
 	_channel = await SimusNetChannels.async_parse_and_get_id(channel)
 
 func flag_reliable(channel: Variant = SimusNetChannels.BUILTIN.VARS_SEND_RELIABLE) -> SimusNetVarConfig:
@@ -102,10 +105,6 @@ func _on_spawn_replicate() -> void:
 		SimusNetVars.replicate(_object, _properties, _reliable)
 
 func _on_tick(delta: float) -> void:
-	if !SimusNetConnection.is_server() and _mode == MODE.SERVER_ONLY:
-		SimusNetVars.get_instance().on_tick.disconnect(_on_tick)
-		return
-	
 	if _tickrate <= 0.0:
 		_process_sync()
 		return
@@ -118,6 +117,9 @@ func _on_tick(delta: float) -> void:
 
 func _process_sync() -> void:
 	if !SimusNet.is_network_authority(_object) and _mode == MODE.AUTHORITY:
+		return
+	
+	if !SimusNetConnection.is_server() and _mode == MODE.SERVER_ONLY:
 		return
 	
 	SimusNetVars.send(_object, _properties, _reliable)

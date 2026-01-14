@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://cmmrufl5ygbop"]
+
+[ext_resource type="Script" uid="uid://dehqcsswxyu8a" path="res://component/inventory/CT_Inventory.gd" id="1_qv2pm"]
+[ext_resource type="Script" uid="uid://c4okankbwa8k" path="res://component/inventory/CT_InventorySlotCloth.gd" id="2_612qr"]
+[ext_resource type="Script" uid="uid://cbtj1vhagkvwq" path="res://component/inventory/CT_InventorySlotHot.gd" id="3_4qqn0"]
+
+[node name="Inventory" type="Node" unique_id=1499312686]
+script = ExtResource("1_qv2pm")
+initial_slot_count = 27
+metadata/_custom_type_script = "uid://dehqcsswxyu8a"
+
+[node name="cloth_0" type="Node" parent="." unique_id=1264848154]
+script = ExtResource("2_612qr")
+metadata/_custom_type_script = "uid://c4okankbwa8k"
+
+[node name="cloth_1" type="Node" parent="." unique_id=702061452]
+script = ExtResource("2_612qr")
+metadata/_custom_type_script = "uid://c4okankbwa8k"
+
+[node name="cloth_2" type="Node" parent="." unique_id=1462430541]
+script = ExtResource("2_612qr")
+metadata/_custom_type_script = "uid://c4okankbwa8k"
+
+[node name="cloth_3" type="Node" parent="." unique_id=1624763832]
+script = ExtResource("2_612qr")
+metadata/_custom_type_script = "uid://c4okankbwa8k"
+
+[node name="hot_0" type="Node" parent="." unique_id=463093101]
+script = ExtResource("3_4qqn0")
+metadata/_custom_type_script = "uid://cbtj1vhagkvwq"
+
+[node name="hot_1" type="Node" parent="." unique_id=2144238613]
+script = ExtResource("3_4qqn0")
+metadata/_custom_type_script = "uid://cbtj1vhagkvwq"
+
+[node name="hot_2" type="Node" parent="." unique_id=1624433187]
+script = ExtResource("3_4qqn0")
+metadata/_custom_type_script = "uid://cbtj1vhagkvwq"
+
+[node name="hot_3" type="Node" parent="." unique_id=452237151]
+script = ExtResource("3_4qqn0")
+metadata/_custom_type_script = "uid://cbtj1vhagkvwq"
+
+[node name="hot_4" type="Node" parent="." unique_id=1332771545]
+script = ExtResource("3_4qqn0")
+metadata/_custom_type_script = "uid://cbtj1vhagkvwq"
+
+[node name="hot_5" type="Node" parent="." unique_id=526502779]
+script = ExtResource("3_4qqn0")
+metadata/_custom_type_script = "uid://cbtj1vhagkvwq"

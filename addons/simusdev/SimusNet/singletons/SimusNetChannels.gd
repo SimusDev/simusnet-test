@@ -52,6 +52,8 @@ static func async_parse_and_get_id(channel: Variant) -> int:
 			if _instance._channel_cached == channel:
 				return get_list().find(channel)
 			async_parse_and_get_id(channel)
+		return founded
+	
 	
 	return DEFAULT_ID
 
