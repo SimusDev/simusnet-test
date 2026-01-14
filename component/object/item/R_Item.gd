@@ -1,0 +1,1 @@
+class_name R_Item extends R_WorldObject
