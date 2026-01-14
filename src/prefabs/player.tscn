@@ -6,11 +6,9 @@
 [ext_resource type="PackedScene" uid="uid://bb30gdt6q8ij" path="res://addons/simusdev/components/fp_controller/source_like/W_FPCSourceLikeCamera.tscn" id="3_j7lg1"]
 [ext_resource type="PackedScene" uid="uid://be7h2lkvpihn3" path="res://addons/simusdev/components/fp_controller/source_like/W_FPCSourceLikeMovement.tscn" id="4_d5u4l"]
 [ext_resource type="Script" uid="uid://dpblk4cnhdonv" path="res://component/viewmodel/ViewModelRoot3D.gd" id="4_heeeb"]
+[ext_resource type="PackedScene" uid="uid://cmmrufl5ygbop" path="res://component/inventory/prefabs/inventory.tscn" id="4_wdfrp"]
 [ext_resource type="Resource" uid="uid://cic3i440xvcwv" path="res://src/objects/item/weapon/crowbar.tres" id="5_lhjlg"]
 [ext_resource type="Script" uid="uid://dvlnhvdrc3dy6" path="res://component/hitbox/CT_Hitbox.gd" id="5_yyb7l"]
-[ext_resource type="Script" uid="uid://dehqcsswxyu8a" path="res://component/inventory/CT_Inventory.gd" id="7_4gg6d"]
-[ext_resource type="Script" uid="uid://b7wl6dvtvsttb" path="res://component/inventory/CT_InventorySlot.gd" id="8_c8mnq"]
-[ext_resource type="Script" uid="uid://dmwy4xv7t1dip" path="res://component/inventory/CT_ItemStack.gd" id="9_c8mnq"]
 [ext_resource type="Script" uid="uid://cgpsyyx2x8kki" path="res://component/ui/MP_CanvasLayer.gd" id="10_wdfrp"]
 [ext_resource type="PackedScene" uid="uid://b36ise4k4tg7d" path="res://scenes/prefabs/player_ui/player_ui.tscn" id="11_y56kl"]
 
@@ -47,6 +45,9 @@ sound = ExtResource("2_rlttd")
 script = ExtResource("2_744qn")
 node = NodePath("..")
 metadata/_custom_type_script = "uid://d1jwapkumdp1u"
+
+[node name="Inventory" parent="." unique_id=1499312686 node_paths=PackedStringArray("node") instance=ExtResource("4_wdfrp")]
+node = NodePath("..")
 
 [node name="CT_HitboxHead" type="Area3D" parent="." unique_id=751971328 groups=["piercable"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
@@ -103,20 +104,6 @@ mesh = SubResource("CapsuleMesh_d5u4l")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=248427722]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.014526367, 0)
 shape = SubResource("BoxShape3D_d5u4l")
-
-[node name="CT_Inventory" type="Node" parent="." unique_id=1466658098 node_paths=PackedStringArray("node")]
-script = ExtResource("7_4gg6d")
-node = NodePath("..")
-metadata/_custom_type_script = "uid://dehqcsswxyu8a"
-
-[node name="CT_InventorySlot" type="Node" parent="CT_Inventory" unique_id=1072217943]
-script = ExtResource("8_c8mnq")
-metadata/_custom_type_script = "uid://b7wl6dvtvsttb"
-
-[node name="CT_ItemStack" type="Node" parent="CT_Inventory/CT_InventorySlot" unique_id=1074787855]
-script = ExtResource("9_c8mnq")
-object = ExtResource("5_lhjlg")
-metadata/_custom_type_script = "uid://dmwy4xv7t1dip"
 
 [node name="CT_DetectHeight" type="Node3D" parent="." unique_id=1485969125]
 script = SubResource("GDScript_eb5im")
