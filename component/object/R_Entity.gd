@@ -1,6 +1,9 @@
 extends R_WorldObject
 class_name R_Entity
 
+@export var hurt_sound:R_SoundObject
+@export var death_sound:R_SoundObject
+
 static var _entities: Dictionary[String, R_Entity]
 
 static func get_entity_list() -> Array[R_Entity]:

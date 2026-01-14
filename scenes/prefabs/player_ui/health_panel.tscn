@@ -1,0 +1,52 @@
+[gd_scene format=3 uid="uid://cv4ck2wbf677e"]
+
+[ext_resource type="Script" uid="uid://dfix82ueoyi1r" path="res://scenes/prefabs/player_ui/health_panel.gd" id="1_hbov3"]
+[ext_resource type="Script" uid="uid://851bhpxqx0n8" path="res://addons/simusdev/localization/SD_RichTextLabelSimple.gd" id="1_ok5iq"]
+[ext_resource type="FontFile" uid="uid://dfvxd06k3ubg3" path="res://fonts/Verdana.ttf" id="2_0mqiu"]
+[ext_resource type="FontFile" uid="uid://8u50g4jta3r5" path="res://fonts/Verdana-Bold.ttf" id="3_yv6qo"]
+[ext_resource type="FontFile" uid="uid://bx0emglmlbhgv" path="res://fonts/Verdana-Italic.ttf" id="4_ltns8"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nask7"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.101960786, 0.101960786, 0.101960786, 0.09019608)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[node name="HealthPanel" type="Panel" unique_id=1881134861]
+anchors_preset = -1
+anchor_right = 0.2092014
+anchor_bottom = 0.11265432
+offset_right = -1.0
+offset_bottom = 2.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_nask7")
+script = ExtResource("1_hbov3")
+metadata/_edit_use_anchors_ = true
+
+[node name="HealthLabel" type="RichTextLabel" parent="." unique_id=1386555650]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_fonts/normal_font = ExtResource("2_0mqiu")
+theme_override_fonts/bold_font = ExtResource("3_yv6qo")
+theme_override_fonts/bold_italics_font = ExtResource("4_ltns8")
+theme_override_font_sizes/normal_font_size = 21
+bbcode_enabled = true
+text = "[color=#db9702]HEALTH [font_size=46]100"
+scroll_active = false
+shortcut_keys_enabled = false
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("1_ok5iq")
+font_size = 21
+metadata/_custom_type_script = "uid://851bhpxqx0n8"

@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://c0ggfqo17r4au" path="res://addons/kenney_prototype_textures/light/texture_07.png" id="1_7o7j1"]
 [ext_resource type="Script" uid="uid://imhh1kugqh4m" path="res://addons/simusdev/SimusNet/SimusNetNodePlayerSpawner.gd" id="1_spqat"]
 [ext_resource type="PackedScene" uid="uid://deashx71fo0da" path="res://src/prefabs/player.tscn" id="2_jk8u2"]
+[ext_resource type="Script" uid="uid://broh4otllro7s" path="res://addons/lensflares/src/lens_flare.gd" id="5_ypthj"]
 [ext_resource type="Script" uid="uid://fc6kpuv5syvv" path="res://component/level/CT_SpawnPoint3D.gd" id="13_1dl0r"]
 [ext_resource type="PackedScene" uid="uid://c04sd4mj5rmef" path="res://scenes/prefabs/lighting/omni_light_3d.tscn" id="16_jk8u2"]
 
@@ -18,12 +19,12 @@ albedo_color = Color(1, 1, 1, 0)
 albedo_texture = ExtResource("1_7o7j1")
 uv1_triplanar = true
 
+[sub_resource type="BoxMesh" id="BoxMesh_n0uqs"]
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jk8u2"]
 emission_enabled = true
 emission = Color(1, 1, 1, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_n0uqs"]
-material = SubResource("StandardMaterial3D_jk8u2")
+emission_energy_multiplier = 2.8935
 
 [node name="MainLevel" type="Node3D" unique_id=658119017]
 
@@ -114,16 +115,28 @@ operation = 2
 size = Vector3(10, 5, 17)
 
 [node name="CubeLight" type="MeshInstance3D" parent="." unique_id=248471482]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.743187, 2.5113976, 11.425375)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.743187, 5.7113976, -2.2746248)
 mesh = SubResource("BoxMesh_n0uqs")
+surface_material_override/0 = SubResource("StandardMaterial3D_jk8u2")
 
 [node name="OmniLight3D" parent="CubeLight" unique_id=2105551723 instance=ExtResource("16_jk8u2")]
-light_energy = 0.96
-light_indirect_energy = 0.96
+light_energy = 2.8935
+light_indirect_energy = 2.8935
 
 [node name="cLampComponent" parent="CubeLight/OmniLight3D" index="0" unique_id=1203643786 node_paths=PackedStringArray("MeshInstances")]
 Lit = true
+LampEnergy = 3.215
+Fade = true
 MeshInstances = [NodePath("../..")]
+
+[node name="cFlickerComponent" parent="CubeLight/OmniLight3D/cLampComponent" index="0" unique_id=1869313303]
+AnimationSpeed = 0.605
+Fade = true
+
+[node name="LensFlare" type="VisibleOnScreenNotifier3D" parent="CubeLight" unique_id=1743092230]
+script = ExtResource("5_ypthj")
+raycast_occlusion = true
+metadata/_custom_type_script = "uid://broh4otllro7s"
 
 [node name="CT_SpawnPoint3D" type="Node3D" parent="." unique_id=257207125]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.9947934, 0)
