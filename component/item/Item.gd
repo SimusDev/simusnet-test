@@ -1,5 +1,4 @@
-#@icon("res://Games/source_game/components/icons/item.png")
-#class_name SourceItem extends Node3D
+class_name Item extends Node3D
 #
 #signal event_pick
 #signal event_inspect
