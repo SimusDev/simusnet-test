@@ -69,6 +69,9 @@ static func find_base_script(script: Script, recursive: bool = true) -> Script:
 		return find_base_script(script.get_base_script())
 	return base
 
+static func is_script_extends(script: Script, _extends: Script) -> bool:
+	return find_base_script(script) == script or script == _extends
+
 static func queue_free_components(from: Object) -> void:
 	var components: Array = get_components_from(from)
 	for i in components:
