@@ -10,24 +10,24 @@
 [ext_resource type="PackedScene" uid="uid://c02tkhar84byp" path="res://scenes/prefabs/object/item/weapon/crowbar/crowbar_view.tscn" id="4_hw42r"]
 [ext_resource type="AudioStream" uid="uid://dennpauvioqw5" path="res://audio/hl1/crowbar/half-life-crowbar-swing.mp3" id="5_8jjx8"]
 
-[sub_resource type="Resource" id="Resource_ai8fb"]
+[sub_resource type="Resource" id="Resource_lu1r4"]
 script = ExtResource("2_4fdma")
 streams = Array[AudioStream]([ExtResource("3_lepv2")])
 metadata/_custom_type_script = "uid://xha6xbf0d6g2"
 
 [sub_resource type="Resource" id="Resource_tul18"]
 script = ExtResource("1_lu1r4")
-sources = Array[ExtResource("2_4fdma")]([SubResource("Resource_ai8fb")])
+sources = Array[ExtResource("2_4fdma")]([SubResource("Resource_lu1r4")])
 metadata/_custom_type_script = "uid://comfyg2dac6fj"
 
-[sub_resource type="Resource" id="Resource_kr408"]
+[sub_resource type="Resource" id="Resource_8pp38"]
 script = ExtResource("2_4fdma")
 streams = Array[AudioStream]([ExtResource("5_8jjx8")])
 metadata/_custom_type_script = "uid://xha6xbf0d6g2"
 
 [sub_resource type="Resource" id="Resource_malms"]
 script = ExtResource("1_lu1r4")
-sources = Array[ExtResource("2_4fdma")]([SubResource("Resource_kr408")])
+sources = Array[ExtResource("2_4fdma")]([SubResource("Resource_8pp38")])
 metadata/_custom_type_script = "uid://comfyg2dac6fj"
 
 [sub_resource type="Resource" id="Resource_g2v7l"]
