@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="R_SoundObject" format=3 uid="uid://gv4jt1b3skxn"]
+
+[ext_resource type="Script" uid="uid://comfyg2dac6fj" path="res://component/object/sound/R_SoundObject.gd" id="1_ejcr3"]
+[ext_resource type="Script" uid="uid://xha6xbf0d6g2" path="res://component/object/sound/R_SoundSource.gd" id="2_sgyl4"]
+[ext_resource type="AudioStream" uid="uid://ydiw8jnuahjj" path="res://audio/sfx/pistol_shot_0.mp3" id="3_itf67"]
+
+[sub_resource type="Resource" id="Resource_hs1if"]
+script = ExtResource("2_sgyl4")
+streams = Array[AudioStream]([ExtResource("3_itf67")])
+metadata/_custom_type_script = "uid://xha6xbf0d6g2"
+
+[resource]
+script = ExtResource("1_ejcr3")
+sources = Array[ExtResource("2_sgyl4")]([SubResource("Resource_hs1if")])
+metadata/_custom_type_script = "uid://comfyg2dac6fj"

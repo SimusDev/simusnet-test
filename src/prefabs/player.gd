@@ -16,7 +16,6 @@ static func get_local() -> Player:
 func set_debug_queue_free(val: bool) -> void:
 	queue_free()
 
-
 func _ready() -> void:
 	if SimusNet.is_network_authority(self):
 		_local = self

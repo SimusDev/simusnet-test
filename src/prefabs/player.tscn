@@ -90,9 +90,9 @@ script = ExtResource("2_744qn")
 node = NodePath("..")
 metadata/_custom_type_script = "uid://d1jwapkumdp1u"
 
-[node name="ViewModelRoot3D" type="Node3D" parent="Camera" unique_id=370646152]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 0, -1)
+[node name="ViewModelRoot3D" type="Node3D" parent="Camera" unique_id=370646152 node_paths=PackedStringArray("player")]
 script = ExtResource("4_heeeb")
+player = NodePath("../..")
 object = ExtResource("5_lhjlg")
 
 [node name="Movement" parent="." unique_id=240765583 node_paths=PackedStringArray("actor") instance=ExtResource("4_d5u4l")]

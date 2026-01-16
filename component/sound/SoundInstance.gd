@@ -1,5 +1,6 @@
 class_name SoundInstance3D extends Node3D
 
+var net_config:SimusNetRPCConfig
 
 var src_count = -1
 var finished_src_count:int = 0 :
@@ -8,22 +9,38 @@ var finished_src_count:int = 0 :
 		if finished_src_count >= src_count:
 			queue_free()
 
+
 func _ready() -> void:
+	net_config = (
+		SimusNetRPCConfig.new()
+			.flag_set_channel("sound")
+		)
+	
+	SimusNetRPC.register(
+		[
+			local_create
+		],
+		net_config
+	)
+	
 	var sprite:Sprite3D = Sprite3D.new()
 	add_child(sprite)
 	sprite.texture = load("res://addons/simusdev/icons/AudioStreamWAV.svg")
 	sprite.pixel_size = 0.05
 	sprite.billboard = BaseMaterial3D.BILLBOARD_ENABLED
 
-static func create(res: R_SoundObject, parent:Node3D, pos: Vector3) -> void:
+static func local_create(res: R_SoundObject, parent:Node3D, pos: Vector3) -> void:
+	if res.sources.size() == 0:
+		return
+	
 	var inst:SoundInstance3D = SoundInstance3D.new()
 	parent.add_child(inst)
 	inst.global_position = pos
 	
-	inst.src_count = res.sources.size()
-	
-	for source in res.sources:
+	for source:R_SoundSource in res.sources:
 		if not is_src_audible(inst.global_position, source.max_distance):
+			continue
+		if source.streams.is_empty():
 			continue
 		
 		var src_player:AudioStreamPlayer3D = AudioStreamPlayer3D.new()
@@ -36,6 +53,14 @@ static func create(res: R_SoundObject, parent:Node3D, pos: Vector3) -> void:
 		)
 		inst.add_child(src_player)
 		src_player.play()
+
+static func create(res: R_SoundObject, parent:Node3D, pos: Vector3) -> void:
+	SimusNetRPC.invoke_all(
+		local_create,
+		res,
+		parent,
+		pos
+		)
 
 static func is_src_audible(target_pos: Vector3, max_dist: float) -> bool:
 	#return true SUKA

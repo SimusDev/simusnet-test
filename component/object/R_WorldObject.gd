@@ -11,6 +11,14 @@ static func get_world_object_list() -> Array[R_WorldObject]:
 static func find_by_id(value: String) -> R_WorldObject:
 	return _world_objects.get(value)
 
+static func find_in(node: Node) -> R_WorldObject:
+	if node.has_meta("R_WorldObject"):
+		return node.get_meta("R_WorldObject")
+	return null
+
+func set_in(node: Node) -> void:
+	node.set_meta("R_WorldObject", self)
+
 func _registered() -> void:
 	super()
 	_world_objects[id] = self

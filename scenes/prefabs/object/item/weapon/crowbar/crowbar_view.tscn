@@ -1,10 +1,75 @@
 [gd_scene format=3 uid="uid://c02tkhar84byp"]
 
 [ext_resource type="PackedScene" uid="uid://dy5pg5df2wsi2" path="res://3d/crowbar/crowbar_model.tscn" id="1_lcmwy"]
-[ext_resource type="Script" uid="uid://d0q02rkjl2np2" path="res://component/item/Item.gd" id="1_pbp70"]
+[ext_resource type="Script" uid="uid://drlwngipoaoi6" path="res://component/item/weapon/W_WeaponMelee.gd" id="1_mus0r"]
+[ext_resource type="Script" uid="uid://htgmo1akqmdg" path="res://component/animation/weapon_animator.gd" id="3_uq4rh"]
+[ext_resource type="Script" uid="uid://dgxlg0w7n7ara" path="res://component/animation/r_animation_hook.gd" id="4_mus0r"]
+[ext_resource type="Script" uid="uid://dy2wtljxjfh8j" path="res://component/animation/r_animation_hook_signal.gd" id="5_tyfdn"]
+[ext_resource type="AnimationLibrary" uid="uid://cw2m6sr04684d" path="res://src/objects/item/weapon/anim_lib.res" id="6_tyfdn"]
 
-[node name="CrowbarView" type="Node" unique_id=1071723439]
-script = ExtResource("1_pbp70")
-metadata/_custom_type_script = "uid://d0q02rkjl2np2"
+[sub_resource type="Resource" id="Resource_t06e7"]
+script = ExtResource("5_tyfdn")
+name = &"event_pick"
+animations = Array[StringName]([&"anim_lib/pick"])
+
+[sub_resource type="Resource" id="Resource_6llv5"]
+script = ExtResource("5_tyfdn")
+name = &"event_fire"
+animations = Array[StringName]([&"anim_lib/fire"])
+
+[sub_resource type="Resource" id="Resource_tc4xe"]
+script = ExtResource("5_tyfdn")
+name = &"event_inspect"
+animations = Array[StringName]([&"anim_lib/inspect"])
+
+[sub_resource type="Animation" id="Animation_tyfdn"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CrowbarModel:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.243, -0.649, -0.595)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CrowbarModel:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.572468, 0.0837758, 0.25830874)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_t06e7"]
+_data = {
+&"RESET": SubResource("Animation_tyfdn")
+}
+
+[node name="CrowbarView" type="Node3D" unique_id=2077783100]
+script = ExtResource("1_mus0r")
+metadata/_custom_type_script = "uid://drlwngipoaoi6"
 
 [node name="CrowbarModel" parent="." unique_id=1948536088 instance=ExtResource("1_lcmwy")]
+transform = Transform3D(0.9518535, -0.29837495, 0.0703368, 0.21471919, 0.8126793, 0.5417081, -0.21879345, -0.50052404, 0.8376186, 0.243, -0.649, -0.595)
+
+[node name="CT_WeaponAnimator" type="Node" parent="." unique_id=375368600 node_paths=PackedStringArray("player")]
+script = ExtResource("3_uq4rh")
+hooks = Array[ExtResource("4_mus0r")]([SubResource("Resource_t06e7"), SubResource("Resource_6llv5"), SubResource("Resource_tc4xe")])
+player = NodePath("AnimationPlayer")
+initialized = true
+metadata/_custom_type_script = "uid://htgmo1akqmdg"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CT_WeaponAnimator" unique_id=726196116]
+root_node = NodePath("../..")
+callback_mode_process = 0
+libraries/ = SubResource("AnimationLibrary_t06e7")
+libraries/anim_lib = ExtResource("6_tyfdn")

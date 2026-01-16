@@ -88,10 +88,9 @@ blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_jic2g")
 
 [node name="CrowbarModel" type="Node3D" unique_id=1948536088]
-transform = Transform3D(0.045, 0, 0, 0, 0.045, 0, 0, 0, 0.045, 0, 0, 0)
 
 [node name="Sketchfab_model" type="Node3D" parent="." unique_id=922489398]
-transform = Transform3D(-1, 8.742278e-08, 0, 3.821371e-15, 4.371139e-08, 1, 8.742278e-08, 1, -4.371139e-08, 0, 0, 0)
+transform = Transform3D(-0.045, 6.7948114e-09, 2.9701065e-16, 0, -1.9670126e-09, 0.045, 6.7948114e-09, 0.045, 1.9670126e-09, 0, 0, 0)
 
 [node name="w_crowbar_obj_cleaner_materialmerger_gles" type="Node3D" parent="Sketchfab_model" unique_id=1330623827]
 transform = Transform3D(0.81915194, -0.5735764, 0, 0.5735764, 0.81915194, 0, 0, 0, 0.9999998, 0, 0, 0)

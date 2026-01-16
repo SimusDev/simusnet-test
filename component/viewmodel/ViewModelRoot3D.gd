@@ -8,6 +8,7 @@ enum Type {
 
 signal object_changed
 
+@export var player:Player
 
 @export var type:Type = Type.VIEW :
 	set(val):
@@ -39,8 +40,15 @@ func _clear(safe:bool = true) -> void:
 		_object_instance = null
 
 func _update() -> void:
+	if not is_inside_tree():
+		await tree_entered
 	if not enabled_in_editor and Engine.is_editor_hint():
 		return
+	
+	if not is_node_ready():
+		SimusDev.console.write_info("'%s': waiting for 'ready'" % [self])
+		await ready
+	
 	_clear()
 	
 	if not object:
@@ -60,5 +68,10 @@ func _update() -> void:
 		SimusDev.console.write_error("%s: object prefab is null" % [self])
 		return
 	
+	
 	_object_instance = prefab.instantiate()
+	_object_instance.set("player", player)
+	if not Engine.is_editor_hint():
+		object.set_in(_object_instance)
+	
 	add_child(_object_instance)
