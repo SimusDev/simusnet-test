@@ -42,12 +42,12 @@ func local_impact() -> void:
 	var query = PhysicsRayQueryParameters3D.create(origin, target)
 	
 	query.exclude = [player.get_rid()] 
-
+	
 	var result = space_state.intersect_ray(query)
 	
 	if result:
 		var collider = result.collider
-		object.impact_sound.local_play(collider, result.position)
+		object.impact_sound.play(collider, result.position)
 		if collider is CT_Hitbox:
 			var dmg:R_Damage = R_Damage.new()
 			dmg.set_value(object.damage)

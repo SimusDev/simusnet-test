@@ -40,6 +40,7 @@ func serialize() -> Dictionary:
 		data[2] = get_item_stack().serialize()
 	return data
 
+
 static func deserialize(data: Dictionary) -> CT_InventorySlot:
 	var script: GDScript = CT_InventorySlot
 	if data.has(0):

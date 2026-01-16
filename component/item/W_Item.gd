@@ -1,4 +1,3 @@
-#@icon("res://Games/source_game/components/icons/item.png")
 class_name W_Item extends Node3D
 
 signal event_pick
@@ -15,6 +14,7 @@ var is_using_alt:bool = false
 var net_config:SimusNetRPCConfig
 
 func _ready() -> void:
+
 	net_config = (SimusNetRPCConfig.new()
 		.flag_set_channel("item")
 		.flag_mode_any_peer()
@@ -39,7 +39,7 @@ func _ready() -> void:
 		add_child(cooldown_timer)
 		cooldown_timer.wait_time = object.use_cooldown
 		cooldown_timer.one_shot = true
-		print("SEX")
+	
 	set_process_input(SimusNet.is_network_authority(self))
 	
 	event_pick.emit()
