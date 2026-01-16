@@ -5,6 +5,15 @@ var _item_stack: CT_ItemStack
 
 var _inventory: CT_Inventory
 
+func get_id() -> int:
+	return get_index()
+
+static func get_by_id(inventory: CT_Inventory, id: int) -> CT_InventorySlot:
+	return inventory.get_child(id)
+
+func is_free() -> bool:
+	return !is_instance_valid(_item_stack)
+
 func get_inventory() -> CT_Inventory:
 	return _inventory
 
@@ -23,9 +32,11 @@ func serialize() -> Dictionary:
 	var data: Dictionary = {}
 	if get_script().get_global_name() != "CT_InventorySlot":
 		data[0] = SimusNetSerializer.parse_resource(get_script())
+	name = name.validate_node_name()
 	data[1] = name
 	
 	if get_item_stack():
+
 		data[2] = get_item_stack().serialize()
 	return data
 

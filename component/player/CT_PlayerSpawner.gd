@@ -10,11 +10,14 @@ func _ready() -> void:
 	_net_disconnect,
 	_net_not_connected
 	)
+	
 
 func _net_ready() -> void:
 	if SimusNetConnection.is_server():
 		s_Users.on_connected.connect(_on_user_connected)
 		s_Users.on_disconnected.connect(_on_user_disconnected)
+	
+	
 
 func _net_disconnect() -> void:
 	if SimusNetConnection.is_was_server():
@@ -25,9 +28,7 @@ func _net_not_connected() -> void:
 	pass
 
 func _on_user_connected(user: CT_User) -> void:
-	var instance: Node = prefab.instantiate()
-	user.set_in(instance)
-	
+	pass
 
 func _on_user_disconnected(user: CT_User) -> void:
 	pass

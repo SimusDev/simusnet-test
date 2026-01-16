@@ -1,0 +1,2 @@
+extends EVENT_Player
+class_name EVENT_PlayerSpawned

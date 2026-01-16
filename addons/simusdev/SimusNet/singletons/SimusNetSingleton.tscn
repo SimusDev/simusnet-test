@@ -13,8 +13,9 @@
 [ext_resource type="Script" uid="uid://b3fahcohgd3he" path="res://addons/simusdev/SimusNet/singletons/SimusNetVisibility.gd" id="10_q4njy"]
 [ext_resource type="Script" uid="uid://bunnx0ci8fr2h" path="res://addons/simusdev/SimusNet/singletons/SimusNetResources.gd" id="11_6mgeb"]
 [ext_resource type="Script" uid="uid://ckxdwc6gvxl6y" path="res://addons/simusdev/SimusNet/singletons/SimusNetRPCGodot.gd" id="12_khclw"]
-[ext_resource type="Script" uid="uid://c3keevwbvt0s5" path="res://addons/simusdev/SimusNet/SimusNetVars.gd" id="14_gf6h6"]
+[ext_resource type="Script" uid="uid://c3keevwbvt0s5" path="res://addons/simusdev/SimusNet/singletons/SimusNetVars.gd" id="14_gf6h6"]
 [ext_resource type="Script" uid="uid://s54mtevhf8la" path="res://addons/simusdev/SimusNet/singletons/SimusNetSynchronization.gd" id="14_y0guf"]
+[ext_resource type="Script" uid="uid://0tyljhh5ik53" path="res://addons/simusdev/SimusNet/singletons/SimusNetVarsProccessorSend.gd" id="15_gopxb"]
 
 [node name="SimusNetSingleton" type="Node" unique_id=1723475864 node_paths=PackedStringArray("events", "cache", "channels", "connection", "time", "handshake", "methods", "RPC", "RPCgodot", "visibility", "resources", "vars", "synchronization")]
 process_mode = 4
@@ -97,9 +98,22 @@ metadata/_custom_type_script = "uid://b3fahcohgd3he"
 script = ExtResource("11_6mgeb")
 metadata/_custom_type_script = "uid://bunnx0ci8fr2h"
 
-[node name="Vars" type="Node" parent="." unique_id=1312938959]
+[node name="Vars" type="Node" parent="." unique_id=1312938959 node_paths=PackedStringArray("_processor_send")]
 script = ExtResource("14_gf6h6")
+_processor_send = NodePath("ProcessorSend")
 metadata/_custom_type_script = "uid://c3keevwbvt0s5"
+
+[node name="ProcessorSend" type="Node" parent="Vars" unique_id=1475909765 node_paths=PackedStringArray("_vars")]
+script = ExtResource("15_gopxb")
+_vars = NodePath("..")
+source = "@rpc(\"any_peer\", \"call_remote\", \"reliable\", %s)
+func _r_s_p_l_r%s(packet: Variant) -> void:
+	_recieve_send_packet_local(packet, multiplayer.get_remote_sender_id())
+
+@rpc(\"any_peer\", \"call_remote\", \"unreliable\", %s)
+func _r_s_p_l_u%s(packet: Variant) -> void:
+	_recieve_send_packet_local(packet, multiplayer.get_remote_sender_id())"
+metadata/_custom_type_script = "uid://0tyljhh5ik53"
 
 [node name="Synchronization" type="Node" parent="." unique_id=1274883065]
 script = ExtResource("14_y0guf")
