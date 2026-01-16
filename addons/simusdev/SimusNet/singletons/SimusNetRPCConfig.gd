@@ -91,6 +91,7 @@ func flag_set_reliable() -> SimusNetRPCConfig:
 
 enum MODE {
 	SERVER_ONLY,
+	#COMMAND,
 	AUTHORITY,
 	ANY_PEER,
 }
@@ -116,6 +117,10 @@ func flag_mode_any_peer() -> SimusNetRPCConfig:
 	_mode = MODE.ANY_PEER
 	return self
 
+#func flag_mode_command() -> SimusNetRPCConfig:
+	#_mode = MODE.COMMAND
+	#return self
+
 var _serialization: bool = false
 func flag_serialization(value: bool = true) -> SimusNetRPCConfig:
 	_serialization = value
@@ -134,7 +139,6 @@ func _validate() -> bool:
 	
 	if _mode == MODE.AUTHORITY:
 		var a: bool = SimusNet.is_network_authority(object)
-		
 		
 		if !a:
 			SimusNetRPC._instance.logger.debug_error("failed to validate authority rpc: %s" % callable)
