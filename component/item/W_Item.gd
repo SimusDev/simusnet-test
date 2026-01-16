@@ -17,6 +17,7 @@ var net_config:SimusNetRPCConfig
 func _ready() -> void:
 	net_config = (SimusNetRPCConfig.new()
 		.flag_set_channel("item")
+		.flag_mode_any_peer()
 		)
 	
 	SimusNetRPC.register(
