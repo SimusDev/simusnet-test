@@ -32,8 +32,8 @@ script/source = "extends CT_DetectHeight
 
 func _detected() -> void:
 	super()
-	var player_health:CT_Health = SD_Components.find_first(Player.get_local(), CT_Health)
-	player_health.kill()
+	#var player_health:CT_Health = SD_Components.find_first(Player.get_local(), CT_Health)
+	#player_health.kill()
 "
 
 [node name="Player" type="CharacterBody3D" unique_id=1316103980]

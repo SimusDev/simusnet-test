@@ -22,17 +22,18 @@ func _handle() -> void:
 	if not enabled or _was_detected:
 		return
 	
-	match instruction:
-		OP_EQUAL:
-			if global_position.y == value: _detected()
-		OP_LESS_EQUAL:
-			if global_position.y <= value: _detected()
-		OP_GREATER_EQUAL:
-			if global_position.y >= value: _detected()
-		OP_LESS:
-			if global_position.y < value: _detected()
-		OP_GREATER:
-			if global_position.y > value: _detected()
+	if SimusNetConnection.is_server():
+		match instruction:
+			OP_EQUAL:
+				if global_position.y == value: _detected()
+			OP_LESS_EQUAL:
+				if global_position.y <= value: _detected()
+			OP_GREATER_EQUAL:
+				if global_position.y >= value: _detected()
+			OP_LESS:
+				if global_position.y < value: _detected()
+			OP_GREATER:
+				if global_position.y > value: _detected()
 
 func _detected() -> void:
 	_was_detected = true
