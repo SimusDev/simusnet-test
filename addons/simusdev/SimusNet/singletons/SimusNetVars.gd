@@ -243,16 +243,17 @@ static func send(object: Object, properties: PackedStringArray, reliable: bool =
 			
 			var identity: SimusNetIdentity = config.get_identity()
 			
-			var channel: Dictionary = _instance._queue_send.get_or_add(config._channel, {})
-			var transfer: Dictionary = channel.get_or_add(reliable, {})
-			
-			var identity_data: Dictionary = transfer.get_or_add(identity.try_serialize_into_variant(), {})
-			
-			identity_data.set(try_serialize_into_variant(property), SimusNetSerializer.parse(identity.owner.get(property), config._serialize))
-			changed_properties.set(property, identity.owner.get(property))
-			
 			for p_id in SimusNetConnection.get_connected_peers():
 				if SimusNetVisibility.is_visible_for(p_id, identity.owner):
+					
+			
+					var channel: Dictionary = _instance._queue_send.get_or_add(config._channel, {})
+					var transfer: Dictionary = channel.get_or_add(reliable, {})
+					
+					var identity_data: Dictionary = transfer.get_or_add(identity.try_serialize_into_variant(), {})
+					
+					identity_data.set(try_serialize_into_variant(property), SimusNetSerializer.parse(identity.owner.get(property), config._serialize))
+					changed_properties.set(property, identity.owner.get(property))
 					_instance._queue_send_peers.append(p_id)
 				
 
