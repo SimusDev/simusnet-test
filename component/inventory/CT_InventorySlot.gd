@@ -41,7 +41,10 @@ func serialize() -> Dictionary:
 	return data
 
 static func deserialize(data: Dictionary) -> CT_InventorySlot:
-	var script: GDScript = data.get(0, CT_InventorySlot)
+	var script: GDScript = CT_InventorySlot
+	if data.has(0):
+		script = SimusNetDeserializer.parse_resource(data.get(0))
+	
 	var slot: CT_InventorySlot = script.new()
 	slot.name = data[1]
 	
