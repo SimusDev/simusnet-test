@@ -246,7 +246,6 @@ static func send(object: Object, properties: PackedStringArray, reliable: bool =
 			for p_id in SimusNetConnection.get_connected_peers():
 				if SimusNetVisibility.is_visible_for(p_id, identity.owner):
 					
-			
 					var channel: Dictionary = _instance._queue_send.get_or_add(config._channel, {})
 					var transfer: Dictionary = channel.get_or_add(reliable, {})
 					
@@ -262,7 +261,7 @@ static func send(object: Object, properties: PackedStringArray, reliable: bool =
 
 func _handle_send(_queue: Dictionary, peers: PackedInt32Array) -> void:
 	for peer: int in peers:
-		for channel: int in _queue[peer]:
+		for channel: int in _queue.get(peer, {}):
 			for reliable: bool in _queue[peer][channel]:
 				var identity_data: Dictionary = _queue[peer][channel][reliable]
 				
