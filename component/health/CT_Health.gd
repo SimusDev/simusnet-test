@@ -9,7 +9,6 @@ signal on_value_max_changed()
 @export var value_max: float = 100.0 : set = set_value_max
 
 func _ready() -> void:
-	SD_Components.append_to(Player.get_local(), self)
 	SimusNetNodeAutoVisible.register_or_get(self)
 	SimusNetVars.register(self, [
 		"value",
