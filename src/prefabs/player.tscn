@@ -116,8 +116,3 @@ script = ExtResource("10_wdfrp")
 player = NodePath("..")
 ui_prefab = ExtResource("11_y56kl")
 metadata/_custom_type_script = "uid://cgpsyyx2x8kki"
-
-[node name="Timer" type="Timer" parent="." unique_id=299772321]
-autostart = true
-
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
