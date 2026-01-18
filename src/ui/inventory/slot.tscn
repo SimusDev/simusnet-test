@@ -1,0 +1,58 @@
+[gd_scene format=3 uid="uid://bu532ooqgmkjg"]
+
+[ext_resource type="Script" uid="uid://dbayi3eiha053" path="res://src/ui/inventory/slot.gd" id="1_3t1rm"]
+[ext_resource type="Script" uid="uid://bmwl6ctnkt45h" path="res://addons/simusdev/ui/SD_UIDragAndDrop.gd" id="2_lktvk"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_3t1rm"]
+font_size = 28
+outline_size = 8
+outline_color = Color(0, 0, 0, 1)
+
+[node name="Slot" type="Control" unique_id=1662894146 node_paths=PackedStringArray("_quantity")]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 64.0
+offset_bottom = 64.0
+script = ExtResource("1_3t1rm")
+_quantity = NodePath("_quantity")
+
+[node name="Panel" type="Panel" parent="." unique_id=2119006557]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="icon" type="TextureRect" parent="." unique_id=694284535]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="_quantity" type="Label" parent="." unique_id=1941195883]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "10"
+label_settings = SubResource("LabelSettings_3t1rm")
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="SD_UIDragAndDrop" type="Node2D" parent="." unique_id=1399197632 node_paths=PackedStringArray("input_node", "draggable_node", "drop_node", "preview_node")]
+script = ExtResource("2_lktvk")
+input_node = NodePath("..")
+draggable_node = NodePath("..")
+drop_node = NodePath("..")
+preview_node = NodePath("../icon")
+metadata/_custom_type_script = "uid://bmwl6ctnkt45h"
+
+[connection signal="dropped" from="SD_UIDragAndDrop" to="." method="_on_sd_ui_drag_and_drop_dropped"]

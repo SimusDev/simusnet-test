@@ -86,13 +86,15 @@ func _initialize_dynamic() -> void:
 	else:
 		_tree_entered()
 		
-		_unique_id = get_cached_unique_ids_values().get(_generated_unique_id, -1)
-		if _unique_id < 0:
-			if _net_settings.debug_enable:
-				print_debug("(%s) unique id not found, awaiting for cache..." % str(_generated_unique_id))
-				_await_for_cache()
-				await _on_awaited_and_cached
-				print_debug("(%s) cached!" % str(_generated_unique_id))
+		if _unique_id == -1:
+			_unique_id = await SimusNetCache.request_unique_id(get_generated_unique_id())
+		
+		#if _unique_id < 0:
+			#if _net_settings.debug_enable:
+				#print_debug("(%s) unique id not found, awaiting for cache..." % str(_generated_unique_id))
+				#_await_for_cache()
+				#await _on_awaited_and_cached
+				#print_debug("(%s) cached!" % str(_generated_unique_id))
 		
 		#get_cached_unique_ids_values().erase(_generated_unique_id)
 		#get_cached_unique_ids().erase(_unique_id)
@@ -151,12 +153,10 @@ func _set_ready() -> void:
 	SimusNetVisibility._local_identity_create(self)
 
 func _tree_exited() -> void:
-	_list_by_generated_id.erase(get_generated_unique_id())
-	
 	if !is_ready:
 		await is_ready
 	
-	_destroy()
+	#_destroy()
 
 func _destroy() -> void:
 	_deinitialize_dynamic()
@@ -164,6 +164,7 @@ func _destroy() -> void:
 	SimusNetCache._uncache_identity(self)
 	
 	_list_by_id.erase(get_unique_id())
+	_list_by_generated_id.erase(get_generated_unique_id())
 
 func set_generated_unique_id(id: Variant) -> SimusNetIdentity:
 	_set_generated_unique_id_async(id)

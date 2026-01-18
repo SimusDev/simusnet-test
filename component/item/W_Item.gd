@@ -100,7 +100,6 @@ func _released() -> void: pass
 func _pressed_alt() -> void: pass
 func _released_alt() -> void: pass
 
-
 func can_use() -> bool:
 	return (not in_cooldown()) and (SimusDev.ui.get_active_interfaces().is_empty())
 

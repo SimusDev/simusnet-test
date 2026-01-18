@@ -13,4 +13,5 @@ func _ready() -> void:
 		await player.ready
 	
 	var ui_instance:Node = ui_prefab.instantiate()
+	ui_instance.set_multiplayer_authority(get_multiplayer_authority())
 	add_child(ui_instance)

@@ -22,6 +22,7 @@ enum BUILTIN {
 	VARS_RELIABLE,
 	VARS_SEND,
 	VARS_SEND_RELIABLE,
+	CHAT,
 }
 
 const DEFAULT: String = ""

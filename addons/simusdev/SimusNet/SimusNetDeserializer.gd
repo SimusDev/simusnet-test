@@ -43,7 +43,12 @@ static func parse_image(data: Variant) -> Image:
 	)
 
 static func parse_identity(data: Variant) -> Object:
-	return SimusNetIdentity.try_deserialize_from_variant(_create_parsed(data)).owner
+	var identity: SimusNetIdentity = SimusNetIdentity.try_deserialize_from_variant(_create_parsed(data))
+	if identity:
+		return identity.owner
+	
+	_throw_error("identity not found %s" % data)
+	return null
 
 static func parse_node(data: Variant) -> Node:
 	return SimusNetSingleton.get_instance().get_node(_create_parsed(data))

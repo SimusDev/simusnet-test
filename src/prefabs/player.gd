@@ -20,3 +20,6 @@ func _ready() -> void:
 	if SimusNet.is_network_authority(self):
 		_local = self
 	_level = LevelInstance.find_above(self)
+
+func _on_timer_timeout() -> void:
+	print('ping: %s' % SimusNetConnection.get_ping())

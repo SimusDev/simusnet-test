@@ -76,4 +76,3 @@ func _exit_tree() -> void:
 	
 	if "transform" in node:
 		SimusNetSynchronization._instance._transform_exit_tree(self)
-	

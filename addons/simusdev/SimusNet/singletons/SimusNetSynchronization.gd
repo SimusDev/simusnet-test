@@ -44,11 +44,17 @@ func _on_transform_tick() -> void:
 	_timer_transform.wait_time = 1.0 / singleton.settings.synchronization_transform_tickrate
 	var data: Dictionary = {}
 	
-	#if SimusNetConnection.is_server():
+	#if !SimusNetConnection.is_server():
 		#print(_transforms)
 	
+	var id: int = -1
 	for transform in _transforms:
+		id += 1
 		
+		if !transform:
+			_transforms.set(id, null)
+			_transforms.erase(transform)
+			continue
 		
 		if !SimusNet.is_network_authority(transform):
 			continue

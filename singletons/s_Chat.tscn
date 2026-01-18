@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://7jlrki45p0nx"]
+
+[ext_resource type="Script" uid="uid://d2nxnr5qjwbjc" path="res://singletons/s_Chat.gd" id="1_vat8t"]
+[ext_resource type="PackedScene" uid="uid://di4fbcxq7cang" path="res://src/ui/chat/panel.tscn" id="2_3t00n"]
+
+[node name="SChat" type="Node" unique_id=1670464083]
+script = ExtResource("1_vat8t")
+metadata/_custom_type_script = "uid://b4ihcnwrred2a"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=823539882]
+layer = 2
+
+[node name="Panel" parent="CanvasLayer" unique_id=1462611172 node_paths=PackedStringArray("chat") instance=ExtResource("2_3t00n")]
+chat = NodePath("../..")

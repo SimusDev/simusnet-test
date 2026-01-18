@@ -3,8 +3,14 @@ class_name CT_ItemStack
 
 @export var object: R_WorldObject
 @export var stackable: bool = true
-@export var quantity: int = 1
+@export var quantity: int = 1 : 
+	set(value):
+		quantity = value
+		on_quantity_changed.emit()
+	
 @export var stack_size: int = 64
+
+signal on_quantity_changed()
 
 var _slot: CT_InventorySlot
 var _inventory: CT_Inventory
@@ -15,15 +21,21 @@ func get_inventory() -> CT_Inventory:
 func _enter_tree() -> void:
 	_slot = SD_ECS.node_find_above_by_script(self, CT_InventorySlot)
 	_slot._item_stack = self
+	_slot.on_item_added.emit(self)
+	_slot.on_updated.emit()
 	
 	_inventory = SD_ECS.node_find_above_by_script(self, CT_Inventory)
 	SimusNetVisible.set_visibile(self, SimusNetVisible.get_or_create(_inventory))
+	_inventory._on_item_added(_slot, self)
 	
 	_inventory._item_stacks.append(self)
 
 func _exit_tree() -> void:
 	_slot._item_stack = null
+	_slot.on_item_removed.emit(self)
+	_slot.on_updated.emit()
 	_inventory._item_stacks.erase(self)
+	_inventory._on_item_removed(_slot, self)
 
 func _ready() -> void:
 	SimusNetVars.register(
@@ -51,10 +63,6 @@ func _ready() -> void:
 	stack_size = item_config.stack_size
 	
 	
-
-func remove() -> void:
-	if SimusNetConnection.is_server():
-		SimusNetRPC.invoke_all(queue_free)
 
 static func create_from_object(_object: R_WorldObject) -> CT_ItemStack:
 	var item: CT_ItemStack = null

@@ -1,7 +1,8 @@
 [gd_scene format=3 uid="uid://b36ise4k4tg7d"]
 
-[ext_resource type="Script" uid="uid://bf6yqsfyrvv86" path="res://scenes/prefabs/player_ui/player_ui.gd" id="1_nask7"]
+[ext_resource type="Script" path="res://scenes/prefabs/player_ui/player_ui.gd" id="1_nask7"]
 [ext_resource type="PackedScene" uid="uid://cv4ck2wbf677e" path="res://scenes/prefabs/player_ui/health_panel.tscn" id="2_nask7"]
+[ext_resource type="PackedScene" uid="uid://dguofryn18kgk" path="res://src/ui/inventory/hotbar.tscn" id="3_m3nbl"]
 
 [node name="PlayerUI" type="Control" unique_id=1578783826]
 layout_mode = 3
@@ -23,3 +24,17 @@ offset_right = 0.0
 offset_bottom = 0.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Hotbar" parent="." unique_id=1081468103 instance=ExtResource("3_m3nbl")]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -256.0
+offset_top = -93.0
+offset_right = 256.0
+offset_bottom = -29.0
+grow_horizontal = 2
+grow_vertical = 0
