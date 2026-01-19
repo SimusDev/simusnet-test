@@ -68,8 +68,8 @@ func _update() -> void:
 		SimusDev.console.write_error("%s: object prefab is null" % [self])
 		return
 	
-	
 	_object_instance = prefab.instantiate()
+	_object_instance.set_multiplayer_authority( get_multiplayer_authority() )
 	_object_instance.set("player", player)
 	if not Engine.is_editor_hint():
 		object.set_in(_object_instance)
