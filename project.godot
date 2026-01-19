@@ -27,6 +27,11 @@ s_Authentication="*uid://buylsm416h7w4"
 s_Chat="*uid://7jlrki45p0nx"
 s_GameState="*uid://dsjet7upsk5kc"
 
+[display]
+
+window/size/viewport_width=1280
+window/size/viewport_height=720
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/lensflares/plugin.cfg", "res://addons/simusdev/plugin.cfg", "res://addons/sky_3d/plugin.cfg")

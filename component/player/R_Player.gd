@@ -3,6 +3,12 @@ class_name R_Player
 
 static var _players: Dictionary[String, R_Player]
 
+static func get_group() -> String:
+	return "player"
+
+func is_supports_gamestate() -> bool:
+	return false
+
 static func get_player_list() -> Array[R_Player]:
 	return _players.values()
 
@@ -15,4 +21,4 @@ func _registered() -> void:
 
 func _unregistered() -> void:
 	super()
-	_players.erase(self)
+	_players.erase(id)

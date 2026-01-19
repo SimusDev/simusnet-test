@@ -1,8 +1,7 @@
 [gd_scene format=3 uid="uid://cv4ck2wbf677e"]
 
-[ext_resource type="Script" uid="uid://dfix82ueoyi1r" path="res://scenes/prefabs/player_ui/health_panel.gd" id="1_hbov3"]
+[ext_resource type="Script" path="res://scenes/prefabs/player_ui/health_panel.gd" id="1_hbov3"]
 [ext_resource type="Script" uid="uid://851bhpxqx0n8" path="res://addons/simusdev/localization/SD_RichTextLabelSimple.gd" id="1_ok5iq"]
-[ext_resource type="FontFile" uid="uid://dfvxd06k3ubg3" path="res://fonts/Verdana.ttf" id="2_0mqiu"]
 [ext_resource type="FontFile" uid="uid://8u50g4jta3r5" path="res://fonts/Verdana-Bold.ttf" id="3_yv6qo"]
 [ext_resource type="FontFile" uid="uid://bx0emglmlbhgv" path="res://fonts/Verdana-Italic.ttf" id="4_ltns8"]
 
@@ -37,7 +36,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-theme_override_fonts/normal_font = ExtResource("2_0mqiu")
 theme_override_fonts/bold_font = ExtResource("3_yv6qo")
 theme_override_fonts/bold_italics_font = ExtResource("4_ltns8")
 theme_override_font_sizes/normal_font_size = 21

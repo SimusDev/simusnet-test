@@ -17,11 +17,11 @@ func get_level() -> LevelInstance:
 func get_instance() -> Node3D:
 	return _instance
 
-func _init(level: LevelInstance, object: R_WorldObject) -> void:
+func _init(level: LevelInstance = null, object: R_WorldObject = null) -> void:
 	_level = level
 	_object = object
 	
-	if !object:
+	if !object and _level:
 		_level._logger.debug("I_WorldObject: _init(), R_WorldObject is null!", SD_ConsoleCategories.ERROR)
 
 func _validate_prefab() -> PackedScene:
@@ -57,13 +57,24 @@ func instantiate() -> I_WorldObject:
 		_level.get_networked_group(_object.get_group()).add_child(_instance)
 	return self
 
-func serialize() -> Dictionary:
+func serialize_network() -> Dictionary:
 	var result: Dictionary = {}
 	result[0] = SimusNetSerializer.parse(get_object())
 	return result
 
-static func deserialize(data: Dictionary, object: Object, level: LevelInstance) -> I_WorldObject:
+static func deserialize_network(data: Dictionary, object: Object, level: LevelInstance) -> I_WorldObject:
 	var instance: I_WorldObject = I_WorldObject.new(level, SimusNetDeserializer.parse(data[0]))
+	instance._instance = object
+	instance._instance.set_meta(META, instance)
+	return instance
+
+func serialize_gamestate() -> Dictionary:
+	var result: Dictionary = {}
+	result[0] = get_object()
+	return result
+
+static func deserialize_gamestate(data: Dictionary, object: Object, level: LevelInstance) -> I_WorldObject:
+	var instance: I_WorldObject = I_WorldObject.new(level, data[0])
 	instance._instance = object
 	instance._instance.set_meta(META, instance)
 	return instance

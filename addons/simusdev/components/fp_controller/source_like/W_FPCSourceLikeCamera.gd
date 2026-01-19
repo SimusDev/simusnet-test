@@ -63,12 +63,12 @@ func _enter_tree() -> void:
 		enabled = true
 
 func make_current() -> void:
-	if camera:
+	if camera and is_authority():
 		camera.make_current()
 		enabled = true
 
 func set_current(value: bool) -> void:
-	if camera:
+	if camera and is_authority():
 		camera.current = value
 		enabled = true
 

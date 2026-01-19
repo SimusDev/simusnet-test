@@ -98,6 +98,9 @@ func _parse_properties_receiver(properties: Dictionary) -> void:
 	for identity_id: int in properties:
 		var identity: SimusNetIdentity = SimusNetIdentity.try_deserialize_from_variant(identity_id)
 		if identity:
+			if !is_instance_valid(identity.owner):
+				continue
+			
 			var node: SimusNetTransform = identity.owner
 			if SimusNet.get_network_authority(node) == multiplayer.get_remote_sender_id():
 				var serialized_properties: Dictionary = properties[identity_id]

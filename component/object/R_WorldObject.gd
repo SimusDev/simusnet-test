@@ -14,6 +14,9 @@ static func get_world_object_list() -> Array[R_WorldObject]:
 static func find_by_id(value: String) -> R_WorldObject:
 	return _world_objects.get(value)
 
+func is_supports_gamestate() -> bool:
+	return true
+
 func _itemstack_config_init(config: R_ItemStackConfig) -> void:
 	pass
 

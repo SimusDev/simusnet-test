@@ -9,7 +9,7 @@ class_name SimusNetNodeSceneReplicator
 @export var replicate_transform: bool = true
 
 var _queue: Array[Node] = []
-var _queue_delete: Array[Node] = []
+var _queue_delete: Array[String] = []
 
 @export var client_replace: Dictionary[PackedScene, PackedScene] = {}
 
@@ -35,6 +35,7 @@ func _ready() -> void:
 			#_server_spawn,
 			#_server_despawn,
 			_receive,
+			_receive_deletion
 		],
 		get_channel()
 	)
@@ -105,11 +106,8 @@ func deserialize_nodes(bytes: PackedByteArray) -> Array[Node]:
 		result.append(deserialize_node(i))
 	return result
 
-func serialize_nodes_to_delete(nodes: Array[Node], _root: Node) -> PackedByteArray:
-	var result: Array = []
-	for i in nodes:
-		result.append(str(_root.get_path_to(i)))
-	return SimusNetCompressor.parse(result)
+func serialize_nodes_to_delete(nodes: Array[String], _root: Node) -> PackedByteArray:
+	return SimusNetCompressor.parse(nodes)
 
 func deserialize_nodes_to_delete(bytes: PackedByteArray, _root: Node) -> Array[Node]:
 	var data: Array = SimusNetDecompressor.parse(bytes)
@@ -147,16 +145,17 @@ func _send() -> void:
 	SimusNetRPCGodot.invoke_on(multiplayer.get_remote_sender_id(), _receive, serialize_nodes(root.get_children()))
 
 func _receive(packet: Variant) -> void:
-	
 	var nodes: Array[Node] = deserialize_nodes(packet)
 	for i in nodes:
+		if root.has_node(str(i.name)):
+			await root.get_node(str(i.name)).tree_exited
+		
 		root.add_child(i)
 
 func _receive_deletion(packet: Variant) -> void:
 	var nodes: Array[Node] = deserialize_nodes_to_delete(packet, root)
 	for i in nodes:
 		i.queue_free()
-	
 
 var _child_count: int = 0
 
@@ -170,11 +169,9 @@ func _on_child_entered_tree(node: Node) -> void:
 		_child_count += 1
 	
 	_queue.append(node)
-	_queue_delete.erase(node)
 
 func _on_child_exiting_tree(node: Node) -> void:
-	_queue.erase(node)
-	_queue_delete.erase(node)
+	_queue_delete.append(str(root.get_path_to(node)))
 
 func _process(delta: float) -> void:
 	if !SimusNetConnection.is_server():

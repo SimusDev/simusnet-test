@@ -10,7 +10,13 @@ var _slots: Array[CT_InventorySlot]
 signal on_synchronized()
 signal on_ready()
 
+signal on_inventory_closed(inventory: CT_Inventory)
+signal on_inventory_opened(inventory: CT_Inventory)
+
 var is_ready: bool = false
+
+func i_am_the_owner() -> bool:
+	return SimusNet.is_network_authority(self)
 
 func get_item_stacks() -> Array[CT_ItemStack]:
 	return _item_stacks
@@ -66,6 +72,7 @@ func _network_setup() -> void:
 		[
 			_send,
 			_try_move_item_server,
+			
 		], SimusNetRPCConfig.new().flag_mode_any_peer().
 		flag_set_channel(Network.CHANNEL_INVENTORY).flag_serialization()
 	)
@@ -75,8 +82,19 @@ func _network_setup() -> void:
 			_receive,
 			_receive_item_add,
 			_receive_item_remove,
+			_open_server,
+			_close_server,
 			
 		], SimusNetRPCConfig.new().flag_mode_server_only().
+		flag_set_channel(Network.CHANNEL_INVENTORY).flag_serialization()
+	)
+	
+	SimusNetRPC.register(
+		[
+			open,
+			close,
+			
+		], SimusNetRPCConfig.new().flag_mode_authority().
 		flag_set_channel(Network.CHANNEL_INVENTORY).flag_serialization()
 	)
 
@@ -185,3 +203,52 @@ func _receive_item_remove(slot: CT_InventorySlot) -> void:
 	
 	if slot.get_item_stack():
 		slot.get_item_stack().queue_free()
+
+var _opened: Array[CT_Inventory]
+
+func get_opened() -> Array[CT_Inventory]:
+	var id: int = 0
+	for i in _opened:
+		if !is_instance_valid(i):
+			_opened.erase(i)
+		id += 1
+	return _opened
+
+func is_opened(inventory: CT_Inventory) -> bool:
+	return get_opened().has(inventory)
+
+func open(inventory: CT_Inventory) -> void:
+	if SimusNetConnection.is_server():
+		if is_opened(inventory):
+			return
+		
+		SimusNetRPC.invoke_all(_open_server, inventory)
+
+func _open_server(inventory: CT_Inventory) -> void:
+	if !_opened.has(inventory):
+		_opened.append(inventory)
+		on_inventory_opened.emit(inventory)
+
+func close(inventory: CT_Inventory) -> void:
+	if SimusNetConnection.is_server():
+		if not is_opened(inventory):
+			return
+		
+		SimusNetRPC.invoke_all(_close_server, inventory)
+
+func _close_server(inventory: CT_Inventory) -> void:
+	if _opened.has(inventory):
+		_opened.erase(inventory)
+		on_inventory_closed.emit(inventory)
+
+func request_open(inventory: CT_Inventory) -> void:
+	if is_opened(inventory):
+		return
+	
+	SimusNetRPC.invoke_on_server(open, inventory)
+
+func request_close(inventory: CT_Inventory) -> void:
+	if not is_opened(inventory):
+		return
+	
+	SimusNetRPC.invoke_on_server(close, inventory)

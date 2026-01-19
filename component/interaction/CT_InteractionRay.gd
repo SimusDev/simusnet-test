@@ -75,6 +75,9 @@ func _local_action(action: R_InteractAction) -> void:
 
 var _prev_collider: Object = null
 func _physics_process(delta: float) -> void:
+	if !is_instance_valid(_ui):
+		return
+	
 	_ui.visible = is_instance_valid(get_collider())
 	
 	if _prev_collider == get_collider():

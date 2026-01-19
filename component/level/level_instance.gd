@@ -38,11 +38,21 @@ func _collect_and_get_save_objects() -> Dictionary:
 		var group_data: Dictionary = result.get_or_add(group.name, {})
 		for child in group.get_children():
 			if !child.scene_file_path.is_empty():
+				var i_world_object: I_WorldObject = I_WorldObject.find_in(child)
+				if i_world_object:
+					if not i_world_object.get_object().is_supports_gamestate():
+						continue
+				
 				saved_objects += 1
 				var child_data: Dictionary = group_data.get_or_add(child.name, {})
+				if i_world_object:
+					child_data[2] = i_world_object.serialize_gamestate()
 				child_data[0] = load(child.scene_file_path)
 				if "transform" in child:
 					child_data[1] = child.transform
+				
+
+				
 				
 	
 	_logger.debug("saved %s objects." % saved_objects, SD_ConsoleCategories.SUCCESS)
@@ -65,6 +75,10 @@ func _read_and_spawn_objects(objects: Dictionary) -> void:
 			instance.name = child_name
 			if 1 in child_data:
 				instance.transform = child_data[1]
+			
+			if 2 in child_data:
+				I_WorldObject.deserialize_gamestate(child_data[2], instance, self)
+			
 			group.add_child(instance)
 			
 	

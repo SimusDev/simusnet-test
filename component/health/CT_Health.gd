@@ -2,6 +2,8 @@
 extends Node
 class_name CT_Health
 
+@export var root: Node
+
 signal on_value_changed()
 signal on_value_max_changed()
 
@@ -9,6 +11,8 @@ signal on_value_max_changed()
 @export var value_max: float = 100.0 : set = set_value_max
 
 func _ready() -> void:
+	SD_ECS.append_to(root, self)
+	
 	SimusNetNodeAutoVisible.register_or_get(self)
 	SimusNetVars.register(self, [
 		"value",

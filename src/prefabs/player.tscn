@@ -44,8 +44,9 @@ collision_layer = 0
 script = ExtResource("1_e4ep1")
 sound = ExtResource("2_rlttd")
 
-[node name="CT_Health" type="Node" parent="." unique_id=1598873890]
+[node name="CT_Health" type="Node" parent="." unique_id=1598873890 node_paths=PackedStringArray("root")]
 script = ExtResource("3_eb5im")
+root = NodePath("..")
 metadata/_custom_type_script = "uid://bwwpj2rkss4cf"
 
 [node name="CT_Playable" type="Node" parent="." unique_id=768027577 node_paths=PackedStringArray("node")]
@@ -61,26 +62,29 @@ metadata/_custom_type_script = "uid://d1jwapkumdp1u"
 [node name="Inventory" parent="." unique_id=1499312686 node_paths=PackedStringArray("node") instance=ExtResource("4_wdfrp")]
 node = NodePath("..")
 
-[node name="CT_HitboxHead" type="Area3D" parent="." unique_id=751971328 groups=["piercable"]]
+[node name="CT_HitboxHead" type="Area3D" parent="." unique_id=751971328 node_paths=PackedStringArray("health") groups=["piercable"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
 script = ExtResource("5_yyb7l")
+health = NodePath("../CT_Health")
 metadata/_custom_type_script = "uid://dvlnhvdrc3dy6"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CT_HitboxHead" unique_id=31555626]
 shape = SubResource("BoxShape3D_yyb7l")
 debug_color = Color(0.99094063, 0, 0.27785844, 0.41960785)
 
-[node name="CT_HitboxBody" type="Area3D" parent="." unique_id=1925169250]
+[node name="CT_HitboxBody" type="Area3D" parent="." unique_id=1925169250 node_paths=PackedStringArray("health")]
 script = ExtResource("5_yyb7l")
+health = NodePath("../CT_Health")
 metadata/_custom_type_script = "uid://dvlnhvdrc3dy6"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CT_HitboxBody" unique_id=2114861173]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.049999967, 0)
 shape = SubResource("BoxShape3D_xiv16")
 
-[node name="CT_HitboxLegs" type="Area3D" parent="." unique_id=1168561640]
+[node name="CT_HitboxLegs" type="Area3D" parent="." unique_id=1168561640 node_paths=PackedStringArray("health")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.7, 0)
 script = ExtResource("5_yyb7l")
+health = NodePath("../CT_Health")
 metadata/_custom_type_script = "uid://dvlnhvdrc3dy6"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CT_HitboxLegs" unique_id=1301651919]
@@ -89,6 +93,7 @@ shape = SubResource("BoxShape3D_k5oc5")
 [node name="Camera" parent="." unique_id=782780030 node_paths=PackedStringArray("body") instance=ExtResource("3_j7lg1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.65773225, 0)
 body = NodePath("..")
+enabled = false
 
 [node name="SimusNetTransform" type="Node" parent="Camera" unique_id=1270936250 node_paths=PackedStringArray("node")]
 script = ExtResource("2_744qn")
@@ -117,6 +122,7 @@ key_right = "move_right"
 key_jump = "jump"
 key_sprint = "sprint"
 key_crouch = "crouch"
+enabled = false
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=56016437]
 mesh = SubResource("CapsuleMesh_d5u4l")

@@ -7,6 +7,13 @@ var _item: CT_ItemStack
 
 @export var _quantity: Label
 
+const SCENE: PackedScene = preload("uid://bu532ooqgmkjg")
+
+static func create(from: CT_InventorySlot) -> UI_InventorySlot:
+	var ui: UI_InventorySlot = SCENE.instantiate()
+	ui.slot = from
+	return ui
+
 func _ready() -> void:
 	if !slot:
 		return
