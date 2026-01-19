@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://c0ggfqo17r4au" path="res://addons/kenney_prototype_textures/light/texture_07.png" id="1_7o7j1"]
 [ext_resource type="Script" uid="uid://broh4otllro7s" path="res://addons/lensflares/src/lens_flare.gd" id="5_ypthj"]
 [ext_resource type="Script" uid="uid://dgp0pmmh5blth" path="res://component/object/CT_ObjectSpawn.gd" id="7_6rygw"]
+[ext_resource type="Texture2D" uid="uid://cb01shisd32yi" path="res://3d/ak74m/textures/ak74m_Roughness.png" id="7_vuvbf"]
 [ext_resource type="Resource" uid="uid://cic3i440xvcwv" path="res://src/objects/item/weapon/crowbar.tres" id="8_p870i"]
 [ext_resource type="Script" uid="uid://fc6kpuv5syvv" path="res://component/level/CT_SpawnPoint3D.gd" id="13_1dl0r"]
 [ext_resource type="PackedScene" uid="uid://c04sd4mj5rmef" path="res://scenes/prefabs/lighting/omni_light_3d.tscn" id="16_jk8u2"]
@@ -24,7 +25,14 @@ uv1_triplanar = true
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jk8u2"]
 emission_enabled = true
 emission = Color(1, 1, 1, 1)
-emission_energy_multiplier = 3.086394
+emission_energy_multiplier = 3.0864
+
+[sub_resource type="BoxMesh" id="BoxMesh_6rygw"]
+size = Vector3(2, 1, 4)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p870i"]
+albedo_texture = ExtResource("7_vuvbf")
+uv1_triplanar = true
 
 [node name="MainLevel" type="Node3D" unique_id=658119017]
 
@@ -110,8 +118,8 @@ mesh = SubResource("BoxMesh_n0uqs")
 surface_material_override/0 = SubResource("StandardMaterial3D_jk8u2")
 
 [node name="OmniLight3D" parent="CubeLight" unique_id=2105551723 instance=ExtResource("16_jk8u2")]
-light_energy = 3.086394
-light_indirect_energy = 3.086394
+light_energy = 3.0864
+light_indirect_energy = 3.0864
 
 [node name="cLampComponent" parent="CubeLight/OmniLight3D" index="0" unique_id=1203643786 node_paths=PackedStringArray("MeshInstances")]
 Lit = true
@@ -138,28 +146,33 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.39063, 1.9947934, 0)
 script = ExtResource("13_1dl0r")
 metadata/_custom_type_script = "uid://fc6kpuv5syvv"
 
-[node name="CT_ObjectSpawn" type="Node3D" parent="." unique_id=856210204]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.169369, 1.6833392, 0)
-script = ExtResource("7_6rygw")
-object = ExtResource("8_p870i")
-metadata/_custom_type_script = "uid://dgp0pmmh5blth"
-
-[node name="CT_ObjectSpawn2" type="Node3D" parent="." unique_id=677690255]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.169369, 1.6833392, 1)
-script = ExtResource("7_6rygw")
-object = ExtResource("8_p870i")
-metadata/_custom_type_script = "uid://dgp0pmmh5blth"
-
-[node name="CT_ObjectSpawn3" type="Node3D" parent="." unique_id=1762327151]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.169369, 1.6833392, 2)
-script = ExtResource("7_6rygw")
-object = ExtResource("8_p870i")
-metadata/_custom_type_script = "uid://dgp0pmmh5blth"
-
 [node name="CT_ObjectSpawn4" type="Node3D" parent="." unique_id=1498855854]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.169369, 1.6833392, 3)
+transform = Transform3D(0.025005933, 0.57318854, -0.819042, -0.99904984, 0.043584563, 0, 0.03569758, 0.8182636, 0.5737337, 21.376541, 1.8699096, 3)
 script = ExtResource("7_6rygw")
 object = ExtResource("8_p870i")
 metadata/_custom_type_script = "uid://dgp0pmmh5blth"
+
+[node name="CT_ObjectSpawn5" type="Node3D" parent="." unique_id=387745922]
+transform = Transform3D(0.04334715, 0.9936078, -0.10423347, -0.99904984, 0.043584563, -1.5255847e-09, 0.004542956, 0.10413423, 0.9945531, 21.376541, 1.8699096, 1.9445581)
+script = ExtResource("7_6rygw")
+object = ExtResource("8_p870i")
+metadata/_custom_type_script = "uid://dgp0pmmh5blth"
+
+[node name="CT_ObjectSpawn6" type="Node3D" parent="." unique_id=860876991]
+transform = Transform3D(0.013070564, 0.29960504, 0.95397395, -0.9990498, 0.04358456, -2.1249196e-09, -0.04157853, -0.9530673, 0.29989022, 21.376541, 1.8699096, 0.7689302)
+script = ExtResource("7_6rygw")
+object = ExtResource("8_p870i")
+metadata/_custom_type_script = "uid://dgp0pmmh5blth"
+
+[node name="Label3D" type="Label3D" parent="." unique_id=2036408109]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 22.745058, 3.4111304, 1.7878444)
+text = "MPT 2.0"
+font_size = 128
+
+[node name="table" type="CSGMesh3D" parent="." unique_id=310519402]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.722687, 1.2538896, 1.7968919)
+use_collision = true
+mesh = SubResource("BoxMesh_6rygw")
+material = SubResource("StandardMaterial3D_p870i")
 
 [editable path="CubeLight/OmniLight3D"]

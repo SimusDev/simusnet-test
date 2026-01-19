@@ -90,10 +90,9 @@ metadata/_custom_type_script = "uid://dvlnhvdrc3dy6"
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CT_HitboxLegs" unique_id=1301651919]
 shape = SubResource("BoxShape3D_k5oc5")
 
-[node name="Camera" parent="." unique_id=782780030 node_paths=PackedStringArray("body") instance=ExtResource("3_j7lg1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.65773225, 0)
+[node name="Camera" parent="." unique_id=1452450032 node_paths=PackedStringArray("body") instance=ExtResource("3_j7lg1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.64549553, 0)
 body = NodePath("..")
-enabled = false
 
 [node name="SimusNetTransform" type="Node" parent="Camera" unique_id=1270936250 node_paths=PackedStringArray("node")]
 script = ExtResource("2_744qn")
@@ -122,7 +121,6 @@ key_right = "move_right"
 key_jump = "jump"
 key_sprint = "sprint"
 key_crouch = "crouch"
-enabled = false
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=56016437]
 mesh = SubResource("CapsuleMesh_d5u4l")

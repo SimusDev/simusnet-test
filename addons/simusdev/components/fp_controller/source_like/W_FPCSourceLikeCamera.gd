@@ -63,17 +63,16 @@ func _enter_tree() -> void:
 		enabled = true
 
 func make_current() -> void:
-	if camera and is_authority():
+	if camera:
 		camera.make_current()
 		enabled = true
 
 func set_current(value: bool) -> void:
-	if camera and is_authority():
+	if camera:
 		camera.current = value
 		enabled = true
 
 func _enabled_status_changed() -> void:
-	
 	if enabled:
 		
 		for i in get_instance_list():
@@ -99,6 +98,7 @@ func _ready() -> void:
 	SD_Network.register_object(self)
 	
 	SD_Components.append_to(body, self)
+	
 	if not is_authority():
 		add_disable_priority()
 		return
@@ -184,7 +184,6 @@ func is_mouse_captured() -> bool:
 
 func is_can_free_move() -> bool:
 	return (not body) and camera.current
-
 
 func _unhandled_input(event: InputEvent) -> void:
 	if Input.mouse_mode != Input.MOUSE_MODE_CAPTURED:
