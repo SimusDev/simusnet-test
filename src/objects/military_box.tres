@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="R_WorldObject" format=3 uid="uid://c1dipp0t421cv"]
+
+[ext_resource type="Script" uid="uid://cxyhi06aga6j1" path="res://component/object/R_WorldObject.gd" id="1_unp4w"]
+[ext_resource type="PackedScene" uid="uid://t2qm47a4v7ae" path="res://scenes/prefabs/object/military_box/military_box_model.tscn" id="2_g2vh1"]
+[ext_resource type="Script" uid="uid://cqdfkwb1galvp" path="res://component/viewmodel/R_ViewModel.gd" id="3_41xl7"]
+[ext_resource type="PackedScene" uid="uid://djxen2ksw7u86" path="res://scenes/prefabs/object/military_box/military_box_view.tscn" id="4_c82ei"]
+[ext_resource type="PackedScene" uid="uid://1geyvbuwfttm" path="res://scenes/prefabs/object/military_box/military_box_world.tscn" id="5_gqfs1"]
+
+[sub_resource type="Resource" id="Resource_otbn1"]
+script = ExtResource("3_41xl7")
+world = ExtResource("5_gqfs1")
+view = ExtResource("4_c82ei")
+player = ExtResource("2_g2vh1")
+metadata/_custom_type_script = "uid://cqdfkwb1galvp"
+
+[resource]
+script = ExtResource("1_unp4w")
+viewmodel = SubResource("Resource_otbn1")
+metadata/_custom_type_script = "uid://cxyhi06aga6j1"

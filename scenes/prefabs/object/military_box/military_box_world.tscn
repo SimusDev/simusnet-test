@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://1geyvbuwfttm"]
+
+[ext_resource type="PackedScene" uid="uid://t2qm47a4v7ae" path="res://scenes/prefabs/object/military_box/military_box_model.tscn" id="1_q136o"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_q136o"]
+size = Vector3(211.24937, 142.76637, 430.83246)
+
+[node name="RigidBody3D" type="RigidBody3D" unique_id=1686454376]
+
+[node name="MilitaryBoxModel" parent="." unique_id=1426099507 instance=ExtResource("1_q136o")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1749998247]
+transform = Transform3D(-2.6226832e-10, 2.6226835e-10, -0.006, 0, 0.006, 2.6226835e-10, 0.006, 1.1464112e-17, -2.6226832e-10, 6.2194916e-09, 0.14228538, 2.7186258e-16)
+shape = SubResource("BoxShape3D_q136o")

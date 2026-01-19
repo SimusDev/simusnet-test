@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://t2qm47a4v7ae"]
+
+[ext_resource type="PackedScene" uid="uid://cjtjfc4gua47p" path="res://3d/ussr_military_box/ussr_military_box.glb" id="1_natyg"]
+
+[node name="MilitaryBoxModel" unique_id=1426099507 instance=ExtResource("1_natyg")]
+
+[node name="Sketchfab_model" parent="." index="0" unique_id=2002766558]
+transform = Transform3D(-2.6226832e-10, 0.006, 2.6226835e-10, 0, -2.6226835e-10, 0.006, 0.006, 2.6226832e-10, 1.1464112e-17, 0, 0, 0)
+
+[node name="Skeleton3D" parent="Sketchfab_model/7e44f1f3ec664c409be3cdb0204f60a9_fbx/RootNode/Box/Object_4" parent_id_path=PackedInt32Array(1387124148) index="0" unique_id=389643945]
+bones/1/position = Vector3(0, 0, 0)

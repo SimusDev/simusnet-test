@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://djxen2ksw7u86"]
+
+[ext_resource type="Script" uid="uid://d0q02rkjl2np2" path="res://component/item/W_Item.gd" id="1_mgw0v"]
+[ext_resource type="PackedScene" uid="uid://t2qm47a4v7ae" path="res://scenes/prefabs/object/military_box/military_box_model.tscn" id="1_xv0eu"]
+
+[node name="MilitaryBoxView" type="Node3D" unique_id=1298332812]
+script = ExtResource("1_mgw0v")
+metadata/_custom_type_script = "uid://d0q02rkjl2np2"
+
+[node name="MilitaryBoxModel" parent="." unique_id=1426099507 instance=ExtResource("1_xv0eu")]
+transform = Transform3D(0.415, 0, 0, 0, 0.38743585, 0.1487227, 0, -0.1487227, 0.38743585, 0, -0.635, -0.785)
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=665690583]

@@ -10,6 +10,7 @@
 [ext_resource type="Resource" uid="uid://cic3i440xvcwv" path="res://src/objects/item/weapon/crowbar.tres" id="5_lhjlg"]
 [ext_resource type="Script" uid="uid://dvlnhvdrc3dy6" path="res://component/hitbox/CT_Hitbox.gd" id="5_yyb7l"]
 [ext_resource type="Script" uid="uid://cgpsyyx2x8kki" path="res://component/ui/MP_CanvasLayer.gd" id="10_wdfrp"]
+[ext_resource type="Script" uid="uid://dfsnjhyc2ld3c" path="res://addons/simusdev/components/fp_controller/source_like/W_FPCSourceLikeCrouch.gd" id="10_y56kl"]
 [ext_resource type="PackedScene" uid="uid://b36ise4k4tg7d" path="res://scenes/prefabs/player_ui/player_ui.tscn" id="11_y56kl"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_yyb7l"]
@@ -26,15 +27,8 @@ size = Vector3(1, 0.6, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_d5u4l"]
 size = Vector3(1, 1.9963379, 1)
 
-[sub_resource type="GDScript" id="GDScript_eb5im"]
-resource_name = "height_detect_script"
-script/source = "extends CT_DetectHeight
-
-func _detected() -> void:
-	super()
-	#var player_health:CT_Health = SD_Components.find_first(Player.get_local(), CT_Health)
-	#player_health.kill()
-"
+[sub_resource type="BoxShape3D" id="BoxShape3D_wdfrp"]
+size = Vector3(1, 1.2, 1)
 
 [node name="Player" type="CharacterBody3D" unique_id=1316103980]
 collision_layer = 0
@@ -98,21 +92,30 @@ key_jump = "jump"
 key_sprint = "sprint"
 key_crouch = "crouch"
 
+[node name="Crouch" type="Node3D" parent="Movement" unique_id=1215001760 node_paths=PackedStringArray("camera", "movement", "collision_normal", "collision_crouch", "crouch_camera_position")]
+script = ExtResource("10_y56kl")
+camera = NodePath("../../Camera")
+movement = NodePath("..")
+collision_normal = NodePath("../../CollisionNormal")
+collision_crouch = NodePath("../../CollisionCrouch")
+crouch_camera_position = NodePath("../../Marker3D")
+metadata/_custom_type_script = "uid://dfsnjhyc2ld3c"
+
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=56016437]
 mesh = SubResource("CapsuleMesh_d5u4l")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=248427722]
+[node name="CollisionNormal" type="CollisionShape3D" parent="." unique_id=248427722]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.014526367, 0)
 shape = SubResource("BoxShape3D_d5u4l")
 
-[node name="CT_DetectHeight" type="Node3D" parent="." unique_id=1485969125]
-script = SubResource("GDScript_eb5im")
-value = -50.0
-instruction = 3
-metadata/_custom_type_script = "uid://b0v38tqs77ebb"
+[node name="CollisionCrouch" type="CollisionShape3D" parent="." unique_id=199348812]
+shape = SubResource("BoxShape3D_wdfrp")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1375642308 node_paths=PackedStringArray("player")]
 script = ExtResource("10_wdfrp")
 player = NodePath("..")
 ui_prefab = ExtResource("11_y56kl")
 metadata/_custom_type_script = "uid://cgpsyyx2x8kki"
+
+[node name="Marker3D" type="Marker3D" parent="." unique_id=1961461207]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
