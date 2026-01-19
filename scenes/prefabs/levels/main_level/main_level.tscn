@@ -2,7 +2,9 @@
 
 [ext_resource type="Texture2D" uid="uid://c0ggfqo17r4au" path="res://addons/kenney_prototype_textures/light/texture_07.png" id="1_7o7j1"]
 [ext_resource type="Script" uid="uid://broh4otllro7s" path="res://addons/lensflares/src/lens_flare.gd" id="5_ypthj"]
-[ext_resource type="PackedScene" uid="uid://1geyvbuwfttm" path="res://scenes/prefabs/object/military_box/military_box_world.tscn" id="7_vuvbf"]
+[ext_resource type="Script" uid="uid://dgp0pmmh5blth" path="res://component/object/CT_ObjectSpawn.gd" id="7_6rygw"]
+[ext_resource type="Texture2D" uid="uid://cb01shisd32yi" path="res://3d/ak74m/textures/ak74m_Roughness.png" id="7_vuvbf"]
+[ext_resource type="Resource" uid="uid://cic3i440xvcwv" path="res://src/objects/item/weapon/crowbar.tres" id="8_p870i"]
 [ext_resource type="Script" uid="uid://fc6kpuv5syvv" path="res://component/level/CT_SpawnPoint3D.gd" id="13_1dl0r"]
 [ext_resource type="PackedScene" uid="uid://c04sd4mj5rmef" path="res://scenes/prefabs/lighting/omni_light_3d.tscn" id="16_jk8u2"]
 
@@ -23,7 +25,14 @@ uv1_triplanar = true
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jk8u2"]
 emission_enabled = true
 emission = Color(1, 1, 1, 1)
-emission_energy_multiplier = 0.012044476
+emission_energy_multiplier = 3.0864
+
+[sub_resource type="BoxMesh" id="BoxMesh_6rygw"]
+size = Vector3(2, 1, 4)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p870i"]
+albedo_texture = ExtResource("7_vuvbf")
+uv1_triplanar = true
 
 [node name="MainLevel" type="Node3D" unique_id=658119017]
 
@@ -109,8 +118,8 @@ mesh = SubResource("BoxMesh_n0uqs")
 surface_material_override/0 = SubResource("StandardMaterial3D_jk8u2")
 
 [node name="OmniLight3D" parent="CubeLight" unique_id=2105551723 instance=ExtResource("16_jk8u2")]
-light_energy = 0.012044476
-light_indirect_energy = 0.012044476
+light_energy = 3.0864
+light_indirect_energy = 3.0864
 
 [node name="cLampComponent" parent="CubeLight/OmniLight3D" index="0" unique_id=1203643786 node_paths=PackedStringArray("MeshInstances")]
 Lit = true

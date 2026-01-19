@@ -22,11 +22,17 @@ static func get_list() -> Array[CT_SpawnPoint3D]:
 	return _list
 
 func _enter_tree() -> void:
+	if Engine.is_editor_hint():
+		return
+	
 	_level = LevelInstance.find_above(self)
 	_level._spawnpoints.append(self)
 	_list.append(self)
 
 func _exit_tree() -> void:
+	if Engine.is_editor_hint():
+		return
+	
 	_level._spawnpoints.erase(self)
 	_list.erase(self)
 
