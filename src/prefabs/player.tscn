@@ -48,7 +48,7 @@ script = ExtResource("3_rlttd")
 node = NodePath("..")
 metadata/_custom_type_script = "uid://dfok55wn4kqd2"
 
-[node name="SimusNetTransform" type="Node" parent="." unique_id=1682608656 node_paths=PackedStringArray("node")]
+[node name="SimusNetTransform" type="Node" parent="." unique_id=1897966060 node_paths=PackedStringArray("node")]
 script = ExtResource("2_744qn")
 node = NodePath("..")
 metadata/_custom_type_script = "uid://d1jwapkumdp1u"

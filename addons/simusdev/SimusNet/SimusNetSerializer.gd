@@ -77,7 +77,7 @@ static func parse_resource(variant: Resource) -> Variant:
 	if id > -1:
 		return _create_parsed(TYPE.RESOURCE, id)
 	
-	SimusNetResources.cache(variant)
+	#SimusNetResources.cache(variant)
 	return _create_parsed(TYPE.RESOURCE, SimusNetResources.get_unique_path(variant))
 
 static func parse_image(image: Image) -> Variant:

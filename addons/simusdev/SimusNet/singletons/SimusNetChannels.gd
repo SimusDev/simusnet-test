@@ -10,7 +10,7 @@ var _channel_cached: String = ""
 var _channel_uncached: String = ""
 
 enum BUILTIN {
-	HANDSHAKE = MAX,
+	HANDSHAKE = -MAX,
 	CACHE,
 	REGISTER,
 	IDENTITY,

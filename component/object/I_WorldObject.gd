@@ -30,11 +30,12 @@ func _validate_prefab() -> PackedScene:
 		_level._logger.debug("%s: viewmodel.world prefab is null!" % _object)
 	return prefab 
 
-func _create_instance() -> void:
+func create_instance() -> I_WorldObject:
 	var prefab: PackedScene = _validate_prefab()
 	if !is_instance_valid(_instance):
 		_instance = prefab.instantiate()
 		_instance.set_meta(META, self)
+	return self
 
 func is_inside_tree() -> bool:
 	if is_instance_valid(_instance):
@@ -42,7 +43,7 @@ func is_inside_tree() -> bool:
 	return false
 
 func instantiate_local() -> I_WorldObject:
-	_create_instance()
+	create_instance()
 	if !is_inside_tree():
 		_level.get_local_group(_object.get_group()).add_child(_instance)
 	return self
@@ -52,7 +53,7 @@ func instantiate() -> I_WorldObject:
 		_level._logger.debug("only server can instantiate world object globally.", SD_ConsoleCategories.ERROR)
 		return self
 	
-	_create_instance()
+	create_instance()
 	if !is_inside_tree():
 		_level.get_networked_group(_object.get_group()).add_child(_instance)
 	return self

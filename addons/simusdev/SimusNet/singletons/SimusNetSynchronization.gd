@@ -63,10 +63,10 @@ func _on_transform_tick() -> void:
 		if !identity.is_ready:
 			continue
 		
+		
 		for peer in transform.get_peers():
 			if peer == SimusNetConnection.get_unique_id():
 				continue
-			
 			
 			var identities: Dictionary = data.get(peer, {})
 			var properties: Dictionary = identities.get_or_add(identity.try_serialize_into_variant(), {})
@@ -89,7 +89,6 @@ func _parse_property_sender(object: Object, properties: Dictionary, property: St
 	
 	if change_hook.get_or_add(property, current_value) == current_value:
 		return
-	
 	
 	properties[SimusNetVars.try_serialize_into_variant(property)] = current_value
 	change_hook.set(property, current_value)

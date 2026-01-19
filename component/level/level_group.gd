@@ -23,12 +23,16 @@ func _ready() -> void:
 	child_entered_tree.connect(_on_child_entered_tree)
 
 func _on_child_entered_tree(child: Node) -> void:
+	if !child.is_node_ready():
+		await child.ready
+	
 	if networked:
 		var transform_sync: SimusNetTransform = SimusNetTransform.find_transform(child)
 		if !transform_sync:
 			transform_sync = SimusNetTransform.new()
 			transform_sync.name = "transform"
 			transform_sync.node = child
+			transform_sync.set_multiplayer_authority(child.get_multiplayer_authority())
 			child.add_child(transform_sync)
 
 func async_clear_all_children() -> void:
