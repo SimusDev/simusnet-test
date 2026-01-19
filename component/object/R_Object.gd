@@ -3,6 +3,13 @@ class_name R_Object
 
 @export var id: StringName
 
+@export var icon: Texture : get = get_icon
+
+func get_icon() -> Texture:
+	if !icon:
+		icon = load("uid://jd2nmbvoduv8")
+	return icon
+
 static var _groups: PackedStringArray = []
 static var _objects: Dictionary[String, R_Object]
 

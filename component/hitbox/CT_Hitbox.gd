@@ -5,7 +5,7 @@ class_name CT_Hitbox extends Area3D
 @export var health:CT_Health
 
 func _ready() -> void:
-	SD_Components.append_to(Player.get_local(), self)
+	pass
 
 #ONLY SERVER LOGIC
 func apply_damage(points:float) -> void:

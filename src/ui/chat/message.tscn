@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://bk0ma84t1ew5i"]
+
+[ext_resource type="Script" uid="uid://djwsx5m5ge54d" path="res://src/ui/chat/message.gd" id="1_pc4ns"]
+
+[node name="Message" type="RichTextLabel" unique_id=1524748047]
+custom_minimum_size = Vector2(500, 22)
+offset_right = 500.0
+offset_bottom = 20.0
+mouse_filter = 2
+theme_override_font_sizes/normal_font_size = 16
+text = "MESSAGE.TEXT"
+scroll_active = false
+shortcut_keys_enabled = false
+vertical_alignment = 1
+script = ExtResource("1_pc4ns")
+metadata/_custom_type_script = "uid://851bhpxqx0n8"

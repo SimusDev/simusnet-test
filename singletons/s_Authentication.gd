@@ -45,6 +45,10 @@ func request(login: String, password: String) -> void:
 		"login": login,
 		"password": password,
 	}
+	
+	_cmd_login.set_value(login)
+	_cmd_password.set_value(password)
+	
 	SimusNetRPC.invoke_on_server(_request, data)
 
 func _request(user_input: Dictionary) -> void:
@@ -71,7 +75,11 @@ func _request(user_input: Dictionary) -> void:
 	
 	var user: CT_User = CT_User.server_create(user_input, SimusNetRemote.sender_id)
 	s_Users._connect_user(user)
-	SimusNetRPC.invoke_on(SimusNetRemote.sender_id, _receive_user_local, user.serialize())
+	
+	if SimusNetRemote.sender_id != SimusNet.SERVER_ID:
+		SimusNetRPC.invoke_on(SimusNetRemote.sender_id, _receive_user_local, user.serialize())
+	else:
+		_receive_success()
 
 func _receive_user_local(bytes: Variant) -> void:
 	s_Users._connect_user(CT_User.deserialize(bytes))

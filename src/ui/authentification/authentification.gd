@@ -8,7 +8,12 @@ func _ready() -> void:
 	_line_login.text = s_Authentication.get_last_login()
 	_line_password.text = s_Authentication.get_last_password()
 	s_Authentication.on_error.connect(_on_error)
-	s_Authentication.on_success.connect(queue_free)
+	s_Authentication.on_success.connect(_on_success)
+
+func _on_success() -> void:
+	var character_select: Control = load("uid://cwu02j8ltcpak").instantiate()
+	get_parent().add_child(character_select)
+	queue_free()
 
 func _on_error(error: String) -> void:
 	_message.text = error

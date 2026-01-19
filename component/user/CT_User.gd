@@ -12,8 +12,16 @@ var _nickname: String = ""
 
 static var _local: CT_User
 
+var _node: Node
+
+func get_player_node() -> Node:
+	if !is_instance_valid(_node):
+		_node = null
+	return _node
+
 func set_in(node: Node) -> CT_User:
 	node.set_meta("CT_User", self)
+	_node = node
 	return self
 
 static func find_in(node: Node) -> CT_User:
@@ -76,6 +84,7 @@ static func deserialize(data: Dictionary) -> CT_User:
 	var user := CT_User.new()
 	user._peer = data[0]
 	user._nickname = data[1]
+	user.name = str(data[0])
 	return user
 
 static func server_create(user_input: Dictionary, peer: int) -> CT_User:
@@ -86,6 +95,6 @@ static func server_create(user_input: Dictionary, peer: int) -> CT_User:
 	data.get_value_or_add("login", user_input.login)
 	data.get_value_or_add("password", user_input.password)
 	user._nickname = data.get_value_or_add("nickname", user_input.login)
-	user.name = (data.get_value_or_add("login", "") as String).validate_node_name()
+	user.name = str(peer)
 	data.save()
 	return user

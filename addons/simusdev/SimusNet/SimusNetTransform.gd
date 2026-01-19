@@ -20,6 +20,9 @@ func _ready() -> void:
 	if Engine.is_editor_hint():
 		return
 	
+	if !node:
+		return
+	
 	if not "transform" in node:
 		return
 	
@@ -37,6 +40,9 @@ static func find_transform(target: Node) -> SimusNetTransform:
 
 func _process(delta: float) -> void:
 	if Engine.is_editor_hint():
+		return
+	
+	if !node:
 		return
 	
 	if SimusNet.is_network_authority(self):
@@ -62,6 +68,9 @@ func _enter_tree() -> void:
 	if Engine.is_editor_hint():
 		return
 	
+	if !node:
+		return
+	
 	if !is_node_ready():
 		await ready 
 	
@@ -74,6 +83,8 @@ func _exit_tree() -> void:
 	if Engine.is_editor_hint():
 		return
 	
+	if !node:
+		return
+	
 	if "transform" in node:
 		SimusNetSynchronization._instance._transform_exit_tree(self)
-	

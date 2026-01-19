@@ -25,8 +25,74 @@ static func clear() -> void:
 
 func initialize() -> void:
 	instance = self
+	process_mode = Node.NOTIFICATION_DISABLED
+	SimusNetEvents.event_connected.listen(_on_connected)
+	SimusNetEvents.event_disconnected.listen(_on_disconnected)
+
+func _on_connected() -> void:
+	process_mode = Node.PROCESS_MODE_PAUSABLE
+
+func _on_disconnected() -> void:
+	process_mode = Node.PROCESS_MODE_DISABLED
+
+var _unique_id_queue: Array = []
+
+signal _on_unique_id_received()
+var _received_generated_unique_id: Variant = null
+var _received_unique_id: Variant = null
+
+static func request_unique_id(id: Variant) -> int:
+	if instance._received_generated_unique_id == id:
+		return instance._received_unique_id
+	
+	if !instance._unique_id_queue.has(id):
+		instance._unique_id_queue.append(id)
+	
+	await instance._on_unique_id_received
+	return await request_unique_id(id)
+
+func _process(delta: float) -> void:
+	if _unique_id_queue.is_empty() or SimusNetConnection.is_server():
+		return
+	
+	
+	_unique_id_request_rpc.rpc_id(SimusNet.SERVER_ID, SimusNetCompressor.parse(_unique_id_queue))
+	#print(_unique_id_queue)
+	_unique_id_queue.clear()
+
+@rpc("any_peer", "call_remote", "reliable", SimusNetChannels.BUILTIN.IDENTITY)
+func _unique_id_request_rpc(serialized: Variant) -> void:
+	if not SimusNetConnection.is_server():
+		return
+	
+	var packet: Dictionary = {}
+	var id_list: Array = SimusNetDecompressor.parse(serialized)
+	
+	for id: Variant in id_list:
+		var identity: SimusNetIdentity = SimusNetIdentity._list_by_generated_id.get(id)
+		if identity:
+			packet[id] = identity.get_unique_id()
+	
+	if !packet.is_empty():
+		_unique_id_request_receive.rpc_id(multiplayer.get_remote_sender_id(), SimusNetCompressor.parse(packet))
+
+@rpc("authority", "call_remote", "reliable", SimusNetChannels.BUILTIN.IDENTITY)
+func _unique_id_request_receive(serialized: Variant) -> void:
+	if SimusNetConnection.is_server():
+		return
+	
+	var dict: Dictionary = SimusNetDecompressor.parse(serialized)
+	for generated_id: Variant in dict:
+		var unique_id: Variant = dict[generated_id]
+		_received_generated_unique_id = generated_id
+		_received_unique_id = unique_id
+		_on_unique_id_received.emit()
+		#print(generated_id, ": ", unique_id)
+	
 
 static func _cache_identity(identity: SimusNetIdentity) -> void:
+	return
+	
 	if SimusNetConnection.is_server():
 		instance._cache_identity_rpc.rpc(identity.get_generated_unique_id(), identity.get_unique_id())
 
@@ -39,6 +105,8 @@ func _cache_identity_rpc(generated_id: Variant, unique_id: int) -> void:
 	SimusNetEvents.event_identity_cached.publish()
 
 static func _uncache_identity(identity: SimusNetIdentity) -> void:
+	return
+	
 	if SimusNetConnection.is_server():
 		identity.get_cached_unique_ids().erase(identity.get_unique_id())
 		identity.get_cached_unique_ids_values().erase(identity.get_generated_unique_id())

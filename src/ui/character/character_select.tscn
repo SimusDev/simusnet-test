@@ -1,0 +1,130 @@
+[gd_scene format=3 uid="uid://cwu02j8ltcpak"]
+
+[ext_resource type="Script" uid="uid://f6fw61b061iq" path="res://src/ui/character/character_select.gd" id="1_26xe0"]
+[ext_resource type="ButtonGroup" uid="uid://cdrnie44in03e" path="res://src/ui/character/character_button_group.tres" id="2_4lap4"]
+[ext_resource type="ButtonGroup" uid="uid://dkq2jhyriq27w" path="res://src/ui/character/locations_button_group.tres" id="3_o1fw7"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_26xe0"]
+font_size = 48
+
+[node name="CharacterSelect" type="Control" unique_id=1090787557 node_paths=PackedStringArray("_characters", "_locations", "_screens")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_26xe0")
+_characters = NodePath("Characters/CenterContainer/Characters")
+_locations = NodePath("Locations/CenterContainer/_Locations")
+_screens = [NodePath("Characters"), NodePath("Locations")]
+_screens_title = Array[String](["Character Select", "Location Select"])
+_character_button_group = ExtResource("2_4lap4")
+_location_button_group = ExtResource("3_o1fw7")
+metadata/_edit_horizontal_guides_ = [92.0, 556.0]
+
+[node name="Characters" type="ScrollContainer" parent="." unique_id=1115134693]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.142
+anchor_right = 1.0
+anchor_bottom = 0.85800004
+offset_top = -0.01600647
+offset_bottom = 0.015991211
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="Characters" unique_id=1923393332]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Characters" type="GridContainer" parent="Characters/CenterContainer" unique_id=299867759]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+columns = 3
+
+[node name="Locations" type="ScrollContainer" parent="." unique_id=128592590]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.142
+anchor_right = 1.0
+anchor_bottom = 0.85800004
+offset_top = -0.01600647
+offset_bottom = 0.015991211
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="Locations" unique_id=1500227014]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="_Locations" type="VBoxContainer" parent="Locations/CenterContainer" unique_id=1680369380]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Top" type="Panel" parent="." unique_id=833059695]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.142
+offset_bottom = -0.01600647
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="Top" unique_id=232538172]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "TITLE"
+label_settings = SubResource("LabelSettings_26xe0")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Bottom" type="Panel" parent="." unique_id=848132214]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.85800004
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 0.015991211
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Bottom" unique_id=539398577]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.163
+anchor_right = 1.0
+anchor_bottom = 0.79300004
+offset_top = 0.00399971
+offset_bottom = 0.04399872
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="back" type="Button" parent="Bottom/HBoxContainer" unique_id=1373757964]
+custom_minimum_size = Vector2(256, 0)
+layout_mode = 2
+text = "BACK"
+
+[node name="done" type="Button" parent="Bottom/HBoxContainer" unique_id=1097726693]
+custom_minimum_size = Vector2(256, 0)
+layout_mode = 2
+text = "DONE"
+
+[node name="next" type="Button" parent="Bottom/HBoxContainer" unique_id=417050228]
+custom_minimum_size = Vector2(256, 0)
+layout_mode = 2
+text = "NEXT"
+
+[connection signal="pressed" from="Bottom/HBoxContainer/back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="Bottom/HBoxContainer/done" to="." method="_on_done_pressed"]
+[connection signal="pressed" from="Bottom/HBoxContainer/next" to="." method="_on_next_pressed"]

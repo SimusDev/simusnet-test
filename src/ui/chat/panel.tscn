@@ -1,0 +1,54 @@
+[gd_scene format=3 uid="uid://di4fbcxq7cang"]
+
+[ext_resource type="Script" uid="uid://cgvxllod2djqw" path="res://src/ui/chat/panel.gd" id="1_dq3bu"]
+[ext_resource type="Script" uid="uid://d1l1jkmj6s53f" path="res://addons/simusdev/ui/SD_UIInterfaceMenu.gd" id="1_k0nb2"]
+[ext_resource type="PackedScene" uid="uid://bk0ma84t1ew5i" path="res://src/ui/chat/message.tscn" id="2_8xh4f"]
+
+[node name="Panel" type="Panel" unique_id=1462611172 node_paths=PackedStringArray("container", "line_edit")]
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 18.0
+offset_top = -100.5
+offset_right = 518.0
+offset_bottom = 100.5
+grow_vertical = 2
+script = ExtResource("1_dq3bu")
+message_scene = ExtResource("2_8xh4f")
+container = NodePath("ScrollContainer/VBoxContainer")
+line_edit = NodePath("LineEdit")
+
+[node name="SD_UIInterfaceMenu" type="Node" parent="." unique_id=1098842595 node_paths=PackedStringArray("target")]
+script = ExtResource("1_k0nb2")
+target = NodePath("..")
+input_action = "chat"
+metadata/_custom_type_script = "uid://d1l1jkmj6s53f"
+
+[node name="LineEdit" type="LineEdit" parent="." unique_id=227124570]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.85600007
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -0.056015015
+grow_horizontal = 2
+grow_vertical = 2
+placeholder_text = "ENTER MESSAGE HERE..."
+keep_editing_on_text_submit = true
+
+[node name="ScrollContainer" type="ScrollContainer" parent="." unique_id=1453743407]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.85800004
+offset_bottom = 0.041992188
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer" unique_id=688421032]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[connection signal="opened" from="SD_UIInterfaceMenu" to="." method="_on_sd_ui_interface_menu_opened"]
+[connection signal="text_submitted" from="LineEdit" to="." method="_on_line_edit_text_submitted"]

@@ -20,4 +20,4 @@ func get_args_count() -> int:
 	return _args_count
 
 func get_as_string() -> String:
-	return _info
+	return "%s %s" % [_cmd.get_code(), _info]

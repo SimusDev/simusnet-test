@@ -2,6 +2,8 @@
 extends Node
 class_name CT_Health
 
+@export var root: Node
+
 signal on_value_changed()
 signal on_value_max_changed()
 
@@ -9,12 +11,24 @@ signal on_value_max_changed()
 @export var value_max: float = 100.0 : set = set_value_max
 
 func _ready() -> void:
-	SD_Components.append_to(Player.get_local(), self)
+	SD_ECS.append_to(root, self)
+	
 	SimusNetNodeAutoVisible.register_or_get(self)
 	SimusNetVars.register(self, [
 		"value",
 		"value_max"
 	], SimusNetVarConfig.new().flag_mode_server_only().flag_replication())
+	
+	R_GameStateNodeReference.new(self).connect_events(
+		func(e: R_GameStateNodeInstance):
+			e.write(0, value)
+			e.write(1, value_max)
+			
+			,
+		func(e: R_GameStateNodeInstance):
+			value = e.read(0)
+			value_max = e.read(1)
+	)
 
 func set_value(new: float) -> CT_Health:
 	value = clamp(value, 0.0, value_max)

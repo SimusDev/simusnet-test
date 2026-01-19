@@ -8,6 +8,15 @@ class_name R_WorldObject
 
 static var _world_objects: Dictionary[String, R_WorldObject]
 
+static func get_world_object_list() -> Array[R_WorldObject]:
+	return _world_objects.values()
+
+static func find_by_id(value: String) -> R_WorldObject:
+	return _world_objects.get(value)
+
+func is_supports_gamestate() -> bool:
+	return true
+
 func _itemstack_config_init(config: R_ItemStackConfig) -> void:
 	pass
 
@@ -21,11 +30,7 @@ func get_itemstack_config() -> R_ItemStackConfig:
 	_itemstack_config_get(itemstack_config)
 	return itemstack_config
 
-static func get_world_object_list() -> Array[R_WorldObject]:
-	return _world_objects.values()
 
-static func find_by_id(value: String) -> R_WorldObject:
-	return _world_objects.get(value)
 
 static func find_in(node: Node) -> R_WorldObject:
 	if node.has_meta("R_WorldObject"):

@@ -8,6 +8,11 @@ var _registry: Dictionary[String, Object] = {}
 signal on_registered(object: Object, id: String)
 signal on_unregistered(object: Object, id: String)
 
+func clear_registry() -> void:
+	for i in _registry.keys():
+		unregister(i)
+
+
 func register(id: String, object: Object) -> bool:
 	
 	if _registry.has(id):
@@ -30,6 +35,7 @@ func unregister(id: String) -> bool:
 	SD_Nodes.call_method_if_exists(object, "_unregistered")
 	_registry.erase(id)
 	on_unregistered.emit(object, id)
+	_logger.debug("unregistered: %s, %s" % [id, _logger.variant_to_string(object)])
 	return true
 
 func async_load_directory(path: String) -> void:

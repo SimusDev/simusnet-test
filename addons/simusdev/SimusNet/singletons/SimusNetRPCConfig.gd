@@ -12,14 +12,13 @@ var unique_id_bytes: PackedByteArray
 var is_ready: bool = false
 signal on_ready()
 
-var callable: Callable
 var object: Object
 #//////////////////////////////////////////////////////////////
 
 #//////////////////////////////////////////////////////////////
 
 func _initialize(handler: SimusNetRPCConfigHandler, callable: Callable) -> void:
-	self.callable = callable
+	#self.callable = callable
 	self.object = callable.get_object()
 	
 	_handler = handler
@@ -128,7 +127,7 @@ func flag_serialization(value: bool = true) -> SimusNetRPCConfig:
 
 #//////////////////////////////////////////////////////////////
 
-func _validate() -> bool:
+func _validate(callable: Callable) -> bool:
 	if !is_ready:
 		await on_ready
 	
@@ -146,7 +145,7 @@ func _validate() -> bool:
 	
 	return true
 
-func _validate_on_recieve() -> bool:
+func _validate_on_recieve(callable: Callable) -> bool:
 	if !is_ready:
 		await on_ready
 	

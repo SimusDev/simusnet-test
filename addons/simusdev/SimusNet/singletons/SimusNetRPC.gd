@@ -42,9 +42,9 @@ func _validate_callable(callable: Callable, on_recieve: bool = false) -> SimusNe
 	var rpc_valide: bool = false
 	
 	if on_recieve:
-		rpc_valide = await config._validate_on_recieve()
+		rpc_valide = await config._validate_on_recieve(callable)
 	else:
-		rpc_valide = await config._validate()
+		rpc_valide = await config._validate(callable)
 	
 	if rpc_valide:
 		return config
@@ -96,6 +96,7 @@ func _invoke_on_without_validating(peer: int, callable: Callable, args: Array, c
 		#else:
 		p_callable.rpc_id(peer, serialized_unique_id, serialized_method_id, SimusNetSerializer.parse(args, config._serialization))
 	
+	
 	_start_cooldown(callable)
 
 func _processor_recieve_rpc_from_peer(peer: int, channel: int, serialized_identity: Variant, serialized_method: Variant, serialized_args: Variant) -> void:
@@ -118,8 +119,6 @@ func _processor_recieve_rpc_from_peer(peer: int, channel: int, serialized_identi
 	
 	var args: Array = []
 	
-	
-	
 	if serialized_args != null:
 		var deserialized: Variant = SimusNetDeserializer.parse(serialized_args, config._serialization)
 		if deserialized is Array:
@@ -127,18 +126,16 @@ func _processor_recieve_rpc_from_peer(peer: int, channel: int, serialized_identi
 		else:
 			args.append(deserialized)
 		
-	var callable: Callable
+	var callable: Callable = Callable(object, method_name)
 	
 	if peer == SimusNetConnection.SERVER_ID:
 		if object.has_method(method_name):
 			object.callv(method_name, args)
 		return
 	
-	var validated_config: SimusNetRPCConfig = await _validate_callable(config.callable, true)
+	var validated_config: SimusNetRPCConfig = await _validate_callable(callable, true)
 	if !validated_config:
 		return
-	
-	callable = validated_config.callable
 	
 	if !callable:
 		logger.push_error("(identity ID: %s): callable with %s ID not found. failed to call rpc." % [serialized_identity, serialized_method])

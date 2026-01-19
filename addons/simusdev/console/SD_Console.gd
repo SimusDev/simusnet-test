@@ -147,15 +147,16 @@ func write_events(text) -> SD_ConsoleMessage:
 	return write(text, SD_ConsoleCategories.CATEGORY.EVENTS)
 
 func write_from_object(object: Object, text, category: int) -> SD_ConsoleMessage:
-	var script = object.get_script()
-	if script:
-		if script is Script:
-			var msg_str: String = "(%s, %s): %s" % [script.get_global_name(), str(object), str(text)]
-			
-			if object is Node:
-				msg_str = "(%s, %s): %s" % [script.get_global_name(), str(object.get_path()), str(text)]
-			
-			return write(msg_str, category)
+	if is_instance_valid(object):
+		var script = object.get_script()
+		if script:
+			if script is Script:
+				var msg_str: String = "(%s, %s): %s" % [script.get_global_name(), str(object), str(text)]
+				
+				if object is Node:
+					msg_str = "(%s, %s): %s" % [script.get_global_name(), str(object.get_path()), str(text)]
+				
+				return write(msg_str, category)
 	
 	return write("(%s): %s" % [str(object), str(text)], category)
 

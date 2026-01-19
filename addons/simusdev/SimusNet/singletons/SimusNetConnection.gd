@@ -133,4 +133,12 @@ static func connect_network_node_callables(object: Node, on_ready: Callable, on_
 	on_ready.call()
 	
 	SimusNetEvents.event_disconnected.listen(on_disconnect)
-	
+
+#static func get_ping(peer: int = get_unique_id()) -> float:
+	#match get_peer().get_class():
+		#"ENetMultiplayerPeer":
+			##if get_peer()
+			#var packet_peer: ENetPacketPeer = (get_peer() as ENetMultiplayerPeer).get_peer(peer)
+			#if packet_peer:
+				#return packet_peer.get_statistic(ENetPacketPeer.PEER_ROUND_TRIP_TIME)
+	#return -1.0

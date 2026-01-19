@@ -3,6 +3,13 @@ class_name R_Level extends Resource
 @export var code:StringName = "Level"
 @export var prefab:PackedScene
 
+@export var icon: Texture
+
+var _instance: LevelInstance
+
+func get_instance() -> LevelInstance:
+	return _instance
+
 static var _reference_list:Array[R_Level]
 static func get_reference_list() -> Array[R_Level]:
 	return _reference_list

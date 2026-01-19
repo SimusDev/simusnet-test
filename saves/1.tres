@@ -1,0 +1,46 @@
+[gd_resource type="Resource" script_class="R_GameState" format=3]
+
+[ext_resource type="Script" path="res://component/gamestate/R_GameStateNodeInstance.gd" id="1_sgjlh"]
+[ext_resource type="Resource" path="res://src/objects/item/weapon/crowbar.tres" id="2_6qlg0"]
+[ext_resource type="PackedScene" path="res://scenes/prefabs/object/item/weapon/crowbar/crowbar_world.tscn" id="3_6nm6q"]
+[ext_resource type="Script" path="res://component/gamestate/R_GameState.gd" id="4_gqcdb"]
+
+[sub_resource type="Resource" id="Resource_quro6"]
+script = ExtResource("1_sgjlh")
+_data = {
+"objects": {
+&"InteractAction": {},
+&"Object": {
+&"1": {
+0: ExtResource("3_6nm6q"),
+1: Transform3D(1.31726265e-05, 0.9948722, -0.10113994, -1, 1.23381615e-05, -9.387732e-06, -8.0913305e-06, 0.10113994, 0.9948722, 21.379671, 1.7875705, 1.9432101),
+2: {
+0: ExtResource("2_6qlg0")
+}
+},
+&"2": {
+0: ExtResource("3_6nm6q"),
+1: Transform3D(-5.722046e-06, 0.2969118, 0.9549049, -1, 2.2232533e-05, -1.2904406e-05, -2.5063753e-05, -0.9549049, 0.29691178, 21.375843, 1.787563, 0.7661125),
+2: {
+0: ExtResource("2_6qlg0")
+}
+}
+},
+&"Player": {},
+&"Ui": {}
+}
+}
+
+[sub_resource type="Resource" id="Resource_0yxqj"]
+script = ExtResource("1_sgjlh")
+_data = {
+0: 100.0,
+1: 100.0
+}
+
+[resource]
+script = ExtResource("4_gqcdb")
+_instances = Dictionary[String, ExtResource("1_sgjlh")]({
+"/root/Game/LevelHolder/main_level": SubResource("Resource_quro6"),
+"/root/Game/LevelHolder/main_level/GroupsNetworked/Player/0/CT_Health": SubResource("Resource_0yxqj")
+})

@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://ccrgm8otgtdcq"]
+
+[ext_resource type="ButtonGroup" uid="uid://cdrnie44in03e" path="res://src/ui/character/character_button_group.tres" id="1_8ugid"]
+[ext_resource type="Script" uid="uid://c7y5b60l574i2" path="res://src/ui/character/character.gd" id="2_qqonj"]
+[ext_resource type="Texture2D" uid="uid://bf4rehsvpjg82" path="res://src/objects/player/player.png" id="3_xr8g1"]
+
+[node name="Character" type="Button" unique_id=88122336]
+custom_minimum_size = Vector2(177, 209)
+offset_right = 177.0
+offset_bottom = 209.0
+toggle_mode = true
+button_group = ExtResource("1_8ugid")
+script = ExtResource("2_qqonj")
+COLOR_PRESSED = Color(0.5689725, 0.5689728, 0.5689727, 1)
+metadata/_edit_horizontal_guides_ = [169.0]
+
+[node name="icon" type="TextureRect" parent="." unique_id=1734585546]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.809
+offset_bottom = -0.08100891
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("3_xr8g1")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Label" type="Label" parent="." unique_id=1918806467]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.809
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -0.08100891
+grow_horizontal = 2
+grow_vertical = 2
+text = "PLAYER"
+horizontal_alignment = 1
+vertical_alignment = 1

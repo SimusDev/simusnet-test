@@ -5,6 +5,18 @@ var _item_stack: CT_ItemStack
 
 var _inventory: CT_Inventory
 
+signal on_updated()
+
+signal on_item_added(item: CT_ItemStack)
+signal on_item_removed(item: CT_ItemStack)
+
+func _ready() -> void:
+	SimusNetIdentity.register(self)
+	
+
+func can_handle_item(item: CT_ItemStack) -> bool:
+	return true
+
 func get_id() -> int:
 	return get_index()
 
@@ -18,7 +30,9 @@ func get_inventory() -> CT_Inventory:
 	return _inventory
 
 func get_item_stack() -> CT_ItemStack:
-	return _item_stack
+	if is_instance_valid(_item_stack):
+		return _item_stack
+	return null
 
 func _enter_tree() -> void:
 	_inventory = SD_ECS.node_find_above_by_script(self, CT_Inventory)

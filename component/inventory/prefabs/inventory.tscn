@@ -3,6 +3,8 @@
 [ext_resource type="Script" uid="uid://dehqcsswxyu8a" path="res://component/inventory/CT_Inventory.gd" id="1_qv2pm"]
 [ext_resource type="Script" uid="uid://c4okankbwa8k" path="res://component/inventory/CT_InventorySlotCloth.gd" id="2_612qr"]
 [ext_resource type="Script" uid="uid://cbtj1vhagkvwq" path="res://component/inventory/CT_InventorySlotHot.gd" id="3_4qqn0"]
+[ext_resource type="Script" uid="uid://dmwy4xv7t1dip" path="res://component/inventory/CT_ItemStack.gd" id="4_a7c31"]
+[ext_resource type="Resource" uid="uid://cic3i440xvcwv" path="res://src/objects/item/weapon/crowbar.tres" id="5_kpfa4"]
 
 [node name="Inventory" type="Node" unique_id=1499312686]
 script = ExtResource("1_qv2pm")
@@ -28,6 +30,11 @@ metadata/_custom_type_script = "uid://c4okankbwa8k"
 [node name="hot_0" type="Node" parent="." unique_id=463093101]
 script = ExtResource("3_4qqn0")
 metadata/_custom_type_script = "uid://cbtj1vhagkvwq"
+
+[node name="CT_ItemStack" type="Node" parent="hot_0" unique_id=1230192440]
+script = ExtResource("4_a7c31")
+object = ExtResource("5_kpfa4")
+metadata/_custom_type_script = "uid://dmwy4xv7t1dip"
 
 [node name="hot_1" type="Node" parent="." unique_id=2144238613]
 script = ExtResource("3_4qqn0")

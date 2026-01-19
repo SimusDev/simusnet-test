@@ -5,14 +5,16 @@ var _level: LevelInstance
 
 var networked: bool = false
 
-var _replicator: SimusNetNodeSceneReplicator
+var _replicator: CT_WorldObjectReplicator
+
+func get_replicator() -> CT_WorldObjectReplicator:
+	return _replicator
 
 func _ready() -> void:
 	_level = LevelInstance.find_above(self)
 	
-	
 	if networked:
-		_replicator = SimusNetNodeSceneReplicator.new()
+		_replicator = CT_WorldObjectReplicator.new()
 		_replicator.name = "replicator"
 		_replicator.root = self
 		add_child(_replicator)
@@ -28,6 +30,14 @@ func _on_child_entered_tree(child: Node) -> void:
 			transform_sync.name = "transform"
 			transform_sync.node = child
 			child.add_child(transform_sync)
+
+func async_clear_all_children() -> void:
+	for i in get_children():
+		if i is SimusNetNodeSceneReplicator:
+			continue
+		i.queue_free()
+		await i.tree_exited
+	
 
 func _on_child_exiting_tree(child: Node) -> void:
 	pass

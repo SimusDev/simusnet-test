@@ -41,6 +41,10 @@ static func append_to_anyway(object: Object, component: Variant) -> void:
 	get_components_from(object).append(component)
 
 static func get_components_from(object: Object) -> Array:
+	if !is_instance_valid(object):
+		_debug_log_from_object(object, "%s cant get components from null!" % object, SD_ConsoleCategories.ERROR)
+		return []
+		
 	if object.has_method(METHOD):
 		var value: Variant = object.call(METHOD)
 		if value is Array:
