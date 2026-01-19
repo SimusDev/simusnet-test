@@ -72,6 +72,7 @@ func _request_spawn_server(location_s: Variant, player: R_Player) -> void:
 	var player_node: Node = I_WorldObject.new(spawn.get_level(), player).instantiate().get_instance()
 	player_node.set_multiplayer_authority(SimusNetRemote.sender_id)
 	player_node.global_transform = spawn.global_transform
+	user.set_in(player_node)
 
 func _net_ready() -> void:
 	if SimusNetConnection.is_server():

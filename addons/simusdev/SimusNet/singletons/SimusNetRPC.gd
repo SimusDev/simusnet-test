@@ -160,8 +160,8 @@ func _invoke_on(peer: int, callable: Callable, args: Array) -> void:
 		return
 	
 	if SimusNetConnection.get_unique_id() == peer:
-		callable.callv(args)
 		_setup_remote_sender(peer, config.flag_get_channel_id())
+		callable.callv(args)
 		return
 	
 	_invoke_on_without_validating(peer, callable, args, config)
