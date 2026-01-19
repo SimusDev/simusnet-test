@@ -95,8 +95,9 @@ func deserialize_node(bytes: PackedByteArray) -> Node:
 func serialize_nodes(nodes: Array[Node]) -> PackedByteArray:
 	var result: Array = []
 	for i in nodes:
-		if can_serialize_node(i):
-			result.append(serialize_node(i))
+		if is_instance_valid(i):
+			if can_serialize_node(i):
+				result.append(serialize_node(i))
 	return SimusNetCompressor.parse(result)
 
 func deserialize_nodes(bytes: PackedByteArray) -> Array[Node]:

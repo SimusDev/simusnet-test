@@ -45,6 +45,10 @@ func request(login: String, password: String) -> void:
 		"login": login,
 		"password": password,
 	}
+	
+	_cmd_login.set_value(login)
+	_cmd_password.set_value(password)
+	
 	SimusNetRPC.invoke_on_server(_request, data)
 
 func _request(user_input: Dictionary) -> void:
