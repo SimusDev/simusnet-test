@@ -1,8 +1,6 @@
 [gd_scene format=3 uid="uid://b700hdjmhxkbb"]
 
 [ext_resource type="Texture2D" uid="uid://c0ggfqo17r4au" path="res://addons/kenney_prototype_textures/light/texture_07.png" id="1_7o7j1"]
-[ext_resource type="Script" uid="uid://imhh1kugqh4m" path="res://addons/simusdev/SimusNet/SimusNetNodePlayerSpawner.gd" id="1_spqat"]
-[ext_resource type="PackedScene" uid="uid://deashx71fo0da" path="res://src/prefabs/player.tscn" id="2_jk8u2"]
 [ext_resource type="Script" uid="uid://broh4otllro7s" path="res://addons/lensflares/src/lens_flare.gd" id="5_ypthj"]
 [ext_resource type="Script" uid="uid://fc6kpuv5syvv" path="res://component/level/CT_SpawnPoint3D.gd" id="13_1dl0r"]
 [ext_resource type="PackedScene" uid="uid://c04sd4mj5rmef" path="res://scenes/prefabs/lighting/omni_light_3d.tscn" id="16_jk8u2"]
@@ -24,19 +22,9 @@ uv1_triplanar = true
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jk8u2"]
 emission_enabled = true
 emission = Color(1, 1, 1, 1)
-emission_energy_multiplier = 3.062311
+emission_energy_multiplier = 3.086353
 
 [node name="MainLevel" type="Node3D" unique_id=658119017]
-
-[node name="Players" type="Node3D" parent="." unique_id=1359783398]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.0249274, 0)
-
-[node name="SimusNetNodePlayerSpawner" type="Node" parent="Players" unique_id=1489335201 node_paths=PackedStringArray("spawnpoints", "root")]
-script = ExtResource("1_spqat")
-prefabs = Array[PackedScene]([ExtResource("2_jk8u2")])
-spawnpoints = [NodePath("..")]
-root = NodePath("..")
-metadata/_custom_type_script = "uid://imhh1kugqh4m"
 
 [node name="SEX" type="CSGBox3D" parent="." unique_id=1728282914]
 use_collision = true
@@ -120,8 +108,8 @@ mesh = SubResource("BoxMesh_n0uqs")
 surface_material_override/0 = SubResource("StandardMaterial3D_jk8u2")
 
 [node name="OmniLight3D" parent="CubeLight" unique_id=2105551723 instance=ExtResource("16_jk8u2")]
-light_energy = 3.062311
-light_indirect_energy = 3.062311
+light_energy = 3.086353
+light_indirect_energy = 3.086353
 
 [node name="cLampComponent" parent="CubeLight/OmniLight3D" index="0" unique_id=1203643786 node_paths=PackedStringArray("MeshInstances")]
 Lit = true
@@ -138,8 +126,13 @@ script = ExtResource("5_ypthj")
 raycast_occlusion = true
 metadata/_custom_type_script = "uid://broh4otllro7s"
 
-[node name="CT_SpawnPoint3D" type="Node3D" parent="." unique_id=257207125]
+[node name="main" type="Node3D" parent="." unique_id=257207125]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.9947934, 0)
+script = ExtResource("13_1dl0r")
+metadata/_custom_type_script = "uid://fc6kpuv5syvv"
+
+[node name="domik" type="Node3D" parent="." unique_id=826041468]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.39063, 1.9947934, 0)
 script = ExtResource("13_1dl0r")
 metadata/_custom_type_script = "uid://fc6kpuv5syvv"
 

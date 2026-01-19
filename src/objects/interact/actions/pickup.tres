@@ -1,0 +1,8 @@
+[gd_resource type="Resource" format=3 uid="uid://cvbrrn0mme4i"]
+
+[ext_resource type="Script" uid="uid://b2ge5n82qd3aa" path="res://src/objects/interact/actions/pickup.gd" id="1_spc04"]
+
+[resource]
+script = ExtResource("1_spc04")
+name = "pickup"
+metadata/_custom_type_script = "uid://ux3hdo53vt4p"

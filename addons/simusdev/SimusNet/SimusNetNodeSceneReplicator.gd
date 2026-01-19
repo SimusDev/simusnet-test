@@ -160,8 +160,10 @@ func _receive_deletion(packet: Variant) -> void:
 
 var _child_count: int = 0
 
+func clear_path_optimization() -> void:
+	_child_count = 0
+
 func _on_child_entered_tree(node: Node) -> void:
-	
 	node.name = node.name.validate_node_name()
 	if optimize_paths:
 		node.name = str(_child_count)

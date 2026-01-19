@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://cpp4pe7ppnbso"]
+
+[ext_resource type="Script" uid="uid://cpih7amyckeqt" path="res://src/ui/interact/action.gd" id="1_fibsk"]
+
+[node name="Action" type="Button" unique_id=438382863]
+offset_right = 213.0
+offset_bottom = 102.0
+mouse_filter = 2
+theme_override_font_sizes/font_size = 24
+text = "ACTION"
+script = ExtResource("1_fibsk")

@@ -8,3 +8,5 @@ class_name EVENT
 
 static var on_player_spawned := EVENT_PlayerSpawned.new()
 static var on_player_despawned := EVENT_PlayerDespawned.new()
+static var on_player_spawned_local := EVENT_PlayerSpawned.new()
+static var on_player_despawned_local := EVENT_PlayerDespawned.new()

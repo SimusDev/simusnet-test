@@ -14,6 +14,17 @@ func _ready() -> void:
 		"value",
 		"value_max"
 	], SimusNetVarConfig.new().flag_mode_server_only().flag_replication())
+	
+	R_GameStateNodeReference.new(self).connect_events(
+		func(e: R_GameStateNodeInstance):
+			e.write(0, value)
+			e.write(1, value_max)
+			
+			,
+		func(e: R_GameStateNodeInstance):
+			value = e.read(0)
+			value_max = e.read(1)
+	)
 
 func set_value(new: float) -> CT_Health:
 	value = clamp(value, 0.0, value_max)

@@ -14,7 +14,7 @@ func _ready() -> void:
 	SimusNetIdentity.register(self)
 	
 
-func can_move_item(item: CT_ItemStack) -> bool:
+func can_handle_item(item: CT_ItemStack) -> bool:
 	return true
 
 func get_id() -> int:

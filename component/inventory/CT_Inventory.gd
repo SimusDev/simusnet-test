@@ -79,11 +79,26 @@ func _network_setup() -> void:
 		], SimusNetRPCConfig.new().flag_mode_server_only().
 		flag_set_channel(Network.CHANNEL_INVENTORY).flag_serialization()
 	)
-	
 
-func get_free_slot() -> CT_InventorySlot:
+func try_pickup(object: Node3D) -> bool:
+	var world_object: I_WorldObject = I_WorldObject.find_in(object)
+	if not world_object:
+		return false
+	
+	var stack: CT_ItemStack = CT_ItemStack.create_from_object_instance(world_object)
+	
+	if get_free_slot_for(stack) != null:
+		try_add_item(stack)
+		object.queue_free()
+		stack.queue_free()
+		return true
+	
+	stack.queue_free()
+	return false
+
+func get_free_slot_for(item: CT_ItemStack) -> CT_InventorySlot:
 	for i in get_slots():
-		if i.is_free():
+		if i.is_free() and i.can_handle_item(item):
 			return i
 	return null
 
@@ -95,10 +110,12 @@ func try_add_item(item: CT_ItemStack) -> CT_ItemStack:
 		return null
 	
 	var new: CT_ItemStack = item.duplicate()
-	var free_slot: CT_InventorySlot = get_free_slot()
+	var free_slot: CT_InventorySlot = get_free_slot_for(new)
 	if !free_slot:
 		item.queue_free()
 		return null
+	
+	free_slot.add_child(new)
 	
 	return new
 	
@@ -119,7 +136,7 @@ func _try_move_item_server(item: CT_ItemStack, slot: CT_InventorySlot) -> void:
 	
 	if SimusNet.get_network_authority(slot.get_inventory()) == SimusNetRemote.sender_id:
 		if _item_stacks.has(item):
-			if slot.can_move_item(item):
+			if slot.can_handle_item(item):
 				item.reparent(slot)
 
 func _send() -> void:

@@ -1,6 +1,6 @@
-[gd_resource type="Resource" script_class="R_LocalData" format=3 uid="uid://bajuabhcnv1ld"]
+[gd_resource type="Resource" script_class="R_LocalData" format=3]
 
-[ext_resource type="Script" uid="uid://ck4dwmi3s2xig" path="res://component/data/R_LocalData.gd" id="1_j7bl1"]
+[ext_resource type="Script" path="res://component/data/R_LocalData.gd" id="1_j7bl1"]
 
 [resource]
 script = ExtResource("1_j7bl1")

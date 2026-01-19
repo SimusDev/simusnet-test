@@ -65,7 +65,13 @@ func _ready() -> void:
 	
 
 static func create_from_object(_object: R_WorldObject) -> CT_ItemStack:
-	var item: CT_ItemStack = null
+	var item: CT_ItemStack = _object.get_itemstack_config().get_item_script().new()
+	item.object = _object
+	return item
+
+static func create_from_object_instance(instance: I_WorldObject) -> CT_ItemStack:
+	var item: CT_ItemStack = instance.get_object().get_itemstack_config().get_item_script().new()
+	item.object = instance.get_object()
 	return item
 
 func serialize() -> Dictionary:

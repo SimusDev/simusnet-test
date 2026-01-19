@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="R_UI" format=3 uid="uid://cmwd8mb5blcav"]
+
+[ext_resource type="Script" uid="uid://dsmndmeduwv2n" path="res://component/ui/R_UI.gd" id="1_cjjfh"]
+[ext_resource type="PackedScene" uid="uid://dupat60mhflep" path="res://src/ui/interact/interact_actions.tscn" id="1_hrq7f"]
+
+[resource]
+script = ExtResource("1_cjjfh")
+global = true
+prefab = ExtResource("1_hrq7f")
+metadata/_custom_type_script = "uid://dsmndmeduwv2n"

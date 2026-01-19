@@ -6,6 +6,8 @@ var _object: R_WorldObject
 
 var _instance: Node3D
 
+const META: StringName = &"I_WorldObject"
+
 func get_object() -> R_WorldObject:
 	return _object
 
@@ -32,6 +34,7 @@ func _create_instance() -> void:
 	var prefab: PackedScene = _validate_prefab()
 	if !is_instance_valid(_instance):
 		_instance = prefab.instantiate()
+		_instance.set_meta(META, self)
 
 func is_inside_tree() -> bool:
 	if is_instance_valid(_instance):
@@ -53,3 +56,19 @@ func instantiate() -> I_WorldObject:
 	if !is_inside_tree():
 		_level.get_networked_group(_object.get_group()).add_child(_instance)
 	return self
+
+func serialize() -> Dictionary:
+	var result: Dictionary = {}
+	result[0] = SimusNetSerializer.parse(get_object())
+	return result
+
+static func deserialize(data: Dictionary, object: Object, level: LevelInstance) -> I_WorldObject:
+	var instance: I_WorldObject = I_WorldObject.new(level, SimusNetDeserializer.parse(data[0]))
+	instance._instance = object
+	instance._instance.set_meta(META, instance)
+	return instance
+
+static func find_in(node: Node) -> I_WorldObject:
+	if node.has_meta(META):
+		return node.get_meta(META)
+	return null
