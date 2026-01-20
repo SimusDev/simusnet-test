@@ -1,11 +1,7 @@
 [gd_scene format=3 uid="uid://1geyvbuwfttm"]
 
 [ext_resource type="PackedScene" uid="uid://t2qm47a4v7ae" path="res://scenes/prefabs/object/military_box/military_box_model.tscn" id="1_q136o"]
-[ext_resource type="Script" uid="uid://dmmtiqx85a6oj" path="res://src/objects/interact/CT_NodeInteractions.gd" id="2_sucnm"]
-[ext_resource type="Script" uid="uid://ux3hdo53vt4p" path="res://component/interaction/R_InteractAction.gd" id="3_joo51"]
-[ext_resource type="Resource" uid="uid://xecviu4tcm2e" path="res://src/objects/interact/actions/open.tres" id="4_7rqmg"]
-[ext_resource type="Script" uid="uid://dehqcsswxyu8a" path="res://component/inventory/CT_Inventory.gd" id="5_7rqmg"]
-[ext_resource type="PackedScene" uid="uid://pa0ttv4j400k" path="res://src/ui/backpacks/chest.tscn" id="6_ae4w2"]
+[ext_resource type="Script" uid="uid://lvn8qsil5p1x" path="res://component/containers/CT_Chest.gd" id="4_joo51"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_q136o"]
 size = Vector3(211.24937, 142.76637, 430.83246)
@@ -18,14 +14,7 @@ size = Vector3(211.24937, 142.76637, 430.83246)
 transform = Transform3D(-2.6226832e-10, 2.6226835e-10, -0.006, 0, 0.006, 2.6226835e-10, 0.006, 1.1464112e-17, -2.6226832e-10, 6.2194916e-09, 0.14228538, 2.7186258e-16)
 shape = SubResource("BoxShape3D_q136o")
 
-[node name="CT_NodeInteractions" type="Node" parent="." unique_id=270628470 node_paths=PackedStringArray("target")]
-script = ExtResource("2_sucnm")
-target = NodePath("..")
-list = Array[ExtResource("3_joo51")]([ExtResource("4_7rqmg")])
-metadata/_custom_type_script = "uid://dmmtiqx85a6oj"
-
-[node name="CT_Inventory" type="Node" parent="." unique_id=901055372 node_paths=PackedStringArray("node")]
-script = ExtResource("5_7rqmg")
-node = NodePath("..")
-backpack_interface = ExtResource("6_ae4w2")
-metadata/_custom_type_script = "uid://dehqcsswxyu8a"
+[node name="CT_Chest" type="Node" parent="." unique_id=906331204 node_paths=PackedStringArray("root")]
+script = ExtResource("4_joo51")
+root = NodePath("..")
+metadata/_custom_type_script = "uid://lvn8qsil5p1x"
