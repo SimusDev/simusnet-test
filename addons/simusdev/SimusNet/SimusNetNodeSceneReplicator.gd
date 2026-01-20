@@ -68,6 +68,7 @@ func serialize_node(node: Node) -> PackedByteArray:
 	if node.get_multiplayer_authority() != SimusNet.SERVER_ID:
 		result[KEY.MULTIPLAYER_AUTHORITY] = node.get_multiplayer_authority()
 	
+	serialize_custom(node, result)
 	return SimusNetCompressor.parse(result)
 
 func scene_deserialized(scene: PackedScene) -> PackedScene:
@@ -90,6 +91,7 @@ func deserialize_node(bytes: PackedByteArray) -> Node:
 	if data.has(KEY.MULTIPLAYER_AUTHORITY):
 		node.set_multiplayer_authority(data[KEY.MULTIPLAYER_AUTHORITY])
 	
+	deserialize_custom(data, node)
 	return node
 
 func serialize_nodes(nodes: Array[Node]) -> PackedByteArray:

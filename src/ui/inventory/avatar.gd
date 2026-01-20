@@ -18,7 +18,12 @@ func update() -> void:
 	if !is_instance_valid(inventory):
 		return
 	
+	
+	if !inventory.is_ready:
+		await inventory.on_ready
+	
 	var user: CT_User = CT_User.find_above(inventory)
+	
 	if user:
 		_icon.texture = user.get_avatar()
 		return

@@ -29,7 +29,7 @@ func _clear() -> void:
 	await SD_Nodes.async_clear_all_children(_container)
 
 func _update() -> void:
-	if !inventory.ready:
+	if !inventory.is_ready:
 		await inventory.on_ready
 	
 	for script in _slots_scripts:

@@ -25,6 +25,9 @@ func set_inventory(new: CT_Inventory) -> void:
 	if !is_instance_valid(inventory):
 		return
 	
+	if !inventory.is_ready:
+		await inventory.ready
+	
 	if inventory.backpack_interface:
 		_interface = inventory.backpack_interface.instantiate()
 		add_child(_interface)
