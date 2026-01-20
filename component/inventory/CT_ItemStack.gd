@@ -51,18 +51,9 @@ func _ready() -> void:
 		flag_mode_server_only().flag_replication()
 	)
 	
-	SimusNetRPC.register(
-		[
-			queue_free
-		],
-		SimusNetRPCConfig.new().flag_mode_server_only().flag_serialization()
-		.flag_set_channel(Network.CHANNEL_INVENTORY)
-	)
-	
 	var item_config: R_ItemStackConfig = object.get_itemstack_config()
 	stackable = item_config.stackable
 	stack_size = item_config.stack_size
-	
 	
 
 static func create_from_object(_object: R_WorldObject) -> CT_ItemStack:
