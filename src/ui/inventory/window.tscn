@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://cc6trvruecdbv"]
+
+[ext_resource type="Script" uid="uid://bofoly6nako5r" path="res://src/ui/inventory/window.gd" id="1_3ler3"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tf1p0"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.24840015, 0.24840018, 0.24840012, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[node name="Window" type="Panel" unique_id=1923403923]
+offset_right = 611.0
+offset_bottom = 374.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_tf1p0")
+script = ExtResource("1_3ler3")

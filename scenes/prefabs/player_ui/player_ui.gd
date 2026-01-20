@@ -18,4 +18,4 @@ func _ready() -> void:
 			ui._instance = instance
 			ui.on_instance_set.emit()
 			add_child(instance)
-			move_child(instance, 0)
+			move_child(instance, ui.layer)

@@ -1,0 +1,42 @@
+extends Node
+class_name UI_SlotControl
+
+@export var inventory: CT_Inventory : set = set_inventory
+@export var _container: Control
+
+@export var _slots_scripts: Array[GDScript] = []
+@export var use_default_script: bool = true
+
+signal on_fast_move_item_request(slot: UI_InventorySlot)
+
+func set_inventory(new: CT_Inventory) -> void:
+	inventory = new
+	
+	if use_default_script and !_slots_scripts.has(CT_InventorySlot):
+		_slots_scripts.append(CT_InventorySlot)
+	
+	if !is_node_ready():
+		await ready
+	
+	await _clear()
+	if is_instance_valid(inventory):
+		_update()
+
+func _clear() -> void:
+	if !_container:
+		return
+	
+	await SD_Nodes.async_clear_all_children(_container)
+
+func _update() -> void:
+	if !inventory.ready:
+		await inventory.on_ready
+	
+	for script in _slots_scripts:
+		for slot in inventory.get_slots_by_script(script):
+			var ui: UI_InventorySlot = UI_InventorySlot.create(slot)
+			ui.on_fast_move_item_request.connect(_on_fast_move_item_request.bind(ui))
+			_container.add_child(ui)
+
+func _on_fast_move_item_request(slot: UI_InventorySlot) -> void:
+	on_fast_move_item_request.emit(slot)

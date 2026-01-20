@@ -17,7 +17,6 @@ static func async_clear_all_children(node: Node) -> void:
 	for i in node.get_children():
 		i.queue_free()
 		await i.tree_exited
-	
 
 static func async_queue_free(node: Node) -> void:
 	if !is_instance_valid(node):

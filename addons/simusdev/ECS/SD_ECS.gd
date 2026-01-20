@@ -51,7 +51,8 @@ static func get_components_from(object: Object) -> Array:
 			return value
 		_debug_log_from_object(object, "%s must return an Array!" % METHOD, SD_ConsoleCategories.ERROR)
 	else:
-		_debug_log_from_object(object, "method %s was not found." % METHOD, SD_ConsoleCategories.WARNING)
+		pass
+		#_debug_log_from_object(object, "method %s was not found." % METHOD, SD_ConsoleCategories.WARNING)
 	
 	if object.has_meta(META):
 		return object.get_meta(META)

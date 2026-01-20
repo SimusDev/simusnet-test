@@ -9,6 +9,13 @@ var _item: CT_ItemStack
 
 const SCENE: PackedScene = preload("uid://bu532ooqgmkjg")
 
+signal on_fast_move_item_request()
+
+func get_item() -> CT_ItemStack:
+	if !is_instance_valid(_item):
+		_item = null
+	return _item
+
 static func create(from: CT_InventorySlot) -> UI_InventorySlot:
 	var ui: UI_InventorySlot = SCENE.instantiate()
 	ui.slot = from
@@ -55,3 +62,7 @@ func _on_sd_ui_drag_and_drop_dropped(draggable: Control, at: Control) -> void:
 	if is_instance_valid(_item):
 		if at is UI_InventorySlot:
 			_item.get_inventory().try_move_item(_item, at.slot)
+
+func _on_gui_input(event: InputEvent) -> void:
+	if Input.is_action_just_pressed("item.use") and Input.is_action_pressed("sprint"):
+		on_fast_move_item_request.emit()

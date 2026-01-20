@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://broh4otllro7s" path="res://addons/lensflares/src/lens_flare.gd" id="5_ypthj"]
 [ext_resource type="Script" uid="uid://dgp0pmmh5blth" path="res://component/object/CT_ObjectSpawn.gd" id="7_6rygw"]
 [ext_resource type="Texture2D" uid="uid://cb01shisd32yi" path="res://3d/ak74m/textures/ak74m_Roughness.png" id="7_vuvbf"]
+[ext_resource type="Resource" uid="uid://c1dipp0t421cv" path="res://src/objects/military_box.tres" id="8_6rygw"]
 [ext_resource type="Resource" uid="uid://cic3i440xvcwv" path="res://src/objects/item/weapon/crowbar.tres" id="8_p870i"]
 [ext_resource type="Script" uid="uid://fc6kpuv5syvv" path="res://component/level/CT_SpawnPoint3D.gd" id="13_1dl0r"]
 [ext_resource type="PackedScene" uid="uid://c04sd4mj5rmef" path="res://scenes/prefabs/lighting/omni_light_3d.tscn" id="16_jk8u2"]
@@ -25,7 +26,7 @@ uv1_triplanar = true
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jk8u2"]
 emission_enabled = true
 emission = Color(1, 1, 1, 1)
-emission_energy_multiplier = 1.5462141
+emission_energy_multiplier = 3.0833888
 
 [sub_resource type="BoxMesh" id="BoxMesh_6rygw"]
 size = Vector3(2, 1, 4)
@@ -118,8 +119,8 @@ mesh = SubResource("BoxMesh_n0uqs")
 surface_material_override/0 = SubResource("StandardMaterial3D_jk8u2")
 
 [node name="OmniLight3D" parent="CubeLight" unique_id=2105551723 instance=ExtResource("16_jk8u2")]
-light_energy = 1.5462141
-light_indirect_energy = 1.5462141
+light_energy = 3.0833888
+light_indirect_energy = 3.0833888
 
 [node name="cLampComponent" parent="CubeLight/OmniLight3D" index="0" unique_id=1203643786 node_paths=PackedStringArray("MeshInstances")]
 Lit = true
@@ -174,5 +175,17 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.722687, 1.2538896, 1.79689
 use_collision = true
 mesh = SubResource("BoxMesh_6rygw")
 material = SubResource("StandardMaterial3D_p870i")
+
+[node name="table2" type="CSGMesh3D" parent="." unique_id=202718267]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 20.785606, 1.2538896, 11.747625)
+use_collision = true
+mesh = SubResource("BoxMesh_6rygw")
+material = SubResource("StandardMaterial3D_p870i")
+
+[node name="CT_ObjectSpawn" type="Node3D" parent="table2" unique_id=871161086]
+transform = Transform3D(-0.0094246, 0, -0.99995565, 0, 1, 0, 0.99995565, 0, -0.0094246, 0, 0.883276, -0.142519)
+script = ExtResource("7_6rygw")
+object = ExtResource("8_6rygw")
+metadata/_custom_type_script = "uid://dgp0pmmh5blth"
 
 [editable path="CubeLight/OmniLight3D"]

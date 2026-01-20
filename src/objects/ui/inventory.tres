@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="R_UI" format=3 uid="uid://c22c604h7fosh"]
+
+[ext_resource type="Script" uid="uid://dsmndmeduwv2n" path="res://component/ui/R_UI.gd" id="1_ahd5r"]
+[ext_resource type="PackedScene" uid="uid://cyrkedkq4j54t" path="res://src/ui/inventory/backpack.tscn" id="1_xlhmn"]
+
+[resource]
+script = ExtResource("1_ahd5r")
+global = true
+layer = 1
+prefab = ExtResource("1_xlhmn")
+metadata/_custom_type_script = "uid://dsmndmeduwv2n"

@@ -3,6 +3,7 @@ class_name CT_Inventory
 
 @export var node: Node
 @export var initial_slot_count: int = 16
+@export var backpack_interface: PackedScene
 
 var _item_stacks: Array[CT_ItemStack]
 var _slots: Array[CT_InventorySlot]
@@ -145,14 +146,24 @@ func try_remove_item(item: CT_ItemStack) -> void:
 		item.queue_free()
 
 func try_move_item(item: CT_ItemStack, slot: CT_InventorySlot) -> void:
-	if _item_stacks.has(item):
-		SimusNetRPC.invoke_on_server(_try_move_item_server, item, slot)
-
-func _try_move_item_server(item: CT_ItemStack, slot: CT_InventorySlot) -> void:
-	if !is_instance_valid(slot):
+	if !is_instance_valid(item) or !is_instance_valid(slot):
 		return
 	
-	if SimusNet.get_network_authority(slot.get_inventory()) == SimusNetRemote.sender_id:
+	var is_inventory_authority: bool = SimusNet.is_network_authority(slot.get_inventory())
+	var is_inventory_opened: bool = get_opened().has(slot.get_inventory())
+	
+	if is_inventory_authority or is_inventory_opened:
+		if _item_stacks.has(item):
+			SimusNetRPC.invoke_on_server(_try_move_item_server, item, slot)
+
+func _try_move_item_server(item: CT_ItemStack, slot: CT_InventorySlot) -> void:
+	if !is_instance_valid(slot) or !is_instance_valid(item):
+		return
+	
+	var is_inventory_authority: bool = SimusNet.get_network_authority(slot.get_inventory()) == SimusNetRemote.sender_id
+	var is_inventory_opened: bool = get_opened().has(slot.get_inventory())
+	
+	if is_inventory_authority or is_inventory_opened:
 		if _item_stacks.has(item):
 			if slot.can_handle_item(item):
 				item.reparent(slot)
@@ -206,6 +217,9 @@ func _receive_item_remove(slot: CT_InventorySlot) -> void:
 
 var _opened: Array[CT_Inventory]
 
+func can_open_other_inventories() -> bool:
+	return get_opened().is_empty()
+
 func get_opened() -> Array[CT_Inventory]:
 	var id: int = 0
 	for i in _opened:
@@ -219,13 +233,13 @@ func is_opened(inventory: CT_Inventory) -> bool:
 
 func open(inventory: CT_Inventory) -> void:
 	if SimusNetConnection.is_server():
-		if is_opened(inventory):
+		if is_opened(inventory) or !can_open_other_inventories():
 			return
 		
 		SimusNetRPC.invoke_all(_open_server, inventory)
 
 func _open_server(inventory: CT_Inventory) -> void:
-	if !_opened.has(inventory):
+	if !_opened.has(inventory) and can_open_other_inventories():
 		_opened.append(inventory)
 		on_inventory_opened.emit(inventory)
 
@@ -242,7 +256,7 @@ func _close_server(inventory: CT_Inventory) -> void:
 		on_inventory_closed.emit(inventory)
 
 func request_open(inventory: CT_Inventory) -> void:
-	if is_opened(inventory):
+	if is_opened(inventory) or !can_open_other_inventories():
 		return
 	
 	SimusNetRPC.invoke_on_server(open, inventory)
@@ -252,3 +266,7 @@ func request_close(inventory: CT_Inventory) -> void:
 		return
 	
 	SimusNetRPC.invoke_on_server(close, inventory)
+
+func request_close_all() -> void:
+	for inv in get_opened():
+		request_close(inv)

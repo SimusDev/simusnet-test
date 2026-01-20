@@ -8,7 +8,7 @@
 
 [node name="Inventory" type="Node" unique_id=1499312686]
 script = ExtResource("1_qv2pm")
-initial_slot_count = 27
+initial_slot_count = 30
 metadata/_custom_type_script = "uid://dehqcsswxyu8a"
 
 [node name="cloth_0" type="Node" parent="." unique_id=1264848154]

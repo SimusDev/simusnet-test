@@ -14,6 +14,9 @@ static var _local: CT_User
 
 var _node: Node
 
+func get_avatar() -> Texture:
+	return load("res://icon.svg")
+
 func get_player_node() -> Node:
 	if !is_instance_valid(_node):
 		_node = null
@@ -25,7 +28,21 @@ func set_in(node: Node) -> CT_User:
 	return self
 
 static func find_in(node: Node) -> CT_User:
-	return node.get_meta("CT_User")
+	if !node:
+		return null
+	
+	if node.has_meta("CT_User"):
+		return node.get_meta("CT_User")
+	return null
+
+static func find_above(node: Node) -> CT_User:
+	if !node:
+		return null
+	
+	var user: CT_User = find_in(node)
+	if user:
+		return user
+	return find_above(node.get_parent())
 
 static func get_local() -> CT_User:
 	return _local
@@ -86,6 +103,12 @@ static func deserialize(data: Dictionary) -> CT_User:
 	user._nickname = data[1]
 	user.name = str(data[0])
 	return user
+
+func serialize_reference() -> int:
+	return _peer
+
+static func deserialize_reference(data: int) -> CT_User:
+	return find_by_peer(data)
 
 static func server_create(user_input: Dictionary, peer: int) -> CT_User:
 	var user := CT_User.new()

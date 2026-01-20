@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://pa0ttv4j400k"]
+
+[ext_resource type="Script" uid="uid://gbc8bwyhlyju" path="res://src/ui/backpacks/chest.gd" id="1_dll4i"]
+[ext_resource type="Script" uid="uid://do3dlfequ75dj" path="res://src/ui/inventory/slot_control.gd" id="2_wn20h"]
+
+[node name="Chest" type="Control" unique_id=575675302]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_dll4i")
+
+[node name="UI_SlotControl" type="Node" parent="." unique_id=2125767135 node_paths=PackedStringArray("_container")]
+script = ExtResource("2_wn20h")
+_container = NodePath("../ScrollContainer/CenterContainer/FlowContainer")
+metadata/_custom_type_script = "uid://do3dlfequ75dj"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="." unique_id=150682776]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="ScrollContainer" unique_id=1479088039]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="FlowContainer" type="GridContainer" parent="ScrollContainer/CenterContainer" unique_id=341733748]
+layout_mode = 2
+columns = 7
+
+[connection signal="on_fast_move_item_request" from="UI_SlotControl" to="." method="_on_ui_slot_control_on_fast_move_item_request"]

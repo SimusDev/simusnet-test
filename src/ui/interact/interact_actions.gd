@@ -38,6 +38,9 @@ func get_actions_size() -> int:
 	return _v_box_container.get_child_count()
 
 func _input(event: InputEvent) -> void:
+	if SimusDev.ui.has_active_interface():
+		return
+	
 	if !is_visible_in_tree():
 		return
 	

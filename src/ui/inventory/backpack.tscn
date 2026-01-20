@@ -1,0 +1,199 @@
+[gd_scene format=3 uid="uid://cyrkedkq4j54t"]
+
+[ext_resource type="Script" uid="uid://d1l1jkmj6s53f" path="res://addons/simusdev/ui/SD_UIInterfaceMenu.gd" id="1_fwosp"]
+[ext_resource type="Theme" uid="uid://bn0751ku2d5fx" path="res://src/themes/hf2.tres" id="1_rgnhm"]
+[ext_resource type="Script" uid="uid://deqt2eyqhid11" path="res://src/ui/inventory/backpack.gd" id="2_v4jt5"]
+[ext_resource type="Script" uid="uid://do3dlfequ75dj" path="res://src/ui/inventory/slot_control.gd" id="3_v4jt5"]
+[ext_resource type="Script" uid="uid://3h3uaulqm56k" path="res://src/ui/inventory/backpack_custom.gd" id="6_egj3e"]
+[ext_resource type="PackedScene" uid="uid://cc2mybbei2g1p" path="res://src/ui/inventory/avatar.tscn" id="6_gl4hf"]
+[ext_resource type="PackedScene" uid="uid://cc6trvruecdbv" path="res://src/ui/inventory/window.tscn" id="6_nlyav"]
+[ext_resource type="Script" uid="uid://c4okankbwa8k" path="res://component/inventory/CT_InventorySlotCloth.gd" id="8_egj3e"]
+[ext_resource type="Script" uid="uid://cbtj1vhagkvwq" path="res://component/inventory/CT_InventorySlotHot.gd" id="9_v1wcs"]
+
+[node name="Backpack" type="Control" unique_id=810392567]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_rgnhm")
+script = ExtResource("2_v4jt5")
+metadata/_edit_vertical_guides_ = [621.0, 659.0, 1270.0]
+metadata/_edit_horizontal_guides_ = [82.0, 172.0]
+
+[node name="fade" type="ColorRect" parent="." unique_id=1338478649]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.7058824)
+
+[node name="player_slots" type="Node" parent="." unique_id=1210786511 node_paths=PackedStringArray("_container")]
+script = ExtResource("3_v4jt5")
+_container = NodePath("../_PlayerWindow/ScrollContainer/CenterContainer/GridContainer")
+metadata/_custom_type_script = "uid://do3dlfequ75dj"
+
+[node name="SD_UIInterfaceMenu" type="Node" parent="." unique_id=609989605 node_paths=PackedStringArray("target")]
+script = ExtResource("1_fwosp")
+target = NodePath("..")
+input_action = "inventory"
+close_on_escape = false
+metadata/_custom_type_script = "uid://d1l1jkmj6s53f"
+
+[node name="_PlayerWindow" parent="." unique_id=1923403923 instance=ExtResource("6_nlyav")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 19.0
+offset_top = -187.0
+offset_right = 630.0
+offset_bottom = 187.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="_PlayerWindow" unique_id=1218685512]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="_PlayerWindow/ScrollContainer" unique_id=1624756412]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="GridContainer" type="GridContainer" parent="_PlayerWindow/ScrollContainer/CenterContainer" unique_id=240382422]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+columns = 6
+
+[node name="_OtherWindow" parent="." unique_id=1339617772 instance=ExtResource("6_nlyav")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -630.0
+offset_top = -187.0
+offset_right = -19.0
+offset_bottom = 187.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="_UI_BackpackCustom" type="Control" parent="_OtherWindow" unique_id=2099676269]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("6_egj3e")
+metadata/_custom_type_script = "uid://3h3uaulqm56k"
+
+[node name="_AvatarOther" parent="." unique_id=431189554 instance=ExtResource("6_gl4hf")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -109.0
+offset_top = -278.0
+offset_right = -19.0
+offset_bottom = -188.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="_AvatarPlayer" parent="." unique_id=1942722791 instance=ExtResource("6_gl4hf")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 19.0
+offset_top = -278.0
+offset_right = 109.0
+offset_bottom = -188.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="_ClothWindow" parent="." unique_id=1548234732 instance=ExtResource("6_nlyav")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 113.0
+offset_top = -269.0
+offset_right = 630.0
+offset_bottom = -196.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="player_cloth_slots" type="Node" parent="_ClothWindow" unique_id=2099228590 node_paths=PackedStringArray("_container")]
+unique_name_in_owner = true
+script = ExtResource("3_v4jt5")
+_container = NodePath("../ScrollContainer/HBoxContainer")
+_slots_scripts = Array[GDScript]([ExtResource("8_egj3e")])
+use_default_script = false
+metadata/_custom_type_script = "uid://do3dlfequ75dj"
+
+[node name="ScrollContainer" type="CenterContainer" parent="_ClothWindow" unique_id=2002325819]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="_ClothWindow/ScrollContainer" unique_id=5017200]
+layout_mode = 2
+
+[node name="_HotbarWindow" parent="." unique_id=1214025144 instance=ExtResource("6_nlyav")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 19.0
+offset_top = 193.0
+offset_right = 630.0
+offset_bottom = 265.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="player_hotbar_slots" type="Node" parent="_HotbarWindow" unique_id=1734855913 node_paths=PackedStringArray("_container")]
+unique_name_in_owner = true
+script = ExtResource("3_v4jt5")
+_container = NodePath("../ScrollContainer/HBoxContainer")
+_slots_scripts = Array[GDScript]([ExtResource("9_v1wcs")])
+use_default_script = false
+metadata/_custom_type_script = "uid://do3dlfequ75dj"
+
+[node name="ScrollContainer" type="CenterContainer" parent="_HotbarWindow" unique_id=137663548]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="_HotbarWindow/ScrollContainer" unique_id=1668169088]
+layout_mode = 2
+
+[connection signal="draw" from="." to="." method="_on_draw"]
+[connection signal="hidden" from="." to="." method="_on_hidden"]
