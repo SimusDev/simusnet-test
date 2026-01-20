@@ -16,7 +16,7 @@ func get_spawnpoints() -> Array[CT_SpawnPoint3D]:
 	return _spawnpoints
 
 func _ready() -> void:
-	for group in R_Object.get_group_list():
+	for group in R_Object.get_level_group_list():
 		get_local_group(group)
 		get_networked_group(group)
 	

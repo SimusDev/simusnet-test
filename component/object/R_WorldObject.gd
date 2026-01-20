@@ -17,6 +17,9 @@ static func find_by_id(value: String) -> R_WorldObject:
 func is_supports_gamestate() -> bool:
 	return true
 
+static func is_level_group_supported() -> bool:
+	return true
+
 func _itemstack_config_init(config: R_ItemStackConfig) -> void:
 	pass
 
