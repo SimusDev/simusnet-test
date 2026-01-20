@@ -5,6 +5,8 @@ var slot: CT_InventorySlot
 
 var _item: CT_ItemStack
 
+var _local_inventory: CT_Inventory
+
 @export var _quantity: Label
 
 const SCENE: PackedScene = preload("uid://bu532ooqgmkjg")
@@ -24,6 +26,8 @@ static func create(from: CT_InventorySlot) -> UI_InventorySlot:
 func _ready() -> void:
 	if !slot:
 		return
+	
+	_local_inventory = CT_Inventory.find_in(CT_Playable.get_local().node)
 	
 	if slot.get_item_stack():
 		_on_item_added(slot.get_item_stack())
@@ -61,7 +65,7 @@ func _on_quantity_changed() -> void:
 func _on_sd_ui_drag_and_drop_dropped(draggable: Control, at: Control) -> void:
 	if is_instance_valid(_item):
 		if at is UI_InventorySlot:
-			_item.get_inventory().try_move_item(_item, at.slot)
+			_local_inventory.try_move_item(_item, at.slot)
 
 func _on_gui_input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("item.use") and Input.is_action_pressed("sprint"):

@@ -37,6 +37,11 @@ func _exit_tree() -> void:
 	_list.erase(self)
 
 func _ready() -> void:
+	if !Engine.is_editor_hint():
+		if !SimusNetConnection.is_server():
+			queue_free()
+	
+	
 	if not Engine.is_editor_hint():
 		return
 	if not view_mesh:

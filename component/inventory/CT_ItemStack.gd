@@ -19,6 +19,7 @@ func get_inventory() -> CT_Inventory:
 	return _inventory
 
 func _enter_tree() -> void:
+	name = name.validate_node_name()
 	_slot = SD_ECS.node_find_above_by_script(self, CT_InventorySlot)
 	_slot._item_stack = self
 	_slot.on_item_added.emit(self)

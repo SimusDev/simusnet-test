@@ -33,5 +33,3 @@ size_flags_vertical = 3
 [node name="FlowContainer" type="GridContainer" parent="ScrollContainer/CenterContainer" unique_id=341733748]
 layout_mode = 2
 columns = 7
-
-[connection signal="on_fast_move_item_request" from="UI_SlotControl" to="." method="_on_ui_slot_control_on_fast_move_item_request"]

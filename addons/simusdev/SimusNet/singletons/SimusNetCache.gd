@@ -55,9 +55,7 @@ func _process(delta: float) -> void:
 	if _unique_id_queue.is_empty() or SimusNetConnection.is_server():
 		return
 	
-	
 	_unique_id_request_rpc.rpc_id(SimusNet.SERVER_ID, SimusNetCompressor.parse(_unique_id_queue))
-	#print(_unique_id_queue)
 	_unique_id_queue.clear()
 
 @rpc("any_peer", "call_remote", "reliable", SimusNetChannels.BUILTIN.IDENTITY)

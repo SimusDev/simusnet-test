@@ -7,8 +7,6 @@ class_name UI_SlotControl
 @export var _slots_scripts: Array[GDScript] = []
 @export var use_default_script: bool = true
 
-signal on_fast_move_item_request(slot: UI_InventorySlot)
-
 func set_inventory(new: CT_Inventory) -> void:
 	inventory = new
 	
@@ -35,8 +33,4 @@ func _update() -> void:
 	for script in _slots_scripts:
 		for slot in inventory.get_slots_by_script(script):
 			var ui: UI_InventorySlot = UI_InventorySlot.create(slot)
-			ui.on_fast_move_item_request.connect(_on_fast_move_item_request.bind(ui))
 			_container.add_child(ui)
-
-func _on_fast_move_item_request(slot: UI_InventorySlot) -> void:
-	on_fast_move_item_request.emit(slot)

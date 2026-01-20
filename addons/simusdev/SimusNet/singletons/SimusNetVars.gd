@@ -128,7 +128,7 @@ static func replicate(object: Object, properties: PackedStringArray, reliable: b
 		var p_name_serialized: Variant = try_serialize_into_variant(p_name)
 		if !data_properties.has(p_name_serialized):
 			data_properties.append(p_name_serialized)
-	
+		
 
 func _handle_replicate(data: Dictionary, reliable: bool) -> void:
 	var compressed: Variant = SimusNetCompressor.parse(data)
@@ -193,12 +193,13 @@ func _replicate_client(packet: Variant) -> void:
 		if identity:
 			for s_p in data[identity_id]:
 				var property: String = try_deserialize_from_variant(s_p)
-				var config: SimusNetVarConfig = SimusNetVarConfig.get_config(identity.owner, s_p)
-				if !config:
-					continue
-				
-				var value: Variant = SimusNetDeserializer.parse(data[identity_id][s_p], config._serialize)
-				identity.owner.set(property, value)
+				if is_instance_valid(identity.owner):
+					var config: SimusNetVarConfig = SimusNetVarConfig.get_config(identity.owner, property)
+					if !config:
+						continue
+					
+					var value: Variant = SimusNetDeserializer.parse(data[identity_id][s_p], config._serialize)
+					identity.owner.set(property, value)
 
 @rpc("authority", "call_remote", "reliable", SimusNetChannels.BUILTIN.VARS_RELIABLE)
 func _replicate_client_recieve(packet: Variant) -> void:

@@ -51,6 +51,9 @@ func _f_rep(value: bool = true) -> void:
 	
 	_replication = value
 	
+	if _replicate_on_spawn:
+		SimusNetVars.replicate(_object, _properties, _reliable)
+	
 	if _replication:
 		SimusNetVars.get_instance().on_tick.connect(_on_tick)
 	else:
