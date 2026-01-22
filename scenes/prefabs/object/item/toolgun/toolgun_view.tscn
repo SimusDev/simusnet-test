@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://b4yxc0cvu51l0"]
+
+[ext_resource type="Script" uid="uid://d0q02rkjl2np2" path="res://component/item/W_Item.gd" id="1_aqt4w"]
+[ext_resource type="PackedScene" uid="uid://31x3w23u60mq" path="res://3d/gm_toolgun/scene.tscn" id="2_cpdi3"]
+
+[node name="ToolgunView" type="Node3D" unique_id=1256988866]
+script = ExtResource("1_aqt4w")
+metadata/_custom_type_script = "uid://d0q02rkjl2np2"
+
+[node name="gm_toolgun_model" parent="." unique_id=950041730 instance=ExtResource("2_cpdi3")]
+transform = Transform3D(0.9961947, 0, 0.08715574, 0, 1, 0, -0.08715574, 0, 0.9961947, 0.275, -0.225, -0.4)
+
+[node name="Marker3D" type="Marker3D" parent="gm_toolgun_model" unique_id=969663411]
+transform = Transform3D(0.24926564, 0.96497357, -0.08181237, 0.9678683, -0.24533927, 0.055130303, 0.03312733, -0.09292566, -0.99512184, 0.002467811, -0.03845504, -0.028204024)
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1097408426]

@@ -9,6 +9,8 @@ var _local_inventory: CT_Inventory
 
 @export var _quantity: Label
 
+@onready var icon: TextureRect = $icon
+
 const SCENE: PackedScene = preload("uid://bu532ooqgmkjg")
 
 signal on_fast_move_item_request()
@@ -70,3 +72,12 @@ func _on_sd_ui_drag_and_drop_dropped(draggable: Control, at: Control) -> void:
 func _on_gui_input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("item.use") and Input.is_action_pressed("sprint"):
 		on_fast_move_item_request.emit()
+
+func _on_sd_ui_drag_and_drop_drag_started() -> void:
+	icon.self_modulate.a = 0.5
+	#if slot._item_stack:
+		
+		#icon.visible = true#slot._item_stack.quantity > 0 
+
+func _on_sd_ui_drag_and_drop_drag_stopped() -> void:
+	icon.self_modulate.a = 1

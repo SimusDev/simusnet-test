@@ -4,6 +4,7 @@ signal event_pick
 signal event_inspect
 
 var player:Player
+var player_camera:W_FPCSourceLikeCamera
 @export var object:R_WorldObject
 
 var cooldown_timer:Timer 

@@ -58,4 +58,6 @@ preview_node = NodePath("../icon")
 metadata/_custom_type_script = "uid://bmwl6ctnkt45h"
 
 [connection signal="gui_input" from="." to="." method="_on_gui_input"]
+[connection signal="drag_started" from="SD_UIDragAndDrop" to="." method="_on_sd_ui_drag_and_drop_drag_started"]
+[connection signal="drag_stopped" from="SD_UIDragAndDrop" to="." method="_on_sd_ui_drag_and_drop_drag_stopped"]
 [connection signal="dropped" from="SD_UIDragAndDrop" to="." method="_on_sd_ui_drag_and_drop_dropped"]

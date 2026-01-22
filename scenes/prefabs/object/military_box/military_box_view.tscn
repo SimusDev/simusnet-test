@@ -2,6 +2,12 @@
 
 [ext_resource type="Script" uid="uid://d0q02rkjl2np2" path="res://component/item/W_Item.gd" id="1_mgw0v"]
 [ext_resource type="PackedScene" uid="uid://t2qm47a4v7ae" path="res://scenes/prefabs/object/military_box/military_box_model.tscn" id="1_xv0eu"]
+[ext_resource type="Script" uid="uid://b7il0848tlrkq" path="res://component/building/CT_Placeable.gd" id="3_labss"]
+[ext_resource type="Script" uid="uid://b446loaai0cao" path="res://component/building/R_PlaceableSettings.gd" id="4_1igna"]
+
+[sub_resource type="Resource" id="Resource_rvmb8"]
+script = ExtResource("4_1igna")
+metadata/_custom_type_script = "uid://b446loaai0cao"
 
 [node name="MilitaryBoxView" type="Node3D" unique_id=1298332812]
 script = ExtResource("1_mgw0v")
@@ -10,4 +16,7 @@ metadata/_custom_type_script = "uid://d0q02rkjl2np2"
 [node name="MilitaryBoxModel" parent="." unique_id=1426099507 instance=ExtResource("1_xv0eu")]
 transform = Transform3D(0.415, 0, 0, 0, 0.38743585, 0.1487227, 0, -0.1487227, 0.38743585, 0, -0.635, -0.785)
 
-[node name="Camera3D" type="Camera3D" parent="." unique_id=665690583]
+[node name="CT_Placeable" type="Node" parent="." unique_id=1848362082]
+script = ExtResource("3_labss")
+placeable = SubResource("Resource_rvmb8")
+metadata/_custom_type_script = "uid://b7il0848tlrkq"

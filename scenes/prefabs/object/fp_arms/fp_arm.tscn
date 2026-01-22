@@ -1,5 +1,6 @@
 [gd_scene format=4 uid="uid://62rs8kwejfh7"]
 
+[ext_resource type="Script" uid="uid://ccew3poqstjov" path="res://scenes/prefabs/object/fp_arms/skeleton_3d.gd" id="1_qebgr"]
 [ext_resource type="Texture2D" uid="uid://c3oqv5k8svxp5" path="res://3d/ak74m/textures/armColor.png" id="1_yorhk"]
 [ext_resource type="Texture2D" uid="uid://c30w3cvnoe85o" path="res://3d/ak74m/textures/armNormal.png" id="2_qebgr"]
 
@@ -823,8 +824,17 @@ bones/83/enabled = true
 bones/83/position = Vector3(0, 0.002017866, 0)
 bones/83/rotation = Quaternion(0, 0, 0, 1)
 bones/83/scale = Vector3(1, 1, 1)
+script = ExtResource("1_qebgr")
 
 [node name="arms" type="MeshInstance3D" parent="Rig/Skeleton3D" unique_id=1563778241]
 mesh = SubResource("ArrayMesh_pf06l")
 skin = SubResource("Skin_l3o28")
 skeleton = NodePath("..")
+
+[node name="R_SkeletonIK3D" type="SkeletonIK3D" parent="Rig/Skeleton3D" unique_id=1724757688]
+root_bone = &"Root"
+tip_bone = &"IK_Hand_Cntrl_R"
+
+[node name="L_SkeletonIK3D" type="SkeletonIK3D" parent="Rig/Skeleton3D" unique_id=732098164]
+root_bone = &"Root"
+tip_bone = &"IK_Hand_Cntrl_L"

@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://iwhbp01sd73t"]
+
+[ext_resource type="PackedScene" uid="uid://31x3w23u60mq" path="res://3d/gm_toolgun/scene.tscn" id="1_xnhdo"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xnhdo"]
+size = Vector3(0.12121582, 0.1618164, 0.44726563)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_sdrhs"]
+size = Vector3(0.08251953, 0.17897949, 0.20263672)
+
+[node name="ToolgunWorld" type="RigidBody3D" unique_id=1364625190]
+
+[node name="gm_toolgun_model" parent="." unique_id=950041730 instance=ExtResource("1_xnhdo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.2)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1449730647]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.010070801, 0.09326171, 0)
+shape = SubResource("BoxShape3D_xnhdo")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="." unique_id=1303072151]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.009277344, -0.01912842, 0.12231445)
+shape = SubResource("BoxShape3D_sdrhs")
