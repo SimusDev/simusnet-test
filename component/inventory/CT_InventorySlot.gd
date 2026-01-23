@@ -13,9 +13,13 @@ signal on_item_removed(item: CT_ItemStack)
 func get_icon() -> Texture:
 	return null
 
+func get_object() -> R_WorldObject:
+	if get_item_stack():
+		return get_item_stack().object
+	return null
+
 func _ready() -> void:
 	SimusNetIdentity.register(self)
-	
 
 func can_handle_item(item: CT_ItemStack) -> bool:
 	return true

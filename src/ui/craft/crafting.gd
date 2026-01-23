@@ -5,9 +5,12 @@ extends Control
 @onready var _crafting: CraftingTable
 
 func _ready() -> void:
+	$Input/GridContainer.columns = CraftingTable.COLUMNS
+	$Output/GridContainer.columns = CraftingTable.COLUMNS
+	
 	_crafting = _custom.get_inventory().node
 	$input.set_inventory(_custom.get_inventory())
 	$output.set_inventory(_custom.get_inventory())
 
 func _on_craft_pressed() -> void:
-	print(_crafting)
+	_crafting.request()

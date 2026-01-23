@@ -5,6 +5,8 @@ class_name R_Recipe
 @export var output: R_WorldObject
 @export var output_quantity: int = 1
 
+@export var unshaped: bool = false
+
 static var _recipes: Dictionary[String, R_Recipe]
 
 static func get_group() -> String:
