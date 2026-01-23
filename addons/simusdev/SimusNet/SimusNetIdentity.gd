@@ -45,13 +45,13 @@ static func register(object: Object, settings: SimusNetIdentitySettings = null, 
 	identity.owner = object
 	identity.settings = settings
 	
-	if !is_instance_valid(settings):
-		identity.settings = SimusNetIdentitySettings.new()
-	
 	identity._initialize()
 	return identity
 
 func _initialize() -> void:
+	if !is_instance_valid(settings):
+		settings = SimusNetIdentitySettings.new()
+	
 	_net_settings = SimusNetSettings.get_or_create()
 	SimusNetEvents.event_disconnected.listen(_deinitialize_dynamic)
 	
@@ -88,6 +88,8 @@ func _initialize_dynamic() -> void:
 		
 		if _unique_id == -1:
 			_unique_id = await SimusNetCache.request_unique_id(get_generated_unique_id())
+		
+		
 		
 		#if _unique_id < 0:
 			#if _net_settings.debug_enable:
@@ -193,6 +195,20 @@ static func try_deserialize_from_variant(variant: Variant) -> SimusNetIdentity:
 	if variant is int:
 		return _list_by_id.get(variant)
 	return _list_by_generated_id.get(variant)
+
+static func server_serialize_instance(_owner: Object) -> Variant:
+	if SimusNetConnection.is_server():
+		var identity: SimusNetIdentity = SimusNetIdentity.register(_owner)
+		return identity.get_unique_id()
+	return null
+
+static func client_deserialize_instance(data: Variant, _owner: Object) -> SimusNetIdentity:
+	var identity := SimusNetIdentity.new()
+	identity._unique_id = data
+	identity.owner = _owner
+	_owner.set_meta("SimusNetIdentity", identity)
+	identity._initialize()
+	return identity
 
 static func deserialize_unique_id(bytes: PackedByteArray) -> SimusNetIdentity:
 	return _list_by_id.get(deserialize_unique_id_into_int(bytes))

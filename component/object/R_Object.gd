@@ -42,6 +42,8 @@ func _registered() -> void:
 	if is_level_group_supported():
 		if !_groups_level.has(get_group()):
 			_groups_level.append(get_group())
+	
+	SimusNetResources.cache(self)
 
 func _unregistered() -> void:
 	_objects.erase(id)

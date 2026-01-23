@@ -51,6 +51,7 @@ func _exit_tree() -> void:
 
 func serialize() -> Dictionary:
 	var data: Dictionary = {}
+	data[-1] = SimusNetIdentity.server_serialize_instance(self)
 	if get_script().get_global_name() != "CT_InventorySlot":
 		data[0] = SimusNetSerializer.parse_resource(get_script())
 	name = name.validate_node_name()
@@ -68,6 +69,7 @@ static func deserialize(data: Dictionary) -> CT_InventorySlot:
 		script = SimusNetDeserializer.parse_resource(data.get(0))
 	
 	var slot: CT_InventorySlot = script.new()
+	SimusNetIdentity.client_deserialize_instance(data[-1], slot)
 	slot.name = data[1]
 	
 	var item_data: Variant = data.get(2, null)
