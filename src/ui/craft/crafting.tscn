@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://d2alsj3f3ik8v" path="res://src/ui/craft/crafting.gd" id="1_yamty"]
 [ext_resource type="Script" uid="uid://do3dlfequ75dj" path="res://src/ui/inventory/slot_control.gd" id="2_yamty"]
 [ext_resource type="Script" uid="uid://ctwac3q3rgmx2" path="res://component/inventory/CT_InventorySlotInput.gd" id="3_02dvi"]
-[ext_resource type="PackedScene" uid="uid://bu532ooqgmkjg" path="res://src/ui/inventory/slot.tscn" id="3_nvtgj"]
 [ext_resource type="Script" uid="uid://c5n33u5kjuk54" path="res://component/inventory/CT_InventorySlotOutput.gd" id="4_i5ld2"]
 
 [node name="CraftingTable" type="Control" unique_id=1248391409]
@@ -15,7 +14,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_yamty")
 metadata/_edit_vertical_guides_ = [1930.0]
-metadata/_edit_horizontal_guides_ = [1629.0]
+metadata/_edit_horizontal_guides_ = [1629.0, 617.0]
 
 [node name="input" type="Node" parent="." unique_id=840821471 node_paths=PackedStringArray("_container")]
 script = ExtResource("2_yamty")
@@ -33,7 +32,8 @@ metadata/_custom_type_script = "uid://do3dlfequ75dj"
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 0.5
-anchor_bottom = 1.0
+anchor_bottom = 0.85700005
+offset_bottom = -0.040039063
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -54,6 +54,16 @@ grow_vertical = 2
 layout_mode = 2
 columns = 3
 
-[node name="OutputSlot" parent="Output/GridContainer" unique_id=1662894146 instance=ExtResource("3_nvtgj")]
-unique_name_in_owner = true
-layout_mode = 2
+[node name="Craft" type="Button" parent="." unique_id=83532093]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.85700005
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -0.040039063
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 32
+text = "CRAFT"
+
+[connection signal="pressed" from="Craft" to="." method="_on_craft_pressed"]

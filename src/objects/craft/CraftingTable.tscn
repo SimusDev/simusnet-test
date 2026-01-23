@@ -12,58 +12,59 @@
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_xonl8"]
 
-[node name="CraftingTable" type="RigidBody3D" unique_id=1227370585]
+[node name="CraftingTable" type="RigidBody3D" unique_id=1227370585 node_paths=PackedStringArray("_ct_inventory")]
 script = ExtResource("1_c2v0c")
+_ct_inventory = NodePath("_CT_Inventory")
 
 [node name="Model" parent="." unique_id=353388669 instance=ExtResource("1_xonl8")]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=980880376]
 shape = SubResource("BoxShape3D_xonl8")
 
-[node name="CT_Inventory" type="Node" parent="." unique_id=1870740098 node_paths=PackedStringArray("node")]
+[node name="_CT_Inventory" type="Node" parent="." unique_id=1870740098 node_paths=PackedStringArray("node")]
 script = ExtResource("4_fm1nw")
 node = NodePath("..")
 initial_slot_count = 0
 backpack_interface = ExtResource("4_3b32p")
 metadata/_custom_type_script = "uid://dehqcsswxyu8a"
 
-[node name="1" type="Node" parent="CT_Inventory" unique_id=632443749]
+[node name="1" type="Node" parent="_CT_Inventory" unique_id=632443749]
 script = ExtResource("5_451ni")
 metadata/_custom_type_script = "uid://ctwac3q3rgmx2"
 
-[node name="2" type="Node" parent="CT_Inventory" unique_id=1058164173]
+[node name="2" type="Node" parent="_CT_Inventory" unique_id=1058164173]
 script = ExtResource("5_451ni")
 metadata/_custom_type_script = "uid://ctwac3q3rgmx2"
 
-[node name="3" type="Node" parent="CT_Inventory" unique_id=100566310]
+[node name="3" type="Node" parent="_CT_Inventory" unique_id=100566310]
 script = ExtResource("5_451ni")
 metadata/_custom_type_script = "uid://ctwac3q3rgmx2"
 
-[node name="4" type="Node" parent="CT_Inventory" unique_id=2141179259]
+[node name="4" type="Node" parent="_CT_Inventory" unique_id=2141179259]
 script = ExtResource("5_451ni")
 metadata/_custom_type_script = "uid://ctwac3q3rgmx2"
 
-[node name="5" type="Node" parent="CT_Inventory" unique_id=1608528449]
+[node name="5" type="Node" parent="_CT_Inventory" unique_id=1608528449]
 script = ExtResource("5_451ni")
 metadata/_custom_type_script = "uid://ctwac3q3rgmx2"
 
-[node name="6" type="Node" parent="CT_Inventory" unique_id=2020445346]
+[node name="6" type="Node" parent="_CT_Inventory" unique_id=2020445346]
 script = ExtResource("5_451ni")
 metadata/_custom_type_script = "uid://ctwac3q3rgmx2"
 
-[node name="7" type="Node" parent="CT_Inventory" unique_id=1366852797]
+[node name="7" type="Node" parent="_CT_Inventory" unique_id=1366852797]
 script = ExtResource("5_451ni")
 metadata/_custom_type_script = "uid://ctwac3q3rgmx2"
 
-[node name="8" type="Node" parent="CT_Inventory" unique_id=827875810]
+[node name="8" type="Node" parent="_CT_Inventory" unique_id=827875810]
 script = ExtResource("5_451ni")
 metadata/_custom_type_script = "uid://ctwac3q3rgmx2"
 
-[node name="9" type="Node" parent="CT_Inventory" unique_id=1705140493]
+[node name="9" type="Node" parent="_CT_Inventory" unique_id=1705140493]
 script = ExtResource("5_451ni")
 metadata/_custom_type_script = "uid://ctwac3q3rgmx2"
 
-[node name="o" type="Node" parent="CT_Inventory" unique_id=286385009]
+[node name="o" type="Node" parent="_CT_Inventory" unique_id=286385009]
 script = ExtResource("6_r7ckc")
 metadata/_custom_type_script = "uid://c5n33u5kjuk54"
 

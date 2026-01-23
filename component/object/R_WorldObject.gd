@@ -22,7 +22,6 @@ func _unregistered() -> void:
 	super()
 	_world_objects.erase(id)
 
-
 func is_supports_gamestate() -> bool:
 	return true
 
@@ -42,7 +41,10 @@ func get_itemstack_config() -> R_ItemStackConfig:
 	_itemstack_config_get(itemstack_config)
 	return itemstack_config
 
-
+func _spawned(instance: Node3D, level_group: LevelGroup) -> void:
+	if level_group.networked:
+		var pick_up_action: R_InteractAction = load("uid://cvbrrn0mme4i")
+		pick_up_action.append_to(instance)
 
 static func find_in(node: Node) -> R_WorldObject:
 	if node.has_meta("R_WorldObject"):
@@ -51,7 +53,6 @@ static func find_in(node: Node) -> R_WorldObject:
 
 func set_in(node: Node) -> void:
 	node.set_meta("R_WorldObject", self)
-
 
 func get_viewmodel() -> R_ViewModel:
 	if !viewmodel:

@@ -8,6 +8,8 @@ var _instance: Node3D
 
 const META: StringName = &"I_WorldObject"
 
+var metadata: Dictionary = {}
+
 func get_object() -> R_WorldObject:
 	return _object
 
@@ -58,24 +60,13 @@ func instantiate() -> I_WorldObject:
 		_level.get_networked_group(_object.get_group()).add_child(_instance)
 	return self
 
-func serialize_network() -> Dictionary:
+func serialize() -> Dictionary:
 	var result: Dictionary = {}
-	result[0] = SimusNetSerializer.parse(get_object())
+	result[0] = get_object().id
 	return result
 
-static func deserialize_network(data: Dictionary, object: Object, level: LevelInstance) -> I_WorldObject:
-	var instance: I_WorldObject = I_WorldObject.new(level, SimusNetDeserializer.parse(data[0]))
-	instance._instance = object
-	instance._instance.set_meta(META, instance)
-	return instance
-
-func serialize_gamestate() -> Dictionary:
-	var result: Dictionary = {}
-	result[0] = get_object()
-	return result
-
-static func deserialize_gamestate(data: Dictionary, object: Object, level: LevelInstance) -> I_WorldObject:
-	var instance: I_WorldObject = I_WorldObject.new(level, data[0])
+static func deserialize(data: Dictionary, object: Object, level: LevelInstance) -> I_WorldObject:
+	var instance: I_WorldObject = I_WorldObject.new(level, R_WorldObject.find_by_id(data[0]))
 	instance._instance = object
 	instance._instance.set_meta(META, instance)
 	return instance

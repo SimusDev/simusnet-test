@@ -25,8 +25,6 @@ static func create(from: CT_InventorySlot) -> UI_InventorySlot:
 	ui.slot = from
 	return ui
 
-func _ready() -> void:
-	set_slot(slot)
 
 func set_slot(new: CT_InventorySlot) -> void:
 	var prev_slot: CT_InventorySlot = slot

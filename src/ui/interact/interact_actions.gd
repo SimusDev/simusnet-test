@@ -44,12 +44,13 @@ func _input(event: InputEvent) -> void:
 	if !is_visible_in_tree():
 		return
 	
-	if Input.is_action_just_pressed("scroll_up"):
-		_selected_action -= 1
-		update()
-	if Input.is_action_just_pressed("scroll_down"):
+	if Input.is_action_just_released("scroll_up"):
 		_selected_action += 1
 		update()
+	
+	#if Input.is_action_just_pressed("scroll_down"):
+		#_selected_action += 1
+		#update()
 	
 	if Input.is_action_just_pressed("interact"):
 		if get_actions_size() > 0:
@@ -62,8 +63,11 @@ func update() -> void:
 	if _mode == MODE.INTERACTION:
 		if _selected_action < 0:
 			_selected_action = get_actions_size() - 1
+		
 		if _selected_action > get_actions_size() - 1:
 			_selected_action = 0
+		
+		#print(_selected_action)
 		
 		for action in _v_box_container.get_children():
 			action.set_selected(action.get_index() == _selected_action)

@@ -1,9 +1,6 @@
 [gd_scene format=3 uid="uid://67y8e2hng6vf"]
 
 [ext_resource type="PackedScene" uid="uid://dy5pg5df2wsi2" path="res://3d/crowbar/crowbar_model.tscn" id="1_anmxn"]
-[ext_resource type="Script" uid="uid://dmmtiqx85a6oj" path="res://src/objects/interact/CT_NodeInteractions.gd" id="2_k6qv2"]
-[ext_resource type="Script" uid="uid://ux3hdo53vt4p" path="res://component/interaction/R_InteractAction.gd" id="3_gf0ys"]
-[ext_resource type="Resource" uid="uid://cvbrrn0mme4i" path="res://src/objects/interact/actions/pickup.tres" id="4_jnjsg"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_anmxn"]
 radius = 0.033691406
@@ -25,9 +22,3 @@ shape = SubResource("CapsuleShape3D_anmxn")
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="." unique_id=549394656]
 transform = Transform3D(1, 0, 0, 0, 0.6176263, -0.7864717, 0, 0.7864717, 0.6176263, 0, 0.76040196, -0.12773788)
 shape = SubResource("CapsuleShape3D_4k61f")
-
-[node name="CT_NodeInteractions" type="Node" parent="." unique_id=608645945 node_paths=PackedStringArray("target")]
-script = ExtResource("2_k6qv2")
-target = NodePath("..")
-list = Array[ExtResource("3_gf0ys")]([ExtResource("4_jnjsg")])
-metadata/_custom_type_script = "uid://dmmtiqx85a6oj"

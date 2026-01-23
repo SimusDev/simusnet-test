@@ -46,12 +46,11 @@ func _collect_and_get_save_objects() -> Dictionary:
 				saved_objects += 1
 				var child_data: Dictionary = group_data.get_or_add(child.name, {})
 				if i_world_object:
-					child_data[2] = i_world_object.serialize_gamestate()
+					child_data[2] = i_world_object.serialize()
 				child_data[0] = load(child.scene_file_path)
 				if "transform" in child:
 					child_data[1] = child.transform
 				
-
 				
 				
 	
@@ -77,7 +76,7 @@ func _read_and_spawn_objects(objects: Dictionary) -> void:
 				instance.transform = child_data[1]
 			
 			if 2 in child_data:
-				I_WorldObject.deserialize_gamestate(child_data[2], instance, self)
+				I_WorldObject.deserialize(child_data[2], instance, self)
 			
 			group.add_child(instance)
 			

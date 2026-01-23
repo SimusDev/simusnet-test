@@ -27,7 +27,7 @@ uv1_triplanar = true
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jk8u2"]
 emission_enabled = true
 emission = Color(1, 1, 1, 1)
-emission_energy_multiplier = 3.0803778
+emission_energy_multiplier = 3.215
 
 [sub_resource type="BoxMesh" id="BoxMesh_6rygw"]
 size = Vector3(2, 1, 4)
@@ -120,8 +120,8 @@ mesh = SubResource("BoxMesh_n0uqs")
 surface_material_override/0 = SubResource("StandardMaterial3D_jk8u2")
 
 [node name="OmniLight3D" parent="CubeLight" unique_id=2105551723 instance=ExtResource("16_jk8u2")]
-light_energy = 3.0803778
-light_indirect_energy = 3.0803778
+light_energy = 3.215
+light_indirect_energy = 3.215
 
 [node name="cLampComponent" parent="CubeLight/OmniLight3D" index="0" unique_id=1203643786 node_paths=PackedStringArray("MeshInstances")]
 Lit = true
