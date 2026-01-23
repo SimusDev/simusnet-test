@@ -1,7 +1,7 @@
 extends Control
 class_name UI_InventorySlot
 
-var slot: CT_InventorySlot
+@export var slot: CT_InventorySlot : set = set_slot
 
 var _item: CT_ItemStack
 
@@ -26,10 +26,27 @@ static func create(from: CT_InventorySlot) -> UI_InventorySlot:
 	return ui
 
 func _ready() -> void:
+	set_slot(slot)
+
+func set_slot(new: CT_InventorySlot) -> void:
+	var prev_slot: CT_InventorySlot = slot
+	
+	slot = new
+	
+	if is_instance_valid(prev_slot):
+		slot.on_item_added.disconnect(_on_item_added)
+		slot.on_item_removed.disconnect(_on_item_added)
+	
 	if !slot:
 		return
 	
+	if !is_node_ready():
+		await ready
+	
+	slot = new
+	
 	_local_inventory = CT_Inventory.find_in(CT_Playable.get_local().node)
+	$slot_icon.texture = slot.get_icon()
 	
 	if slot.get_item_stack():
 		_on_item_added(slot.get_item_stack())
@@ -38,7 +55,6 @@ func _ready() -> void:
 	
 	slot.on_item_added.connect(_on_item_added)
 	slot.on_item_removed.connect(_on_item_removed)
-	
 
 func _on_item_added(item: CT_ItemStack) -> void:
 	_item = item

@@ -1,0 +1,2 @@
+extends R_WorldObject
+class_name R_Cloth

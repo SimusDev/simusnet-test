@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://brxqydktl8pfh"]
+
+[ext_resource type="Script" uid="uid://bqi1aw7ct7n04" path="res://src/ui/craft/info.gd" id="1_1vxms"]
+[ext_resource type="Texture2D" uid="uid://jqsxep3h4fus" path="res://icon.svg" id="1_pn3b3"]
+
+[node name="Info" type="Button" unique_id=2056791443]
+custom_minimum_size = Vector2(250, 40)
+offset_right = 195.0
+offset_bottom = 35.0
+text = "ITEM.INFO"
+icon = ExtResource("1_pn3b3")
+expand_icon = true
+script = ExtResource("1_1vxms")

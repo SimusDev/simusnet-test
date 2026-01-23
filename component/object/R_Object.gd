@@ -5,6 +5,8 @@ class_name R_Object
 
 @export var icon: Texture : get = get_icon
 
+@export var tags: PackedStringArray = []
+
 func get_icon() -> Texture:
 	if !icon:
 		icon = load("uid://jd2nmbvoduv8")
@@ -19,6 +21,13 @@ static func get_list() -> Array[R_Object]:
 
 static func find_by_id(value: String) -> R_Object:
 	return _objects.get(value)
+
+static func find_by_tag(tag: String) -> Array[R_Object]:
+	var result: Array[R_Object] = []
+	for i in get_list():
+		if i.tags.has(tag):
+			result.append(i)
+	return result
 
 static func get_group() -> String:
 	return "object"

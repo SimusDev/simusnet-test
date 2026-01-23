@@ -14,6 +14,15 @@ static func get_world_object_list() -> Array[R_WorldObject]:
 static func find_by_id(value: String) -> R_WorldObject:
 	return _world_objects.get(value)
 
+func _registered() -> void:
+	super()
+	_world_objects[id] = self
+
+func _unregistered() -> void:
+	super()
+	_world_objects.erase(id)
+
+
 func is_supports_gamestate() -> bool:
 	return true
 
@@ -43,13 +52,6 @@ static func find_in(node: Node) -> R_WorldObject:
 func set_in(node: Node) -> void:
 	node.set_meta("R_WorldObject", self)
 
-func _registered() -> void:
-	super()
-	_world_objects[id] = self
-
-func _unregistered() -> void:
-	super()
-	_world_objects.erase(id)
 
 func get_viewmodel() -> R_ViewModel:
 	if !viewmodel:

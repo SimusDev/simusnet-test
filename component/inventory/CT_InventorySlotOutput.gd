@@ -1,0 +1,2 @@
+extends CT_InventorySlot
+class_name CT_InventorySlotOutput

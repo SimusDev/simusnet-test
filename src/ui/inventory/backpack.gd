@@ -8,6 +8,10 @@ var _player_inventory: CT_Inventory
 
 @onready var _ui_backpack_custom: UI_BackpackCustom = $_OtherWindow/_UI_BackpackCustom
 
+@onready var _sound: AudioStreamPlayer = $_Sound
+@export var _audio_open: AudioStream
+@export var _audio_close: AudioStream
+
 func _ready() -> void:
 	_player_inventory = CT_Inventory.find_in(CT_Playable.get_local().node)
 	_avatar_player.inventory = _player_inventory
@@ -50,3 +54,13 @@ func _on_hidden() -> void:
 	_player_inventory.request_close_all()
 	_avatar_other.inventory = null
 	_ui_backpack_custom.inventory = null
+	SD_Nodes.async_clear_all_children(_ui_backpack_custom)
+
+
+func _on_sd_ui_interface_menu_opened() -> void:
+	_sound.stream = _audio_open
+	_sound.play()
+
+func _on_sd_ui_interface_menu_closed() -> void:
+	_sound.stream = _audio_close
+	_sound.play()

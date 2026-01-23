@@ -15,13 +15,17 @@ static func get_local() -> CT_Playable:
 		_local = null
 	return _local
 
+func is_local() -> bool:
+	return get_local() == self
+
 func _ready() -> void:
+	SD_ECS.append_to(node, self)
+	
 	if SimusNet.is_network_authority(self):
 		_local = self
 		EVENT.on_player_spawned_local.setup(self).publish()
 	
 	EVENT.on_player_spawned.setup(self).publish()
-	SD_ECS.append_to(node, self)
 
 static func find_in(target: Node) -> CT_Playable:
 	return SD_ECS.find_first_component_by_script(target, [CT_Playable])

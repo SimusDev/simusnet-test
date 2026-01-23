@@ -1,0 +1,74 @@
+[gd_scene format=3 uid="uid://dpmqj4nmou02h"]
+
+[ext_resource type="Script" uid="uid://b1iexr43rqfsn" path="res://src/objects/craft/crafting_table.gd" id="1_c2v0c"]
+[ext_resource type="PackedScene" uid="uid://8ub7tg8673fx" path="res://src/objects/craft/sketchfab_scene.tscn" id="1_xonl8"]
+[ext_resource type="PackedScene" uid="uid://bj73871srb72m" path="res://src/ui/craft/crafting.tscn" id="4_3b32p"]
+[ext_resource type="Script" uid="uid://dehqcsswxyu8a" path="res://component/inventory/CT_Inventory.gd" id="4_fm1nw"]
+[ext_resource type="Script" uid="uid://ctwac3q3rgmx2" path="res://component/inventory/CT_InventorySlotInput.gd" id="5_451ni"]
+[ext_resource type="Script" uid="uid://dmmtiqx85a6oj" path="res://src/objects/interact/CT_NodeInteractions.gd" id="5_xonl8"]
+[ext_resource type="Script" uid="uid://ux3hdo53vt4p" path="res://component/interaction/R_InteractAction.gd" id="6_c2v0c"]
+[ext_resource type="Script" uid="uid://c5n33u5kjuk54" path="res://component/inventory/CT_InventorySlotOutput.gd" id="6_r7ckc"]
+[ext_resource type="Resource" uid="uid://xecviu4tcm2e" path="res://src/objects/interact/actions/open.tres" id="7_451ni"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xonl8"]
+
+[node name="CraftingTable" type="RigidBody3D" unique_id=1227370585]
+script = ExtResource("1_c2v0c")
+
+[node name="Model" parent="." unique_id=353388669 instance=ExtResource("1_xonl8")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=980880376]
+shape = SubResource("BoxShape3D_xonl8")
+
+[node name="CT_Inventory" type="Node" parent="." unique_id=1870740098 node_paths=PackedStringArray("node")]
+script = ExtResource("4_fm1nw")
+node = NodePath("..")
+initial_slot_count = 0
+backpack_interface = ExtResource("4_3b32p")
+metadata/_custom_type_script = "uid://dehqcsswxyu8a"
+
+[node name="1" type="Node" parent="CT_Inventory" unique_id=632443749]
+script = ExtResource("5_451ni")
+metadata/_custom_type_script = "uid://ctwac3q3rgmx2"
+
+[node name="2" type="Node" parent="CT_Inventory" unique_id=1058164173]
+script = ExtResource("5_451ni")
+metadata/_custom_type_script = "uid://ctwac3q3rgmx2"
+
+[node name="3" type="Node" parent="CT_Inventory" unique_id=100566310]
+script = ExtResource("5_451ni")
+metadata/_custom_type_script = "uid://ctwac3q3rgmx2"
+
+[node name="4" type="Node" parent="CT_Inventory" unique_id=2141179259]
+script = ExtResource("5_451ni")
+metadata/_custom_type_script = "uid://ctwac3q3rgmx2"
+
+[node name="5" type="Node" parent="CT_Inventory" unique_id=1608528449]
+script = ExtResource("5_451ni")
+metadata/_custom_type_script = "uid://ctwac3q3rgmx2"
+
+[node name="6" type="Node" parent="CT_Inventory" unique_id=2020445346]
+script = ExtResource("5_451ni")
+metadata/_custom_type_script = "uid://ctwac3q3rgmx2"
+
+[node name="7" type="Node" parent="CT_Inventory" unique_id=1366852797]
+script = ExtResource("5_451ni")
+metadata/_custom_type_script = "uid://ctwac3q3rgmx2"
+
+[node name="8" type="Node" parent="CT_Inventory" unique_id=827875810]
+script = ExtResource("5_451ni")
+metadata/_custom_type_script = "uid://ctwac3q3rgmx2"
+
+[node name="9" type="Node" parent="CT_Inventory" unique_id=1705140493]
+script = ExtResource("5_451ni")
+metadata/_custom_type_script = "uid://ctwac3q3rgmx2"
+
+[node name="o" type="Node" parent="CT_Inventory" unique_id=286385009]
+script = ExtResource("6_r7ckc")
+metadata/_custom_type_script = "uid://c5n33u5kjuk54"
+
+[node name="CT_NodeInteractions" type="Node" parent="." unique_id=1690217024 node_paths=PackedStringArray("target")]
+script = ExtResource("5_xonl8")
+target = NodePath("..")
+list = Array[ExtResource("6_c2v0c")]([ExtResource("7_451ni")])
+metadata/_custom_type_script = "uid://dmmtiqx85a6oj"

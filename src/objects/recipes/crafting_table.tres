@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="R_Recipe" format=3 uid="uid://yc71ctyobxnd"]
+
+[ext_resource type="Script" uid="uid://bnbvygxoxyhfw" path="res://component/recipe/R_RecipeData.gd" id="1_jn8bw"]
+[ext_resource type="Resource" uid="uid://cic3i440xvcwv" path="res://src/objects/item/weapon/crowbar.tres" id="2_dvhpr"]
+[ext_resource type="Resource" uid="uid://c8wy5klyargde" path="res://src/objects/craft/crafting_table.tres" id="2_kg8xu"]
+[ext_resource type="Script" uid="uid://dgoikegl3ocjk" path="res://component/recipe/R_Recipe.gd" id="2_sm2rc"]
+
+[sub_resource type="Resource" id="Resource_nahdr"]
+script = ExtResource("1_jn8bw")
+object = ExtResource("2_dvhpr")
+metadata/_custom_type_script = "uid://bnbvygxoxyhfw"
+
+[resource]
+script = ExtResource("2_sm2rc")
+input = Array[ExtResource("1_jn8bw")]([SubResource("Resource_nahdr")])
+output = ExtResource("2_kg8xu")
+metadata/_custom_type_script = "uid://dgoikegl3ocjk"

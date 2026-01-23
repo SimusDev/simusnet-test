@@ -5,22 +5,44 @@ class_name CT_Inventory
 @export var initial_slot_count: int = 16
 @export var backpack_interface: PackedScene
 
+var _playable: CT_Playable
+
+func get_playable() -> CT_Playable:
+	return _playable
+
 var _item_stacks: Array[CT_ItemStack]
 var _slots: Array[CT_InventorySlot]
 
 signal on_synchronized()
 signal on_ready()
 
+signal on_item_added(slot: CT_InventorySlot, item: CT_ItemStack)
+signal on_item_removed(slot: CT_InventorySlot, item: CT_ItemStack)
+
 signal on_inventory_closed(inventory: CT_Inventory)
 signal on_inventory_opened(inventory: CT_Inventory)
 
 var is_ready: bool = false
 
-func i_am_the_owner() -> bool:
-	return SimusNet.is_network_authority(self)
+static var _local: CT_Inventory
+
+func is_local() -> bool:
+	return _local == self
+
+static func get_local() -> CT_Inventory:
+	if !is_instance_valid(_local):
+		_local = null
+	return _local
 
 func get_item_stacks() -> Array[CT_ItemStack]:
 	return _item_stacks
+
+func get_item_stacks_by_object(object: R_WorldObject) -> Array[CT_ItemStack]:
+	var result: Array[CT_ItemStack] = []
+	for i in get_item_stacks():
+		if i.object == object:
+			result.append(i)
+	return result
 
 func get_slot_script() -> GDScript:
 	return CT_InventorySlot
@@ -35,20 +57,35 @@ func get_slots_by_script(script: GDScript) -> Array[CT_InventorySlot]:
 			result.append(slot)
 	return result
 
+func get_slot_by_name(slot_name: String) -> CT_InventorySlot:
+	for i in get_slots():
+		if i.name == slot_name:
+			return i
+	return null
+
 func _ready() -> void:
 	_network_setup()
-	super()
 	
 	if !node:
 		node = get_parent()
 	
 	SD_ECS.append_to(node, self)
 	
+	if !node.is_node_ready():
+		await node.ready
+	
+	_playable = CT_Playable.find_in(node)
+	if _playable:
+		if SimusNet.is_network_authority(_playable):
+			_local = self
+	
 	if SimusNetConnection.is_server():
 		for id: int in initial_slot_count:
 			var slot: CT_InventorySlot = CT_InventorySlot.new()
 			slot.name = "i_%s" % id
 			add_child(slot)
+	
+	super()
 
 static func find_in(node: Node) -> CT_Inventory:
 	return SD_ECS.find_first_component_by_script(node, [CT_Inventory])
@@ -59,8 +96,7 @@ func _network_ready() -> void:
 
 func synchronize() -> void:
 	if SimusNetConnection.is_server():
-		is_ready = true
-		on_ready.emit()
+		_do_network_ready()
 		return
 	
 	SimusNetRPC.invoke_on_server(_send)
@@ -99,12 +135,21 @@ func _network_setup() -> void:
 		flag_set_channel(Network.CHANNEL_INVENTORY).flag_serialization()
 	)
 
-func try_pickup(object: Node3D) -> bool:
-	var world_object: I_WorldObject = I_WorldObject.find_in(object)
-	if not world_object:
-		return false
+
+
+func try_pickup(object: Variant) -> bool:
+	var stack: CT_ItemStack = null
 	
-	var stack: CT_ItemStack = CT_ItemStack.create_from_object_instance(world_object)
+	if object is CT_ItemStack:
+		stack = object
+		object.queue_free()
+	
+	if !stack:
+		var world_object: I_WorldObject = I_WorldObject.find_in(object)
+		if not world_object:
+			return false
+	
+		stack = CT_ItemStack.create_from_object_instance(world_object)
 	
 	if get_free_slot_for(stack) != null:
 		try_add_item(stack)
@@ -157,10 +202,8 @@ func try_move_item(item: CT_ItemStack, slot: CT_InventorySlot) -> void:
 			SimusNetRPC.invoke_on_server(_try_move_item_server, item, slot)
 
 func _try_move_item_server(item: CT_ItemStack, slot: CT_InventorySlot) -> void:
-	
 	if !is_instance_valid(slot) or !is_instance_valid(item):
 		return
-	
 	
 	var is_inventory_authority: bool = SimusNet.get_network_authority(slot.get_inventory()) == SimusNetRemote.sender_id
 	var is_inventory_opened: bool = get_opened().has(slot.get_inventory())
@@ -181,16 +224,21 @@ func _receive(raw: PackedByteArray) -> void:
 			i.queue_free()
 			await i.tree_exited
 	
-	
 	var slots: Array[CT_InventorySlot] = CT_InventorySlot.deserialize_array(raw)
 	for i in slots:
 		add_child(i)
 	
+	_do_network_ready()
+
+func _do_network_ready() -> void:
 	is_ready = true
 	on_ready.emit()
-	
+	EVENT.on_inventory_ready.set_properties({"source" : self}).publish()
+	if is_local():
+		EVENT.on_inventory_ready_local.set_properties({"source" : self}).publish()
 
 func _on_item_added(slot: CT_InventorySlot, item: CT_ItemStack) -> void:
+	on_item_added.emit(slot, item)
 	if !SimusNetConnection.is_server():
 		return
 	
@@ -198,6 +246,8 @@ func _on_item_added(slot: CT_InventorySlot, item: CT_ItemStack) -> void:
 	SimusNetRPC.invoke(_receive_item_add, slot, item.serialize())
 
 func _on_item_removed(slot: CT_InventorySlot, item: CT_ItemStack) -> void:
+	on_item_removed.emit(slot, item)
+	
 	if !SimusNetConnection.is_server():
 		return
 	
@@ -244,6 +294,9 @@ func _open_server(inventory: CT_Inventory) -> void:
 	if !_opened.has(inventory) and can_open_other_inventories():
 		_opened.append(inventory)
 		on_inventory_opened.emit(inventory)
+		EVENT.on_inventory_opened.source = self
+		EVENT.on_inventory_opened.inventory = inventory
+		EVENT.on_inventory_opened.publish()
 
 func close(inventory: CT_Inventory) -> void:
 	if SimusNetConnection.is_server():
@@ -256,6 +309,9 @@ func _close_server(inventory: CT_Inventory) -> void:
 	if _opened.has(inventory):
 		_opened.erase(inventory)
 		on_inventory_closed.emit(inventory)
+		EVENT.on_inventory_closed.source = self
+		EVENT.on_inventory_closed.inventory = inventory
+		EVENT.on_inventory_closed.publish()
 
 func request_open(inventory: CT_Inventory) -> void:
 	if is_opened(inventory) or !can_open_other_inventories():

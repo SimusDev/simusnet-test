@@ -10,6 +10,9 @@ signal on_updated()
 signal on_item_added(item: CT_ItemStack)
 signal on_item_removed(item: CT_ItemStack)
 
+func get_icon() -> Texture:
+	return null
+
 func _ready() -> void:
 	SimusNetIdentity.register(self)
 	

@@ -7,7 +7,9 @@ class_name CT_ItemStack
 	set(value):
 		quantity = value
 		on_quantity_changed.emit()
-	
+		if quantity < 1 and SimusNetConnection.is_server():
+			queue_free()
+
 @export var stack_size: int = 64
 
 signal on_quantity_changed()
@@ -32,11 +34,11 @@ func _enter_tree() -> void:
 	_inventory._item_stacks.append(self)
 
 func _exit_tree() -> void:
-	_slot._item_stack = null
 	_slot.on_item_removed.emit(self)
 	_slot.on_updated.emit()
 	_inventory._item_stacks.erase(self)
 	_inventory._on_item_removed(_slot, self)
+	_slot._item_stack = null
 
 func _ready() -> void:
 	SimusNetVars.register(

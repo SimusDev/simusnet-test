@@ -1,8 +1,10 @@
 class_name PlayerUI extends Control
 
-var _local:PlayerUI
+static var _local:PlayerUI
 
-func get_local() -> PlayerUI:
+static var on_ready: SD_Signal = SD_Signal.new()
+
+static func get_local() -> PlayerUI:
 	return _local
 
 func _ready() -> void:
@@ -19,3 +21,5 @@ func _ready() -> void:
 			ui.on_instance_set.emit()
 			add_child(instance)
 			move_child(instance, ui.layer)
+	
+	on_ready.invoke()

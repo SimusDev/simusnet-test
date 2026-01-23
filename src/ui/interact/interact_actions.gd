@@ -54,6 +54,8 @@ func _input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("interact"):
 		if get_actions_size() > 0:
 			on_selected.emit(_v_box_container.get_child(_selected_action).action)
+		else:
+			on_selected.emit(null)
 	
 
 func update() -> void:

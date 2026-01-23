@@ -3,7 +3,9 @@
 [ext_resource type="Script" uid="uid://d1l1jkmj6s53f" path="res://addons/simusdev/ui/SD_UIInterfaceMenu.gd" id="1_fwosp"]
 [ext_resource type="Theme" uid="uid://bn0751ku2d5fx" path="res://src/themes/hf2.tres" id="1_rgnhm"]
 [ext_resource type="Script" uid="uid://deqt2eyqhid11" path="res://src/ui/inventory/backpack.gd" id="2_v4jt5"]
+[ext_resource type="AudioStream" uid="uid://but27e0ryijd2" path="res://audio/sfx/backpack_open.ogg" id="3_cq5k6"]
 [ext_resource type="Script" uid="uid://do3dlfequ75dj" path="res://src/ui/inventory/slot_control.gd" id="3_v4jt5"]
+[ext_resource type="AudioStream" uid="uid://cjc22ogymfmjm" path="res://audio/sfx/backpack_close.ogg" id="4_5g0a8"]
 [ext_resource type="Script" uid="uid://3h3uaulqm56k" path="res://src/ui/inventory/backpack_custom.gd" id="6_egj3e"]
 [ext_resource type="PackedScene" uid="uid://cc2mybbei2g1p" path="res://src/ui/inventory/avatar.tscn" id="6_gl4hf"]
 [ext_resource type="PackedScene" uid="uid://cc6trvruecdbv" path="res://src/ui/inventory/window.tscn" id="6_nlyav"]
@@ -19,8 +21,13 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_rgnhm")
 script = ExtResource("2_v4jt5")
+_audio_open = ExtResource("3_cq5k6")
+_audio_close = ExtResource("4_5g0a8")
 metadata/_edit_vertical_guides_ = [621.0, 659.0, 1270.0]
 metadata/_edit_horizontal_guides_ = [82.0, 172.0]
+
+[node name="_Sound" type="AudioStreamPlayer" parent="." unique_id=1269233315]
+bus = &"Game"
 
 [node name="fade" type="ColorRect" parent="." unique_id=1338478649]
 layout_mode = 1
@@ -197,3 +204,5 @@ layout_mode = 2
 
 [connection signal="draw" from="." to="." method="_on_draw"]
 [connection signal="hidden" from="." to="." method="_on_hidden"]
+[connection signal="closed" from="SD_UIInterfaceMenu" to="." method="_on_sd_ui_interface_menu_closed"]
+[connection signal="opened" from="SD_UIInterfaceMenu" to="." method="_on_sd_ui_interface_menu_opened"]

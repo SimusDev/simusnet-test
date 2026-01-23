@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://e55eek63c86k"]
 
 [ext_resource type="Script" uid="uid://doxf33wt4344v" path="res://scenes/game.gd" id="1_yqjtg"]
+[ext_resource type="Script" uid="uid://b6tiuh31wjnqw" path="res://component/gamescript/CT_GameScriptHandler.gd" id="3_u5sy4"]
 [ext_resource type="PackedScene" uid="uid://doaq5fchetdqp" path="res://component/sky/sky_3d.tscn" id="4_lbhrr"]
 [ext_resource type="Script" uid="uid://ddut1xlh5rvp5" path="res://component/player/CT_CharacterSelect.gd" id="5_iywne"]
 [ext_resource type="PackedScene" uid="uid://doc3v4vgjj4ti" path="res://src/ui/authentification/authentification.tscn" id="6_p57ef"]
@@ -13,6 +14,11 @@ script = ExtResource("1_yqjtg")
 [node name="CT_CharacterSelect" type="Node" parent="." unique_id=1174110634]
 script = ExtResource("5_iywne")
 metadata/_custom_type_script = "uid://ddut1xlh5rvp5"
+
+[node name="CT_GameScriptHandler" type="Node" parent="." unique_id=1514029841]
+script = ExtResource("3_u5sy4")
+directory = "res://gamescripts"
+metadata/_custom_type_script = "uid://b6tiuh31wjnqw"
 
 [node name="LevelHandler" parent="." unique_id=579608183 node_paths=PackedStringArray("level_holder") instance=ExtResource("7_0tnpc")]
 level_at_start = ExtResource("8_kvpfn")

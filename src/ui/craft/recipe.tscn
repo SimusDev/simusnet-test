@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://cewauqerkwmg7"]
+
+[ext_resource type="ButtonGroup" uid="uid://cts4mvffg8ft3" path="res://src/ui/craft/recipe_group.tres" id="1_aky67"]
+[ext_resource type="Texture2D" uid="uid://jqsxep3h4fus" path="res://icon.svg" id="1_t0l7g"]
+[ext_resource type="Script" uid="uid://dt6ujy0gg5rpe" path="res://src/ui/craft/recipe.gd" id="2_aky67"]
+
+[node name="Recipe" type="Button" unique_id=474872320]
+custom_minimum_size = Vector2(418, 48)
+offset_right = 418.0
+offset_bottom = 48.0
+toggle_mode = true
+button_group = ExtResource("1_aky67")
+text = "ITEM"
+icon = ExtResource("1_t0l7g")
+expand_icon = true
+script = ExtResource("2_aky67")

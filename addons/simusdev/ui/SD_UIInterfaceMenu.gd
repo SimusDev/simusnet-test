@@ -84,9 +84,6 @@ func is_closed() -> bool:
 	return not target.visible
 
 func _input(event: InputEvent) -> void:
-	if input_action.is_empty():
-		return
-	
 	if _ui.has_active_interface():
 		if when_last_interface and _ui.get_last_interface() != target:
 			return
@@ -97,6 +94,8 @@ func _input(event: InputEvent) -> void:
 	
 	
 	if input_just_press == false:
+		if input_action.is_empty():
+			return
 		if Input.is_action_just_pressed(input_action):
 			open()
 		elif Input.is_action_just_released(input_action):
@@ -109,10 +108,14 @@ func _input(event: InputEvent) -> void:
 			if Input.is_action_just_pressed(_ui.ACTION_CLOSE_MENU):
 				close()
 		else:
+			if input_action.is_empty():
+				return
 			if Input.is_action_just_pressed(input_action):
 				close()
 		
 	else:
+		if input_action.is_empty():
+			return
 		if Input.is_action_just_pressed(input_action):
 			open()
 

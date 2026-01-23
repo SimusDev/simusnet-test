@@ -108,6 +108,9 @@ func _physics_process(delta: float) -> void:
 	
 
 static func replicate(object: Object, properties: PackedStringArray, reliable: bool = true) -> void:
+	if SimusNetConnection.is_server():
+		return
+	
 	for p_name in properties:
 		var config: SimusNetVarConfig = SimusNetVarConfig.get_config(object, p_name)
 		if !config:

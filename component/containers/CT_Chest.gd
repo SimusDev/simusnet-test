@@ -16,6 +16,7 @@ func _ready() -> void:
 	
 	if !inventory:
 		inventory = CT_Inventory.new()
+		inventory.name = "ChestInventory"
 		inventory.node = root
 		root.add_child(inventory)
 	
