@@ -9,11 +9,11 @@
 [ext_resource type="PackedScene" uid="uid://be7h2lkvpihn3" path="res://addons/simusdev/components/fp_controller/source_like/W_FPCSourceLikeMovement.tscn" id="4_d5u4l"]
 [ext_resource type="Script" uid="uid://dpblk4cnhdonv" path="res://component/viewmodel/ViewModelRoot3D.gd" id="4_heeeb"]
 [ext_resource type="PackedScene" uid="uid://cmmrufl5ygbop" path="res://component/inventory/prefabs/inventory.tscn" id="4_wdfrp"]
-[ext_resource type="Resource" uid="uid://cic3i440xvcwv" path="res://src/objects/item/weapon/crowbar.tres" id="5_lhjlg"]
 [ext_resource type="Script" uid="uid://dvlnhvdrc3dy6" path="res://component/hitbox/CT_Hitbox.gd" id="5_yyb7l"]
 [ext_resource type="Script" uid="uid://diojix86rolea" path="res://component/interaction/CT_InteractionRay.gd" id="9_y56kl"]
 [ext_resource type="Script" uid="uid://cgpsyyx2x8kki" path="res://component/ui/MP_CanvasLayer.gd" id="10_wdfrp"]
 [ext_resource type="Script" uid="uid://dfsnjhyc2ld3c" path="res://addons/simusdev/components/fp_controller/source_like/W_FPCSourceLikeCrouch.gd" id="10_y56kl"]
+[ext_resource type="Resource" uid="uid://c1dipp0t421cv" path="res://src/objects/military_box.tres" id="10_yyb7l"]
 [ext_resource type="PackedScene" uid="uid://b36ise4k4tg7d" path="res://scenes/prefabs/player_ui/player_ui.tscn" id="11_y56kl"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_yyb7l"]
@@ -37,6 +37,7 @@ size = Vector3(1, 1.2, 1)
 collision_layer = 0
 script = ExtResource("1_e4ep1")
 sound = ExtResource("2_rlttd")
+metadata/sd_components = Array[Node]([])
 
 [node name="CT_Health" type="Node" parent="." unique_id=1598873890 node_paths=PackedStringArray("root")]
 script = ExtResource("3_eb5im")
@@ -96,7 +97,7 @@ metadata/_custom_type_script = "uid://d1jwapkumdp1u"
 [node name="ViewModelRoot3D" type="Node3D" parent="Camera" unique_id=370646152 node_paths=PackedStringArray("player")]
 script = ExtResource("4_heeeb")
 player = NodePath("../..")
-object = ExtResource("5_lhjlg")
+object = ExtResource("10_yyb7l")
 
 [node name="CT_InteractionRay" type="RayCast3D" parent="Camera" unique_id=458762315 node_paths=PackedStringArray("root")]
 target_position = Vector3(0, 0, -1.5)

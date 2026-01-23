@@ -46,9 +46,11 @@ func _update() -> void:
 		return
 	
 	if not is_node_ready():
-		SimusDev.console.write_info("'%s': waiting for 'ready'" % [self])
+		SimusDev.console.write_info("'%s': waiting for 'self.ready'" % [self])
 		await ready
-	
+	if not get_parent().is_node_ready():
+		SimusDev.console.write_info("'%s': waiting for 'parent.ready'" % [self])
+		await get_parent().ready
 	_clear()
 	
 	if not object:

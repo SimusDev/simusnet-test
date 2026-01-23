@@ -7,6 +7,7 @@
 
 [sub_resource type="Resource" id="Resource_rvmb8"]
 script = ExtResource("4_1igna")
+model_prefab = ExtResource("1_xv0eu")
 metadata/_custom_type_script = "uid://b446loaai0cao"
 
 [node name="MilitaryBoxView" type="Node3D" unique_id=1298332812]

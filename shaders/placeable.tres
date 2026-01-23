@@ -1,0 +1,18 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://cdm3h0echvgsy"]
+
+[sub_resource type="Shader" id="Shader_nl7hi"]
+code = "shader_type spatial;
+
+uniform vec4 target_color : source_color = vec4(1.0, 1.0, 1.0, 1.0);
+render_mode depth_prepass_alpha; 
+
+void fragment() {
+    ALBEDO = target_color.rgb;
+    ALPHA = target_color.a;
+}
+"
+
+[resource]
+render_priority = 0
+shader = SubResource("Shader_nl7hi")
+shader_parameter/target_color = Color(1, 1, 1, 1)
