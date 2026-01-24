@@ -273,12 +273,12 @@ func can_open_other_inventories() -> bool:
 	return get_opened().is_empty()
 
 func get_opened() -> Array[CT_Inventory]:
-	var id: int = 0
+	var parsed: Array[CT_Inventory] = []
 	for i in _opened:
-		if !is_instance_valid(i):
-			_opened.erase(i)
-		id += 1
-	return _opened
+		if is_instance_valid(i):
+			parsed.append(i)
+	_opened.clear()
+	return parsed
 
 func is_opened(inventory: CT_Inventory) -> bool:
 	return get_opened().has(inventory)
