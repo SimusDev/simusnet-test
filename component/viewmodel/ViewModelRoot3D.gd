@@ -81,9 +81,7 @@ func _update() -> void:
 	
 	_object_instance = prefab.instantiate()
 	_object_instance.name = "view"
-	_object_instance.set_multiplayer_authority( get_multiplayer_authority() )
-	_object_instance.set("player", player)
-	_object_instance.set("player_camera", SD_Components.find_first(player, W_FPCSourceLikeCamera))
+	_object_instance.set_multiplayer_authority( get_multiplayer_authority())
 	
 	if not Engine.is_editor_hint():
 		object.set_in(_object_instance)

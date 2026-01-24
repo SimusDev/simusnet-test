@@ -33,15 +33,9 @@ func impact() -> void:
 	SimusNetRPC.invoke_on_server(local_impact)
 
 func local_impact() -> void:
-	if not player_camera:
-		player_camera = SD_Components.find_first(player, W_FPCSourceLikeCamera)
-	
-	if not player_camera:
-		return
-	
 	var space_state = get_world_3d().direct_space_state
-	var origin = player_camera.global_position
-	var target = origin - player_camera.global_transform.basis.z * object.attack_range
+	var origin = entity_head.get_eyes().global_position
+	var target = origin - entity_head.get_eyes().global_transform.basis.z * object.attack_range
 	
 	var query = PhysicsRayQueryParameters3D.create(origin, target)
 	

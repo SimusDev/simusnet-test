@@ -3,8 +3,6 @@ class_name W_Item extends Node3D
 signal event_pick
 signal event_inspect
 
-var player:Player
-var player_camera:W_FPCSourceLikeCamera
 @export var object:R_WorldObject
 
 var cooldown_timer:Timer 
@@ -16,9 +14,13 @@ var net_config:SimusNetRPCConfig
 
 var entity_head: CT_EntityHead
 
+var _logger: SD_Logger = SD_Logger.new(self)
+
 func _ready() -> void:
 	entity_head = CT_EntityHead.find_above(self)
-	print(entity_head)
+	if !entity_head:
+		_logger.debug("ENTITY HEAD COMPONENT WAS NOT FOUND!", SD_ConsoleCategories.ERROR)
+	
 	net_config = (SimusNetRPCConfig.new()
 		.flag_set_channel("item")
 		.flag_mode_any_peer()
