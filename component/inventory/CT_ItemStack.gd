@@ -73,8 +73,7 @@ static func create_from_object_instance(instance: I_WorldObject) -> CT_ItemStack
 func serialize() -> Dictionary:
 	var data: Dictionary = {}
 	data[-1] = SimusNetIdentity.server_serialize_instance(self)
-	if get_script().get_global_name() != "CT_ItemStack":
-		data[0] = SimusNetSerializer.parse_resource(get_script())
+	data[0] = SimusNetSerializer.parse_resource(get_script())
 	
 	name = name.validate_node_name()
 	data[1] = name
