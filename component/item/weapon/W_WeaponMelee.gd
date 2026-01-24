@@ -25,7 +25,7 @@ func fire() -> void:
 	cooldown_timer.start()
 	#
 	if object is R_WeaponMelee:
-		object.swing_sound.play(player, player.global_position)
+		object.swing_sound.play(entity_head.get_entity(), entity_head.get_entity().global_position)
 	#
 	event_fire.emit()
 
@@ -39,7 +39,7 @@ func local_impact() -> void:
 	
 	var query = PhysicsRayQueryParameters3D.create(origin, target)
 	
-	query.exclude = [player.get_rid()] 
+	query.exclude = [entity_head.get_entity().get_rid()] 
 	
 	var result = space_state.intersect_ray(query)
 	
