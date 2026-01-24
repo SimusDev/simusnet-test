@@ -2,10 +2,12 @@
 
 [ext_resource type="Script" uid="uid://dbayi3eiha053" path="res://src/ui/inventory/slot.gd" id="1_3t1rm"]
 [ext_resource type="Script" uid="uid://bmwl6ctnkt45h" path="res://addons/simusdev/ui/SD_UIDragAndDrop.gd" id="2_lktvk"]
+[ext_resource type="Texture2D" uid="uid://cylqguljdikqb" path="res://src/ui/inventory/textures/slot.png" id="3_cunr2"]
+[ext_resource type="FontFile" uid="uid://8u50g4jta3r5" path="res://fonts/Verdana-Bold.ttf" id="4_2kh03"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_3t1rm"]
-font_size = 28
-outline_size = 8
+font = ExtResource("4_2kh03")
+outline_size = 4
 outline_color = Color(0, 0, 0, 1)
 
 [node name="Slot" type="Control" unique_id=1662894146 node_paths=PackedStringArray("_quantity")]
@@ -19,19 +21,15 @@ size_flags_vertical = 4
 script = ExtResource("1_3t1rm")
 _quantity = NodePath("_quantity")
 
-[node name="Panel" type="Panel" parent="." unique_id=2119006557]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
 [node name="slot_icon" type="TextureRect" parent="." unique_id=75636182]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = -2.0
+offset_bottom = -2.0
 grow_horizontal = 2
 grow_vertical = 2
 expand_mode = 1
@@ -42,22 +40,14 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = -2.0
+offset_bottom = -2.0
 grow_horizontal = 2
 grow_vertical = 2
 expand_mode = 1
 stretch_mode = 5
-
-[node name="_quantity" type="Label" parent="." unique_id=1941195883]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "10"
-label_settings = SubResource("LabelSettings_3t1rm")
-horizontal_alignment = 2
-vertical_alignment = 2
 
 [node name="SD_UIDragAndDrop" type="Node2D" parent="." unique_id=1399197632 node_paths=PackedStringArray("input_node", "draggable_node", "drop_node", "preview_node")]
 script = ExtResource("2_lktvk")
@@ -66,6 +56,32 @@ draggable_node = NodePath("..")
 drop_node = NodePath("..")
 preview_node = NodePath("../icon")
 metadata/_custom_type_script = "uid://bmwl6ctnkt45h"
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=868859361]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_cunr2")
+expand_mode = 1
+
+[node name="_quantity" type="Label" parent="." unique_id=1941195883]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = -2.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "10"
+label_settings = SubResource("LabelSettings_3t1rm")
+horizontal_alignment = 2
+vertical_alignment = 2
 
 [connection signal="gui_input" from="." to="." method="_on_gui_input"]
 [connection signal="drag_started" from="SD_UIDragAndDrop" to="." method="_on_sd_ui_drag_and_drop_drag_started"]
