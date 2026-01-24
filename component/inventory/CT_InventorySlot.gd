@@ -68,6 +68,9 @@ static func deserialize(data: Dictionary) -> CT_InventorySlot:
 	if data.has(0):
 		script = SimusNetDeserializer.parse_resource(data.get(0))
 	
+	if !is_instance_valid(script):
+		script = CT_InventorySlot
+	
 	var slot: CT_InventorySlot = script.new()
 	SimusNetIdentity.client_deserialize_instance(data[-1], slot)
 	slot.name = data[1]
