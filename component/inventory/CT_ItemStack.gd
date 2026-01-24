@@ -82,6 +82,9 @@ func serialize() -> Dictionary:
 
 static func deserialize(data: Dictionary) -> CT_ItemStack:
 	var script: GDScript = data.get(0, CT_ItemStack)
+	if !is_instance_valid(script):
+		script = CT_ItemStack
+	
 	var item: CT_ItemStack = script.new()
 	SimusNetIdentity.client_deserialize_instance(data[-1], item)
 	item.name = data[1]
@@ -89,7 +92,6 @@ static func deserialize(data: Dictionary) -> CT_ItemStack:
 	var _object: Variant = data.get(2, null)
 	if _object:
 		item.object = SimusNetDeserializer.parse_resource(_object)
-	
 	
 	return item
 
