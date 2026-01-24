@@ -28,7 +28,8 @@ func _on_child_entered_tree(child: Node) -> void:
 	
 	var world_object: I_WorldObject = I_WorldObject.find_in(child)
 	if world_object:
-		world_object.get_object()._spawned(child, self)
+		if world_object.get_object():
+			world_object.get_object()._spawned(child, self)
 	
 	if networked:
 		var transform_sync: SimusNetTransform = SimusNetTransform.find_transform(child)
