@@ -15,4 +15,4 @@ void fragment() {
 [resource]
 render_priority = 0
 shader = SubResource("Shader_nl7hi")
-shader_parameter/target_color = Color(1, 1, 1, 1)
+shader_parameter/target_color = Color(0, 0.49803922, 1, 0.8509804)

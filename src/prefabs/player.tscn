@@ -10,6 +10,7 @@
 [ext_resource type="Script" uid="uid://dpblk4cnhdonv" path="res://component/viewmodel/ViewModelRoot3D.gd" id="4_heeeb"]
 [ext_resource type="PackedScene" uid="uid://cmmrufl5ygbop" path="res://component/inventory/prefabs/inventory.tscn" id="4_wdfrp"]
 [ext_resource type="Script" uid="uid://dvlnhvdrc3dy6" path="res://component/hitbox/CT_Hitbox.gd" id="5_yyb7l"]
+[ext_resource type="Script" uid="uid://cth053db6jxla" path="res://component/ViewModelSway.gd" id="9_xiv16"]
 [ext_resource type="Script" uid="uid://diojix86rolea" path="res://component/interaction/CT_InteractionRay.gd" id="9_y56kl"]
 [ext_resource type="Script" uid="uid://cgpsyyx2x8kki" path="res://component/ui/MP_CanvasLayer.gd" id="10_wdfrp"]
 [ext_resource type="Script" uid="uid://dfsnjhyc2ld3c" path="res://addons/simusdev/components/fp_controller/source_like/W_FPCSourceLikeCrouch.gd" id="10_y56kl"]
@@ -99,6 +100,10 @@ script = ExtResource("4_heeeb")
 player = NodePath("../..")
 object = ExtResource("10_yyb7l")
 
+[node name="ViewModelSway" type="Node" parent="Camera/ViewModelRoot3D" unique_id=1406768518]
+script = ExtResource("9_xiv16")
+metadata/_custom_type_script = "uid://cth053db6jxla"
+
 [node name="CT_InteractionRay" type="RayCast3D" parent="Camera" unique_id=458762315 node_paths=PackedStringArray("root")]
 target_position = Vector3(0, 0, -1.5)
 collision_mask = 2
@@ -144,3 +149,5 @@ metadata/_custom_type_script = "uid://cgpsyyx2x8kki"
 
 [node name="Marker3D" type="Marker3D" parent="." unique_id=1961461207]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
+
+[editable path="Camera"]

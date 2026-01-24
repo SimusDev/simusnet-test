@@ -13,6 +13,10 @@ func _ready() -> void:
 	if not get_parent().is_node_ready():
 		await get_parent().ready
 	
+	set_process( SimusNet.is_network_authority(self) )
+	set_process_input( SimusNet.is_network_authority(self) )
+	set_physics_process( SimusNet.is_network_authority(self) )
+	
 	if custom_item:
 		item = custom_item
 	else:
@@ -41,7 +45,7 @@ func _physics_process(_delta: float) -> void:
 		#current_ghost.visible = result
 		
 		if result:
-			current_ghost.global_position = result.position 
+			current_ghost.global_position = result.position
 		else:
 			current_ghost.global_position = item.global_position - item.player_camera.global_transform.basis.z * placeable.place_range
 
@@ -77,8 +81,10 @@ func _apply_shader_to_meshes() -> void:
 	if not is_placeable_valid():
 		return
 	
+	var sm = placeable.shader_material.duplicate()
+	
 	for child in current_ghost.find_children("*", "GeometryInstance3D"):
-		child.set("material_override", placeable.shader_material)
+		child.set("material_override", sm)
 
 func is_placeable_valid() -> bool:
 	return bool(placeable and placeable.object)

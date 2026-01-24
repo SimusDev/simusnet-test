@@ -381,4 +381,4 @@ func request_close(inventory: CT_Inventory) -> void:
 
 func request_close_all() -> void:
 	for inv in get_opened():
-		request_close(inv)
+			request_close(inv)
