@@ -14,7 +14,11 @@ var is_using_alt:bool = false
 
 var net_config:SimusNetRPCConfig
 
+var entity_head: CT_EntityHead
+
 func _ready() -> void:
+	entity_head = CT_EntityHead.find_above(self)
+	print(entity_head)
 	net_config = (SimusNetRPCConfig.new()
 		.flag_set_channel("item")
 		.flag_mode_any_peer()
