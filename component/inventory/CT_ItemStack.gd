@@ -28,6 +28,7 @@ func _enter_tree() -> void:
 	_slot.on_updated.emit()
 	
 	_inventory = SD_ECS.node_find_above_by_script(self, CT_Inventory)
+	_inventory.on_slot_updated_for_viewmodel.emit(_slot)
 	SimusNetVisible.set_visibile(self, SimusNetVisible.get_or_create(_inventory))
 	_inventory._on_item_added(_slot, self)
 	
@@ -36,6 +37,7 @@ func _enter_tree() -> void:
 func _exit_tree() -> void:
 	_slot.on_item_removed.emit(self)
 	_slot.on_updated.emit()
+	_inventory.on_slot_updated_for_viewmodel.emit(_slot)
 	_inventory._item_stacks.erase(self)
 	_inventory._on_item_removed(_slot, self)
 	_slot._item_stack = null

@@ -13,6 +13,8 @@ func get_playable() -> CT_Playable:
 var _item_stacks: Array[CT_ItemStack]
 var _slots: Array[CT_InventorySlot]
 
+var _selected_slot: CT_InventorySlot
+
 signal on_synchronized()
 signal on_ready()
 
@@ -21,6 +23,9 @@ signal on_item_removed(slot: CT_InventorySlot, item: CT_ItemStack)
 
 signal on_inventory_closed(inventory: CT_Inventory)
 signal on_inventory_opened(inventory: CT_Inventory)
+
+signal on_slot_selected(slot: CT_InventorySlot)
+signal on_slot_updated_for_viewmodel(slot: CT_InventorySlot)
 
 var is_ready: bool = false
 
@@ -78,12 +83,21 @@ func _ready() -> void:
 	if _playable:
 		if SimusNet.is_network_authority(_playable):
 			_local = self
+			
 	
 	if SimusNetConnection.is_server():
 		for id: int in initial_slot_count:
 			var slot: CT_InventorySlot = CT_InventorySlot.new()
 			slot.name = "i_%s" % id
 			add_child(slot)
+	
+	if is_local():
+		var hotbar_input: CT_HotbarInput = CT_HotbarInput.new()
+		hotbar_input.name = "HotbarInput"
+		hotbar_input.set_multiplayer_authority(get_multiplayer_authority())
+		hotbar_input.root = node
+		hotbar_input.inventory = self
+		node.add_child(hotbar_input)
 	
 	super()
 
@@ -109,6 +123,7 @@ func _network_setup() -> void:
 		[
 			_send,
 			_try_move_item_server,
+			_request_slot_select_server,
 			
 		], SimusNetRPCConfig.new().flag_mode_any_peer().
 		flag_set_channel(Network.CHANNEL_INVENTORY).flag_serialization()
@@ -121,6 +136,7 @@ func _network_setup() -> void:
 			_receive_item_remove,
 			_open_server,
 			_close_server,
+			_request_slot_select_rpc
 			
 		], SimusNetRPCConfig.new().flag_mode_server_only().
 		flag_set_channel(Network.CHANNEL_INVENTORY).flag_serialization()
@@ -135,7 +151,43 @@ func _network_setup() -> void:
 		flag_set_channel(Network.CHANNEL_INVENTORY).flag_serialization()
 	)
 
+func request_slot_select(slot: CT_InventorySlot) -> void:
+	if !is_instance_valid(slot):
+		return
+	
+	if slot == get_selected_slot():
+		return
+	
+	if slot is CT_InventorySlotHot:
+		SimusNetRPC.invoke_on_server(_request_slot_select_server, slot)
+	
 
+func request_slot_select_by_id(id: int) -> void:
+	var slots: Array[CT_InventorySlot] = get_slots_by_script(CT_InventorySlotHot)
+	var selected: CT_InventorySlot = SD_Array.get_value_from_array(slots, id)
+	if selected:
+		request_slot_select(selected)
+	
+
+func _request_slot_select_server(slot: CT_InventorySlot) -> void:
+	if !is_instance_valid(slot):
+		return
+	
+	if slot == get_selected_slot():
+		return
+	
+	if slot is CT_InventorySlotHot:
+		SimusNetRPC.invoke_all(_request_slot_select_rpc, slot)
+
+func _request_slot_select_rpc(slot: CT_InventorySlotHot) -> void:
+	_selected_slot = slot
+	on_slot_selected.emit(slot)
+	on_slot_updated_for_viewmodel.emit(slot)
+
+func get_selected_slot() -> CT_InventorySlotHot:
+	if !is_instance_valid(_selected_slot):
+		_selected_slot = null
+	return _selected_slot
 
 func try_pickup(object: Variant) -> bool:
 	var stack: CT_ItemStack = null
@@ -215,10 +267,10 @@ func _try_move_item_server(item: CT_ItemStack, slot: CT_InventorySlot) -> void:
 
 func _send() -> void:
 	var bytes: PackedByteArray = CT_InventorySlot.serialize_array(get_slots())
-	SimusNetRPC.invoke_on(SimusNetRemote.sender_id, _receive, bytes)
+	SimusNetRPC.invoke_on(SimusNetRemote.sender_id, _receive, bytes, _selected_slot)
 	
 
-func _receive(raw: PackedByteArray) -> void:
+func _receive(raw: PackedByteArray, _selected: CT_InventorySlot) -> void:
 	for i in get_children():
 		if i is CT_InventorySlot:
 			i.queue_free()
@@ -227,6 +279,8 @@ func _receive(raw: PackedByteArray) -> void:
 	var slots: Array[CT_InventorySlot] = CT_InventorySlot.deserialize_array(raw)
 	for i in slots:
 		add_child(i)
+	
+	_selected_slot = _selected
 	
 	_do_network_ready()
 

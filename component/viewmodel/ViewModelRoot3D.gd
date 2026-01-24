@@ -32,37 +32,46 @@ var _object_instance:Node3D
 func _clear(safe:bool = true) -> void:
 	if not enabled_in_editor and Engine.is_editor_hint():
 		return
+	
 	if safe:
 		if not is_inside_tree():
 			return
+	
 	if _object_instance:
-		_object_instance.free()
+		_object_instance.queue_free()
+		await _object_instance.tree_exited
 		_object_instance = null
 
 func _update() -> void:
 	if not is_inside_tree():
 		await tree_entered
+	
 	if not enabled_in_editor and Engine.is_editor_hint():
 		return
 	
 	if not is_node_ready():
 		SimusDev.console.write_info("'%s': waiting for 'self.ready'" % [self])
 		await ready
+	
 	if not get_parent().is_node_ready():
 		SimusDev.console.write_info("'%s': waiting for 'parent.ready'" % [self])
 		await get_parent().ready
-	_clear()
+	
+	await _clear()
 	
 	if not object:
 		SimusDev.console.write_error("%s: object is null" % [self])
 		return
+	
 	if not object.viewmodel:
 		SimusDev.console.write_error("%s: viewmodel is null" % [self])
 		return
 	
 	var prefab:PackedScene
+	
 	if type == Type.VIEW:
 		prefab = object.viewmodel.view
+	
 	elif type == Type.PLAYER:
 		prefab = object.viewmodel.player
 	
@@ -71,9 +80,11 @@ func _update() -> void:
 		return
 	
 	_object_instance = prefab.instantiate()
+	_object_instance.name = "view"
 	_object_instance.set_multiplayer_authority( get_multiplayer_authority() )
 	_object_instance.set("player", player)
 	_object_instance.set("player_camera", SD_Components.find_first(player, W_FPCSourceLikeCamera))
+	
 	if not Engine.is_editor_hint():
 		object.set_in(_object_instance)
 	
