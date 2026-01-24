@@ -146,3 +146,13 @@ static func node_find_above_by_script(from: Node, script: Script) -> Node:
 		return null
 	
 	return node_find_above_by_script(from.get_parent(), script)
+
+static func node_find_above_by_component(from: Node, component: Script) -> Node:
+	var founded = find_first_component_by_script(from, [component])
+	if founded:
+		return founded
+	
+	if from == SimusDev.get_tree().root:
+		return null
+	
+	return node_find_above_by_component(from.get_parent(), component)

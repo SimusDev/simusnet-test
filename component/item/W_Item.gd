@@ -15,7 +15,6 @@ var is_using_alt:bool = false
 var net_config:SimusNetRPCConfig
 
 func _ready() -> void:
-	
 	net_config = (SimusNetRPCConfig.new()
 		.flag_set_channel("item")
 		.flag_mode_any_peer()
@@ -44,7 +43,6 @@ func _ready() -> void:
 	set_process_input(SimusNet.is_network_authority(self))
 	
 	event_pick.emit()
-	
 
 static func find_above(node:Node) -> W_Item:
 	if node is W_Item or node == null:
