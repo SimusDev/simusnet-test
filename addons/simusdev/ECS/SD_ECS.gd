@@ -1,4 +1,5 @@
 @static_unload
+#@tool
 extends RefCounted
 class_name SD_ECS
 

@@ -6,7 +6,7 @@ class_name CT_EntityHead
 
 var _logger: SD_Logger = SD_Logger.new(self)
 
-func _ready() -> void:
+func _enter_tree() -> void:
 	if !_entity:
 		_logger.debug("please, set the entity reference.", SD_ConsoleCategories.ERROR)
 	
@@ -14,7 +14,7 @@ func _ready() -> void:
 		_logger.debug("please, set the eyes reference.", SD_ConsoleCategories.ERROR)
 	
 	if _entity:
-		SD_ECS.append_to(_entity, self)
+		SD_ECS.try_append_to(_entity, self)
 
 func get_entity() -> Node3D:
 	return _entity

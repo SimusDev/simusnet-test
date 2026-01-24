@@ -16,7 +16,6 @@
 [ext_resource type="Script" uid="uid://diojix86rolea" path="res://component/interaction/CT_InteractionRay.gd" id="9_y56kl"]
 [ext_resource type="Script" uid="uid://cgpsyyx2x8kki" path="res://component/ui/MP_CanvasLayer.gd" id="10_wdfrp"]
 [ext_resource type="Script" uid="uid://dfsnjhyc2ld3c" path="res://addons/simusdev/components/fp_controller/source_like/W_FPCSourceLikeCrouch.gd" id="10_y56kl"]
-[ext_resource type="Resource" uid="uid://cic3i440xvcwv" path="res://src/objects/item/weapon/crowbar.tres" id="10_yyb7l"]
 [ext_resource type="PackedScene" uid="uid://b36ise4k4tg7d" path="res://scenes/prefabs/player_ui/player_ui.tscn" id="11_y56kl"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_yyb7l"]
@@ -41,6 +40,7 @@ collision_layer = 0
 script = ExtResource("1_e4ep1")
 sound = ExtResource("2_rlttd")
 metadata/sd_components = Array[Node]([])
+metadata/SD_ECS = Array[Node]([])
 
 [node name="CT_Health" type="Node" parent="." unique_id=1598873890 node_paths=PackedStringArray("root")]
 script = ExtResource("3_eb5im")
@@ -91,6 +91,10 @@ shape = SubResource("BoxShape3D_k5oc5")
 [node name="Camera" parent="." unique_id=1452450032 node_paths=PackedStringArray("body") instance=ExtResource("3_j7lg1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.64549553, 0)
 body = NodePath("..")
+metadata/SD_ECS = Array[Node]([])
+
+[node name="Camera3D" parent="Camera" index="0"]
+metadata/SD_ECS = Array[Node]([])
 
 [node name="CameraShake" type="Node3D" parent="Camera/Camera3D" index="0" unique_id=77756217 node_paths=PackedStringArray("player", "viewmodel_root", "camera", "movement")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.64549553, 0)
@@ -99,12 +103,12 @@ player = NodePath("../../..")
 viewmodel_root = NodePath("ViewModelRoot3D")
 camera = NodePath("../..")
 movement = NodePath("../../../Movement")
+metadata/SD_ECS = Array[Node]([])
 
-[node name="ViewModelRoot3D" type="Node3D" parent="Camera/Camera3D/CameraShake" unique_id=370646152 node_paths=PackedStringArray("player")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.64549553, 0)
+[node name="ViewModelRoot3D" type="Node3D" parent="Camera/Camera3D/CameraShake" unique_id=370646152]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.07311028, 0.97400725, 0.098163635)
 script = ExtResource("4_heeeb")
-player = NodePath("../../../..")
-object = ExtResource("10_yyb7l")
+metadata/SD_ECS = Array[Node]([])
 
 [node name="ViewModelSway" type="Node" parent="Camera/Camera3D/CameraShake/ViewModelRoot3D" unique_id=1406768518]
 script = ExtResource("9_xiv16")

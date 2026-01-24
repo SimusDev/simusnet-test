@@ -160,8 +160,12 @@ func _invoke_on(peer: int, callable: Callable, args: Array) -> void:
 		return
 	
 	if SimusNetConnection.get_unique_id() == peer:
+		if is_cooldown_active(callable):
+			return
+		
 		_setup_remote_sender(peer, config.flag_get_channel_id())
 		callable.callv(args)
+		_start_cooldown(callable)
 		return
 	
 	_invoke_on_without_validating(peer, callable, args, config)
@@ -181,6 +185,7 @@ static func _cooldown_create_or_get_storage(callable: Callable) -> Dictionary[St
 static func set_cooldown(callable: Callable, time: float = 0.0) -> SimusNetRPC:
 	var timer := SimusNetCooldownTimer.new()
 	_cooldown_create_or_get_storage(callable)[callable.get_method()] = timer
+	timer.set_time(time)
 	return _instance
 
 static func get_cooldown(callable: Callable) -> SimusNetCooldownTimer:

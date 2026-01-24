@@ -16,10 +16,22 @@ var entity_head: CT_EntityHead
 
 var _logger: SD_Logger = SD_Logger.new(self)
 
+var inventory: CT_Inventory
+
 func _ready() -> void:
+	inventory = SD_ECS.node_find_above_by_component(self, CT_Inventory)
+	
+	if !inventory:
+		_logger.debug("INVENTORY COMPONENT WAS NOT FOUND!", SD_ConsoleCategories.ERROR)
+		return
+	
+	SimusNetVisible.set_visibile(self, SimusNetVisible.get_or_create(inventory))
+	
 	entity_head = CT_EntityHead.find_above(self)
+	
 	if !entity_head:
 		_logger.debug("ENTITY HEAD COMPONENT WAS NOT FOUND!", SD_ConsoleCategories.ERROR)
+		return
 	
 	net_config = (SimusNetRPCConfig.new()
 		.flag_set_channel("item")

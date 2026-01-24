@@ -74,7 +74,7 @@ func _ready() -> void:
 	if !node:
 		node = get_parent()
 	
-	SD_ECS.append_to(node, self)
+	SD_ECS.try_append_to(node, self)
 	
 	if !node.is_node_ready():
 		await node.ready
@@ -100,6 +100,13 @@ func _ready() -> void:
 		node.add_child(hotbar_input)
 	
 	super()
+
+func _enter_tree() -> void:
+	if !is_node_ready():
+		SD_ECS.try_append_to(node, self)
+
+func _exit_tree() -> void:
+	pass
 
 static func find_in(node: Node) -> CT_Inventory:
 	return SD_ECS.find_first_component_by_script(node, [CT_Inventory])
@@ -128,6 +135,8 @@ func _network_setup() -> void:
 		], SimusNetRPCConfig.new().flag_mode_any_peer().
 		flag_set_channel(Network.CHANNEL_INVENTORY).flag_serialization()
 	)
+	
+	SimusNetRPC.set_cooldown(_request_slot_select_server, 0.25)
 	
 	SimusNetRPC.register(
 		[

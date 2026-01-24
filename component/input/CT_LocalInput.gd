@@ -26,8 +26,6 @@ func _unhandled_input(event: InputEvent) -> void:
 	
 	on_unhandled_input.emit(event)
 
-
-
 static func get_or_create(entity: Node3D) -> CT_LocalInput:
 	var input: CT_LocalInput = SD_ECS.find_first_component_by_script(entity, [CT_LocalInput])
 	if is_instance_valid(input):

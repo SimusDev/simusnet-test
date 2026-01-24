@@ -34,10 +34,15 @@ func _physics_process(_delta: float) -> void:
 		return
 	if not is_instance_valid(item) || not is_instance_valid(current_ghost):
 		return
-	if is_instance_valid(item.player_camera):
+	
+	var eyes: Node3D = item.entity_head.get_eyes()
+	
+	if is_instance_valid(item.entity_head):
+		
+		
 		var space_state = item.get_world_3d().direct_space_state
-		var origin = item.player_camera.global_position
-		var target = item.global_position - item.player_camera.global_transform.basis.z * placeable.place_range
+		var origin = eyes.global_position
+		var target = item.global_position - eyes.global_transform.basis.z * placeable.place_range
 		
 		var query = PhysicsRayQueryParameters3D.create(origin, target)
 		
@@ -47,7 +52,7 @@ func _physics_process(_delta: float) -> void:
 		if result:
 			current_ghost.global_position = result.position
 		else:
-			current_ghost.global_position = item.global_position - item.player_camera.global_transform.basis.z * placeable.place_range
+			current_ghost.global_position = item.global_position - eyes.global_transform.basis.z * placeable.place_range
 
 
 func _delete_ghost() -> void:
