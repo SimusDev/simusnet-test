@@ -82,7 +82,7 @@ func serialize() -> Dictionary:
 	return data
 
 static func deserialize(data: Dictionary) -> CT_ItemStack:
-	var script: GDScript = data.get(0, CT_ItemStack)
+	var script: GDScript = SimusNetDeserializer.parse_resource(data.get(0, CT_ItemStack))
 	if !is_instance_valid(script):
 		script = CT_ItemStack
 	
