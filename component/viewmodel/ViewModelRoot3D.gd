@@ -57,6 +57,9 @@ func _update() -> void:
 		SimusDev.console.write_info("'%s': waiting for 'parent.ready'" % [self])
 		await get_parent().ready
 	
+	if !player.is_node_ready():
+		await player.ready
+	
 	await _clear()
 	
 	if not object:
