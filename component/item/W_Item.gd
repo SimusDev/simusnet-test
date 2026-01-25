@@ -3,6 +3,12 @@ class_name W_Item extends Node3D
 signal event_pick
 signal event_inspect
 
+signal pressed
+signal released
+
+signal pressed_alt
+signal released_alt
+
 @export var object:R_WorldObject
 
 var cooldown_timer:Timer 
@@ -17,12 +23,15 @@ var entity_head: CT_EntityHead
 var _logger: SD_Logger = SD_Logger.new(self)
 
 var inventory: CT_Inventory
+var stack: CT_ItemStack
 
 func _enter_tree() -> void:
 	event_pick.emit()
 	print("Sexxx")
 
 func _ready() -> void:
+	stack = SD_ECS.find_first_component_by_script(self, [CT_ItemStack])
+	
 	inventory = SD_ECS.node_find_above_by_component(self, CT_Inventory)
 	
 	if !inventory:
@@ -51,7 +60,7 @@ func _ready() -> void:
 		],
 		net_config
 	)
-	
+		
 	if not object:
 		object = R_WorldObject.find_in(self)
 	
@@ -115,11 +124,11 @@ func __released_alt_net() -> void:
 	is_using_alt = false
 	_released_alt()
 
-func _pressed() -> void: pass
-func _released() -> void: pass
+func _pressed() -> void: pressed.emit()
+func _released() -> void: released.emit()
 
-func _pressed_alt() -> void: pass
-func _released_alt() -> void: pass
+func _pressed_alt() -> void: pressed_alt.emit()
+func _released_alt() -> void: released_alt.emit()
 
 func can_use() -> bool:
 	return (not in_cooldown()) and (SimusDev.ui.get_active_interfaces().is_empty())

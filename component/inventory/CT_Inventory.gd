@@ -298,7 +298,7 @@ func _try_move_item_server(item: CT_ItemStack, slot: CT_InventorySlot) -> void:
 	if is_inventory_authority or is_inventory_opened:
 		
 		#сонек я тут навговнокодил ок
-		var old_slot = item.get_parent() as CT_InventorySlot
+		var old_slot = item.get_slot() as CT_InventorySlot
 		#сонек я тут навговнокодил ок
 		
 		if slot.is_free():
@@ -307,7 +307,7 @@ func _try_move_item_server(item: CT_ItemStack, slot: CT_InventorySlot) -> void:
 		
 		#сонек я тут навговнокодил ок
 		else:
-			var target_item = slot.get_item_stack()
+			var target_item: CT_ItemStack = slot.get_item_stack()
 			if !is_instance_valid(target_item): return
 			
 			if slot.can_handle_item(item) and old_slot.can_handle_item(target_item):
@@ -320,7 +320,6 @@ func _try_move_item_server(item: CT_ItemStack, slot: CT_InventorySlot) -> void:
 func _send() -> void:
 	var bytes: PackedByteArray = CT_InventorySlot.serialize_array(get_slots())
 	SimusNetRPC.invoke_on(SimusNetRemote.sender_id, _receive, bytes, _selected_slot)
-	
 
 func clear_slots() -> void:
 	if !SimusNetConnection.is_server():
@@ -372,6 +371,9 @@ func _on_item_removed(slot: CT_InventorySlot, item: CT_ItemStack) -> void:
 func _receive_item_add(slot: CT_InventorySlot, item: Variant) -> void:
 	if !is_ready:
 		return
+	
+	await get_tree().process_frame
+	await get_tree().process_frame
 	
 	slot.add_child(CT_ItemStack.deserialize(item))
 

@@ -122,6 +122,12 @@ func _update() -> void:
 	_object_instance.name = "view"
 	_object_instance.set_multiplayer_authority(get_multiplayer_authority())
 	
+	if is_instance_valid(_inventory):
+		if _inventory.get_selected_slot():
+			var item: CT_ItemStack = _inventory.get_selected_slot().get_item_stack()
+			if item:
+				SD_ECS.append_to(_object_instance, item)
+	
 	if not Engine.is_editor_hint():
 		object.set_in(_object_instance)
 	
