@@ -83,7 +83,6 @@ var _queue_replicate_unreliable: Dictionary = {}
 var _queue_replicate_server: Dictionary = {}
 
 var _queue_send: Dictionary = {}
-var _queue_send_peers: PackedInt32Array = []
 
 func _physics_process(delta: float) -> void:
 	
@@ -100,9 +99,8 @@ func _physics_process(delta: float) -> void:
 		_queue_replicate_server.clear()
 	
 	if !_queue_send.is_empty():
-		_handle_send(_queue_send, _queue_send_peers)
+		_handle_send(_queue_send)
 		_queue_send.clear()
-		_queue_send_peers.clear()
 	
 	on_tick.emit(delta)
 	
@@ -232,7 +230,6 @@ static func send(object: Object, properties: PackedStringArray, reliable: bool =
 		
 		var changed_properties: Dictionary[StringName, Variant] = SimusNetSynchronization.get_changed_properties(object)
 		for property in properties:
-			
 			if changed_properties.get_or_add(property, object.get(property)) == object.get(property):
 				continue
 			
@@ -253,23 +250,26 @@ static func send(object: Object, properties: PackedStringArray, reliable: bool =
 			for p_id in SimusNetConnection.get_connected_peers():
 				if SimusNetVisibility.is_visible_for(p_id, identity.owner):
 					
-					var channel: Dictionary = _instance._queue_send.get_or_add(config._channel, {})
+					var for_peer: Dictionary = _instance._queue_send.get_or_add(p_id, {})
+					var channel: Dictionary = for_peer.get_or_add(config._channel, {})
 					var transfer: Dictionary = channel.get_or_add(reliable, {})
 					
 					var identity_data: Dictionary = transfer.get_or_add(identity.try_serialize_into_variant(), {})
 					
 					identity_data.set(try_serialize_into_variant(property), SimusNetSerializer.parse(identity.owner.get(property), config._serialize))
-					changed_properties.set(property, identity.owner.get(property))
-					_instance._queue_send_peers.append(p_id)
-				
+					#_instance._queue_send_peers.append(p_id)
+			
+			changed_properties.set(property, identity.owner.get(property))
+			
 
 	else:
 		_instance.logger.debug_error("only network authority can send variables. %s, %s" % [object, properties])
 
-func _handle_send(_queue: Dictionary, peers: PackedInt32Array) -> void:
-	for peer: int in peers:
+func _handle_send(_queue: Dictionary) -> void:
+	for peer: int in _queue:
 		for channel: int in _queue.get(peer, {}):
 			for reliable: bool in _queue[peer][channel]:
+				
 				var identity_data: Dictionary = _queue[peer][channel][reliable]
 				
 				var callable: Callable
@@ -280,7 +280,6 @@ func _handle_send(_queue: Dictionary, peers: PackedInt32Array) -> void:
 					callable = _send_handle_callables.get(channel, Callable(_processor_send, "_r_s_p_l_u%s" % channel))
 				
 				callable.rpc_id(peer, SimusNetCompressor.parse(identity_data))
-				
 
 @onready var _send_handle_callables: Dictionary[int, Callable] = {
 	SimusNetChannels.BUILTIN.VARS_SEND_RELIABLE: _processor_send._default_recieve_send,

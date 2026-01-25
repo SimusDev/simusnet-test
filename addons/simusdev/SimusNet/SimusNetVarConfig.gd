@@ -99,7 +99,6 @@ func _validate_replicate() -> bool:
 func _validate_replicate_receive(from_peer: int) -> bool:
 	return true
 
-
 func _on_spawn_replicate() -> void:
 	if not _replication:
 		return
