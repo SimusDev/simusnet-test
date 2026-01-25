@@ -1,9 +1,6 @@
 class_name W_WeaponMelee extends W_Item
 
 signal event_fire
-signal event_enter_idle
-
-#var player_camera:W_FPCSourceLikeCamera
 
 func _ready() -> void:
 	super()

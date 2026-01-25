@@ -17,6 +17,9 @@ func apply(idx:int = 0) -> void:
 	if animations.is_empty():
 		return
 	
+	if not animator.player.is_node_ready():
+		await animator.player.ready
+	
 	var animation = animations[idx]
 	
 	if not animation or not animator.player.has_animation(animation):

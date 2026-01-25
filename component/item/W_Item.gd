@@ -18,6 +18,10 @@ var _logger: SD_Logger = SD_Logger.new(self)
 
 var inventory: CT_Inventory
 
+func _enter_tree() -> void:
+	event_pick.emit()
+	print("Sexxx")
+
 func _ready() -> void:
 	inventory = SD_ECS.node_find_above_by_component(self, CT_Inventory)
 	
@@ -60,7 +64,6 @@ func _ready() -> void:
 	
 	set_process_input(SimusNet.is_network_authority(self))
 	
-	event_pick.emit()
 
 static func find_above(node:Node) -> W_Item:
 	if node is W_Item or node == null:
