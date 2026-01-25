@@ -5,7 +5,7 @@
 [ext_resource type="AudioStream" uid="uid://bj6un5a2nrgro" path="res://audio/vehicle/engine/0/onhigh.wav" id="3_vy0ag"]
 [ext_resource type="AudioStream" uid="uid://dylsc654oaa1c" path="res://audio/vehicle/engine/0/offveryhigh.wav" id="4_hrfue"]
 
-[node name="EngineSound" type="Node3D" unique_id=416523495]
+[node name="VehicleSound" type="Node3D" unique_id=416523495]
 script = ExtResource("2_noxdw")
 engine_low = ExtResource("2_ssve2")
 engine_med = ExtResource("3_vy0ag")
