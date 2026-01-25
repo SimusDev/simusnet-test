@@ -1,6 +1,6 @@
 class_name MP_PlayerCanvasLayer extends CanvasLayer
 
-@export var player:Player
+@export var player:Node
 @export var ui_prefab:PackedScene
 
 func _ready() -> void:
