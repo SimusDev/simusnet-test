@@ -83,6 +83,10 @@ func _send_not_visible() -> void:
 	var peer: int = multiplayer.get_remote_sender_id()
 	_peers.erase(peer)
 	SimusNetVisibility.set_visible_for(peer, node, false)
+	
+	if SimusNet.get_network_authority(self) != SimusNet.SERVER_ID:
+		if multiplayer.get_remote_sender_id() > SimusNet.SERVER_ID:
+				_send_not_visible.rpc_id(multiplayer.get_remote_sender_id())
 
 func _exit_tree() -> void:
 	if Engine.is_editor_hint():
