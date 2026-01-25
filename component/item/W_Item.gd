@@ -38,7 +38,7 @@ func _ready() -> void:
 		_logger.debug("INVENTORY COMPONENT WAS NOT FOUND!", SD_ConsoleCategories.ERROR)
 		return
 	
-	#SimusNetVisible.set_visibile(self, SimusNetVisible.get_or_create(inventory))
+	SimusNetVisible.set_visibile(self, SimusNetVisible.get_or_create(inventory))
 	
 	entity_head = CT_EntityHead.find_above(self)
 	
