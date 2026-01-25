@@ -1,0 +1,57 @@
+[gd_scene format=3 uid="uid://27tyyho33c5n"]
+
+[ext_resource type="PackedScene" uid="uid://cd3qphnvh8fyv" path="res://addons/gevp/scenes/drift_car.tscn" id="1_t35tt"]
+[ext_resource type="Script" uid="uid://d1jwapkumdp1u" path="res://addons/simusdev/SimusNet/SimusNetTransform.gd" id="2_tvnau"]
+[ext_resource type="Script" uid="uid://dfok55wn4kqd2" path="res://component/player/CT_Playable.gd" id="2_vnko8"]
+[ext_resource type="Script" uid="uid://bnh6ud5kgvewv" path="res://addons/gevp/scripts/vehicle_synchronizer.gd" id="3_sjhvn"]
+[ext_resource type="Script" uid="uid://01netlkv5363" path="res://addons/gevp/scripts/vehicle_controllergd.gd" id="3_x8il2"]
+[ext_resource type="Script" uid="uid://drfjprcymh3jv" path="res://addons/gevp/scripts/camera.gd" id="6_sjhvn"]
+
+[node name="VehicleRigidBody" unique_id=277126067 instance=ExtResource("1_t35tt")]
+
+[node name="CT_Playable" type="Node" parent="." index="0" unique_id=326569361 node_paths=PackedStringArray("node")]
+script = ExtResource("2_vnko8")
+node = NodePath("..")
+metadata/_custom_type_script = "uid://dfok55wn4kqd2"
+
+[node name="VehicleSynchronizer" type="Node" parent="." index="1" unique_id=664183581 node_paths=PackedStringArray("vehicle", "camera")]
+process_mode = 3
+script = ExtResource("3_sjhvn")
+vehicle = NodePath("..")
+camera = NodePath("../Camera3D")
+metadata/_custom_type_script = "uid://bnh6ud5kgvewv"
+
+[node name="SimusNetTransform" type="Node" parent="." index="2" unique_id=706668514 node_paths=PackedStringArray("node")]
+process_mode = 3
+script = ExtResource("2_tvnau")
+node = NodePath("..")
+metadata/_custom_type_script = "uid://d1jwapkumdp1u"
+
+[node name="VehicleController" type="Node3D" parent="." index="3" unique_id=1965127044 node_paths=PackedStringArray("vehicle_node")]
+script = ExtResource("3_x8il2")
+vehicle_node = NodePath("..")
+metadata/_custom_type_script = "uid://01netlkv5363"
+
+[node name="SimusNetTransform" type="Node" parent="WheelFrontLeft/FrontLeftWheel" index="1" unique_id=2135737405 node_paths=PackedStringArray("node")]
+script = ExtResource("2_tvnau")
+node = NodePath("..")
+metadata/_custom_type_script = "uid://d1jwapkumdp1u"
+
+[node name="SimusNetTransform" type="Node" parent="WheelFrontRight/FrontRightWheel" index="1" unique_id=1962140136 node_paths=PackedStringArray("node")]
+script = ExtResource("2_tvnau")
+node = NodePath("..")
+metadata/_custom_type_script = "uid://d1jwapkumdp1u"
+
+[node name="SimusNetTransform" type="Node" parent="WheelRearLeft/RearLeftWheel" index="1" unique_id=2019006660 node_paths=PackedStringArray("node")]
+script = ExtResource("2_tvnau")
+node = NodePath("..")
+metadata/_custom_type_script = "uid://d1jwapkumdp1u"
+
+[node name="SimusNetTransform" type="Node" parent="WheelRearRight/RearRightWheel" index="1" unique_id=1385096999 node_paths=PackedStringArray("node")]
+script = ExtResource("2_tvnau")
+node = NodePath("..")
+metadata/_custom_type_script = "uid://d1jwapkumdp1u"
+
+[node name="Camera3D" type="Camera3D" parent="." index="10" unique_id=1801436465 node_paths=PackedStringArray("follow_this")]
+script = ExtResource("6_sjhvn")
+follow_this = NodePath("..")

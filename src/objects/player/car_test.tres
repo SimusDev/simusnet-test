@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="R_Player" format=3 uid="uid://cotckiqpl83k1"]
+
+[ext_resource type="Script" uid="uid://krog7c2ovqsb" path="res://component/player/R_Player.gd" id="2_hql7o"]
+[ext_resource type="Script" uid="uid://cqdfkwb1galvp" path="res://component/viewmodel/R_ViewModel.gd" id="3_ejh4d"]
+[ext_resource type="PackedScene" uid="uid://27tyyho33c5n" path="res://scenes/prefabs/players/cars/vehicle_base.tscn" id="3_o1do7"]
+
+[sub_resource type="Resource" id="Resource_eiold"]
+script = ExtResource("3_ejh4d")
+world = ExtResource("3_o1do7")
+metadata/_custom_type_script = "uid://cqdfkwb1galvp"
+
+[resource]
+script = ExtResource("2_hql7o")
+viewmodel = SubResource("Resource_eiold")
+metadata/_custom_type_script = "uid://krog7c2ovqsb"
