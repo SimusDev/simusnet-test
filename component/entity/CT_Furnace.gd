@@ -94,8 +94,6 @@ func _on_server_tick() -> void:
 		_fuel_ticks -= 1
 	else:
 		for fuel_slot in _server_fuel_slots:
-			print(fuel_slot)
-			
 			if R_Recipe.is_itemstack_has_object_tag_list(
 				fuel_slot.get_item_stack(), FUEL_OBJECTS):
 					_fuel_ticks = 20 * 5
