@@ -1,12 +1,13 @@
 [gd_scene format=3 uid="uid://cpl14xhl06f51"]
 
-[ext_resource type="Script" uid="uid://brryrtgu36d7a" path="res://addons/simusdev/SimusNet/network_profiler.gd" id="1_1a0sa"]
+[ext_resource type="Script" uid="uid://brryrtgu36d7a" path="res://addons/simusdev/SimusNet/profiler/NetworkProfiler.gd" id="1_1a0sa"]
+[ext_resource type="PackedScene" uid="uid://bf864kpr2oox7" path="res://addons/simusdev/SimusNet/profiler/Transform.tscn" id="2_5bppx"]
 [ext_resource type="PackedScene" uid="uid://djemqun1lbojh" path="res://addons/simusdev/SimusNet/profiler/RPC.tscn" id="2_vg5hp"]
 
 [node name="NetworkProfiler" type="Control" unique_id=2125781581]
 layout_mode = 3
 anchors_preset = 0
-offset_right = 512.0
+offset_right = 640.0
 offset_bottom = 560.0
 script = ExtResource("1_1a0sa")
 
@@ -30,15 +31,25 @@ offset_bottom = 0.15197754
 grow_horizontal = 2
 grow_vertical = 2
 tab_alignment = 1
-current_tab = 0
+current_tab = 1
+
+[node name="Transform" parent="TabContainer" unique_id=93813782 instance=ExtResource("2_5bppx")]
+visible = false
+layout_mode = 2
 
 [node name="RPC" parent="TabContainer" unique_id=2096271579 instance=ExtResource("2_vg5hp")]
 layout_mode = 2
+metadata/_tab_index = 1
 
 [node name="Vars" type="Control" parent="TabContainer" unique_id=1539673773]
 visible = false
 layout_mode = 2
-metadata/_tab_index = 1
+metadata/_tab_index = 2
+
+[node name="Close" type="Control" parent="TabContainer" unique_id=757991902]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 3
 
 [node name="BottomContainer" type="Control" parent="." unique_id=1851891007]
 layout_mode = 1
@@ -59,7 +70,12 @@ offset_left = -0.14400005
 offset_right = 0.19198608
 grow_horizontal = 2
 grow_vertical = 2
-columns = 2
+columns = 3
+
+[node name="UpPackets" type="Label" parent="BottomContainer/Right" unique_id=397941561]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Packets (↑):"
 
 [node name="UpTraffic" type="Label" parent="BottomContainer/Right" unique_id=1465098024]
 unique_name_in_owner = true
@@ -70,6 +86,11 @@ text = "Up (↑):"
 unique_name_in_owner = true
 layout_mode = 2
 text = "Total Traffic (⇄) :"
+
+[node name="DownPackets" type="Label" parent="BottomContainer/Right" unique_id=1001979587]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Packets (↓):"
 
 [node name="DownTraffic" type="Label" parent="BottomContainer/Right" unique_id=1508721244]
 unique_name_in_owner = true
@@ -82,3 +103,4 @@ layout_mode = 2
 text = "Ping (↯) : "
 
 [connection signal="timeout" from="EverySecond" to="." method="_on_every_second_timeout"]
+[connection signal="draw" from="TabContainer/Close" to="." method="_on_close_draw"]

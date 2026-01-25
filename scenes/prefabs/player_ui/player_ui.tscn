@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bf6yqsfyrvv86" path="res://scenes/prefabs/player_ui/player_ui.gd" id="1_nask7"]
 [ext_resource type="PackedScene" uid="uid://cv4ck2wbf677e" path="res://scenes/prefabs/player_ui/health_panel.tscn" id="2_nask7"]
+[ext_resource type="PackedScene" uid="uid://dbhqs4tv52evh" path="res://addons/simusdev/SimusNet/profiler/SimpleProfiler.tscn" id="3_m3nbl"]
 
 [node name="PlayerUI" type="Control" unique_id=1578783826]
 layout_mode = 3
@@ -23,3 +24,6 @@ offset_right = 0.0
 offset_bottom = 0.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="SimpleProfiler" parent="." unique_id=605018193 instance=ExtResource("3_m3nbl")]
+layout_mode = 1

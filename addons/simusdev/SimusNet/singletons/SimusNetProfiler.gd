@@ -3,15 +3,21 @@ class_name SimusNetProfiler
 
 static var _instance: SimusNetProfiler
 
+var _up_packets: int = 0
+var _down_packets: int = 0
+
 var _total_traffic: int = 0
 
 var _up_traffic: int = 0
 var _down_traffic: int = 0
 
+var _transform_up_traffic: int = 0
+var _transform_down_traffic: int = 0
+
 var _ping: int = 0
 
 var _timer: Timer
-var _timer_tickrate: float = 0.2
+var _timer_tickrate: float = 1.0
 
 var _rpcs_profiler: Dictionary[String, Dictionary] = {}
 var _vars_profiler: Dictionary[Dictionary, Dictionary] = {}
@@ -62,23 +68,29 @@ func _put_down_traffic(size: int) -> void:
 	_down_traffic += size
 	_put_total_traffic(size)
 
+static func _put_up_packet() -> void:
+	_instance._up_packets += 1
+
+static func _put_down_packet() -> void:
+	_instance._down_packets += 1
+
 func _put_rpc_traffic(size: int, identity: Variant, method: Variant, receive: bool) -> void:
-	size = size + 3
-	
-	var identity_name: String = str(identity)
-	if identity is SimusNetIdentity:
-		if is_instance_valid(identity.owner):
-			var obj_script: Variant = owner.get_script()
-			if obj_script is Script:
-				identity_name = obj_script.get_global_name()
-			else:
-				identity_name = identity.get_generated_unique_id()
-			 
-	
+	#var identity_name: String = str(identity)
+	#if identity is SimusNetIdentity:
+		#if is_instance_valid(identity.owner):
+			#var obj_script: Variant = identity.owner.get_script()
+			#if obj_script is Script:
+				#identity_name = obj_script.get_global_name()
+			#else:
+				#identity_name = identity.get_generated_unique_id()
+			#
+			#identity_name += "(ID: %s)" % identity.get_unique_id()
+			 #
+	#
 	var method_name: String = str(method)
 	
-	var key: String = "(ID: %s): %s" % [identity_name, method_name]
-	var emit: bool = _rpcs_profiler.has(key)
+	var key: String = "(%s): " % [method_name]
+	var emit: bool = !_rpcs_profiler.has(key)
 	var data: Dictionary = _rpcs_profiler.get_or_add(key, {})
 	
 	var down_traffic: int = data.get_or_add("down", 0)
@@ -98,13 +110,19 @@ func _put_rpc_traffic(size: int, identity: Variant, method: Variant, receive: bo
 	data.up = up_traffic
 	data.down_calls = down_calls
 	data.up_calls = up_calls
+	
 	on_rpc_profiler_change.emit(key)
+	
 	if emit:
 		on_rpc_profiler_add.emit(key, data)
 
 func _timer_tick() -> void:
-	_down_traffic = _down_traffic / 2
-	_up_traffic = _up_traffic / 2
+	_up_packets /= 2
+	_down_packets /= 2
+	_down_traffic /= 2
+	_up_traffic /= 2
+	_transform_down_traffic /= 2
+	_transform_up_traffic /= 2
 
 static func get_instance() -> SimusNetProfiler:
 	return _instance
@@ -117,6 +135,18 @@ static func get_up_traffic_per_second() -> int:
 
 static func get_down_traffic_per_second() -> int:
 	return _instance._down_traffic
+
+static func get_transform_up_traffic_per_second() -> int:
+	return _instance._transform_up_traffic
+
+static func get_transform_down_traffic_per_second() -> int:
+	return _instance._transform_down_traffic
+
+static func get_up_packets_count() -> int:
+	return _instance._up_packets
+
+static func get_down_packets_count() -> int:
+	return _instance._down_packets
 
 static func send_ping_request_to_server() -> void:
 	var timestamp_ms: int = Time.get_ticks_msec()
