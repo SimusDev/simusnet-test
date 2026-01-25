@@ -130,6 +130,9 @@ func _processor_recieve_rpc_from_peer(peer: int, channel: int, serialized_identi
 		)
 		return
 	
+	if !is_instance_valid(identity.owner):
+		return
+	
 	var object: Object = identity.owner
 	
 	var method_name: String = SimusNetMethods.try_deserialize_from_variant(serialized_method)

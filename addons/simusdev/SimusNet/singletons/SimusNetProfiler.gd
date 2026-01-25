@@ -62,7 +62,7 @@ func _put_rpc_traffic(size: int, identity: Variant, method: Variant, receive: bo
 	
 	var identity_name: String = str(identity)
 	if identity is SimusNetIdentity:
-		identity_name = identity.get_generated_unique_id()
+		identity_name = str(identity.get_generated_unique_id())
 	
 	var method_name: String = str(method)
 	
