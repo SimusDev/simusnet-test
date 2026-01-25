@@ -16,6 +16,9 @@ static func get_synced_properties(object: Object) -> Dictionary[StringName, Vari
 static func get_changed_properties(object: Object) -> Dictionary[StringName, Variant]:
 	return SD_Variables.get_or_add_object_meta(object, &"simusnetpchange", {} as Dictionary[StringName, Variant])
 
+static func get_transforms() -> Array[SimusNetTransform]:
+	return _instance._transforms
+
 func initialize() -> void:
 	process_mode = Node.PROCESS_MODE_DISABLED
 	_instance = self
@@ -72,7 +75,6 @@ func _on_transform_tick() -> void:
 			_parse_property_sender(transform, properties, "position", transform.node.position)
 			_parse_property_sender(transform, properties, "rotation", transform.node.rotation)
 			_parse_property_sender(transform, properties, "scale", transform.node.scale)
-			
 			if !properties.is_empty():
 				data[peer] = identities
 				#print("[%s]: %s" % [SimusNetConnection.is_server(), identities])
@@ -81,7 +83,12 @@ func _on_transform_tick() -> void:
 		#if SimusNetConnection.is_server():
 			#print(SimusNetCompressor.parse(var_to_bytes(data[peer])).size())
 			#print(var_to_bytes(data[peer]).size())
-		_recieve_transform.rpc_id(peer, SimusNetCompressor.parse(data[peer]))
+		var bytes: PackedByteArray = SimusNetCompressor.parse(data[peer])
+		SimusNetProfiler.get_instance()._transform_up_traffic += bytes.size()
+		SimusNetProfiler.get_instance()._total_traffic += bytes.size()
+		SimusNetProfiler.get_instance()._up_traffic += bytes.size()
+		SimusNetProfiler.get_instance()._put_up_packet()
+		_recieve_transform.rpc_id(peer, bytes)
 
 func _parse_property_sender(object: Object, properties: Dictionary, property: String, current_value: Variant) -> void:
 	var change_hook: Dictionary = get_changed_properties(object)
@@ -113,7 +120,12 @@ func _parse_properties_receiver(properties: Dictionary) -> void:
 func _on_vars_tick() -> void:
 	pass
 
-func _recieve_transform(packet: Variant) -> void:
+func _recieve_transform(packet: PackedByteArray) -> void:
+	SimusNetProfiler.get_instance()._put_down_packet()
+	SimusNetProfiler.get_instance()._transform_down_traffic += packet.size()
+	SimusNetProfiler.get_instance()._total_traffic += packet.size()
+	SimusNetProfiler.get_instance()._down_traffic += packet.size()
+	
 	var data: Dictionary = SimusNetDecompressor.parse(packet)
 	_parse_properties_receiver(data)
 

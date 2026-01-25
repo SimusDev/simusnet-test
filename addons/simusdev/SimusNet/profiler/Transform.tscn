@@ -1,0 +1,76 @@
+[gd_scene format=3 uid="uid://bf864kpr2oox7"]
+
+[ext_resource type="Script" uid="uid://dldopat7nnwi6" path="res://addons/simusdev/SimusNet/profiler/Transform.gd" id="1_s4a0g"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_s4a0g"]
+font_size = 32
+
+[node name="Transform" type="Control" unique_id=93813782]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_s4a0g")
+metadata/_tab_index = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=536244627]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="TotalObjects" type="Label" parent="VBoxContainer" unique_id=2058718173]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Total Objects (☐) :"
+label_settings = SubResource("LabelSettings_s4a0g")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Panel" type="Panel" parent="VBoxContainer/TotalObjects" unique_id=1829221790]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="UpTraffic" type="Label" parent="VBoxContainer" unique_id=751407479]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Up (↑) :"
+label_settings = SubResource("LabelSettings_s4a0g")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Panel" type="Panel" parent="VBoxContainer/UpTraffic" unique_id=114113131]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DownTraffic" type="Label" parent="VBoxContainer" unique_id=723802411]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Down (↓) : "
+label_settings = SubResource("LabelSettings_s4a0g")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Panel" type="Panel" parent="VBoxContainer/DownTraffic" unique_id=1193982942]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
