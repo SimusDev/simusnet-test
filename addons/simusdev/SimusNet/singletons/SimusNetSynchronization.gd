@@ -66,8 +66,8 @@ func _on_transform_tick() -> void:
 		if !identity.is_ready:
 			continue
 		
-		for peer in transform.get_peers():
-			if peer == SimusNetConnection.get_unique_id():
+		for peer in SimusNetConnection.get_connected_peers():
+			if peer == SimusNetConnection.get_unique_id() or !SimusNetVisibility.is_visible_for(peer, transform.node):
 				continue
 			
 			var identities: Dictionary = data.get(peer, {})

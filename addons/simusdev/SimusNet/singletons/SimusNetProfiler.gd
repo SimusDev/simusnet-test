@@ -89,7 +89,7 @@ func _put_rpc_traffic(size: int, identity: Variant, method: Variant, receive: bo
 	#
 	var method_name: String = str(method)
 	
-	var key: String = "(%s): " % [method_name]
+	var key: String = method_name
 	var emit: bool = !_rpcs_profiler.has(key)
 	var data: Dictionary = _rpcs_profiler.get_or_add(key, {})
 	

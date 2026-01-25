@@ -26,6 +26,8 @@ func set_mode(mode: MODE) -> UI_InteractActions:
 	return self
 
 func _ready() -> void:
+	hide()
+	
 	if Engine.is_editor_hint():
 		return
 	

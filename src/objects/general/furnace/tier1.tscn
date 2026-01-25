@@ -37,5 +37,7 @@ initial_velocity_max = 0.6
 
 [node name="OmniLight3D" type="OmniLight3D" parent="." index="6" unique_id=1014929478]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.37437928, 0.4062606, 0)
+visible = false
 light_color = Color(1, 0.78431374, 0, 1)
 light_size = 0.416
+shadow_enabled = true

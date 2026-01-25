@@ -28,4 +28,27 @@ level_holder = NodePath("../LevelHolder")
 
 [node name="Sky3D" parent="." unique_id=1126287609 instance=ExtResource("4_lbhrr")]
 
+[node name="Sky3D" parent="Sky3D" index="0" unique_id=1126287609]
+current_time = 16.0
+minutes_per_day = 15.0
+
+[node name="SunLight" parent="Sky3D/Sky3D" index="0" unique_id=664705233]
+transform = Transform3D(0, -0.5805576, -0.8142192, 0.8522719, -0.42591718, 0.3036891, -0.52309895, -0.6939361, 0.49479297, -0.8142192, 0.3036891, 0.49479297)
+light_color = Color(0.99214756, 0.8127194, 0.72280896, 1)
+
+[node name="MoonLight" parent="Sky3D/Sky3D" index="1" unique_id=1348612234]
+transform = Transform3D(0, -0.7266457, 0.6870124, -0.81167585, -0.4012895, -0.42443967, 0.5841081, -0.5576314, -0.5898008, 0.6870124, -0.42443967, -0.5898008)
+
+[node name="SkyDome" parent="Sky3D/Sky3D" index="2" unique_id=2103403052]
+sun_azimuth = -4.166334
+sun_altitude = -1.2622341
+moon_azimuth = -0.86138767
+moon_altitude = -2.0091393
+
+[node name="TimeOfDay" parent="Sky3D/Sky3D" index="3" unique_id=1662296329]
+minutes_per_day = 15.0
+current_time = 16.0
+
 [node name="Authentification" parent="." unique_id=1887314113 instance=ExtResource("6_p57ef")]
+
+[editable path="Sky3D"]
