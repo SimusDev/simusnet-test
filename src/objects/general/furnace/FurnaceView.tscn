@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://cx7tmd31unb3s"]
+
+[ext_resource type="Script" uid="uid://d0q02rkjl2np2" path="res://component/item/W_Item.gd" id="1_tlmie"]
+[ext_resource type="Script" uid="uid://b7il0848tlrkq" path="res://component/building/CT_Placeable.gd" id="2_7sm21"]
+[ext_resource type="PackedScene" uid="uid://tyrhcomsutsi" path="res://src/objects/general/furnace/models/base/sketchfab.tscn" id="3_2gd4u"]
+[ext_resource type="Script" uid="uid://b446loaai0cao" path="res://component/building/R_PlaceableSettings.gd" id="4_7sm21"]
+
+[sub_resource type="Resource" id="Resource_2gd4u"]
+script = ExtResource("4_7sm21")
+model_prefab = ExtResource("3_2gd4u")
+metadata/_custom_type_script = "uid://b446loaai0cao"
+
+[node name="FurnaceView" type="Node3D" unique_id=1215315712]
+script = ExtResource("1_tlmie")
+metadata/_custom_type_script = "uid://d0q02rkjl2np2"
+
+[node name="CT_Placeable" type="Node" parent="." unique_id=1168926634]
+script = ExtResource("2_7sm21")
+placeable = SubResource("Resource_2gd4u")
+metadata/_custom_type_script = "uid://b7il0848tlrkq"
+
+[node name="Model" parent="." unique_id=1173696965 instance=ExtResource("3_2gd4u")]
+transform = Transform3D(0.373879, 0.20384544, -0.40836444, -0.28242818, 0.51800996, 0, 0.35853705, 0.19548072, 0.42583853, 0, -0.395, -0.325)

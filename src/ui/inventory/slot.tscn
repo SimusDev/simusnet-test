@@ -21,6 +21,15 @@ size_flags_vertical = 4
 script = ExtResource("1_3t1rm")
 _quantity = NodePath("_quantity")
 
+[node name="slot_bg" type="ColorRect" parent="." unique_id=1999836533]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.047557652, 0.047557652, 0.04755763, 0.77254903)
+
 [node name="slot_icon" type="TextureRect" parent="." unique_id=75636182]
 layout_mode = 1
 anchors_preset = 15
@@ -58,6 +67,7 @@ preview_node = NodePath("../icon")
 metadata/_custom_type_script = "uid://bmwl6ctnkt45h"
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=868859361]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -72,10 +82,10 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 2.0
+offset_left = 5.0
 offset_top = 2.0
 offset_right = -2.0
-offset_bottom = -2.0
+offset_bottom = -1.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "10"

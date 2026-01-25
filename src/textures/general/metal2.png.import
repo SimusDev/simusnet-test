@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bup3eginc38pi"
-path.s3tc="res://.godot/imported/geo_icon.png-6afb8fbd356e75aafdbf79a1a88a30c8.s3tc.ctex"
+uid="uid://do2gu83iih5tk"
+path.s3tc="res://.godot/imported/metal2.png-12bf65a1c0b3fb95ae17f103c76c6e5e.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://component/object/geo_icon.png"
-dest_files=["res://.godot/imported/geo_icon.png-6afb8fbd356e75aafdbf79a1a88a30c8.s3tc.ctex"]
+source_file="res://src/textures/general/metal2.png"
+dest_files=["res://.godot/imported/metal2.png-12bf65a1c0b3fb95ae17f103c76c6e5e.s3tc.ctex"]
 
 [params]
 

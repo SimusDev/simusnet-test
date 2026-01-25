@@ -3,6 +3,9 @@ class_name UI_Backpack
 
 var _player_inventory: CT_Inventory
 
+
+@onready var _other_window: Panel = $_OtherWindow
+
 @onready var _avatar_other: UI_InventoryAvatar = $_AvatarOther
 @onready var _avatar_player: UI_InventoryAvatar = $_AvatarPlayer
 
@@ -59,6 +62,10 @@ func _on_hidden() -> void:
 
 
 func _on_sd_ui_interface_menu_opened() -> void:
+	var ui_visible:bool = _player_inventory.get_opened().size() > 0
+	_other_window.visible = ui_visible
+	_avatar_other.visible = ui_visible
+	
 	_sound.stream = _audio_open
 	_sound.play()
 

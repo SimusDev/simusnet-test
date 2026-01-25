@@ -1,6 +1,8 @@
 extends Node
 class_name CT_Furnace
 
+signal active_change
+
 @export var root: Node3D
 @export var tickrate: float = 20.0
 #@export var fuel_consumption: float = 1.0
@@ -38,6 +40,7 @@ func set_active(value: bool) -> void:
 		return
 	
 	_is_active = value
+	active_change.emit()
 	
 	await SD_Nodes.async_for_ready(self)
 	if _is_active:

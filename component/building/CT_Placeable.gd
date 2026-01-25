@@ -14,10 +14,7 @@ var current_ghost:Node3D = null
 func _ready() -> void:
 	if not get_parent().is_node_ready():
 		await get_parent().ready
-	
-	set_process( SimusNet.is_network_authority(self) )
-	set_process_input( SimusNet.is_network_authority(self) )
-	set_physics_process( SimusNet.is_network_authority(self) )
+		
 	
 	if custom_item:
 		item = custom_item
@@ -25,7 +22,15 @@ func _ready() -> void:
 		if get_parent() is W_Item:
 			item = get_parent()
 	
-	if is_instance_valid(item) and placeable:
+	if not is_instance_valid(item):
+		return
+	
+	if item.inventory.is_local():
+		set_process( SimusNet.is_network_authority(self) )
+		set_process_input( SimusNet.is_network_authority(self) )
+		set_physics_process( SimusNet.is_network_authority(self) )
+	
+	if placeable:
 		if not placeable.object:
 			placeable.object = item.object
 	
@@ -37,17 +42,17 @@ func _ready() -> void:
 func _place() -> void:
 	if not SimusNetConnection.is_server():
 		return
-	
+		
 	if not is_inside_tree() or not is_instance_valid(item) or not is_instance_valid(current_ghost):
 		return
 	
-	var transform:Transform3D = current_ghost.transform
+	var transform:Transform3D = current_ghost.global_transform
 	var new_object:Node = (I_WorldObject.new(level_instance, placeable.object)
 							.instantiate()
 							.get_instance()
 							)
-	new_object.transform = transform
-	
+	new_object.global_transform = transform
+	print("SPAWN")
 	#item.stack.quantity -= 1
 
 func _physics_process(_delta: float) -> void:

@@ -3,10 +3,12 @@
 [ext_resource type="Script" uid="uid://cxyhi06aga6j1" path="res://component/object/R_WorldObject.gd" id="1_t22sp"]
 [ext_resource type="Script" uid="uid://cqdfkwb1galvp" path="res://component/viewmodel/R_ViewModel.gd" id="2_oey7h"]
 [ext_resource type="PackedScene" uid="uid://bewd4ldevs80l" path="res://src/objects/general/furnace/tier1.tscn" id="3_bkoe8"]
+[ext_resource type="PackedScene" uid="uid://cx7tmd31unb3s" path="res://src/objects/general/furnace/FurnaceView.tscn" id="3_g5b04"]
 
 [sub_resource type="Resource" id="Resource_g5b04"]
 script = ExtResource("2_oey7h")
 world = ExtResource("3_bkoe8")
+view = ExtResource("3_g5b04")
 metadata/_custom_type_script = "uid://cqdfkwb1galvp"
 
 [resource]

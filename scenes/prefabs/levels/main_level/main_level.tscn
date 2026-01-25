@@ -1,9 +1,10 @@
 [gd_scene format=3 uid="uid://b700hdjmhxkbb"]
 
+[ext_resource type="Texture2D" uid="uid://bglulose6qdii" path="res://src/textures/general/grass/grass1.png" id="1_5qs7n"]
 [ext_resource type="Texture2D" uid="uid://c0ggfqo17r4au" path="res://addons/kenney_prototype_textures/light/texture_07.png" id="1_7o7j1"]
-[ext_resource type="Script" uid="uid://broh4otllro7s" path="res://addons/lensflares/src/lens_flare.gd" id="5_ypthj"]
+[ext_resource type="Texture2D" uid="uid://dndfhyh82p3rv" path="res://src/textures/general/stone/0.png" id="3_1dl0r"]
 [ext_resource type="Script" uid="uid://dgp0pmmh5blth" path="res://component/object/CT_ObjectSpawn.gd" id="7_6rygw"]
-[ext_resource type="Texture2D" uid="uid://cb01shisd32yi" path="res://3d/ak74m/textures/ak74m_Roughness.png" id="7_vuvbf"]
+[ext_resource type="Texture2D" uid="uid://dtmwlx74fxbd7" path="res://src/textures/general/metal1.jpeg" id="8_5qs7n"]
 [ext_resource type="Resource" uid="uid://c1dipp0t421cv" path="res://src/objects/military_box.tres" id="8_6rygw"]
 [ext_resource type="Resource" uid="uid://cic3i440xvcwv" path="res://src/objects/item/weapon/crowbar.tres" id="8_p870i"]
 [ext_resource type="Resource" uid="uid://c8wy5klyargde" path="res://src/objects/general/craft/crafting_table.tres" id="9_p870i"]
@@ -12,8 +13,20 @@
 [ext_resource type="Script" uid="uid://fc6kpuv5syvv" path="res://component/level/CT_SpawnPoint3D.gd" id="13_1dl0r"]
 [ext_resource type="PackedScene" uid="uid://c04sd4mj5rmef" path="res://scenes/prefabs/lighting/omni_light_3d.tscn" id="16_jk8u2"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7ptks"]
+albedo_texture = ExtResource("1_5qs7n")
+uv1_triplanar = true
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_oanou"]
 albedo_texture = ExtResource("1_7o7j1")
+uv1_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n0uqs"]
+albedo_texture = ExtResource("3_1dl0r")
+uv1_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h0r5j"]
+albedo_texture = ExtResource("3_1dl0r")
 uv1_triplanar = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_spqat"]
@@ -29,21 +42,22 @@ uv1_triplanar = true
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jk8u2"]
 emission_enabled = true
 emission = Color(1, 1, 1, 1)
-emission_energy_multiplier = 3.086212
+emission_energy_multiplier = 7.351372e-07
 
 [sub_resource type="BoxMesh" id="BoxMesh_6rygw"]
 size = Vector3(2, 1, 4)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p870i"]
-albedo_texture = ExtResource("7_vuvbf")
+albedo_texture = ExtResource("8_5qs7n")
 uv1_triplanar = true
 
 [node name="MainLevel" type="Node3D" unique_id=658119017]
 
 [node name="SEX" type="CSGBox3D" parent="." unique_id=1728282914]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.024476409, 0, -0.008669376)
 use_collision = true
 size = Vector3(26, 1, 26)
-material = SubResource("StandardMaterial3D_oanou")
+material = SubResource("StandardMaterial3D_7ptks")
 
 [node name="CSGBox3D2" type="CSGBox3D" parent="SEX" unique_id=1240084046]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 1, 0)
@@ -73,13 +87,13 @@ material = SubResource("StandardMaterial3D_oanou")
 [node name="CSGBox3D7" type="CSGBox3D" parent="SEX" unique_id=1977409003]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 3.5, 0)
 size = Vector3(14, 6, 26)
-material = SubResource("StandardMaterial3D_oanou")
+material = SubResource("StandardMaterial3D_n0uqs")
 
 [node name="CSGBox3D8" type="CSGBox3D" parent="SEX" unique_id=1317795481]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 3.5, 0)
 operation = 2
 size = Vector3(13.5, 5.5, 25.5)
-material = SubResource("StandardMaterial3D_oanou")
+material = SubResource("StandardMaterial3D_h0r5j")
 
 [node name="CSGBox3D4" type="CSGBox3D" parent="SEX" unique_id=1826875155]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 3, 0)
@@ -122,8 +136,6 @@ mesh = SubResource("BoxMesh_n0uqs")
 surface_material_override/0 = SubResource("StandardMaterial3D_jk8u2")
 
 [node name="OmniLight3D" parent="CubeLight" unique_id=2105551723 instance=ExtResource("16_jk8u2")]
-light_energy = 3.086212
-light_indirect_energy = 3.086212
 
 [node name="cLampComponent" parent="CubeLight/OmniLight3D" index="0" unique_id=1203643786 node_paths=PackedStringArray("MeshInstances")]
 Lit = true
@@ -134,11 +146,6 @@ MeshInstances = [NodePath("../..")]
 [node name="cFlickerComponent" parent="CubeLight/OmniLight3D/cLampComponent" index="0" unique_id=1869313303]
 AnimationSpeed = 0.605
 Fade = true
-
-[node name="LensFlare" type="VisibleOnScreenNotifier3D" parent="CubeLight" unique_id=1743092230]
-script = ExtResource("5_ypthj")
-raycast_occlusion = true
-metadata/_custom_type_script = "uid://broh4otllro7s"
 
 [node name="main" type="Node3D" parent="." unique_id=257207125]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.9947934, 0)

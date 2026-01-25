@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://cc2mybbei2g1p" path="res://src/ui/inventory/avatar.tscn" id="6_gl4hf"]
 [ext_resource type="PackedScene" uid="uid://cc6trvruecdbv" path="res://src/ui/inventory/window.tscn" id="6_nlyav"]
 [ext_resource type="Script" uid="uid://c4okankbwa8k" path="res://component/inventory/CT_InventorySlotCloth.gd" id="8_egj3e"]
-[ext_resource type="Script" uid="uid://cbtj1vhagkvwq" path="res://component/inventory/CT_InventorySlotHot.gd" id="9_v1wcs"]
+[ext_resource type="Script" path="res://component/inventory/CT_InventorySlotHot.gd" id="9_v1wcs"]
 
 [node name="Backpack" type="Control" unique_id=810392567]
 layout_mode = 3
@@ -30,6 +30,7 @@ metadata/_edit_horizontal_guides_ = [82.0, 172.0]
 bus = &"Game"
 
 [node name="fade" type="ColorRect" parent="." unique_id=1338478649]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

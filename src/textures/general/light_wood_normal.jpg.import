@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bup3eginc38pi"
-path.s3tc="res://.godot/imported/geo_icon.png-6afb8fbd356e75aafdbf79a1a88a30c8.s3tc.ctex"
+uid="uid://dxgnkqcu61ugd"
+path.s3tc="res://.godot/imported/light_wood_normal.jpg-b28c2e579c3598be6b4e0a2cd0830466.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://component/object/geo_icon.png"
-dest_files=["res://.godot/imported/geo_icon.png-6afb8fbd356e75aafdbf79a1a88a30c8.s3tc.ctex"]
+source_file="res://src/textures/general/light_wood_normal.jpg"
+dest_files=["res://.godot/imported/light_wood_normal.jpg-b28c2e579c3598be6b4e0a2cd0830466.s3tc.ctex"]
 
 [params]
 
@@ -22,12 +22,12 @@ compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0
 compress/hdr_compression=1
-compress/normal_map=0
+compress/normal_map=1
 compress/channel_pack=0
 mipmaps/generate=true
 mipmaps/limit=-1
-roughness/mode=0
-roughness/src_normal=""
+roughness/mode=1
+roughness/src_normal="res://textures/general/light_wood_normal.jpg"
 process/channel_remap/red=0
 process/channel_remap/green=1
 process/channel_remap/blue=2

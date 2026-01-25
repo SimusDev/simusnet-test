@@ -4,7 +4,8 @@
 code = "shader_type spatial;
 
 uniform vec4 target_color : source_color = vec4(1.0, 1.0, 1.0, 1.0);
-render_mode depth_prepass_alpha; 
+render_mode depth_prepass_alpha, shadows_disabled;
+
 
 void fragment() {
     ALBEDO = target_color.rgb;
