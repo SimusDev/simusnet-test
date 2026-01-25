@@ -35,7 +35,7 @@ func _on_child_entered_tree(child: Node) -> void:
 		var transform_sync: SimusNetTransform = SimusNetTransform.find_transform(child)
 		if !transform_sync:
 			transform_sync = SimusNetTransform.new()
-			transform_sync.name = "transform"
+			transform_sync.name = "_transform_sync"
 			transform_sync.node = child
 			transform_sync.set_multiplayer_authority(child.get_multiplayer_authority())
 			child.add_child(transform_sync)

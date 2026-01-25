@@ -13,7 +13,8 @@ var _player_inventory: CT_Inventory
 @export var _audio_close: AudioStream
 
 func _ready() -> void:
-	_player_inventory = CT_Inventory.find_in(CT_Playable.get_local().node)
+	_player_inventory = CT_Inventory.get_local()
+	
 	_avatar_player.inventory = _player_inventory
 	$player_slots.inventory = _player_inventory
 	%player_cloth_slots.inventory = _player_inventory

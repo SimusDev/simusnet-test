@@ -63,7 +63,6 @@ func _on_transform_tick() -> void:
 		if !identity.is_ready:
 			continue
 		
-		
 		for peer in transform.get_peers():
 			if peer == SimusNetConnection.get_unique_id():
 				continue

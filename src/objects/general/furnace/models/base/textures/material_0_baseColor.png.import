@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cy1bnk04j8ggh"
-path.s3tc="res://.godot/imported/m_2_0_baseColor.png-db5e210ce0bfbd3081b8ace876a4c204.s3tc.ctex"
+uid="uid://cotrxte4rjocx"
+path.s3tc="res://.godot/imported/material_0_baseColor.png-b292b61ac87798204c36f2a0dc0fe604.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://src/objects/craft/textures/m_2_0_baseColor.png"
-dest_files=["res://.godot/imported/m_2_0_baseColor.png-db5e210ce0bfbd3081b8ace876a4c204.s3tc.ctex"]
+source_file="res://src/objects/general/furnace/models/base/textures/material_0_baseColor.png"
+dest_files=["res://.godot/imported/material_0_baseColor.png-b292b61ac87798204c36f2a0dc0fe604.s3tc.ctex"]
 
 [params]
 

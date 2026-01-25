@@ -21,16 +21,18 @@ func _ready() -> void:
 		return
 	
 	if !node:
-		return
+		node = get_parent()
 	
 	if not "transform" in node:
 		return
 	
 	node.set_meta(_META, self)
 	
+	SimusNetIdentity.register(self)
+	
 	if !node.is_node_ready():
 		await node.ready
-		SimusNetIdentity.register(self)
+	
 	
 
 static func find_transform(target: Node) -> SimusNetTransform:

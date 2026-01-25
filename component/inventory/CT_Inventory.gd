@@ -80,10 +80,10 @@ func _ready() -> void:
 		await node.ready
 	
 	_playable = CT_Playable.find_in(node)
-	if _playable:
-		if SimusNet.is_network_authority(_playable):
-			_local = self
-			
+	
+	if _playable and SimusNet.is_network_authority(self):
+		_local = self
+	
 	
 	if SimusNetConnection.is_server():
 		for id: int in initial_slot_count:
@@ -122,6 +122,21 @@ func synchronize() -> void:
 	
 	SimusNetRPC.invoke_on_server(_send)
 	
+
+func add_slot_by_script(script: GDScript) -> CT_InventorySlot:
+	if !SimusNetConnection.is_server():
+		return
+	
+	var new: CT_InventorySlot = script.new()
+	add_child(new, true)
+	return new
+
+func add_slot(slot: CT_InventorySlot) -> CT_InventorySlot:
+	if !SimusNetConnection.is_server():
+		return
+	
+	add_child(slot, true)
+	return slot
 
 func _network_setup() -> void:
 	SimusNetNodeAutoVisible.register_or_get(self)
@@ -296,6 +311,15 @@ func _send() -> void:
 	SimusNetRPC.invoke_on(SimusNetRemote.sender_id, _receive, bytes, _selected_slot)
 	
 
+func clear_slots() -> void:
+	if !SimusNetConnection.is_server():
+		return
+	
+	for i in get_children():
+		if i is CT_InventorySlot:
+			i.queue_free()
+			await i.tree_exited
+
 func _receive(raw: PackedByteArray, _selected: CT_InventorySlot) -> void:
 	for i in get_children():
 		if i is CT_InventorySlot:
@@ -364,6 +388,8 @@ func is_opened(inventory: CT_Inventory) -> bool:
 	return get_opened().has(inventory)
 
 func open(inventory: CT_Inventory) -> void:
+	get_opened()
+	
 	if SimusNetConnection.is_server():
 		if is_opened(inventory) or !can_open_other_inventories():
 			return

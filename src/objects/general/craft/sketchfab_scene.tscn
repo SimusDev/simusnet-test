@@ -1,9 +1,9 @@
 [gd_scene format=4 uid="uid://8ub7tg8673fx"]
 
-[ext_resource type="Texture2D" uid="uid://cy1bnk04j8ggh" path="res://src/objects/craft/textures/m_2_0_baseColor.png" id="1_wawor"]
-[ext_resource type="Texture2D" uid="uid://bpt7whih3xosy" path="res://src/objects/craft/textures/m_2_1_baseColor.png" id="2_a2dvl"]
-[ext_resource type="Texture2D" uid="uid://cl2kf5dexavmh" path="res://src/objects/craft/textures/m_2_2_baseColor.png" id="3_48e7g"]
-[ext_resource type="Texture2D" uid="uid://8gc6ibtwj8ar" path="res://src/objects/craft/textures/m_2_3_baseColor.png" id="4_8v82u"]
+[ext_resource type="Texture2D" uid="uid://cy1bnk04j8ggh" path="res://src/objects/general/craft/textures/m_2_0_baseColor.png" id="1_wawor"]
+[ext_resource type="Texture2D" uid="uid://bpt7whih3xosy" path="res://src/objects/general/craft/textures/m_2_1_baseColor.png" id="2_a2dvl"]
+[ext_resource type="Texture2D" uid="uid://cl2kf5dexavmh" path="res://src/objects/general/craft/textures/m_2_2_baseColor.png" id="3_48e7g"]
+[ext_resource type="Texture2D" uid="uid://8gc6ibtwj8ar" path="res://src/objects/general/craft/textures/m_2_3_baseColor.png" id="4_8v82u"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3rkau"]
 resource_name = "m_2_0"

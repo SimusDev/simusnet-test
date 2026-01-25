@@ -55,12 +55,15 @@ static func get_components_from(object: Object) -> Array:
 		pass
 		#_debug_log_from_object(object, "method %s was not found." % METHOD, SD_ConsoleCategories.WARNING)
 	
+	if Engine.is_editor_hint():
+		return []
+	
 	if object.has_meta(META):
 		return object.get_meta(META)
 	
 	var result: Array = []
 	object.set_meta(META, result)
-	return result
+	return []
 
 static func find_base_script(script: Script, recursive: bool = true) -> Script:
 	if not script:
@@ -87,6 +90,7 @@ static func queue_free_components(from: Object) -> void:
 
 static func find_components_by_script(from: Object, by: Array[Script], pick: PICK_RETURN = PICK_RETURN.ARRAY) -> Variant:
 	var components: Array = get_components_from(from)
+	
 	var filtered: Array = components.filter(
 		func(i: Variant):
 			var is_object: bool = i is Object

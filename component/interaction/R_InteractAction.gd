@@ -4,6 +4,10 @@ class_name R_InteractAction
 @export var name: String = ""
 const META: StringName = &"interact_actions"
 
+static var ACTION_OPEN: R_InteractAction = preload("uid://xecviu4tcm2e")
+static var ACTION_PICKUP: R_InteractAction = preload("uid://cvbrrn0mme4i")
+static var ACTION_USE: R_InteractAction = preload("uid://cd72i7612o4ut")
+
 static func get_group() -> String:
 	return "interact_action"
 
@@ -23,6 +27,9 @@ static func get_from(object: Object) -> Array[R_InteractAction]:
 	return SD_Variables.get_or_add_object_meta(object, META, [] as Array[R_InteractAction])
 
 func append_to(object: Object) -> R_InteractAction:
+	if object is CollisionObject3D:
+		CT_Collisions.set_body_collision(object, CT_Collisions.LAYERS.INTERACTION)
+	
 	get_from(object).append(self)
 	return self
 
