@@ -17,8 +17,6 @@ var _unique_id: int = -1
 
 var _net_settings: SimusNetSettings
 
-signal _on_awaited_and_cached()
-
 static var _list_by_id: Dictionary[int, SimusNetIdentity] = {}
 static var _list_by_generated_id: Dictionary[Variant, SimusNetIdentity] = {}
 
@@ -87,39 +85,22 @@ func _initialize_dynamic() -> void:
 		_tree_entered()
 		
 		if _unique_id == -1:
-			_unique_id = await SimusNetCache.request_unique_id(get_generated_unique_id())
-		
-		
-		
-		#if _unique_id < 0:
-			#if _net_settings.debug_enable:
-				#print_debug("(%s) unique id not found, awaiting for cache..." % str(_generated_unique_id))
-				#_await_for_cache()
-				#await _on_awaited_and_cached
-				#print_debug("(%s) cached!" % str(_generated_unique_id))
-		
-		#get_cached_unique_ids_values().erase(_generated_unique_id)
-		#get_cached_unique_ids().erase(_unique_id)
+			SimusNetCache.request_unique_id(get_generated_unique_id())
+			SimusNetCache.instance.on_unique_id_received.connect(_on_unique_id_received)
+			return
 		
 		_set_ready()
+
+func _on_unique_id_received(generated_id: Variant, unique_id: Variant) -> void:
+	if generated_id == get_generated_unique_id():
+		_set_ready()
+		SimusNetCache.instance.on_unique_id_received.disconnect(_on_unique_id_received)
 
 func _deinitialize_dynamic() -> void:
 	if !is_initialized:
 		return
 	
 	is_initialized = false
-	
-	
-	
-
-func _await_for_cache() -> void:
-	SimusNetEvents.event_identity_cached.listen(_listen_cache)
-
-func _listen_cache() -> void:
-	var event: SimusNetEventIdentityCached = SimusNetEvents.event_identity_cached
-	if event.generated_unique_id == _generated_unique_id:
-		_on_awaited_and_cached.emit()
-		event.unlisten(_listen_cache)
 
 func _tree_entered() -> void:
 	if settings.get_unique_id() == null:
