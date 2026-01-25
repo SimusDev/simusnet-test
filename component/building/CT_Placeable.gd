@@ -9,6 +9,8 @@ var item:W_Item
 
 var current_ghost:Node3D = null
 
+@onready var level_instance = LevelInstance.find_above(self)
+
 func _ready() -> void:
 	if not get_parent().is_node_ready():
 		await get_parent().ready
@@ -27,7 +29,26 @@ func _ready() -> void:
 		if not placeable.object:
 			placeable.object = item.object
 	
+	item.pressed.connect(_place)
+	
 	_spawn_ghost()
+
+
+func _place() -> void:
+	if not SimusNetConnection.is_server():
+		return
+	
+	if not is_inside_tree() or not is_instance_valid(item) or not is_instance_valid(current_ghost):
+		return
+	
+	var transform:Transform3D = current_ghost.transform
+	var new_object:Node = (I_WorldObject.new(level_instance, placeable.object)
+							.instantiate()
+							.get_instance()
+							)
+	new_object.transform = transform
+	
+	#item.stack.quantity -= 1
 
 func _physics_process(_delta: float) -> void:
 	if not is_inside_tree() or not is_instance_valid(item) or not is_instance_valid(current_ghost):
