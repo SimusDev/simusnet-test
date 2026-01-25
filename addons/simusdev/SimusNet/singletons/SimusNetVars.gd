@@ -158,6 +158,8 @@ func _replicate_rpc_server(packet: Variant, peer: int, reliable: bool) -> void:
 			if !is_instance_valid(identity.owner):
 				continue
 			
+			SimusNetVisibility.set_visible_for(peer, identity.owner, true)
+			
 			var config: SimusNetVarConfig = SimusNetVarConfig.get_config(identity.owner, p_name)
 			if !config:
 				continue
@@ -286,10 +288,8 @@ func _handle_send(_queue: Dictionary) -> void:
 	SimusNetChannels.BUILTIN.VARS_SEND: _processor_send._default_recieve_send_unreliable,
 }
 
-
 func _recieve_send_packet_local(packet: Variant, from_peer: int) -> void:
 	var data: Dictionary = SimusNetDecompressor.parse(packet)
-	
 	
 	for id in data:
 		var identity: SimusNetIdentity = SimusNetIdentity.try_deserialize_from_variant(id)

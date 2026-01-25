@@ -138,6 +138,8 @@ func _processor_recieve_rpc_from_peer(peer: int, channel: int, serialized_identi
 	
 	var object: Object = identity.owner
 	
+	SimusNetVisibility.set_visible_for(peer, object, true)
+	
 	var method_name: String = SimusNetMethods.try_deserialize_from_variant(serialized_method)
 	
 	var rpc_handler: SimusNetRPCConfigHandler = SimusNetRPCConfigHandler.get_or_create(object)
