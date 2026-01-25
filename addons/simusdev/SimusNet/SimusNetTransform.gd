@@ -26,7 +26,7 @@ func _ready() -> void:
 	if not "transform" in node:
 		return
 	
-	SimusNetVisibility.set_public_visibility(self, true)
+	#SimusNetVisibility.set_public_visibility(self, true)
 	
 	node.set_meta(_META, self)
 	
