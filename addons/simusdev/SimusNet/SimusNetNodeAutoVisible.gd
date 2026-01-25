@@ -96,7 +96,7 @@ func _exit_tree() -> void:
 		SimusNetRPCGodot.invoke_on_server(_send_not_visible)
 		return
 	
-	SimusNetRPCGodot.invoke(_send_not_visible)
+	SimusNetRPCGodot.invoke_on(SimusNet.get_network_authority(self), _send_not_visible)
 
 func _enter_tree() -> void:
 	if Engine.is_editor_hint():
@@ -115,11 +115,7 @@ func _enter_tree() -> void:
 	if !is_network_ready:
 		await on_network_ready
 	
-	if SimusNet.get_network_authority(node) == SimusNet.SERVER_ID:
-		SimusNetRPCGodot.invoke_on_server(_send_visible)
-		return
-	
-	SimusNetRPCGodot.invoke(_send_visible)
+	SimusNetRPCGodot.invoke_on(SimusNet.get_network_authority(self), _send_visible)
 
 func _network_ready() -> void:
 	super()
