@@ -23,6 +23,10 @@ func get_inventory() -> CT_Inventory:
 func _enter_tree() -> void:
 	name = name.validate_node_name()
 	_slot = SD_ECS.node_find_above_by_script(self, CT_InventorySlot)
+	#сонек я тут навговнокодил ок
+	if !is_instance_valid(_slot):
+		return
+	#сонек я тут навговнокодил ок
 	_slot._item_stack = self
 	_slot.on_item_added.emit(self)
 	_slot.on_updated.emit()
@@ -35,6 +39,10 @@ func _enter_tree() -> void:
 	_inventory._item_stacks.append(self)
 
 func _exit_tree() -> void:
+	#сонек я тут навговнокодил ок
+	if !is_instance_valid(_slot):
+		return
+	#сонек я тут навговнокодил ок
 	_slot.on_item_removed.emit(self)
 	_slot.on_updated.emit()
 	_inventory.on_slot_updated_for_viewmodel.emit(_slot)

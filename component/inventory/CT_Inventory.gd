@@ -259,8 +259,8 @@ func try_move_item(item: CT_ItemStack, slot: CT_InventorySlot) -> void:
 	var is_inventory_opened: bool = get_opened().has(slot.get_inventory())
 	
 	if is_inventory_authority or is_inventory_opened:
-		if slot.is_free():
-			SimusNetRPC.invoke_on_server(_try_move_item_server, item, slot)
+		#if slot.is_free():
+		SimusNetRPC.invoke_on_server(_try_move_item_server, item, slot)
 
 func _try_move_item_server(item: CT_ItemStack, slot: CT_InventorySlot) -> void:
 	if !is_instance_valid(slot) or !is_instance_valid(item):
@@ -270,9 +270,26 @@ func _try_move_item_server(item: CT_ItemStack, slot: CT_InventorySlot) -> void:
 	var is_inventory_opened: bool = get_opened().has(slot.get_inventory())
 	
 	if is_inventory_authority or is_inventory_opened:
+		
+		#сонек я тут навговнокодил ок
+		var old_slot = item.get_parent() as CT_InventorySlot
+		#сонек я тут навговнокодил ок
+		
 		if slot.is_free():
 			if slot.can_handle_item(item):
 				item.reparent(slot)
+		
+		#сонек я тут навговнокодил ок
+		else:
+			var target_item = slot.get_item_stack()
+			if !is_instance_valid(target_item): return
+			
+			if slot.can_handle_item(item) and old_slot.can_handle_item(target_item):
+				item.reparent(get_tree().root) 
+				target_item.reparent(old_slot)
+				item.reparent(slot)
+		#сонек я тут навговнокодил ок
+
 
 func _send() -> void:
 	var bytes: PackedByteArray = CT_InventorySlot.serialize_array(get_slots())

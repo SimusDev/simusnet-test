@@ -9,8 +9,6 @@ var item:W_Item
 
 var current_ghost:Node3D = null
 
-var query_exclude:Array[PhysicsBody3D] = []
-
 func _ready() -> void:
 	if not get_parent().is_node_ready():
 		await get_parent().ready
@@ -29,36 +27,40 @@ func _ready() -> void:
 		if not placeable.object:
 			placeable.object = item.object
 	
-	var entity = item.entity_head.get_entity()
-	if entity is Entity:
-		query_exclude = entity.find_physics_bodies_above()
-	query_exclude.append(entity)
 	_spawn_ghost()
 
 func _physics_process(_delta: float) -> void:
-	if not is_inside_tree():
-		return
-	if not is_instance_valid(item) || not is_instance_valid(current_ghost):
+	if not is_inside_tree() or not is_instance_valid(item) or not is_instance_valid(current_ghost):
 		return
 	
 	var eyes: Node3D = item.entity_head.get_eyes()
+	var space_state = item.get_world_3d().direct_space_state
 	
-	if is_instance_valid(item.entity_head):
-		
-		
-		var space_state = item.get_world_3d().direct_space_state
-		var origin = eyes.global_position
-		var target = item.global_position - eyes.global_transform.basis.z * placeable.place_range
-		
-		var query = PhysicsRayQueryParameters3D.create(origin, target)
-		
-		var result = space_state.intersect_ray(query)
+	var origin = eyes.global_position
+	var direction = -eyes.global_transform.basis.z
+	var target = origin + direction * placeable.place_range
 	
-		if result:
-			current_ghost.global_position = result.position
-		else:
-			current_ghost.global_position = item.global_position - eyes.global_transform.basis.z * placeable.place_range
+	var query = PhysicsRayQueryParameters3D.create(origin, target)
+	query.exclude = [item.entity_head.get_entity()]
+	
+	var result = space_state.intersect_ray(query)
 
+	if result:
+		var pos = result.position
+		
+		var normal = result.normal
+		
+		var offset_dist = 0.05
+		var mesh_node = current_ghost.find_children("*", "MeshInstance3D")[0]
+		if mesh_node:
+			var aabb = mesh_node.get_aabb()
+			pos += normal * (aabb.size.y * 0.5)
+		else:
+			pos += normal * offset_dist
+		current_ghost.global_position = pos
+		
+	else:
+		current_ghost.global_position = target
 
 func _delete_ghost() -> void:
 	if is_instance_valid(current_ghost):
