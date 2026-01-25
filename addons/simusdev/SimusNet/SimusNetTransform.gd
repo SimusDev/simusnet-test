@@ -20,13 +20,13 @@ func _ready() -> void:
 	if Engine.is_editor_hint():
 		return
 	
-	SimusNetVisibility.set_public_visibility(self, true)
-	
 	if !node:
 		node = get_parent()
 	
 	if not "transform" in node:
 		return
+	
+	SimusNetVisibility.set_public_visibility(self, true)
 	
 	node.set_meta(_META, self)
 	
