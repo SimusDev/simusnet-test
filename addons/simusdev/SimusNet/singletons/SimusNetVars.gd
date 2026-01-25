@@ -157,6 +157,9 @@ func _replicate_rpc_server(packet: Variant, peer: int, reliable: bool) -> void:
 		var identity_data: Dictionary = reliable_data.get_or_add(identity_id, {})
 		
 		for p_name: String in properties:
+			if !is_instance_valid(identity.owner):
+				continue
+			
 			var config: SimusNetVarConfig = SimusNetVarConfig.get_config(identity.owner, p_name)
 			if !config:
 				continue

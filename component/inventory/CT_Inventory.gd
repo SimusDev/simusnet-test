@@ -284,6 +284,11 @@ func try_move_item(item: CT_ItemStack, slot: CT_InventorySlot) -> void:
 	var is_inventory_authority: bool = SimusNet.is_network_authority(slot.get_inventory())
 	var is_inventory_opened: bool = get_opened().has(slot.get_inventory())
 	
+	print(get_opened())
+	
+	print(is_inventory_authority)
+	print(is_inventory_opened)
+	
 	if is_inventory_authority or is_inventory_opened:
 		#if slot.is_free():
 		SimusNetRPC.invoke_on_server(_try_move_item_server, item, slot)
@@ -393,6 +398,7 @@ func get_opened() -> Array[CT_Inventory]:
 		if is_instance_valid(i):
 			parsed.append(i)
 	_opened.clear()
+	_opened = parsed
 	return parsed
 
 func is_opened(inventory: CT_Inventory) -> bool:
