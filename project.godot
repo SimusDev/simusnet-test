@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="simusnet-test"
-run/main_scene="uid://b6gb6cco32qc1"
+run/main_scene="uid://n4pif4vew3or"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
 
