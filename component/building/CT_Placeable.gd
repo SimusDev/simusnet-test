@@ -9,6 +9,8 @@ var item:W_Item
 
 var current_ghost:Node3D = null
 
+var query_exclude:Array[PhysicsBody3D] = []
+
 func _ready() -> void:
 	if not get_parent().is_node_ready():
 		await get_parent().ready
@@ -27,6 +29,10 @@ func _ready() -> void:
 		if not placeable.object:
 			placeable.object = item.object
 	
+	var entity = item.entity_head.get_entity()
+	if entity is Entity:
+		query_exclude = entity.find_physics_bodies_above()
+	query_exclude.append(entity)
 	_spawn_ghost()
 
 func _physics_process(_delta: float) -> void:
@@ -47,8 +53,7 @@ func _physics_process(_delta: float) -> void:
 		var query = PhysicsRayQueryParameters3D.create(origin, target)
 		
 		var result = space_state.intersect_ray(query)
-		#current_ghost.visible = result
-		
+	
 		if result:
 			current_ghost.global_position = result.position
 		else:
@@ -90,6 +95,7 @@ func _apply_shader_to_meshes() -> void:
 	
 	for child in current_ghost.find_children("*", "GeometryInstance3D"):
 		child.set("material_override", sm)
+
 
 func is_placeable_valid() -> bool:
 	return bool(placeable and placeable.object)

@@ -1,4 +1,4 @@
-extends CharacterBody3D
+extends Entity
 class_name Player
 
 var _level: LevelInstance

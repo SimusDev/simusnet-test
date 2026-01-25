@@ -106,7 +106,6 @@ func _update() -> void:
 	await _clear()
 	
 	if not object:
-		_logger.debug("object is null", SD_ConsoleCategories.ERROR)
 		return
 	
 	if not object.viewmodel:

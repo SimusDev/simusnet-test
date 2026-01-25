@@ -34,7 +34,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(0.243, -0.649, -0.595)]
+"values": [Vector3(0.253, -0.549, -0.585)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -46,7 +46,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(-0.572468, 0.0837758, 0.25830874)]
+"values": [Vector3(0.1605703, -0.029670598, -0.13439035)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_t06e7"]
@@ -59,7 +59,7 @@ script = ExtResource("1_mus0r")
 metadata/_custom_type_script = "uid://drlwngipoaoi6"
 
 [node name="CrowbarModel" parent="." unique_id=1948536088 instance=ExtResource("1_lcmwy")]
-transform = Transform3D(0.9518535, -0.29837495, 0.0703368, 0.21471919, 0.8126793, 0.5417081, -0.21879345, -0.50052404, 0.8376186, 0.243, -0.649, -0.595)
+transform = Transform3D(0.99118257, 0.1292269, -0.029284624, -0.13226262, 0.9782352, -0.15988117, 0.007986307, 0.16234466, 0.9867017, 0.253, -0.549, -0.585)
 
 [node name="CT_WeaponAnimator" type="Node" parent="." unique_id=375368600 node_paths=PackedStringArray("player")]
 script = ExtResource("3_uq4rh")

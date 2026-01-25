@@ -1,15 +1,19 @@
 [gd_resource type="Resource" script_class="R_WorldObject" format=3 uid="uid://c8wy5klyargde"]
 
 [ext_resource type="Script" uid="uid://cxyhi06aga6j1" path="res://component/object/R_WorldObject.gd" id="1_2848v"]
+[ext_resource type="Texture2D" uid="uid://cl2kf5dexavmh" path="res://src/objects/craft/textures/m_2_2_baseColor.png" id="1_o3quf"]
 [ext_resource type="Script" uid="uid://cqdfkwb1galvp" path="res://component/viewmodel/R_ViewModel.gd" id="2_57100"]
 [ext_resource type="PackedScene" uid="uid://dpmqj4nmou02h" path="res://src/objects/craft/CraftingTable.tscn" id="3_pd7xt"]
+[ext_resource type="PackedScene" uid="uid://cqhqjm7nx5qwc" path="res://src/objects/craft/CraftingTableView.tscn" id="4_tqr12"]
 
 [sub_resource type="Resource" id="Resource_pd7xt"]
 script = ExtResource("2_57100")
 world = ExtResource("3_pd7xt")
+view = ExtResource("4_tqr12")
 metadata/_custom_type_script = "uid://cqdfkwb1galvp"
 
 [resource]
 script = ExtResource("1_2848v")
 viewmodel = SubResource("Resource_pd7xt")
+icon = ExtResource("1_o3quf")
 metadata/_custom_type_script = "uid://cxyhi06aga6j1"

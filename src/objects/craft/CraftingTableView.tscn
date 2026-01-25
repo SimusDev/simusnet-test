@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://cqhqjm7nx5qwc"]
+
+[ext_resource type="Script" uid="uid://d0q02rkjl2np2" path="res://component/item/W_Item.gd" id="1_umsf8"]
+[ext_resource type="PackedScene" uid="uid://8ub7tg8673fx" path="res://src/objects/craft/sketchfab_scene.tscn" id="2_6uwj1"]
+[ext_resource type="Script" uid="uid://b7il0848tlrkq" path="res://component/building/CT_Placeable.gd" id="3_q2hyc"]
+[ext_resource type="Script" uid="uid://b446loaai0cao" path="res://component/building/R_PlaceableSettings.gd" id="4_6rxgn"]
+
+[sub_resource type="Resource" id="Resource_apufq"]
+script = ExtResource("4_6rxgn")
+model_prefab = ExtResource("2_6uwj1")
+metadata/_custom_type_script = "uid://b446loaai0cao"
+
+[node name="CraftingTableView" type="Node3D" unique_id=314847915]
+script = ExtResource("1_umsf8")
+metadata/_custom_type_script = "uid://d0q02rkjl2np2"
+
+[node name="Model" parent="." unique_id=353388669 instance=ExtResource("2_6uwj1")]
+transform = Transform3D(1, 0, 0, 0, 0.9396926, 0.34202012, 0, -0.34202012, 0.9396926, -0.005, -0.995, -0.875)
+
+[node name="CT_Placeable" type="Node" parent="." unique_id=1540337413]
+script = ExtResource("3_q2hyc")
+placeable = SubResource("Resource_apufq")
+metadata/_custom_type_script = "uid://b7il0848tlrkq"
