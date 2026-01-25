@@ -16,4 +16,3 @@ static func create(from: Node) -> CT_GhostModel:
 	var model: CT_GhostModel = CT_GhostModel.new()
 	_parse(model, from)
 	return model
-
