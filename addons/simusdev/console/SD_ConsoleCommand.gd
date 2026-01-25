@@ -28,6 +28,19 @@ var _server_authorative: bool = true
 signal updated()
 signal executed()
 
+func connect_updated_signal(callable: Callable, bind_cmd_in_args: bool = false) -> SD_ConsoleCommand:
+	if !bind_cmd_in_args:
+		updated.connect(callable)
+	else:
+		updated.connect(callable.bind(self))
+	return self
+
+func connect_executed_signal(callable: Callable, bind_cmd_in_args: bool = false) -> SD_ConsoleCommand:
+	if !bind_cmd_in_args:
+		executed.connect(callable)
+	else:
+		executed.connect(callable.bind(self))
+	return self
 func is_networked() -> bool:
 	return _networked
 

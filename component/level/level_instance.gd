@@ -83,6 +83,16 @@ func _read_and_spawn_objects(objects: Dictionary) -> void:
 	
 	_logger.debug("loaded %s objects." % loaded_objects, SD_ConsoleCategories.SUCCESS)
 
+func clear_objects() -> void:
+	if !SimusNetConnection.is_server():
+		return
+	
+	for group: LevelGroup in _groups_networked.get_children(): 
+		group.get_replicator().clear_path_optimization()
+		group.async_clear_all_children()
+
+
+
 func _get_group_(group: String, root: Node3D) -> LevelGroup:
 	group = group.validate_node_name().to_pascal_case()
 	var founded: LevelGroup = root.get_node_or_null(group)

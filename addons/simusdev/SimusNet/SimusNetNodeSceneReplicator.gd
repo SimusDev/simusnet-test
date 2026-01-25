@@ -153,6 +153,8 @@ func _receive(packet: Variant) -> void:
 		if root.has_node(str(i.name)):
 			await root.get_node(str(i.name)).tree_exited
 		
+		await get_tree().process_frame
+		
 		root.add_child(i)
 
 func _receive_deletion(packet: Variant) -> void:
