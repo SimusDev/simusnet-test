@@ -24,7 +24,7 @@ func update_queue_and_try_change_scene() -> void:
 	var picked_scene: PackedScene = _queue[0]
 	_queue.erase(picked_scene)
 	
-	get_tree().change_scene_to_packed(picked_scene)
+	get_tree().change_scene_to_packed.call_deferred(picked_scene)
 
 func load_scene_from_base_path(path: String) -> PackedScene:
 	return load(BASE_PATH % [path]) as PackedScene
