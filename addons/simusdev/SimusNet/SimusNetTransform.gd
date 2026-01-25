@@ -20,6 +20,8 @@ func _ready() -> void:
 	if Engine.is_editor_hint():
 		return
 	
+	SimusNetVisibility.set_public_visibility(self, true)
+	
 	if !node:
 		node = get_parent()
 	
@@ -60,7 +62,6 @@ func _process(delta: float) -> void:
 	if node.rotation is Vector3:
 		node.rotation.z = lerp_angle(node.rotation.z, rotation.z, interpolate_speed * delta)
 	node.scale = lerp(node.scale, scale, interpolate_speed * delta)
-	
 
 func _enter_tree() -> void:
 	super()
