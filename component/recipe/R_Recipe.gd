@@ -84,3 +84,8 @@ static func is_itemstack_has_object_tag_list(item: CT_ItemStack, tag_list: Array
 			if tag in item.object.tags:
 				return true
 	return false
+
+static func get_itemstack_tags(item: CT_ItemStack) -> Dictionary[String, Variant]:
+	if is_instance_valid(item):
+		return item.object.tags
+	return {}

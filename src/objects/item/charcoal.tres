@@ -15,6 +15,8 @@ script = ExtResource("1_lve4i")
 viewmodel = SubResource("Resource_8eufg")
 icon = ExtResource("1_0f1bx")
 tags = Dictionary[String, Variant]({
-"fuel": null
+"fuel": {
+"ticks": 400
+}
 })
 metadata/_custom_type_script = "uid://cxyhi06aga6j1"

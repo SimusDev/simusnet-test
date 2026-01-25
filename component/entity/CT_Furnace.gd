@@ -10,6 +10,8 @@ class_name CT_Furnace
 @export var _audio_player: AudioStreamPlayer3D
 
 @export var _fuel_ticks: int = 0 : set = set_fuel_ticks
+@export var _progress: int = 0
+@export var _progress_max: int = 100
 
 var _is_active: bool = false : set = set_active
 
@@ -94,14 +96,17 @@ func _on_server_tick() -> void:
 		_fuel_ticks -= 1
 	else:
 		for fuel_slot in _server_fuel_slots:
-			if R_Recipe.is_itemstack_has_object_tag_list(
-				fuel_slot.get_item_stack(), FUEL_OBJECTS):
-					_fuel_ticks = 20 * 5
-					fuel_slot.get_item_stack().quantity -= 1
-					return
+			if fuel_slot.is_free():
+				continue
 			
-	
-	
+			var tags: Dictionary = R_Recipe.get_itemstack_tags(fuel_slot.get_item_stack())
+			if !tags.has("fuel"):
+				continue
+			
+			var fuel_ticks: int = tags.get("fuel", {}).get("ticks", 50)
+			_fuel_ticks = fuel_ticks
+			fuel_slot.get_item_stack().quantity -= 1
+			return
 
 func try_bake() -> void:
 	for recipe in R_Recipe.get_recipe_list():
@@ -110,5 +115,7 @@ func try_bake() -> void:
 			recipe.try_craft(I_WorldObject.find_in(root).get_object(), input, output)
 
 func _on_fuel_tick() -> void:
-	if _fuel_ticks == 1:
+	_progress += 1
+	if _progress >= _progress_max:
 		try_bake()
+		_progress = 0
