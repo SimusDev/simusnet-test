@@ -32,7 +32,7 @@ static func find_in(node: Node) -> CT_User:
 		return null
 	
 	if node.has_meta("CT_User"):
-		var value: CT_User = node.get_meta("CT_User")
+		var value: Variant = node.get_meta("CT_User")
 		if !is_instance_valid(value):
 			node.set_meta("CT_User", null)
 		return node.get_meta("CT_User")

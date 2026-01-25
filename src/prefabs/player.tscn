@@ -10,9 +10,9 @@
 [ext_resource type="Script" uid="uid://dpblk4cnhdonv" path="res://component/viewmodel/ViewModelRoot3D.gd" id="4_heeeb"]
 [ext_resource type="PackedScene" uid="uid://cmmrufl5ygbop" path="res://component/inventory/prefabs/inventory.tscn" id="4_wdfrp"]
 [ext_resource type="Script" uid="uid://dvlnhvdrc3dy6" path="res://component/hitbox/CT_Hitbox.gd" id="5_yyb7l"]
-[ext_resource type="Script" uid="uid://c1pmyb3w7dbto" path="res://component/CameraShake.gd" id="8_k5oc5"]
+[ext_resource type="Script" path="res://component/CameraShake.gd" id="8_k5oc5"]
 [ext_resource type="Script" uid="uid://bfvmikvjmhnii" path="res://component/entity/CT_EntityHead.gd" id="9_k5oc5"]
-[ext_resource type="Script" uid="uid://cth053db6jxla" path="res://component/ViewModelSway.gd" id="9_xiv16"]
+[ext_resource type="Script" path="res://component/ViewModelSway.gd" id="9_xiv16"]
 [ext_resource type="Script" uid="uid://diojix86rolea" path="res://component/interaction/CT_InteractionRay.gd" id="9_y56kl"]
 [ext_resource type="Script" uid="uid://cgpsyyx2x8kki" path="res://component/ui/MP_CanvasLayer.gd" id="10_wdfrp"]
 [ext_resource type="Script" uid="uid://dfsnjhyc2ld3c" path="res://addons/simusdev/components/fp_controller/source_like/W_FPCSourceLikeCrouch.gd" id="10_y56kl"]
@@ -39,8 +39,6 @@ size = Vector3(1, 1.2, 1)
 collision_layer = 0
 script = ExtResource("1_e4ep1")
 sound = ExtResource("2_rlttd")
-metadata/sd_components = Array[Node]([])
-metadata/SD_ECS = Array[Node]([])
 
 [node name="CT_Health" type="Node" parent="." unique_id=1598873890 node_paths=PackedStringArray("root")]
 script = ExtResource("3_eb5im")
