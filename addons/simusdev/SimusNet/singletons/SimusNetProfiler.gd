@@ -63,21 +63,21 @@ func _put_down_traffic(size: int) -> void:
 	_put_total_traffic(size)
 
 func _put_rpc_traffic(size: int, identity: Variant, method: Variant, receive: bool) -> void:
-	size = size + 3
-	
-	var identity_name: String = str(identity)
-	if identity is SimusNetIdentity:
-		if is_instance_valid(identity.owner):
-			var obj_script: Variant = owner.get_script()
-			if obj_script is Script:
-				identity_name = obj_script.get_global_name()
-			else:
-				identity_name = identity.get_generated_unique_id()
-			 
-	
+	#var identity_name: String = str(identity)
+	#if identity is SimusNetIdentity:
+		#if is_instance_valid(identity.owner):
+			#var obj_script: Variant = identity.owner.get_script()
+			#if obj_script is Script:
+				#identity_name = obj_script.get_global_name()
+			#else:
+				#identity_name = identity.get_generated_unique_id()
+			#
+			#identity_name += "(ID: %s)" % identity.get_unique_id()
+			 #
+	#
 	var method_name: String = str(method)
 	
-	var key: String = "(ID: %s): %s" % [identity_name, method_name]
+	var key: String = "(%s): " % [method_name]
 	var emit: bool = _rpcs_profiler.has(key)
 	var data: Dictionary = _rpcs_profiler.get_or_add(key, {})
 	
@@ -98,7 +98,9 @@ func _put_rpc_traffic(size: int, identity: Variant, method: Variant, receive: bo
 	data.up = up_traffic
 	data.down_calls = down_calls
 	data.up_calls = up_calls
+	
 	on_rpc_profiler_change.emit(key)
+	
 	if emit:
 		on_rpc_profiler_add.emit(key, data)
 

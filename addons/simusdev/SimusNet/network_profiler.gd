@@ -5,7 +5,6 @@ extends Control
 @onready var total_traffic: Label = %TotalTraffic
 @onready var ping: Label = %Ping
 
-
 func _on_every_second_timeout() -> void:
 	if !is_visible_in_tree():
 		return
@@ -20,3 +19,6 @@ func _physics_process(delta: float) -> void:
 	down_traffic.text = "Down (↓) : %s/s" % String.humanize_size(SimusNetProfiler.get_down_traffic_per_second())
 	total_traffic.text = "Total Traffic (⇄) : %s" % String.humanize_size(SimusNetProfiler.get_total_traffic())
 	ping.text = "  Ping (↯) : %s ms" % SimusNetProfiler.get_ping()
+
+func _on_close_draw() -> void:
+	queue_free()
