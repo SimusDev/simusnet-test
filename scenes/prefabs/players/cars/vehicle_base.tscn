@@ -167,8 +167,9 @@ script = ExtResource("11_2imo2")
 vehicle = NodePath("..")
 metadata/_custom_type_script = "uid://d0sttdxi6n81k"
 
-[node name="VehicleSound" parent="." unique_id=416523495 node_paths=PackedStringArray("vehicle") instance=ExtResource("12_jjc1r")]
+[node name="VehicleSound" parent="." unique_id=416523495 node_paths=PackedStringArray("vehicle", "vehicle_drift_detector") instance=ExtResource("12_jjc1r")]
 vehicle = NodePath("..")
+vehicle_drift_detector = NodePath("../VehicleDriftDetector")
 
 [node name="MP_PlayerCanvasLayer" type="CanvasLayer" parent="." unique_id=1824422119 node_paths=PackedStringArray("player")]
 script = ExtResource("10_un5s0")

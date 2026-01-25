@@ -5,7 +5,7 @@ class_name VehicleSound extends Node3D
 
 @export_group("Settings")
 @export var sample_rpm := 3000.0
-@export var max_rpm := 9000.0
+@export var max_rpm := 8000.0
 @export var pitch_min := 0.5
 @export var pitch_max := 3.0
 
