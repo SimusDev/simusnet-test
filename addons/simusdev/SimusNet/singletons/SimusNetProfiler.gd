@@ -182,10 +182,13 @@ static func get_visibility_received_count() -> int:
 
 static func send_ping_request_to_server() -> void:
 	var timestamp_ms: int = Time.get_ticks_msec()
+	_instance._ping_request_time = timestamp_ms
 	_instance._receive_ping_request.rpc_id(SimusNet.SERVER_ID)
 
 static func get_ping() -> int:
 	return _instance._ping
+
+var _ping_request_time: int = 0
 
 @rpc("any_peer", "call_local", "unreliable", SimusNetChannels.BUILTIN.TIME)
 func _receive_ping_request():
@@ -194,6 +197,6 @@ func _receive_ping_request():
 
 @rpc("any_peer", "call_local", "unreliable", SimusNetChannels.BUILTIN.TIME)
 func _receive_ping_response(time: int):
-	_ping = time - Time.get_ticks_msec()
+	var current_time: int = Time.get_ticks_msec()
+	_ping = current_time - _ping_request_time
 	_ping = clampi(_ping, 0, 999_999_999)
-	
