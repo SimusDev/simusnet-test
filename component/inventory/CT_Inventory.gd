@@ -68,6 +68,12 @@ func get_slot_by_name(slot_name: String) -> CT_InventorySlot:
 			return i
 	return null
 
+func get_slot_by_tag(tag: String) -> CT_InventorySlot:
+	for i in get_slots():
+		if i.tags.has(tag):
+			return i
+	return null
+
 func _ready() -> void:
 	_network_setup()
 	
@@ -121,6 +127,11 @@ func synchronize() -> void:
 		return
 	
 	SimusNetRPC.invoke_on_server(_send)
+	
+
+func for_async_network_ready() -> void:
+	if !is_ready:
+		await on_ready
 	
 
 func add_slot_by_script(script: GDScript) -> CT_InventorySlot:

@@ -12,4 +12,7 @@ metadata/_custom_type_script = "uid://cqdfkwb1galvp"
 [resource]
 script = ExtResource("1_t22sp")
 viewmodel = SubResource("Resource_g5b04")
+tags = Dictionary[String, Variant]({
+"furnace": true
+})
 metadata/_custom_type_script = "uid://cxyhi06aga6j1"

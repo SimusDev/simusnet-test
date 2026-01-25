@@ -2,9 +2,11 @@
 
 [ext_resource type="Script" uid="uid://cxyhi06aga6j1" path="res://component/object/R_WorldObject.gd" id="1_jg1rj"]
 [ext_resource type="Script" uid="uid://cqdfkwb1galvp" path="res://component/viewmodel/R_ViewModel.gd" id="2_a7dpj"]
+[ext_resource type="PackedScene" uid="uid://bnao0ejkdk8a5" path="res://component/object/world_default_prefab.tscn" id="3_x8ne0"]
 
 [sub_resource type="Resource" id="Resource_x8ne0"]
 script = ExtResource("2_a7dpj")
+world = ExtResource("3_x8ne0")
 metadata/_custom_type_script = "uid://cqdfkwb1galvp"
 
 [resource]

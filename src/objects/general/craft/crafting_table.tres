@@ -16,4 +16,7 @@ metadata/_custom_type_script = "uid://cqdfkwb1galvp"
 script = ExtResource("1_2848v")
 viewmodel = SubResource("Resource_pd7xt")
 icon = ExtResource("1_o3quf")
+tags = Dictionary[String, Variant]({
+"wood": true
+})
 metadata/_custom_type_script = "uid://cxyhi06aga6j1"

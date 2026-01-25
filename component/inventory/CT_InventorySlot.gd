@@ -5,6 +5,8 @@ var _item_stack: CT_ItemStack
 
 var _inventory: CT_Inventory
 
+@export var tags: Dictionary[String, Variant] = {}
+
 signal on_updated()
 
 signal on_item_added(item: CT_ItemStack)
@@ -59,6 +61,8 @@ func serialize() -> Dictionary:
 	if get_item_stack():
 		data[2] = get_item_stack().serialize()
 	
+	data[3] = tags
+	
 	return data
 
 
@@ -73,11 +77,13 @@ static func deserialize(data: Dictionary) -> CT_InventorySlot:
 	var slot: CT_InventorySlot = script.new()
 	SimusNetIdentity.client_deserialize_instance(data[-1], slot)
 	slot.name = data[1]
+	slot.tags = data[3]
 	
 	var item_data: Variant = data.get(2, null)
 	if item_data:
 		var item: CT_ItemStack = CT_ItemStack.deserialize(item_data)
 		slot.add_child(item)
+	
 	
 	return slot
 

@@ -4,5 +4,5 @@ extends RigidBody3D
 
 func _ready() -> void:
 	if object:
-		$Sprite3D.texture = object.get_icon()
+		$Sprite3D.texture = object.get_object().get_icon()
 	

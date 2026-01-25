@@ -2,19 +2,39 @@ extends Node
 class_name CT_Furnace
 
 @export var root: Node3D
-@export var bake_speed: float = 1.0
-@export var fuel_consumption: float = 1.0
+@export var tickrate: float = 20.0
+#@export var fuel_consumption: float = 1.0
 @export var slots: int = 1
 
 @export var _inventory: CT_Inventory
 @export var _audio_player: AudioStreamPlayer3D
 
+@export var _fuel_ticks: int = 0 : set = set_fuel_ticks
+
 var _is_active: bool = false : set = set_active
+
+var _timer: Timer
+
+var _server_bake_slots: Dictionary[CT_InventorySlot, CT_InventorySlot] = {}
+var _server_fuel_slots: Array[CT_InventorySlot] = []
+
+const FUEL_OBJECTS: Array[String] = [
+	"fuel",
+	"wooden",
+]
 
 func is_active() -> bool:
 	return _is_active
 
+func set_fuel_ticks(ticks: int) -> CT_Furnace:
+	_fuel_ticks = ticks
+	set_active(_fuel_ticks > 0)
+	return self
+
 func set_active(value: bool) -> void:
+	if _is_active == value:
+		return
+	
 	_is_active = value
 	
 	await SD_Nodes.async_for_ready(self)
@@ -34,6 +54,9 @@ func _network_setup() -> void:
 	.flag_mode_server_only()
 	.flag_replication()
 	)
+	
+	
+	
 
 func _ready() -> void:
 	if !root:
@@ -44,6 +67,50 @@ func _ready() -> void:
 	R_InteractAction.ACTION_OPEN.append_to(root)
 	
 	await SD_Nodes.async_for_ready(root)
-	_inventory.clear_slots()
+	
+	if SimusNetConnection.is_server():
+		var fuel_slot: CT_InventorySlot = _inventory.add_slot_by_script(CT_InventorySlot)
+		fuel_slot.tags.set("fuel", true)
+		_server_fuel_slots.append(fuel_slot)
+		
+		for slot_id in slots:
+			var input: CT_InventorySlot = _inventory.add_slot_by_script(CT_InventorySlot)
+			var output: CT_InventorySlot = _inventory.add_slot_by_script(CT_InventorySlot)
+			input.tags.set("input", true)
+			output.tags.set("output", true)
+			_server_bake_slots[input] = output
+		
+		_timer = Timer.new()
+		_timer.wait_time = 1.0 / tickrate
+		_timer.autostart = true
+		_timer.timeout.connect(_on_server_tick)
+		add_child(_timer)
+
+func _on_server_tick() -> void:
+	_timer.wait_time = 1.0 / tickrate
+	
+	if _fuel_ticks > 0:
+		_on_fuel_tick()
+		_fuel_ticks -= 1
+	else:
+		for fuel_slot in _server_fuel_slots:
+			print(fuel_slot)
+			
+			if R_Recipe.is_itemstack_has_object_tag_list(
+				fuel_slot.get_item_stack(), FUEL_OBJECTS):
+					_fuel_ticks = 20 * 5
+					fuel_slot.get_item_stack().quantity -= 1
+					return
+			
 	
 	
+
+func try_bake() -> void:
+	for recipe in R_Recipe.get_recipe_list():
+		for input: CT_InventorySlot in _server_bake_slots:
+			var output: CT_InventorySlot = _server_bake_slots[input]
+			recipe.try_craft(I_WorldObject.find_in(root).get_object(), input, output)
+
+func _on_fuel_tick() -> void:
+	if _fuel_ticks == 1:
+		try_bake()
