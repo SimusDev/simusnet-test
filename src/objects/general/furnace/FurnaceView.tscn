@@ -20,4 +20,4 @@ placeable = SubResource("Resource_2gd4u")
 metadata/_custom_type_script = "uid://b7il0848tlrkq"
 
 [node name="Model" parent="." unique_id=1173696965 instance=ExtResource("3_2gd4u")]
-transform = Transform3D(0.373879, 0.20384544, -0.40836444, -0.28242818, 0.51800996, 0, 0.35853705, 0.19548072, 0.42583853, 0, -0.395, -0.325)
+transform = Transform3D(0.1495516, 0.08153818, -0.16334578, -0.11297127, 0.20720398, 5.2331863e-09, 0.14341483, 0.07819229, 0.17033543, 0, -0.395, -0.325)
