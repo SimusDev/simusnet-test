@@ -16,10 +16,12 @@
 [ext_resource type="Script" uid="uid://c3keevwbvt0s5" path="res://addons/simusdev/SimusNet/singletons/SimusNetVars.gd" id="14_gf6h6"]
 [ext_resource type="Script" uid="uid://s54mtevhf8la" path="res://addons/simusdev/SimusNet/singletons/SimusNetSynchronization.gd" id="14_y0guf"]
 [ext_resource type="Script" uid="uid://0tyljhh5ik53" path="res://addons/simusdev/SimusNet/singletons/SimusNetVarsProccessorSend.gd" id="15_gopxb"]
+[ext_resource type="Script" uid="uid://dorvy1fd2kil5" path="res://addons/simusdev/SimusNet/singletons/SimusNetProfiler.gd" id="17_b41hy"]
 
-[node name="SimusNetSingleton" type="Node" unique_id=1723475864 node_paths=PackedStringArray("events", "cache", "channels", "connection", "time", "handshake", "methods", "RPC", "RPCgodot", "visibility", "resources", "vars", "synchronization")]
+[node name="SimusNetSingleton" type="Node" unique_id=1723475864 node_paths=PackedStringArray("profiler", "events", "cache", "channels", "connection", "time", "handshake", "methods", "RPC", "RPCgodot", "visibility", "resources", "vars", "synchronization")]
 process_mode = 4
 script = ExtResource("1_6nds0")
+profiler = NodePath("Profiler")
 events = NodePath("Events")
 cache = NodePath("Cache")
 channels = NodePath("Channels")
@@ -33,6 +35,10 @@ visibility = NodePath("Visibility")
 resources = NodePath("Resources")
 vars = NodePath("Vars")
 synchronization = NodePath("Synchronization")
+
+[node name="Profiler" type="Node" parent="." unique_id=1747636756]
+script = ExtResource("17_b41hy")
+metadata/_custom_type_script = "uid://dorvy1fd2kil5"
 
 [node name="Events" type="Node" parent="." unique_id=2137078033]
 script = ExtResource("5_3i2gk")

@@ -88,23 +88,46 @@ func _invoke_on_without_validating(peer: int, callable: Callable, args: Array, c
 	var function: StringName = _processor._parse_and_get_function(config.flag_get_channel_id(), config.flag_get_transfer_mode())
 	var p_callable: Callable = Callable(_processor, function)
 	
+	var serialized_args: Variant = SimusNetSerializer.parse(args, config._serialization)
+	var traffic_size: int = var_to_bytes(serialized_method_id).size() + var_to_bytes(serialized_unique_id).size()
+	
+	if !args.is_empty():
+		traffic_size += var_to_bytes(serialized_args).size()
+	
 	if args.is_empty():
 		p_callable.rpc_id(peer, serialized_unique_id, serialized_method_id)
 	else:
-		#if args.size() == 1:
-			#p_callable.rpc_id(peer, serialized_unique_id, serialized_method_id, SimusNetSerializer.parse(args[0], config._serialization))
-		#else:
-		p_callable.rpc_id(peer, serialized_unique_id, serialized_method_id, SimusNetSerializer.parse(args, config._serialization))
+		p_callable.rpc_id(peer, serialized_unique_id, serialized_method_id, serialized_args)
 	
+	SimusNetProfiler.get_instance()._put_up_traffic(traffic_size)
+	SimusNetProfiler.get_instance()._put_rpc_traffic(
+		traffic_size,
+		identity,
+		callable,
+		false
+	)
 	
 	_start_cooldown(callable)
 
 func _processor_recieve_rpc_from_peer(peer: int, channel: int, serialized_identity: Variant, serialized_method: Variant, serialized_args: Variant) -> void:
 	_setup_remote_sender(peer, channel)
 	
+	var args_profiler_size: int = 0
+	if serialized_args != null:
+		args_profiler_size += var_to_bytes(serialized_args).size()
+	
+	var profiler_bytes_size: int = var_to_bytes(serialized_identity).size() + var_to_bytes(serialized_method).size() + args_profiler_size
+	SimusNetProfiler.get_instance()._put_down_traffic(profiler_bytes_size)
+	
 	var identity: SimusNetIdentity = SimusNetIdentity.try_deserialize_from_variant(serialized_identity)
 	if !identity:
 		logger.push_error("identity with %s ID not found on your instance. failed to call rpc." % serialized_identity)
+		SimusNetProfiler.get_instance()._put_rpc_traffic(
+			profiler_bytes_size,
+			serialized_identity,
+			serialized_method,
+			true
+		)
 		return
 	
 	var object: Object = identity.owner
@@ -131,6 +154,13 @@ func _processor_recieve_rpc_from_peer(peer: int, channel: int, serialized_identi
 	if peer == SimusNetConnection.SERVER_ID:
 		if object.has_method(method_name):
 			object.callv(method_name, args)
+		
+		SimusNetProfiler.get_instance()._put_rpc_traffic(
+		profiler_bytes_size,
+		identity,
+		callable,
+		true
+		)
 		return
 	
 	var validated_config: SimusNetRPCConfig = await _validate_callable(callable, true)
@@ -140,6 +170,13 @@ func _processor_recieve_rpc_from_peer(peer: int, channel: int, serialized_identi
 	if !callable:
 		logger.push_error("(identity ID: %s): callable with %s ID not found. failed to call rpc." % [serialized_identity, serialized_method])
 		return
+	
+	SimusNetProfiler.get_instance()._put_rpc_traffic(
+	profiler_bytes_size,
+	identity,
+	callable,
+	true
+	)
 	
 	callable.callv(args)
 	

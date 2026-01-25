@@ -1,0 +1,84 @@
+[gd_scene format=3 uid="uid://cpl14xhl06f51"]
+
+[ext_resource type="Script" uid="uid://brryrtgu36d7a" path="res://addons/simusdev/SimusNet/network_profiler.gd" id="1_1a0sa"]
+[ext_resource type="PackedScene" uid="uid://djemqun1lbojh" path="res://addons/simusdev/SimusNet/profiler/RPC.tscn" id="2_vg5hp"]
+
+[node name="NetworkProfiler" type="Control" unique_id=2125781581]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 512.0
+offset_bottom = 560.0
+script = ExtResource("1_1a0sa")
+
+[node name="EverySecond" type="Timer" parent="." unique_id=1376707513]
+autostart = true
+
+[node name="Panel" type="Panel" parent="." unique_id=2077888393]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TabContainer" type="TabContainer" parent="." unique_id=1690411528]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.90400004
+offset_bottom = 0.15197754
+grow_horizontal = 2
+grow_vertical = 2
+tab_alignment = 1
+current_tab = 0
+
+[node name="RPC" parent="TabContainer" unique_id=2096271579 instance=ExtResource("2_vg5hp")]
+layout_mode = 2
+
+[node name="Vars" type="Control" parent="TabContainer" unique_id=1539673773]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="BottomContainer" type="Control" parent="." unique_id=1851891007]
+layout_mode = 1
+anchor_top = 0.90400004
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 0.15197754
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Right" type="GridContainer" parent="BottomContainer" unique_id=446207935]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.012
+anchor_right = 0.984
+anchor_bottom = 1.0
+offset_left = -0.14400005
+offset_right = 0.19198608
+grow_horizontal = 2
+grow_vertical = 2
+columns = 2
+
+[node name="UpTraffic" type="Label" parent="BottomContainer/Right" unique_id=1465098024]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Up (↑):"
+
+[node name="TotalTraffic" type="Label" parent="BottomContainer/Right" unique_id=431266110]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Total Traffic (⇄) :"
+
+[node name="DownTraffic" type="Label" parent="BottomContainer/Right" unique_id=1508721244]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Down (↓) : "
+
+[node name="Ping" type="Label" parent="BottomContainer/Right" unique_id=282870124]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Ping (↯) : "
+
+[connection signal="timeout" from="EverySecond" to="." method="_on_every_second_timeout"]

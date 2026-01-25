@@ -3,6 +3,7 @@ class_name SimusNetSingleton
 
 @onready var settings: SimusNetSettings = SimusNetSettings.get_or_create()
 
+@export var profiler: SimusNetProfiler
 @export var events: SimusNetEvents
 @export var cache: SimusNetCache
 @export var channels: SimusNetChannels
