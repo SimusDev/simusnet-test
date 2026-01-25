@@ -9,3 +9,5 @@ func _ready() -> void:
 		await SD_Nodes.async_for_ready(vehicle)
 		camera.make_current()
 		camera.reparent(vehicle.get_parent())
+	else:
+		camera.queue_free()
