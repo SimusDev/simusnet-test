@@ -192,11 +192,10 @@ var _ping_request_time: int = 0
 
 @rpc("any_peer", "call_local", "unreliable", SimusNetChannels.BUILTIN.TIME)
 func _receive_ping_request():
-	var current_time: int = Time.get_ticks_msec()
-	_receive_ping_response.rpc_id(multiplayer.get_remote_sender_id(), current_time)
+	_receive_ping_response.rpc_id(multiplayer.get_remote_sender_id())
 
 @rpc("any_peer", "call_local", "unreliable", SimusNetChannels.BUILTIN.TIME)
-func _receive_ping_response(time: int):
+func _receive_ping_response():
 	var current_time: int = Time.get_ticks_msec()
 	_ping = current_time - _ping_request_time
 	_ping = clampi(_ping, 0, 999_999_999)
