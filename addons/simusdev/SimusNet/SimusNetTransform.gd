@@ -26,6 +26,8 @@ func _ready() -> void:
 	if not "transform" in node:
 		return
 	
+	#SimusNetVisibility.set_public_visibility(self, true)
+	
 	node.set_meta(_META, self)
 	
 	SimusNetIdentity.register(self)
@@ -60,7 +62,6 @@ func _process(delta: float) -> void:
 	if node.rotation is Vector3:
 		node.rotation.z = lerp_angle(node.rotation.z, rotation.z, interpolate_speed * delta)
 	node.scale = lerp(node.scale, scale, interpolate_speed * delta)
-	
 
 func _enter_tree() -> void:
 	super()

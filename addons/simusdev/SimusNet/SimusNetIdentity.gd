@@ -134,7 +134,8 @@ func _set_ready() -> void:
 	is_ready = true
 	on_ready.emit()
 	
-	SimusNetVisibility._local_identity_create(self)
+	if is_instance_valid(owner):
+		SimusNetVisibility._local_identity_create(self)
 
 func _tree_exited() -> void:
 	if !is_ready:
@@ -144,7 +145,10 @@ func _tree_exited() -> void:
 
 func _destroy() -> void:
 	_deinitialize_dynamic()
-	SimusNetVisibility._local_identity_delete(self)
+	
+	if is_instance_valid(owner):
+		SimusNetVisibility._local_identity_delete(self)
+	
 	SimusNetCache._uncache_identity(self)
 	
 	_list_by_id.erase(get_unique_id())

@@ -14,6 +14,13 @@ var _down_traffic: int = 0
 var _transform_up_traffic: int = 0
 var _transform_down_traffic: int = 0
 
+var _visibility_up_traffic: int = 0
+var _visibility_down_traffic: int = 0
+var _visibility_total_traffic: int = 0
+
+var _visibility_sent: int = 0
+var _visibility_received: int = 0
+
 var _ping: int = 0
 
 var _timer: Timer
@@ -67,6 +74,16 @@ func _put_up_traffic(size: int) -> void:
 func _put_down_traffic(size: int) -> void:
 	_down_traffic += size
 	_put_total_traffic(size)
+
+func _put_visibility_up_traffic(size: int) -> void:
+	_visibility_up_traffic += size
+	_visibility_total_traffic += size
+	_put_up_traffic(size)
+
+func _put_visibility_down_traffic(size: int) -> void:
+	_visibility_down_traffic += size
+	_visibility_total_traffic += size
+	_put_down_traffic(size)
 
 static func _put_up_packet() -> void:
 	_instance._up_packets += 1
@@ -148,18 +165,35 @@ static func get_up_packets_count() -> int:
 static func get_down_packets_count() -> int:
 	return _instance._down_packets
 
+static func get_visibility_up_traffic() -> int:
+	return _instance._visibility_up_traffic
+
+static func get_visibility_down_traffic() -> int:
+	return _instance._visibility_down_traffic
+
+static func get_visibility_total_traffic() -> int:
+	return _instance._visibility_total_traffic
+
+static func get_visibility_sent_count() -> int:
+	return _instance._visibility_sent
+
+static func get_visibility_received_count() -> int:
+	return _instance._visibility_received
+
 static func send_ping_request_to_server() -> void:
 	var timestamp_ms: int = Time.get_ticks_msec()
-	_instance._receive_ping_request.rpc_id(SimusNet.SERVER_ID, timestamp_ms)
+	_instance._receive_ping_request.rpc_id(SimusNet.SERVER_ID)
 
 static func get_ping() -> int:
 	return _instance._ping
 
 @rpc("any_peer", "call_local", "unreliable", SimusNetChannels.BUILTIN.TIME)
-func _receive_ping_request(request_timestamp_ms: int):
+func _receive_ping_request():
 	var current_time: int = Time.get_ticks_msec()
-	_receive_ping_response.rpc_id(multiplayer.get_remote_sender_id(), current_time - request_timestamp_ms)
+	_receive_ping_response.rpc_id(multiplayer.get_remote_sender_id(), current_time)
 
 @rpc("any_peer", "call_local", "unreliable", SimusNetChannels.BUILTIN.TIME)
-func _receive_ping_response(ping: int):
-	_ping = ping
+func _receive_ping_response(time: int):
+	_ping = time - Time.get_ticks_msec()
+	_ping = clampi(_ping, 0, 999_999_999)
+	

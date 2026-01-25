@@ -11,6 +11,9 @@ class_name SimusNetSettings
 	#time_tickrate = tickrate
 	#on_time_tickrate_changed.emit()
 
+@export_group("Visibility", "visibility")
+@export var visibility_auto_handling: bool = true
+
 signal on_time_tickrate_changed()
 
 #@export_group("Connection", "connection")

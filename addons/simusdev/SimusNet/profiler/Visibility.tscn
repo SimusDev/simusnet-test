@@ -1,0 +1,76 @@
+[gd_scene format=3 uid="uid://dbkexjmy17ak1"]
+
+[ext_resource type="Script" uid="uid://ba5nnudapnvrt" path="res://addons/simusdev/SimusNet/profiler/Visibility.gd" id="1_67s2t"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_67s2t"]
+font_size = 32
+
+[node name="Visibility" type="Control" unique_id=2135028624]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_67s2t")
+metadata/_tab_index = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=744258862]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="TotalObjects" type="Label" parent="VBoxContainer" unique_id=140195175]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Total Traffic (⇄) :"
+label_settings = SubResource("LabelSettings_67s2t")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Panel" type="Panel" parent="VBoxContainer/TotalObjects" unique_id=1811284644]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="UpTraffic" type="Label" parent="VBoxContainer" unique_id=1797638418]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Sent 0 Objects (↑) :"
+label_settings = SubResource("LabelSettings_67s2t")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Panel" type="Panel" parent="VBoxContainer/UpTraffic" unique_id=1102730109]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DownTraffic" type="Label" parent="VBoxContainer" unique_id=328432930]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Received 0 Objects (↓) : "
+label_settings = SubResource("LabelSettings_67s2t")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Panel" type="Panel" parent="VBoxContainer/DownTraffic" unique_id=11458238]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
