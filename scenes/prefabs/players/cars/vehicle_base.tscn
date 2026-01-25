@@ -9,6 +9,10 @@
 [ext_resource type="Script" uid="uid://drfjprcymh3jv" path="res://addons/gevp/scripts/camera.gd" id="6_sjhvn"]
 [ext_resource type="PackedScene" uid="uid://bagjkrjkigmt" path="res://3d/skyline/mega_super_body_new_ww.glb" id="7_5s4i8"]
 [ext_resource type="PackedScene" uid="uid://dgablj6dgsx6c" path="res://3d/skyline/wheel.glb" id="9_un5s0"]
+[ext_resource type="PackedScene" uid="uid://b2hlchrj4h2b7" path="res://addons/gevp/scenes/engine_sound.tscn" id="10_un5s0"]
+[ext_resource type="Script" uid="uid://d0sttdxi6n81k" path="res://component/VehicleDriftDetector.gd" id="11_2imo2"]
+[ext_resource type="AudioStream" uid="uid://ckrggrptig4w3" path="res://audio/vehicle/engine/0/onlow.wav" id="11_fddof"]
+[ext_resource type="AudioStream" uid="uid://c2o15ego21c1v" path="res://audio/vehicle/transmission/tw_offhigh.wav" id="11_n43dm"]
 [ext_resource type="Script" uid="uid://cgpsyyx2x8kki" path="res://component/ui/MP_CanvasLayer.gd" id="10_un5s0"]
 [ext_resource type="PackedScene" uid="uid://b36ise4k4tg7d" path="res://scenes/prefabs/player_ui/player_ui.tscn" id="11_2imo2"]
 
@@ -160,6 +164,16 @@ script = ExtResource("2_tvnau")
 node = NodePath("..")
 metadata/_custom_type_script = "uid://d1jwapkumdp1u"
 
+[node name="VehicleSound" parent="." unique_id=296135214 node_paths=PackedStringArray("vehicle", "vehicle_drift_detector") instance=ExtResource("10_un5s0")]
+vehicle = NodePath("..")
+vehicle_drift_detector = NodePath("../VehicleDriftDetector")
+transmission = ExtResource("11_n43dm")
+engine_low = ExtResource("11_fddof")
+
+[node name="VehicleDriftDetector" type="Node" parent="." unique_id=205771384 node_paths=PackedStringArray("vehicle")]
+script = ExtResource("11_2imo2")
+vehicle = NodePath("..")
+metadata/_custom_type_script = "uid://d0sttdxi6n81k"
 [node name="MP_PlayerCanvasLayer" type="CanvasLayer" parent="." unique_id=1824422119 node_paths=PackedStringArray("player")]
 script = ExtResource("10_un5s0")
 player = NodePath("..")
