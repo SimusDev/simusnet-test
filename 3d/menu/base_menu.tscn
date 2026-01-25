@@ -63,8 +63,8 @@ shader_parameter/cirrus_sky_tint_fade = 0.5
 shader_parameter/cirrus_intensity = 10.0
 shader_parameter/cirrus_size = 1.0
 shader_parameter/cirrus_uv = Vector2(0.16, 0.11)
-shader_parameter/cirrus_position1 = Vector2(0.0014142138, 0.0014142138)
-shader_parameter/cirrus_position2 = Vector2(0.0014142138, 0.0014142138)
+shader_parameter/cirrus_position1 = Vector2(0.38570207, 0.38570207)
+shader_parameter/cirrus_position2 = Vector2(0.38570207, 0.38570207)
 shader_parameter/cirrus_day_color = Color(0.824, 0.875, 1, 1)
 shader_parameter/cirrus_horizon_light_color = Color(0.98, 0.43, 0.15, 1)
 shader_parameter/cirrus_night_color = Color(0.09, 0.094, 0.129, 1)
@@ -111,6 +111,13 @@ tonemap_white = 6.0
 
 [node name="GLTF_SceneRootNode" parent="." unique_id=441902115 instance=ExtResource("1_pqkb6")]
 
+[node name="OmniLight3D" type="OmniLight3D" parent="GLTF_SceneRootNode/Sketchfab_Scene" parent_id_path=PackedInt32Array(441902115, 1313162987) index="2" unique_id=126282441]
+transform = Transform3D(20.000004, -2.7120113e-06, -1.1920929e-07, 2.3171306e-06, 20.000002, -9.536743e-07, 2.3841858e-07, 9.536743e-07, 20.000002, -0.2074697, 0.8439646, -0.09410095)
+light_color = Color(1, 0.8039216, 0, 1)
+light_energy = 0.21
+light_size = 0.269
+shadow_enabled = true
+
 [node name="Camera3D" type="Camera3D" parent="." unique_id=2122947985]
 transform = Transform3D(0.6170652, 0.0014024915, 0.78691083, 0, 0.99999845, -0.0017822722, -0.7869121, 0.0010997781, 0.6170642, 3.8543472, 0.45225963, 3.4623241)
 fov = 42.563095
@@ -155,3 +162,7 @@ game_time_enabled = false
 dome_path = NodePath("../SkyDome")
 minutes_per_day = 1.0
 current_time = 21.6
+
+[node name="amb" type="AudioStreamPlayer" parent="." unique_id=1828020031]
+
+[editable path="GLTF_SceneRootNode"]
