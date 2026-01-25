@@ -3,13 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://bglulose6qdii" path="res://src/textures/general/grass/grass1.png" id="1_5qs7n"]
 [ext_resource type="Texture2D" uid="uid://c0ggfqo17r4au" path="res://addons/kenney_prototype_textures/light/texture_07.png" id="1_7o7j1"]
 [ext_resource type="Texture2D" uid="uid://dndfhyh82p3rv" path="res://src/textures/general/stone/0.png" id="3_1dl0r"]
-[ext_resource type="Script" uid="uid://dgp0pmmh5blth" path="res://component/object/CT_ObjectSpawn.gd" id="7_6rygw"]
-[ext_resource type="Texture2D" uid="uid://dtmwlx74fxbd7" path="res://src/textures/general/metal1.jpeg" id="8_5qs7n"]
-[ext_resource type="Resource" uid="uid://c1dipp0t421cv" path="res://src/objects/military_box.tres" id="8_6rygw"]
-[ext_resource type="Resource" uid="uid://cic3i440xvcwv" path="res://src/objects/item/weapon/crowbar.tres" id="8_p870i"]
-[ext_resource type="Resource" uid="uid://c8wy5klyargde" path="res://src/objects/general/craft/crafting_table.tres" id="9_p870i"]
-[ext_resource type="Resource" uid="uid://buqwpbav7fdx5" path="res://src/objects/general/furnace/furnace_tier1.tres" id="10_hxoi0"]
-[ext_resource type="Resource" uid="uid://ce1e2a4kac0ar" path="res://src/objects/item/coal.tres" id="11_hq2lk"]
+[ext_resource type="PackedScene" uid="uid://c0gcmsl4fll2x" path="res://scenes/prefabs/base_objects_tables.tscn" id="6_ypthj"]
 [ext_resource type="Script" uid="uid://fc6kpuv5syvv" path="res://component/level/CT_SpawnPoint3D.gd" id="13_1dl0r"]
 [ext_resource type="PackedScene" uid="uid://c04sd4mj5rmef" path="res://scenes/prefabs/lighting/omni_light_3d.tscn" id="16_jk8u2"]
 
@@ -42,14 +36,7 @@ uv1_triplanar = true
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jk8u2"]
 emission_enabled = true
 emission = Color(1, 1, 1, 1)
-emission_energy_multiplier = 3.086212
-
-[sub_resource type="BoxMesh" id="BoxMesh_6rygw"]
-size = Vector3(2, 1, 4)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p870i"]
-albedo_texture = ExtResource("8_5qs7n")
-uv1_triplanar = true
+emission_energy_multiplier = 0.0030111219
 
 [node name="MainLevel" type="Node3D" unique_id=658119017]
 
@@ -136,8 +123,8 @@ mesh = SubResource("BoxMesh_n0uqs")
 surface_material_override/0 = SubResource("StandardMaterial3D_jk8u2")
 
 [node name="OmniLight3D" parent="CubeLight" unique_id=2105551723 instance=ExtResource("16_jk8u2")]
-light_energy = 3.086212
-light_indirect_energy = 3.086212
+light_energy = 0.0030111219
+light_indirect_energy = 0.0030111219
 
 [node name="cLampComponent" parent="CubeLight/OmniLight3D" index="0" unique_id=1203643786 node_paths=PackedStringArray("MeshInstances")]
 Lit = true
@@ -159,105 +146,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.39063, 1.9947934, 0)
 script = ExtResource("13_1dl0r")
 metadata/_custom_type_script = "uid://fc6kpuv5syvv"
 
-[node name="CT_ObjectSpawn4" type="Node3D" parent="." unique_id=1498855854]
-transform = Transform3D(0.025005933, 0.57318854, -0.819042, -0.99904984, 0.043584563, 0, 0.03569758, 0.8182636, 0.5737337, 21.376541, 1.8699096, 3)
-script = ExtResource("7_6rygw")
-object = ExtResource("8_p870i")
-metadata/_custom_type_script = "uid://dgp0pmmh5blth"
-
-[node name="CT_ObjectSpawn5" type="Node3D" parent="." unique_id=387745922]
-transform = Transform3D(0.04334715, 0.9936078, -0.10423347, -0.99904984, 0.043584563, -1.5255847e-09, 0.004542956, 0.10413423, 0.9945531, 21.376541, 1.8699096, 1.9445581)
-script = ExtResource("7_6rygw")
-object = ExtResource("8_p870i")
-metadata/_custom_type_script = "uid://dgp0pmmh5blth"
-
-[node name="CT_ObjectSpawn6" type="Node3D" parent="." unique_id=860876991]
-transform = Transform3D(0.013070564, 0.29960504, 0.95397395, -0.9990498, 0.04358456, -2.1249196e-09, -0.04157853, -0.9530673, 0.29989022, 21.376541, 1.8699096, 0.7689302)
-script = ExtResource("7_6rygw")
-object = ExtResource("8_p870i")
-metadata/_custom_type_script = "uid://dgp0pmmh5blth"
-
 [node name="Label3D" type="Label3D" parent="." unique_id=2036408109]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 22.745058, 3.4111304, 1.7878444)
 text = "MPT 2.0"
 font_size = 128
 
-[node name="table" type="CSGMesh3D" parent="." unique_id=310519402]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.722687, 1.2538896, 1.7968919)
-use_collision = true
-mesh = SubResource("BoxMesh_6rygw")
-material = SubResource("StandardMaterial3D_p870i")
-
-[node name="table2" type="CSGMesh3D" parent="." unique_id=202718267]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 20.785606, 1.2538896, 11.747625)
-use_collision = true
-mesh = SubResource("BoxMesh_6rygw")
-material = SubResource("StandardMaterial3D_p870i")
-
-[node name="CT_ObjectSpawn" type="Node3D" parent="table2" unique_id=871161086]
-transform = Transform3D(-0.0094246, 0, -0.99995565, 0, 1, 0, 0.99995565, 0, -0.0094246, 0, 0.883276, -0.142519)
-script = ExtResource("7_6rygw")
-object = ExtResource("8_6rygw")
-metadata/_custom_type_script = "uid://dgp0pmmh5blth"
-
-[node name="table3" type="CSGMesh3D" parent="." unique_id=656112420]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 16.699537, 1.2538896, 11.747625)
-use_collision = true
-mesh = SubResource("BoxMesh_6rygw")
-material = SubResource("StandardMaterial3D_p870i")
-
-[node name="CT_ObjectSpawn" type="Node3D" parent="table3" unique_id=163460730]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0655136, -1.108141)
-script = ExtResource("7_6rygw")
-object = ExtResource("9_p870i")
-metadata/_custom_type_script = "uid://dgp0pmmh5blth"
-
-[node name="CT_ObjectSpawn2" type="Node3D" parent="table3" unique_id=327122927]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5698621, 0.5019417)
-script = ExtResource("7_6rygw")
-object = ExtResource("10_hxoi0")
-metadata/_custom_type_script = "uid://dgp0pmmh5blth"
-
-[node name="table4" type="CSGMesh3D" parent="." unique_id=1216179766]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 12.724014, 1.2538896, 11.747625)
-use_collision = true
-mesh = SubResource("BoxMesh_6rygw")
-material = SubResource("StandardMaterial3D_p870i")
-
-[node name="CT_ObjectSpawn" type="Node3D" parent="table4" unique_id=1229098409]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.58342266, 0.9837179, -1.4105988)
-script = ExtResource("7_6rygw")
-object = ExtResource("11_hq2lk")
-metadata/_custom_type_script = "uid://dgp0pmmh5blth"
-
-[node name="CT_ObjectSpawn2" type="Node3D" parent="table4" unique_id=1881728219]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.58342266, 0.9837179, -0.841691)
-script = ExtResource("7_6rygw")
-object = ExtResource("11_hq2lk")
-metadata/_custom_type_script = "uid://dgp0pmmh5blth"
-
-[node name="CT_ObjectSpawn3" type="Node3D" parent="table4" unique_id=1435277897]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.58342266, 0.9837179, -0.23933983)
-script = ExtResource("7_6rygw")
-object = ExtResource("11_hq2lk")
-metadata/_custom_type_script = "uid://dgp0pmmh5blth"
-
-[node name="CT_ObjectSpawn4" type="Node3D" parent="table4" unique_id=1566807418]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.58342266, 0.9837179, 0.32629108)
-script = ExtResource("7_6rygw")
-object = ExtResource("11_hq2lk")
-metadata/_custom_type_script = "uid://dgp0pmmh5blth"
-
-[node name="CT_ObjectSpawn5" type="Node3D" parent="table4" unique_id=1688450573]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.58342266, 0.9837179, 0.84934616)
-script = ExtResource("7_6rygw")
-object = ExtResource("11_hq2lk")
-metadata/_custom_type_script = "uid://dgp0pmmh5blth"
-
-[node name="CT_ObjectSpawn6" type="Node3D" parent="table4" unique_id=759521525]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.58342266, 0.9837179, 1.4457512)
-script = ExtResource("7_6rygw")
-object = ExtResource("11_hq2lk")
-metadata/_custom_type_script = "uid://dgp0pmmh5blth"
+[node name="base_objects_tables" parent="." unique_id=1906786045 instance=ExtResource("6_ypthj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.02505, 0.7, -0.31052685)
 
 [editable path="CubeLight/OmniLight3D"]

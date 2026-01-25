@@ -29,7 +29,7 @@ func _ready() -> void:
 	sprite.pixel_size = 0.05
 	sprite.billboard = BaseMaterial3D.BILLBOARD_ENABLED
 
-static func local_create(res: R_SoundObject, parent:Node3D, pos: Vector3) -> void:
+static func local_create(res: R_SoundObject, parent:Node3D, pos: Vector3, pitch:float = 1.0) -> void:
 	if res.sources.size() == 0:
 		return
 	
@@ -45,6 +45,7 @@ static func local_create(res: R_SoundObject, parent:Node3D, pos: Vector3) -> voi
 		
 		var src_player:AudioStreamPlayer3D = AudioStreamPlayer3D.new()
 		src_player.stream = source.streams.pick_random()
+		src_player.pitch_scale = pitch
 		src_player.finished.connect(
 			func():
 				if is_instance_valid(src_player):
@@ -54,12 +55,13 @@ static func local_create(res: R_SoundObject, parent:Node3D, pos: Vector3) -> voi
 		inst.add_child(src_player)
 		src_player.play()
 
-static func create(res: R_SoundObject, parent:Node3D, pos: Vector3) -> void:
+static func create(res: R_SoundObject, parent:Node3D, pos: Vector3, pitch:float = 1.0) -> void:
 	SimusNetRPC.invoke_all(
 		local_create,
 		res,
 		parent,
-		pos
+		pos,
+		pitch
 		)
 
 static func is_src_audible(target_pos: Vector3, max_dist: float) -> bool:

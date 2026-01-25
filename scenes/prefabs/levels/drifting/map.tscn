@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://dxnvsoi1pvfeu" path="res://addons/gevp/scenes/track.tscn" id="1_sidb7"]
 [ext_resource type="Script" uid="uid://fc6kpuv5syvv" path="res://component/level/CT_SpawnPoint3D.gd" id="2_li76b"]
+[ext_resource type="PackedScene" uid="uid://c0gcmsl4fll2x" path="res://scenes/prefabs/base_objects_tables.tscn" id="3_p5kfj"]
 
 [node name="Map" type="Node3D" unique_id=1782495043]
 
@@ -11,3 +12,11 @@
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.9031692, 0)
 script = ExtResource("2_li76b")
 metadata/_custom_type_script = "uid://fc6kpuv5syvv"
+
+[node name="player" type="Node3D" parent="." unique_id=937235654]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.159986, 2.9031692, 0)
+script = ExtResource("2_li76b")
+metadata/_custom_type_script = "uid://fc6kpuv5syvv"
+
+[node name="base_objects" parent="." unique_id=1906786045 instance=ExtResource("3_p5kfj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 0, 0)

@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://ccllc8l5eim8a"]
+
+[ext_resource type="Script" uid="uid://c0sj4ct7dllx5" path="res://component/item/weapon/W_WeaponFirearm.gd" id="1_ns5nu"]
+[ext_resource type="PackedScene" uid="uid://dtn87yin11nfn" path="res://src/objects/item/weapon/rv78/Rv78Model.tscn" id="2_qvwhy"]
+[ext_resource type="Script" uid="uid://htgmo1akqmdg" path="res://component/animation/weapon_animator.gd" id="3_kkwcw"]
+[ext_resource type="Script" uid="uid://dgxlg0w7n7ara" path="res://component/animation/r_animation_hook.gd" id="4_gabp7"]
+[ext_resource type="Script" uid="uid://dy2wtljxjfh8j" path="res://component/animation/r_animation_hook_signal.gd" id="5_pm1cq"]
+[ext_resource type="AnimationLibrary" uid="uid://5sy5gf1nxohn" path="res://src/objects/item/weapon/rv78/anim_lib.res" id="6_amn3x"]
+
+[sub_resource type="Resource" id="Resource_mlmif"]
+script = ExtResource("5_pm1cq")
+name = &"event_pick"
+animations = Array[StringName]([&"pick"])
+
+[sub_resource type="Resource" id="Resource_n7jxm"]
+script = ExtResource("5_pm1cq")
+name = &"event_fire"
+animations = Array[StringName]([&"fire"])
+
+[sub_resource type="Resource" id="Resource_q4lvy"]
+script = ExtResource("5_pm1cq")
+name = &"event_reload"
+animations = Array[StringName]([&"reload"])
+
+[sub_resource type="Resource" id="Resource_woxxm"]
+script = ExtResource("5_pm1cq")
+name = &"event_inspect"
+animations = Array[StringName]([&"inspect"])
+
+[node name="Rv78View" type="Node3D" unique_id=129659672 node_paths=PackedStringArray("muzzle_point")]
+script = ExtResource("1_ns5nu")
+muzzle_point = NodePath("Rv78Model/Muzzle")
+metadata/_custom_type_script = "uid://c0sj4ct7dllx5"
+
+[node name="Rv78Model" parent="." unique_id=111857276 instance=ExtResource("2_qvwhy")]
+transform = Transform3D(0.9070441, -0.39146915, 0.1549936, 0, 0.3681245, 0.92977643, -0.42103586, -0.84334815, 0.33390513, 0.31, -0.585, -0.465)
+
+[node name="Muzzle" type="Marker3D" parent="Rv78Model" unique_id=164668055]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.18785736, -0.87362874)
+
+[node name="CT_WeaponAnimator" type="Node" parent="." unique_id=941445766 node_paths=PackedStringArray("player")]
+script = ExtResource("3_kkwcw")
+hooks = Array[ExtResource("4_gabp7")]([SubResource("Resource_mlmif"), SubResource("Resource_n7jxm"), SubResource("Resource_q4lvy"), SubResource("Resource_woxxm")])
+player = NodePath("AnimationPlayer")
+initialized = true
+metadata/_custom_type_script = "uid://htgmo1akqmdg"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CT_WeaponAnimator" unique_id=606362649]
+root_node = NodePath("../..")
+libraries/ = ExtResource("6_amn3x")

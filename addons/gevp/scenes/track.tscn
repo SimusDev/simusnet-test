@@ -1,4 +1,7 @@
-[gd_scene load_steps=16 format=3 uid="uid://dxnvsoi1pvfeu"]
+[gd_scene format=3 uid="uid://dxnvsoi1pvfeu"]
+
+[ext_resource type="Texture2D" uid="uid://dndfhyh82p3rv" path="res://src/textures/general/stone/0.png" id="1_k046m"]
+[ext_resource type="Texture2D" uid="uid://bglulose6qdii" path="res://src/textures/general/grass/grass1.png" id="2_ermea"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_62kxx"]
 size = Vector3(15, 1, 10)
@@ -13,32 +16,15 @@ _data = {
 }
 point_count = 23
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_k5faj"]
-frequency = 0.1
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_5xmjm"]
-noise = SubResource("FastNoiseLite_k5faj")
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c4708"]
-albedo_color = Color(0.305882, 0.305882, 0.305882, 1)
-albedo_texture = SubResource("NoiseTexture2D_5xmjm")
+albedo_texture = ExtResource("1_k046m")
 uv1_scale = Vector3(0.5, 0.5, 0.5)
 uv1_triplanar = true
 
-[sub_resource type="Gradient" id="Gradient_u6ph6"]
-colors = PackedColorArray(0.746094, 0.746094, 0.746094, 1, 1, 1, 1, 1)
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_jwgtv"]
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_esu3j"]
-seamless = true
-color_ramp = SubResource("Gradient_u6ph6")
-noise = SubResource("FastNoiseLite_jwgtv")
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pklv7"]
-albedo_color = Color(0, 0.4, 0.00784314, 1)
-albedo_texture = SubResource("NoiseTexture2D_esu3j")
-uv1_scale = Vector3(100, 100, 100)
+albedo_texture = ExtResource("2_ermea")
+uv1_scale = Vector3(0.15, 0.15, 0.15)
+uv1_triplanar = true
 
 [sub_resource type="BoxMesh" id="BoxMesh_h2wbr"]
 material = SubResource("StandardMaterial3D_pklv7")
@@ -47,35 +33,22 @@ size = Vector3(1000, 1, 1000)
 [sub_resource type="BoxShape3D" id="BoxShape3D_28hur"]
 size = Vector3(1000, 1, 1000)
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_opxhh"]
-sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
-ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+[node name="Demo" type="Node3D" unique_id=1566065310]
 
-[sub_resource type="Sky" id="Sky_fr4m5"]
-sky_material = SubResource("ProceduralSkyMaterial_opxhh")
-
-[sub_resource type="Environment" id="Environment_hn4xq"]
-background_mode = 2
-sky = SubResource("Sky_fr4m5")
-tonemap_mode = 2
-glow_enabled = true
-
-[node name="Demo" type="Node3D"]
-
-[node name="StaticBody3D2" type="StaticBody3D" parent="." groups=["Road"]]
+[node name="StaticBody3D2" type="StaticBody3D" parent="." unique_id=1193070625 groups=["Road"]]
 transform = Transform3D(1, 0, 0, 0, 0.984808, 0.173648, 0, -0.173648, 0.984808, 366.196, 0.316678, 79.3629)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D2"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D2" unique_id=158706016]
 mesh = SubResource("BoxMesh_62kxx")
 skeleton = NodePath("../../..")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D2"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D2" unique_id=1676159489]
 shape = SubResource("BoxShape3D_mw024")
 
-[node name="Path3D" type="Path3D" parent="."]
+[node name="Path3D" type="Path3D" parent="." unique_id=1303114424]
 curve = SubResource("Curve3D_qnvkk")
 
-[node name="CSGPolygon3D" type="CSGPolygon3D" parent="Path3D" groups=["Road"]]
+[node name="CSGPolygon3D" type="CSGPolygon3D" parent="Path3D" unique_id=87490938 groups=["Road"]]
 use_collision = true
 polygon = PackedVector2Array(-8, -0.1, -4, 0.1, 4, 0.1, 8, -0.1)
 mode = 2
@@ -84,25 +57,20 @@ path_interval_type = 0
 path_interval = 1.0
 path_simplify_angle = 1.0
 path_rotation = 2
+path_rotation_accurate = false
 path_local = false
 path_continuous_u = true
 path_u_distance = 3.0
 path_joined = false
 material = SubResource("StandardMaterial3D_c4708")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="." groups=["Grass"]]
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=667565384 groups=["Grass"]]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D" unique_id=1852182791]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 mesh = SubResource("BoxMesh_h2wbr")
 skeleton = NodePath("../../..")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=391644454]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 shape = SubResource("BoxShape3D_28hur")
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_hn4xq")
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.527563, -0.469868, 0.707743, -1.33511e-08, 0.833114, 0.553101, -0.849516, -0.291796, 0.43952, 0, 2.26991, 0)

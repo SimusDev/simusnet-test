@@ -3,6 +3,7 @@ class_name CT_ItemAnimator extends Node
 
 @export var _reset: bool = false : set = reset
 
+@export var prefix:StringName = ""
 @export var hooks: Array[R_AnimationHook] #= []
 @export var player: AnimationPlayer
 var item: W_Item

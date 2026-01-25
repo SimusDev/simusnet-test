@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://s1u8rslgdufh"]
+
+[ext_resource type="PackedScene" uid="uid://dtn87yin11nfn" path="res://src/objects/item/weapon/rv78/Rv78Model.tscn" id="1_m1scc"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6bycb"]
+size = Vector3(0.115722656, 0.39849854, 0.97314453)
+
+[node name="Rv78World" type="RigidBody3D" unique_id=893072769]
+
+[node name="Rv78Model" parent="." unique_id=111857276 instance=ExtResource("1_m1scc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.4)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=404351731]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0007324219, 0.059661865, 0.013427734)
+shape = SubResource("BoxShape3D_6bycb")

@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://ca6mvf3lwtx3d"]
+
+[ext_resource type="PackedScene" uid="uid://cqtc65hr88bam" path="res://src/objects/item/flashlight/FlashlightModel.tscn" id="1_gq5nb"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_co2lg"]
+height = 0.4506836
+radius = 0.08691406
+
+[node name="FlashlightWorld" type="RigidBody3D" unique_id=1135574025]
+
+[node name="FlashlightModel" parent="." unique_id=697831538 instance=ExtResource("1_gq5nb")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1847251415]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, -2.505188e-09, -0.05731201)
+shape = SubResource("CylinderShape3D_co2lg")

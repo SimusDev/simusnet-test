@@ -8,7 +8,7 @@ func init() -> void:
 		target.connect(name, apply_random)
 		return
 	
-	target.connect(name, apply)
+	target.connect(animator.prefix + name, apply)
 
 static func create(signal_name: String, animation_names: Array[StringName] = []) -> R_AnimationHookSignal:
 	var a := R_AnimationHookSignal.new()

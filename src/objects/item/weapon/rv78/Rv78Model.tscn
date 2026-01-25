@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://dtn87yin11nfn"]
+
+[ext_resource type="PackedScene" uid="uid://dgwbo74j0svdb" path="res://3d/rv78/rv78_model.glb" id="1_y538l"]
+
+[node name="Rv78Model" unique_id=111857276 instance=ExtResource("1_y538l")]
+
+[node name="Sketchfab_model" parent="." index="0" unique_id=1524087599]
+transform = Transform3D(-1, 8.742278e-08, -1.9411756e-23, 0, 2.220446e-16, 1, 8.742278e-08, 1, -2.220446e-16, 0, 0, 0)

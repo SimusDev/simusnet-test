@@ -24,6 +24,8 @@ func _physics_process(delta: float) -> void:
 	var velocity = vehicle.local_velocity
 	var speed_kmh = vehicle.speed * 3.6
 	
+	#speed local_velocity throttle_input local_velocity
+	
 	if speed_kmh < min_speed:
 		is_drifting = false
 		return

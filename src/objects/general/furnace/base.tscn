@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cgtkgpuy2qjin"]
 
-[ext_resource type="Script" path="res://component/entity/CT_Furnace.gd" id="2_61opj"]
+[ext_resource type="Script" uid="uid://c4ym8crgils7j" path="res://component/entity/CT_Furnace.gd" id="2_61opj"]
 [ext_resource type="AudioStream" uid="uid://sghajimu5uxs" path="res://audio/sfx/furnace.ogg" id="2_v2g0i"]
 [ext_resource type="PackedScene" uid="uid://cxffweq6i8adm" path="res://src/ui/backpacks/furnace.tscn" id="3_mj5vm"]
 [ext_resource type="Script" uid="uid://dehqcsswxyu8a" path="res://component/inventory/CT_Inventory.gd" id="3_v2g0i"]
@@ -23,7 +23,6 @@ metadata/_custom_type_script = "uid://dehqcsswxyu8a"
 
 [node name="Audio" type="AudioStreamPlayer3D" parent="." unique_id=1522678353]
 stream = ExtResource("2_v2g0i")
-unit_size = 5.23
-max_distance = 5.0
+max_distance = 15.0
 bus = &"Game"
 parameters/looping = true

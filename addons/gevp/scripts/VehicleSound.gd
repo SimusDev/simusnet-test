@@ -66,5 +66,7 @@ func _update_transmission_sound() -> void:
 	transmission_player.volume_db = linear_to_db(speed_normalized * 0.5)
 
 func _update_wheels_sound() -> void:
-	var target_vol = 1.0 if vehicle_drift_detector.is_drifting else 0.0
-	wheels_player.volume_db = lerp(wheels_player.volume_db, linear_to_db(target_vol), 0.2)
+	var target_vol = 1.0 if vehicle_drift_detector.is_drifting else 0.01
+	var vol = lerp(wheels_player.volume_db, linear_to_db(target_vol), 0.2)
+	if vol:
+		wheels_player.volume_db = lerp(wheels_player.volume_db, linear_to_db(target_vol), 0.2)

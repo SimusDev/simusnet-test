@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://c04w24gdmfpdp"]
+
+[ext_resource type="Script" uid="uid://d0q02rkjl2np2" path="res://component/item/W_Item.gd" id="1_f1nqv"]
+[ext_resource type="PackedScene" uid="uid://cqtc65hr88bam" path="res://src/objects/item/flashlight/FlashlightModel.tscn" id="2_caauh"]
+
+[node name="FlashlightView" type="Node3D" unique_id=901255195]
+script = ExtResource("1_f1nqv")
+metadata/_custom_type_script = "uid://d0q02rkjl2np2"
+
+[node name="FlashlightModel" parent="." unique_id=697831538 instance=ExtResource("2_caauh")]
+transform = Transform3D(0.99888986, 0.00057549955, 0.047102936, 0, 0.9999254, -0.012217001, -0.047106452, 0.012203438, 0.9988153, 0.345, -0.11, -0.235)
+
+[node name="OmniLight3D" type="SpotLight3D" parent="FlashlightModel" unique_id=1515575096]
+transform = Transform3D(1, 6.4028427e-10, 0, -6.9849193e-10, 1.0000001, 1.1175871e-08, 0, -1.1175871e-08, 1.0000001, 0.0034427047, -0.0020905212, -0.25255945)
+shadow_enabled = true
+spot_range = 20.0
