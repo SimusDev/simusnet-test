@@ -293,7 +293,7 @@ func _recieve_send_packet_local(packet: Variant, from_peer: int) -> void:
 	
 	for id in data:
 		var identity: SimusNetIdentity = SimusNetIdentity.try_deserialize_from_variant(id)
-		if !identity:
+		if !is_instance_valid(identity.owner):
 			logger.debug_error("recieve vars from peer(%s), identity with %s ID was not found." % [from_peer, id])
 			continue
 		
