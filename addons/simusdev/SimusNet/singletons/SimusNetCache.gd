@@ -39,15 +39,10 @@ var _unique_id_queue: Array = []
 
 signal on_unique_id_received(generated_id: Variant, unique_id: Variant)
 
-static func request_unique_id(id: Variant) -> int:
-	if instance._received_generated_unique_id == id:
-		return instance._received_unique_id
-	
+static func request_unique_id(id: Variant) -> void:
 	if !instance._unique_id_queue.has(id):
 		instance._unique_id_queue.append(id)
 	
-	await instance._on_unique_id_received
-	return await request_unique_id(id)
 
 func _process(delta: float) -> void:
 	if _unique_id_queue.is_empty() or SimusNetConnection.is_server():
