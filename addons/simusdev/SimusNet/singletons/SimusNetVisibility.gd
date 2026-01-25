@@ -49,7 +49,7 @@ func _parse_identities_from_packet(packet: PackedByteArray) -> Array[SimusNetIde
 	var array: Array = SimusNetDecompressor.parse(packet)
 	for i in array:
 		var id: SimusNetIdentity = SimusNetIdentity.try_deserialize_from_variant(i)
-		if id:
+		if is_instance_valid(id.owner):
 			result.append(id)
 	return result
 
