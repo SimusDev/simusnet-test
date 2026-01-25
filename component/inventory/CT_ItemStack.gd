@@ -17,6 +17,9 @@ signal on_quantity_changed()
 var _slot: CT_InventorySlot
 var _inventory: CT_Inventory
 
+func get_slot() -> CT_InventorySlot:
+	return _slot
+
 func get_inventory() -> CT_Inventory:
 	return _inventory
 

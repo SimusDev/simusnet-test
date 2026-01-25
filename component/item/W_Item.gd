@@ -17,12 +17,15 @@ var entity_head: CT_EntityHead
 var _logger: SD_Logger = SD_Logger.new(self)
 
 var inventory: CT_Inventory
+var stack: CT_ItemStack
 
 func _enter_tree() -> void:
 	event_pick.emit()
 	print("Sexxx")
 
 func _ready() -> void:
+	stack = SD_ECS.find_first_component_by_script(self, [CT_ItemStack])
+	
 	inventory = SD_ECS.node_find_above_by_component(self, CT_Inventory)
 	
 	if !inventory:

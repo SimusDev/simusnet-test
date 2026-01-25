@@ -11,7 +11,7 @@ var _down_traffic: int = 0
 var _ping: int = 0
 
 var _timer: Timer
-var _timer_tickrate: float = 0.1
+var _timer_tickrate: float = 0.2
 
 var _rpcs_profiler: Dictionary[String, Dictionary] = {}
 var _vars_profiler: Dictionary[Dictionary, Dictionary] = {}
@@ -24,12 +24,16 @@ func _ready() -> void:
 	_instance = self
 
 func initialize() -> void:
+	process_mode = Node.PROCESS_MODE_DISABLED
+	
 	SimusNetEvents.event_connected.listen(_on_connected)
 	SimusNetEvents.event_disconnected.listen(_on_disconnected)
 
 func _on_connected() -> void:
 	if is_instance_valid(_timer):
 		return
+	
+	process_mode = Node.PROCESS_MODE_PAUSABLE
 	
 	_timer = Timer.new()
 	_timer.autostart = true
@@ -40,11 +44,12 @@ func _on_connected() -> void:
 	_timer.start()
 
 func _on_disconnected() -> void:
+	process_mode = Node.PROCESS_MODE_DISABLED
+	
 	if is_instance_valid(_timer):
 		_timer.stop()
 		_timer.queue_free()
 		_timer = null
-
 
 func _put_total_traffic(size: int) -> void:
 	_total_traffic += size
@@ -62,7 +67,13 @@ func _put_rpc_traffic(size: int, identity: Variant, method: Variant, receive: bo
 	
 	var identity_name: String = str(identity)
 	if identity is SimusNetIdentity:
-		identity_name = str(identity.get_generated_unique_id())
+		if is_instance_valid(identity.owner):
+			var obj_script: Variant = owner.get_script()
+			if obj_script is Script:
+				identity_name = obj_script.get_global_name()
+			else:
+				identity_name = identity.get_generated_unique_id()
+			 
 	
 	var method_name: String = str(method)
 	
@@ -92,10 +103,8 @@ func _put_rpc_traffic(size: int, identity: Variant, method: Variant, receive: bo
 		on_rpc_profiler_add.emit(key, data)
 
 func _timer_tick() -> void:
-	_down_traffic = move_toward(_down_traffic, 0.0, get_process_delta_time())
-	_up_traffic = move_toward(_up_traffic, 0.0, get_process_delta_time())
-	print(_down_traffic)
-	print(_up_traffic)
+	_down_traffic = _down_traffic / 2
+	_up_traffic = _up_traffic / 2
 
 static func get_instance() -> SimusNetProfiler:
 	return _instance
