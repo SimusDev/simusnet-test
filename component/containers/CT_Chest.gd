@@ -1,6 +1,9 @@
 extends Node
 class_name CT_Chest
 
+signal event_open
+signal event_close
+
 @export var root: Node3D
 @export var inventory: CT_Inventory
 

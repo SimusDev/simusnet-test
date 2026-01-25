@@ -2,6 +2,45 @@
 
 [ext_resource type="PackedScene" uid="uid://cjtjfc4gua47p" path="res://3d/ussr_military_box/ussr_military_box.glb" id="1_natyg"]
 
+[sub_resource type="Animation" id="Animation_natyg"]
+length = 0.001
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sketchfab_model/7e44f1f3ec664c409be3cdb0204f60a9_fbx/RootNode/Box/Object_4/Skeleton3D:door_01")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1)
+
+[sub_resource type="Animation" id="Animation_6a16w"]
+resource_name = "close"
+length = 0.1333
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sketchfab_model/7e44f1f3ec664c409be3cdb0204f60a9_fbx/RootNode/Box/Object_4/Skeleton3D:door_01")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, -0.261, 0.965, 0.1333, 1, 0, 0, 0, 1)
+
+[sub_resource type="Animation" id="Animation_fowx3"]
+resource_name = "open"
+length = 0.1667
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sketchfab_model/7e44f1f3ec664c409be3cdb0204f60a9_fbx/RootNode/Box/Object_4/Skeleton3D:door_01")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1, 0.1667, 1, 0, 0, -0.261, 0.965)
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3hs2o"]
+_data = {
+&"RESET": SubResource("Animation_natyg"),
+&"close": SubResource("Animation_6a16w"),
+&"open": SubResource("Animation_fowx3")
+}
+
 [node name="MilitaryBoxModel" unique_id=1426099507 instance=ExtResource("1_natyg")]
 
 [node name="Sketchfab_model" parent="." index="0" unique_id=2002766558]
@@ -9,3 +48,6 @@ transform = Transform3D(-2.6226832e-10, 0.006, 2.6226835e-10, 0, -2.6226835e-10,
 
 [node name="Skeleton3D" parent="Sketchfab_model/7e44f1f3ec664c409be3cdb0204f60a9_fbx/RootNode/Box/Object_4" parent_id_path=PackedInt32Array(1387124148) index="0" unique_id=389643945]
 bones/1/position = Vector3(0, 0, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="1" unique_id=1529446963]
+libraries/ = SubResource("AnimationLibrary_3hs2o")

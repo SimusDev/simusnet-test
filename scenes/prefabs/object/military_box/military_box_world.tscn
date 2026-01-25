@@ -1,10 +1,25 @@
 [gd_scene format=3 uid="uid://1geyvbuwfttm"]
 
 [ext_resource type="PackedScene" uid="uid://t2qm47a4v7ae" path="res://scenes/prefabs/object/military_box/military_box_model.tscn" id="1_q136o"]
+[ext_resource type="Script" uid="uid://dstiav1e2db4e" path="res://component/animation/item_animator.gd" id="3_7rqmg"]
+[ext_resource type="Script" uid="uid://dgxlg0w7n7ara" path="res://component/animation/r_animation_hook.gd" id="4_ae4w2"]
 [ext_resource type="Script" uid="uid://lvn8qsil5p1x" path="res://component/containers/CT_Chest.gd" id="4_joo51"]
+[ext_resource type="Script" uid="uid://dy2wtljxjfh8j" path="res://component/animation/r_animation_hook_signal.gd" id="5_h85r8"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_q136o"]
 size = Vector3(211.24937, 142.76637, 430.83246)
+
+[sub_resource type="Resource" id="Resource_fjwn2"]
+script = ExtResource("5_h85r8")
+name = &"event_open"
+animations = Array[StringName]([&"open"])
+metadata/_custom_type_script = "uid://dy2wtljxjfh8j"
+
+[sub_resource type="Resource" id="Resource_jwkyw"]
+script = ExtResource("5_h85r8")
+name = &"event_close"
+animations = Array[StringName]([&"close"])
+metadata/_custom_type_script = "uid://dy2wtljxjfh8j"
 
 [node name="RigidBody3D" type="RigidBody3D" unique_id=1686454376]
 
@@ -18,3 +33,12 @@ shape = SubResource("BoxShape3D_q136o")
 script = ExtResource("4_joo51")
 root = NodePath("..")
 metadata/_custom_type_script = "uid://lvn8qsil5p1x"
+
+[node name="CT_ItemAnimator" type="Node" parent="." unique_id=1017922677 node_paths=PackedStringArray("player")]
+script = ExtResource("3_7rqmg")
+hooks = Array[ExtResource("4_ae4w2")]([SubResource("Resource_fjwn2"), SubResource("Resource_jwkyw")])
+player = NodePath("../MilitaryBoxModel/AnimationPlayer")
+initialized = true
+metadata/_custom_type_script = "uid://dstiav1e2db4e"
+
+[editable path="MilitaryBoxModel"]
