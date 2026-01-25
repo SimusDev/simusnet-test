@@ -75,6 +75,7 @@ func _on_transform_tick() -> void:
 			_parse_property_sender(transform, properties, "position", transform.node.position)
 			_parse_property_sender(transform, properties, "rotation", transform.node.rotation)
 			_parse_property_sender(transform, properties, "scale", transform.node.scale)
+			
 			if !properties.is_empty():
 				data[peer] = identities
 				#print("[%s]: %s" % [SimusNetConnection.is_server(), identities])

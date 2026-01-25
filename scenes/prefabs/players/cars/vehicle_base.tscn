@@ -1,0 +1,159 @@
+[gd_scene format=3 uid="uid://27tyyho33c5n"]
+
+[ext_resource type="Script" uid="uid://7fjd4ji7s0t7" path="res://addons/gevp/scripts/wheel.gd" id="1_t35tt"]
+[ext_resource type="Script" uid="uid://soq5420s2lt" path="res://addons/gevp/scripts/vehicle.gd" id="1_xb7py"]
+[ext_resource type="Script" uid="uid://d1jwapkumdp1u" path="res://addons/simusdev/SimusNet/SimusNetTransform.gd" id="2_tvnau"]
+[ext_resource type="Script" uid="uid://dfok55wn4kqd2" path="res://component/player/CT_Playable.gd" id="2_vnko8"]
+[ext_resource type="Script" uid="uid://bnh6ud5kgvewv" path="res://addons/gevp/scripts/vehicle_synchronizer.gd" id="3_sjhvn"]
+[ext_resource type="Script" uid="uid://01netlkv5363" path="res://addons/gevp/scripts/vehicle_controllergd.gd" id="3_x8il2"]
+[ext_resource type="Script" uid="uid://drfjprcymh3jv" path="res://addons/gevp/scripts/camera.gd" id="6_sjhvn"]
+[ext_resource type="PackedScene" uid="uid://bagjkrjkigmt" path="res://3d/skyline/mega_super_body_new_ww.glb" id="7_5s4i8"]
+[ext_resource type="PackedScene" uid="uid://dgablj6dgsx6c" path="res://3d/skyline/wheel.glb" id="9_un5s0"]
+
+[sub_resource type="Curve" id="Curve_bt7kc"]
+_data = [Vector2(0, 0.494505), 0.0, 2.04495, 0, 0, Vector2(0.767241, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.758242), -2.03956, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yyyvj"]
+size = Vector3(2.1, 1.13304, 4.57256)
+
+[node name="VehicleRigidBody" type="RigidBody3D" unique_id=277126067 node_paths=PackedStringArray("front_left_wheel", "front_right_wheel", "rear_left_wheel", "rear_right_wheel")]
+script = ExtResource("1_xb7py")
+front_left_wheel = NodePath("WheelFrontLeft")
+front_right_wheel = NodePath("WheelFrontRight")
+rear_left_wheel = NodePath("WheelRearLeft")
+rear_right_wheel = NodePath("WheelRearRight")
+steering_slip_assist = 0.5
+countersteer_assist = 0.75
+max_steering_angle = 1.2
+stability_yaw_engage_angle = 0.1
+stability_yaw_strength = 2.0
+stability_yaw_ground_multiplier = 4.0
+max_torque = 800.0
+max_rpm = 8000.0
+idle_rpm = 700.0
+torque_curve = SubResource("Curve_bt7kc")
+motor_moment = 0.3
+gear_ratios = Array[float]([3.01, 2.07, 1.43, 1.0, 0.84, 0.5])
+final_drive = 4.1
+reverse_ratio = 3.28
+shift_time = 0.25
+front_variable_split = 0.5
+vehicle_mass = 1400.0
+front_weight_distribution = 0.526
+center_of_gravity_height_offset = -0.14
+front_resting_ratio = 0.6
+front_damping_ratio = 0.8
+front_arb_ratio = 0.5
+front_camber = 0.034
+front_toe = 0.005
+rear_resting_ratio = 0.6
+rear_damping_ratio = 0.8
+rear_arb_ratio = 0.5
+rear_camber = 0.034
+rear_toe = 0.005
+tire_stiffnesses = {
+"Dirt": 0.5,
+"Grass": 0.5,
+"Road": 20.0
+}
+coefficient_of_friction = {
+"Dirt": 1.4,
+"Grass": 1.0,
+"Road": 2.0
+}
+longitudinal_grip_ratio = {
+"Dirt": 0.56,
+"Grass": 0.8,
+"Road": 0.6
+}
+front_tire_radius = 0.38
+rear_tire_radius = 0.38
+rear_tire_width = 275.0
+coefficient_of_drag = 0.35
+frontal_area = 2.19
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1801436465 node_paths=PackedStringArray("follow_this")]
+script = ExtResource("6_sjhvn")
+follow_this = NodePath("..")
+
+[node name="CT_Playable" type="Node" parent="." unique_id=326569361 node_paths=PackedStringArray("node")]
+script = ExtResource("2_vnko8")
+node = NodePath("..")
+metadata/_custom_type_script = "uid://dfok55wn4kqd2"
+
+[node name="VehicleSynchronizer" type="Node" parent="." unique_id=664183581 node_paths=PackedStringArray("vehicle", "camera")]
+process_mode = 3
+script = ExtResource("3_sjhvn")
+vehicle = NodePath("..")
+camera = NodePath("../Camera3D")
+metadata/_custom_type_script = "uid://bnh6ud5kgvewv"
+
+[node name="SimusNetTransform" type="Node" parent="." unique_id=706668514 node_paths=PackedStringArray("node")]
+process_mode = 3
+script = ExtResource("2_tvnau")
+node = NodePath("..")
+metadata/_custom_type_script = "uid://d1jwapkumdp1u"
+
+[node name="VehicleController" type="Node3D" parent="." unique_id=1965127044 node_paths=PackedStringArray("vehicle_node")]
+script = ExtResource("3_x8il2")
+vehicle_node = NodePath("..")
+metadata/_custom_type_script = "uid://01netlkv5363"
+
+[node name="mega_super_body_new_ww" parent="." unique_id=380905669 instance=ExtResource("7_5s4i8")]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, -0.13823575, -0.06597781)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1992114479]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.567519, -0.11974269)
+shape = SubResource("BoxShape3D_yyyvj")
+
+[node name="WheelFrontLeft" type="RayCast3D" parent="." unique_id=28849053 node_paths=PackedStringArray("wheel_node")]
+transform = Transform3D(1, -8.47033e-22, 7.10543e-15, -8.47033e-22, 1, 1.42109e-14, 7.10543e-15, -1.42109e-14, 1, -0.924808, 0.0879494, -1.44939)
+script = ExtResource("1_t35tt")
+wheel_node = NodePath("wheel")
+
+[node name="wheel" parent="WheelFrontLeft" unique_id=1216189755 instance=ExtResource("9_un5s0")]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0.23397404, 0.010553598, -0.024101138)
+
+[node name="SimusNetTransform" type="Node" parent="WheelFrontLeft/wheel" unique_id=128505212 node_paths=PackedStringArray("node")]
+script = ExtResource("2_tvnau")
+node = NodePath("..")
+metadata/_custom_type_script = "uid://d1jwapkumdp1u"
+
+[node name="WheelFrontRight" type="RayCast3D" parent="." unique_id=905904741 node_paths=PackedStringArray("wheel_node")]
+transform = Transform3D(1, -8.47033e-22, 7.10543e-15, -8.47033e-22, 1, 1.42109e-14, 7.10543e-15, -1.42109e-14, 1, 0.924808, 0.0879494, -1.44939)
+script = ExtResource("1_t35tt")
+wheel_node = NodePath("wheel")
+
+[node name="wheel" parent="WheelFrontRight" unique_id=1019925819 instance=ExtResource("9_un5s0")]
+transform = Transform3D(1, 3.6111186e-34, 0, -3.6111186e-34, 1, 0, 0, 0, 1, -0.15870643, 0, 0)
+
+[node name="SimusNetTransform" type="Node" parent="WheelFrontRight/wheel" unique_id=1524784438 node_paths=PackedStringArray("node")]
+script = ExtResource("2_tvnau")
+node = NodePath("..")
+metadata/_custom_type_script = "uid://d1jwapkumdp1u"
+
+[node name="WheelRearLeft" type="RayCast3D" parent="." unique_id=436384119 node_paths=PackedStringArray("wheel_node")]
+transform = Transform3D(1, -8.47033e-22, 7.10543e-15, -8.47033e-22, 1, 1.42109e-14, 7.10543e-15, -1.42109e-14, 1, -0.924808, 0.0879494, 1.2511023)
+script = ExtResource("1_t35tt")
+wheel_node = NodePath("wheel")
+
+[node name="wheel" parent="WheelRearLeft" unique_id=894349494 instance=ExtResource("9_un5s0")]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0.23397404, 0.010553598, -0.024101138)
+
+[node name="SimusNetTransform" type="Node" parent="WheelRearLeft/wheel" unique_id=455766463 node_paths=PackedStringArray("node")]
+script = ExtResource("2_tvnau")
+node = NodePath("..")
+metadata/_custom_type_script = "uid://d1jwapkumdp1u"
+
+[node name="WheelRearRight" type="RayCast3D" parent="." unique_id=1655986858 node_paths=PackedStringArray("wheel_node")]
+transform = Transform3D(1, -8.47033e-22, 7.10543e-15, -8.47033e-22, 1, 1.42109e-14, 7.10543e-15, -1.42109e-14, 1, 0.7449385, 0.0879494, 1.2010561)
+script = ExtResource("1_t35tt")
+wheel_node = NodePath("wheel")
+
+[node name="wheel" parent="WheelRearRight" unique_id=1934745226 instance=ExtResource("9_un5s0")]
+
+[node name="SimusNetTransform" type="Node" parent="WheelRearRight/wheel" unique_id=61786253 node_paths=PackedStringArray("node")]
+script = ExtResource("2_tvnau")
+node = NodePath("..")
+metadata/_custom_type_script = "uid://d1jwapkumdp1u"
