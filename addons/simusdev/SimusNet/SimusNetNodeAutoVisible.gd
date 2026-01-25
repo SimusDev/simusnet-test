@@ -70,8 +70,9 @@ func _on_peer_disconnected(event: SimusNetEvent) -> void:
 func _send_visible() -> void:
 	var peer: int = multiplayer.get_remote_sender_id()
 	if _peers.has(peer):
-		_peers.append(peer)
 		return
+	
+	_peers.append(peer)
 	
 	SimusNetVisibility.set_visible_for(peer, node, true)
 	
@@ -81,7 +82,11 @@ func _send_visible() -> void:
 
 func _send_not_visible() -> void:
 	var peer: int = multiplayer.get_remote_sender_id()
+	if !_peers.has(peer):
+		return
+	
 	_peers.erase(peer)
+	
 	SimusNetVisibility.set_visible_for(peer, node, false)
 	
 	if SimusNet.get_network_authority(self) != SimusNet.SERVER_ID:
