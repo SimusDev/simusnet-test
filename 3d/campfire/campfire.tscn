@@ -1637,3 +1637,9 @@ mesh = SubResource("ArrayMesh_8htm5")
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=913977113]
 libraries/ = SubResource("AnimationLibrary_0st5d")
 autoplay = &"Animation"
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=1905022022]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0.8516462, 0)
+light_color = Color(0.76076454, 0.2836898, 0, 1)
+light_energy = 0.47
+light_specular = 0.375
