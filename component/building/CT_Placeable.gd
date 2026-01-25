@@ -46,12 +46,12 @@ func _place() -> void:
 	if not is_inside_tree() or not is_instance_valid(item) or not is_instance_valid(current_ghost):
 		return
 	
-	var transform:Transform3D = current_ghost.global_transform
+	var transform:Transform3D = current_ghost.transform
 	var new_object:Node = (I_WorldObject.new(level_instance, placeable.object)
 							.instantiate()
 							.get_instance()
 							)
-	new_object.global_transform = transform
+	new_object.transform = transform
 	print("SPAWN")
 	#item.stack.quantity -= 1
 
@@ -114,6 +114,7 @@ func _spawn_ghost() -> void:
 		current_ghost = model.instantiate()
 		add_child(current_ghost)
 		_apply_shader_to_meshes()
+	
 
 func _apply_shader_to_meshes() -> void:
 	if not is_placeable_valid():

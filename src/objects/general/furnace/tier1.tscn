@@ -19,7 +19,7 @@ size = Vector3(0.25, 0.25, 0.25)
 script = ExtResource("2_xnar8")
 
 [node name="Sketchfab_Scene" parent="." index="2" unique_id=1173696965 instance=ExtResource("2_umk4i")]
-transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 0, 0.017758042, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.017758042, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." index="3" unique_id=562509967]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.001203537, 0.8846092, 0.0016479492)
