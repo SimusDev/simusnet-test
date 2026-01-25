@@ -1,0 +1,51 @@
+[gd_scene format=3 uid="uid://dbhqs4tv52evh"]
+
+[ext_resource type="Script" uid="uid://hmy285dnkqn0" path="res://addons/simusdev/SimusNet/profiler/SimpleProfiler.gd" id="1_01wia"]
+
+[node name="SimpleProfiler" type="Control" unique_id=605018193]
+layout_mode = 3
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -303.0
+offset_top = -83.0
+grow_horizontal = 0
+grow_vertical = 0
+mouse_filter = 2
+script = ExtResource("1_01wia")
+
+[node name="Container" type="VBoxContainer" parent="." unique_id=1532873247]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.98
+anchor_bottom = 1.0
+offset_right = 0.05999756
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Fps" type="Label" parent="Container" unique_id=1244424765]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 0.827451, 1)
+theme_override_constants/outline_size = 8
+text = "120 fps"
+horizontal_alignment = 2
+
+[node name="InTraffic" type="Label" parent="Container" unique_id=2041685996]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 0.827451, 1)
+theme_override_constants/outline_size = 8
+text = "In: 0, 0 k/s"
+horizontal_alignment = 2
+
+[node name="OutTraffic" type="Label" parent="Container" unique_id=690242036]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 0.827451, 1)
+theme_override_constants/outline_size = 8
+text = "Out: 0, 0 k/s"
+horizontal_alignment = 2

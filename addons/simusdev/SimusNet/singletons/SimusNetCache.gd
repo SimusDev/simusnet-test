@@ -37,19 +37,12 @@ func _on_disconnected() -> void:
 
 var _unique_id_queue: Array = []
 
-signal _on_unique_id_received()
-var _received_generated_unique_id: Variant = null
-var _received_unique_id: Variant = null
+signal on_unique_id_received(generated_id: Variant, unique_id: Variant)
 
-static func request_unique_id(id: Variant) -> int:
-	if instance._received_generated_unique_id == id:
-		return instance._received_unique_id
-	
+static func request_unique_id(id: Variant) -> void:
 	if !instance._unique_id_queue.has(id):
 		instance._unique_id_queue.append(id)
 	
-	await instance._on_unique_id_received
-	return await request_unique_id(id)
 
 func _process(delta: float) -> void:
 	if _unique_id_queue.is_empty() or SimusNetConnection.is_server():
@@ -82,11 +75,8 @@ func _unique_id_request_receive(serialized: Variant) -> void:
 	var dict: Dictionary = SimusNetDecompressor.parse(serialized)
 	for generated_id: Variant in dict:
 		var unique_id: Variant = dict[generated_id]
-		_received_generated_unique_id = generated_id
-		_received_unique_id = unique_id
-		_on_unique_id_received.emit()
-		#print(generated_id, ": ", unique_id)
-	
+		on_unique_id_received.emit(generated_id, unique_id)
+
 
 static func _cache_identity(identity: SimusNetIdentity) -> void:
 	return

@@ -4,7 +4,7 @@ class_name SimusNetVisible
 const _META: StringName = &"SimusNetVisible"
 
 var _object: Object
-var _peers: PackedInt32Array = []
+var _peers: PackedInt32Array = [SimusNet.SERVER_ID]
 var _methods_always_visible: Array[StringName] = []
 var _public_visible: bool = true
 

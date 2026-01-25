@@ -90,7 +90,6 @@ func _ready() -> void:
 	if _playable and SimusNet.is_network_authority(self):
 		_local = self
 	
-	
 	if SimusNetConnection.is_server():
 		for id: int in initial_slot_count:
 			var slot: CT_InventorySlot = CT_InventorySlot.new()

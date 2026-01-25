@@ -2,13 +2,13 @@
 extends SimusNetNode
 class_name SimusNetNodeAutoVisible
 
-enum BROADCAST_TO {
-	TO_SERVER,
-	TO_ALL,
-}
+#enum BROADCAST_TO {
+	#TO_SERVER,
+	#TO_ALL,
+#}
 
 @export var node: Node
-@export var broadcast_to: BROADCAST_TO = BROADCAST_TO.TO_SERVER
+#@export var broadcast_to: BROADCAST_TO = BROADCAST_TO.TO_SERVER
 
 const _META_NAME: StringName = "SimusNetNodeAutoVisible"
 
@@ -21,6 +21,7 @@ static func _create(target: Node) -> SimusNetNodeAutoVisible:
 	var visibile := SimusNetNodeAutoVisible.new()
 	visibile.name = "SimusNetNodeAutoVisible"
 	visibile.node = target
+	visibile.set_multiplayer_authority(target.get_multiplayer_authority())
 	target.set_meta(_META_NAME, visibile)
 	return visibile
 
@@ -88,9 +89,10 @@ func _exit_tree() -> void:
 	if Engine.is_editor_hint():
 		return
 	
-	if broadcast_to == BROADCAST_TO.TO_SERVER:
+	if SimusNet.get_network_authority(node) == SimusNet.SERVER_ID:
 		SimusNetRPCGodot.invoke_on_server(_send_not_visible)
 		return
+	
 	SimusNetRPCGodot.invoke(_send_not_visible)
 
 func _enter_tree() -> void:
@@ -108,11 +110,11 @@ func _enter_tree() -> void:
 	
 	if !is_network_ready:
 		await on_network_ready
-		
-	if broadcast_to == BROADCAST_TO.TO_SERVER:
+	
+	if SimusNet.get_network_authority(node) == SimusNet.SERVER_ID:
 		SimusNetRPCGodot.invoke_on_server(_send_visible)
-		
 		return
+	
 	SimusNetRPCGodot.invoke(_send_visible)
 
 func _network_ready() -> void:

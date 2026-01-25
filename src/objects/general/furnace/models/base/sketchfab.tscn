@@ -365,48 +365,50 @@ blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_v7rc7")
 
 [node name="Model" type="Node3D" unique_id=1173696965]
+
+[node name="secx" type="Node3D" parent="." unique_id=1432920136]
 transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 0, 0, 0)
 
-[node name="1" type="MeshInstance3D" parent="." unique_id=1676472629]
+[node name="1" type="MeshInstance3D" parent="secx" unique_id=1676472629]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0625, 0)
 mesh = SubResource("ArrayMesh_wg2le")
 
-[node name="2" type="MeshInstance3D" parent="." unique_id=1214489302]
+[node name="2" type="MeshInstance3D" parent="secx" unique_id=1214489302]
 transform = Transform3D(0.9396926, 0, 0.34202015, 0, 1, 0, -0.34202015, 0, 0.9396926, -0.078125, 0.03125, -0.140625)
 mesh = SubResource("ArrayMesh_thlxk")
 
-[node name="3" type="MeshInstance3D" parent="." unique_id=952567160]
-transform = Transform3D(0.976296, 0, -0.21643962, 0, 1, 0, 0.21643962, 0, 0.976296, -0.078125, 0.03125, 0.140625)
+[node name="3" type="MeshInstance3D" parent="secx" unique_id=952567160]
+transform = Transform3D(0.97629607, 0, -0.21643963, 0, 1, 0, 0.21643963, 0, 0.97629607, -0.078125, 0.03125, 0.140625)
 mesh = SubResource("ArrayMesh_ipwmn")
 
-[node name="4" type="MeshInstance3D" parent="." unique_id=652178753]
-transform = Transform3D(0.9848077, 0, -0.17364818, 0, 1, 0, 0.17364818, 0, 0.9848077, 0.078125, 0.03125, -0.140625)
+[node name="4" type="MeshInstance3D" parent="secx" unique_id=652178753]
+transform = Transform3D(0.9848078, 0, -0.17364818, 0, 1, 0, 0.17364818, 0, 0.9848078, 0.078125, 0.03125, -0.140625)
 mesh = SubResource("ArrayMesh_lt8ru")
 
-[node name="5" type="MeshInstance3D" parent="." unique_id=2109350305]
-transform = Transform3D(0.976296, 0, 0.21643962, 0, 1, 0, -0.21643962, 0, 0.976296, 0.078125, 0.03125, 0.140625)
+[node name="5" type="MeshInstance3D" parent="secx" unique_id=2109350305]
+transform = Transform3D(0.97629607, 0, 0.21643963, 0, 1, 0, -0.21643963, 0, 0.97629607, 0.078125, 0.03125, 0.140625)
 mesh = SubResource("ArrayMesh_ktbor")
 
-[node name="6" type="MeshInstance3D" parent="." unique_id=615025873]
+[node name="6" type="MeshInstance3D" parent="secx" unique_id=615025873]
 transform = Transform3D(0, -0.70710677, -0.70710677, 1, 0, 0, 0, -0.70710677, 0.70710677, -0.125, 0.21875, -0.125)
 mesh = SubResource("ArrayMesh_0ajil")
 
-[node name="7" type="MeshInstance3D" parent="." unique_id=1067153089]
+[node name="7" type="MeshInstance3D" parent="secx" unique_id=1067153089]
 transform = Transform3D(0.9659258, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.9659258, 0.03125, 0.5234375, 0.015625)
 mesh = SubResource("ArrayMesh_5ls6o")
 
-[node name="8" type="MeshInstance3D" parent="." unique_id=61652214]
+[node name="8" type="MeshInstance3D" parent="secx" unique_id=61652214]
 transform = Transform3D(0.9659258, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.9659258, 0.03125, 0.5234375, 0.015625)
 mesh = SubResource("ArrayMesh_foujo")
 
-[node name="9" type="MeshInstance3D" parent="." unique_id=286828462]
+[node name="9" type="MeshInstance3D" parent="secx" unique_id=286828462]
 transform = Transform3D(-0.7933533, 4.7912905e-17, 0.6087614, 9.715776e-17, 1, 4.7912905e-17, -0.6087614, 9.715776e-17, -0.7933533, 0.03125, 0.5234375, 0.015625)
 mesh = SubResource("ArrayMesh_ll3xo")
 
-[node name="10" type="MeshInstance3D" parent="." unique_id=1053506]
+[node name="10" type="MeshInstance3D" parent="secx" unique_id=1053506]
 transform = Transform3D(-0.7933533, 4.7912905e-17, 0.6087614, 9.715776e-17, 1, 4.7912905e-17, -0.6087614, 9.715776e-17, -0.7933533, 0.03125, 0.5234375, 0.015625)
 mesh = SubResource("ArrayMesh_bx55s")
 
-[node name="11" type="MeshInstance3D" parent="." unique_id=1625875766]
+[node name="11" type="MeshInstance3D" parent="secx" unique_id=1625875766]
 transform = Transform3D(0.9659258, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.9659258, 0.03125, 0.5234375, 0.015625)
 mesh = SubResource("ArrayMesh_qrbeh")

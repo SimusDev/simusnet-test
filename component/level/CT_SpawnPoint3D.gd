@@ -55,4 +55,5 @@ func _ready() -> void:
 	
 	view_mesh_instance = MeshInstance3D.new()
 	view_mesh_instance.mesh = view_mesh
+	view_mesh_instance.cast_shadow = 0
 	add_child(view_mesh_instance)

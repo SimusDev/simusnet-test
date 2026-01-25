@@ -107,6 +107,8 @@ func _invoke_on_without_validating(peer: int, callable: Callable, args: Array, c
 		false
 	)
 	
+	SimusNetProfiler.get_instance()._put_up_packet()
+	
 	_start_cooldown(callable)
 
 func _processor_recieve_rpc_from_peer(peer: int, channel: int, serialized_identity: Variant, serialized_method: Variant, serialized_args: Variant) -> void:
@@ -118,6 +120,7 @@ func _processor_recieve_rpc_from_peer(peer: int, channel: int, serialized_identi
 	
 	var profiler_bytes_size: int = var_to_bytes(serialized_identity).size() + var_to_bytes(serialized_method).size() + args_profiler_size
 	SimusNetProfiler.get_instance()._put_down_traffic(profiler_bytes_size)
+	SimusNetProfiler.get_instance()._put_down_packet()
 	
 	var identity: SimusNetIdentity = SimusNetIdentity.try_deserialize_from_variant(serialized_identity)
 	if !identity:

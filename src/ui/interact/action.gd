@@ -9,4 +9,4 @@ func _ready() -> void:
 	text = action.name
 
 func set_selected(value: bool) -> void:
-	disabled = value
+	disabled = !value

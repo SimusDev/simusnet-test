@@ -14,10 +14,7 @@ var current_ghost:Node3D = null
 func _ready() -> void:
 	if not get_parent().is_node_ready():
 		await get_parent().ready
-	
-	set_process( SimusNet.is_network_authority(self) )
-	set_process_input( SimusNet.is_network_authority(self) )
-	set_physics_process( SimusNet.is_network_authority(self) )
+		
 	
 	if custom_item:
 		item = custom_item
@@ -25,7 +22,15 @@ func _ready() -> void:
 		if get_parent() is W_Item:
 			item = get_parent()
 	
-	if is_instance_valid(item) and placeable:
+	if not is_instance_valid(item):
+		return
+	
+	if item.inventory.is_local():
+		set_process( SimusNet.is_network_authority(self) )
+		set_process_input( SimusNet.is_network_authority(self) )
+		set_physics_process( SimusNet.is_network_authority(self) )
+	
+	if placeable:
 		if not placeable.object:
 			placeable.object = item.object
 	
@@ -37,7 +42,7 @@ func _ready() -> void:
 func _place() -> void:
 	if not SimusNetConnection.is_server():
 		return
-	
+		
 	if not is_inside_tree() or not is_instance_valid(item) or not is_instance_valid(current_ghost):
 		return
 	
@@ -47,7 +52,7 @@ func _place() -> void:
 							.get_instance()
 							)
 	new_object.transform = transform
-	
+	print("SPAWN")
 	#item.stack.quantity -= 1
 
 func _physics_process(_delta: float) -> void:
@@ -109,6 +114,7 @@ func _spawn_ghost() -> void:
 		current_ghost = model.instantiate()
 		add_child(current_ghost)
 		_apply_shader_to_meshes()
+	
 
 func _apply_shader_to_meshes() -> void:
 	if not is_placeable_valid():

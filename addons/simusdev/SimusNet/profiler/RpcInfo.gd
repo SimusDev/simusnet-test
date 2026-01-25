@@ -13,4 +13,10 @@ func _on_key_update(_key: String) -> void:
 		update()
 
 func update() -> void:
-	text = "%s: " % [key]
+	text = "%s: %s(↑ %s), %s(↓ %s)" % [
+		key,
+		data.up_calls,
+		String.humanize_size(data.up),
+		data.down_calls,
+		String.humanize_size(data.down),
+	]

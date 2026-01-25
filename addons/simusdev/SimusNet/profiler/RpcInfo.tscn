@@ -2,6 +2,9 @@
 
 [ext_resource type="Script" uid="uid://gggeonb0edfs" path="res://addons/simusdev/SimusNet/profiler/RpcInfo.gd" id="1_amq02"]
 
+[sub_resource type="LabelSettings" id="LabelSettings_amq02"]
+font_size = 14
+
 [node name="RpcInfo" type="Label" unique_id=1971031361]
 custom_minimum_size = Vector2(470, 32)
 offset_right = 470.0
@@ -9,6 +12,7 @@ offset_bottom = 32.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "rpc.info"
+label_settings = SubResource("LabelSettings_amq02")
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
