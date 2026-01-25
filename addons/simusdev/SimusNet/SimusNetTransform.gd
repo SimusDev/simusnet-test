@@ -32,8 +32,6 @@ func _ready() -> void:
 	
 	if !node.is_node_ready():
 		await node.ready
-	
-	
 
 static func find_transform(target: Node) -> SimusNetTransform:
 	if target.has_meta(_META):

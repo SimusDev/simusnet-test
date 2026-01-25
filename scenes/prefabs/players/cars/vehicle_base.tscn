@@ -13,6 +13,8 @@
 [ext_resource type="Script" uid="uid://d0sttdxi6n81k" path="res://component/VehicleDriftDetector.gd" id="11_2imo2"]
 [ext_resource type="AudioStream" uid="uid://ckrggrptig4w3" path="res://audio/vehicle/engine/0/onlow.wav" id="11_fddof"]
 [ext_resource type="AudioStream" uid="uid://c2o15ego21c1v" path="res://audio/vehicle/transmission/tw_offhigh.wav" id="11_n43dm"]
+[ext_resource type="Script" uid="uid://cgpsyyx2x8kki" path="res://component/ui/MP_CanvasLayer.gd" id="10_un5s0"]
+[ext_resource type="PackedScene" uid="uid://b36ise4k4tg7d" path="res://scenes/prefabs/player_ui/player_ui.tscn" id="11_2imo2"]
 
 [sub_resource type="Curve" id="Curve_bt7kc"]
 _data = [Vector2(0, 0.494505), 0.0, 2.04495, 0, 0, Vector2(0.767241, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.758242), -2.03956, 0.0, 0, 0]
@@ -172,3 +174,8 @@ engine_low = ExtResource("11_fddof")
 script = ExtResource("11_2imo2")
 vehicle = NodePath("..")
 metadata/_custom_type_script = "uid://d0sttdxi6n81k"
+[node name="MP_PlayerCanvasLayer" type="CanvasLayer" parent="." unique_id=1824422119 node_paths=PackedStringArray("player")]
+script = ExtResource("10_un5s0")
+player = NodePath("..")
+ui_prefab = ExtResource("11_2imo2")
+metadata/_custom_type_script = "uid://cgpsyyx2x8kki"
