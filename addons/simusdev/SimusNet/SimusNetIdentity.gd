@@ -93,6 +93,7 @@ func _initialize_dynamic() -> void:
 
 func _on_unique_id_received(generated_id: Variant, unique_id: Variant) -> void:
 	if generated_id == get_generated_unique_id():
+		_unique_id = unique_id
 		_set_ready()
 		SimusNetCache.instance.on_unique_id_received.disconnect(_on_unique_id_received)
 
