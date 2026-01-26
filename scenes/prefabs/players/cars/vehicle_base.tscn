@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://01netlkv5363" path="res://addons/gevp/scripts/vehicle_controllergd.gd" id="3_x8il2"]
 [ext_resource type="Script" uid="uid://drfjprcymh3jv" path="res://addons/gevp/scripts/camera.gd" id="6_sjhvn"]
 [ext_resource type="PackedScene" uid="uid://bagjkrjkigmt" path="res://3d/skyline/mega_super_body_new_ww.glb" id="7_5s4i8"]
+[ext_resource type="Script" uid="uid://ecinuv6cd5dj" path="res://component/vehicle/CT_VehicleLight.gd" id="8_fddof"]
 [ext_resource type="PackedScene" uid="uid://dgablj6dgsx6c" path="res://3d/skyline/wheel.glb" id="9_un5s0"]
 [ext_resource type="Script" uid="uid://cgpsyyx2x8kki" path="res://component/ui/MP_CanvasLayer.gd" id="10_un5s0"]
 [ext_resource type="Script" uid="uid://d0sttdxi6n81k" path="res://component/VehicleDriftDetector.gd" id="11_2imo2"]
@@ -106,6 +107,81 @@ metadata/_custom_type_script = "uid://01netlkv5363"
 
 [node name="mega_super_body_new_ww" parent="." unique_id=380905669 instance=ExtResource("7_5s4i8")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, -0.13823575, -0.06597781)
+
+[node name="LightFrontRight" type="Node3D" parent="mega_super_body_new_ww" unique_id=777761954]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6141769, 0.6185039, 2.062625)
+script = ExtResource("8_fddof")
+metadata/_custom_type_script = "uid://ecinuv6cd5dj"
+
+[node name="SpotLight3D" type="SpotLight3D" parent="mega_super_body_new_ww/LightFrontRight" unique_id=2075670809]
+transform = Transform3D(-0.9990452, 0, -0.04368908, 0, 1, 0, 0.04368908, 0, -0.9990452, 0, 0.016851366, 0.10911226)
+shadow_enabled = true
+spot_range = 100.0
+spot_attenuation = 0.6
+spot_angle = 69.7
+
+[node name="OmniLight3D" type="OmniLight3D" parent="mega_super_body_new_ww/LightFrontRight/SpotLight3D" unique_id=1348627378]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.016306698, 0, 0.017167568)
+light_energy = 0.165
+light_size = 0.085
+shadow_enabled = true
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="mega_super_body_new_ww/LightFrontRight/SpotLight3D" unique_id=1870711447]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.008632064, 0, -0.15832996)
+light_energy = 0.165
+light_size = 0.085
+shadow_enabled = true
+
+[node name="LightRearRight" type="Node3D" parent="mega_super_body_new_ww" unique_id=610694197]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.65887874, 0.81481975, -2.1130807)
+visible = false
+script = ExtResource("8_fddof")
+metadata/_custom_type_script = "uid://ecinuv6cd5dj"
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="mega_super_body_new_ww/LightRearRight" unique_id=1207401520]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1885314, 0, -0.06899476)
+light_color = Color(1, 0, 0, 1)
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="mega_super_body_new_ww/LightRearRight/OmniLight3D2" unique_id=448261537]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.19598341, 0, 0.0673666)
+light_color = Color(1, 0, 0, 1)
+
+[node name="LightFrontLeft" type="Node3D" parent="mega_super_body_new_ww" unique_id=1455317743]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6132768, 0.6185039, 2.062625)
+script = ExtResource("8_fddof")
+metadata/_custom_type_script = "uid://ecinuv6cd5dj"
+
+[node name="SpotLight3D" type="SpotLight3D" parent="mega_super_body_new_ww/LightFrontLeft" unique_id=60429369]
+transform = Transform3D(-0.9990452, 0, -0.04368908, 0, 1, 0, 0.04368908, 0, -0.9990452, 0, 0.016851366, 0.10911226)
+shadow_enabled = true
+spot_range = 100.0
+spot_attenuation = 0.6
+spot_angle = 69.7
+
+[node name="OmniLight3D" type="OmniLight3D" parent="mega_super_body_new_ww/LightFrontLeft/SpotLight3D" unique_id=1117975738]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.016306698, 0, 0.017167568)
+light_energy = 0.165
+light_size = 0.085
+shadow_enabled = true
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="mega_super_body_new_ww/LightFrontLeft/SpotLight3D" unique_id=2001335965]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.008632064, 0, -0.15832996)
+light_energy = 0.165
+light_size = 0.085
+shadow_enabled = true
+
+[node name="LightRearLeft" type="Node3D" parent="mega_super_body_new_ww" unique_id=317946720]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6655318, 0.82826746, -2.1299663)
+visible = false
+script = ExtResource("8_fddof")
+metadata/_custom_type_script = "uid://ecinuv6cd5dj"
+
+[node name="OmniLight3D" type="OmniLight3D" parent="mega_super_body_new_ww/LightRearLeft" unique_id=1623171033]
+light_color = Color(1, 0, 0, 1)
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="mega_super_body_new_ww/LightRearLeft" unique_id=1082728604]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.19598341, 0, -0.06899476)
+light_color = Color(1, 0, 0, 1)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1992114479]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.567519, -0.11974269)

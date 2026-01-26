@@ -63,7 +63,7 @@ func _update_transmission_sound() -> void:
 	var speed_normalized = clamp(speed / 50.0, 0.0, 1.0) # 50 м/с как порог
 	
 	transmission_player.pitch_scale = 0.5 + speed_normalized
-	transmission_player.volume_db = linear_to_db(speed_normalized * 0.5)
+	transmission_player.volume_db = linear_to_db(speed_normalized * 0.8)
 
 func _update_wheels_sound() -> void:
 	var target_vol = 1.0 if vehicle_drift_detector.is_drifting else 0.01
