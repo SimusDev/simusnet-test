@@ -20,6 +20,9 @@ func _ready():
 	start_position = position
 
 func _physics_process(delta : float):
+	if not is_instance_valid(follow_this):
+		return
+	
 	var delta_v := global_transform.origin - follow_this.global_transform.origin
 	delta_v.y = 0.0
 	if (delta_v.length() > follow_distance):
