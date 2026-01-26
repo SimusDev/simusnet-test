@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="R_LocalData" format=3]
+
+[ext_resource type="Script" path="res://component/data/R_LocalData.gd" id="1_gvt0m"]
+
+[resource]
+script = ExtResource("1_gvt0m")
+_storage = {
+"login": "sexerer2ccccccccccc4",
+"nickname": "sexerer2ccccccccccc4",
+"password": "sex"
+}

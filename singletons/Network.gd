@@ -19,6 +19,9 @@ func _ready() -> void:
 	
 	for i in commands_exec:
 		i.executed.connect(_on_cmd_executed.bind(i))
+	
+	if OS.has_feature("dedicated_server"):
+		create_server(R_GameSettings.instance().dedicated_server_port)
 
 func _on_connected() -> void:
 	SD_Console.i().write_info("connected to server.")

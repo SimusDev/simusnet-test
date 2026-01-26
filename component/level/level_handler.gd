@@ -14,6 +14,7 @@ func _ready() -> void:
 	SimusNetRPC.register(
 		[
 			_send,
+			_request_clear_level_rpc,
 		],
 		SimusNetRPCConfig.new().flag_mode_any_peer()
 	)
@@ -77,3 +78,16 @@ func change_level_by_code(level_code:StringName) -> void:
 	for ref in R_Level.get_reference_list():
 		if ref.code == level_code:
 			change_level(ref)
+
+@onready var _cmd_clear: SD_ConsoleCommand = SD_ConsoleCommand.get_or_create("level.clear").connect_executed_signal(request_clear_level)
+func request_clear_level() -> void:
+	var playable: CT_Playable = CT_Playable.get_local()
+	if playable:
+		SimusNetRPC.invoke_on_server(_request_clear_level_rpc, playable.node)
+
+func _request_clear_level_rpc(entity: Node3D) -> void:
+	if !is_instance_valid(entity):
+		return
+	
+	var level: LevelInstance = LevelInstance.find_above(entity)
+	level.clear_objects()
