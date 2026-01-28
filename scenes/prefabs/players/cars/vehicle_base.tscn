@@ -11,7 +11,7 @@
 [ext_resource type="Script" uid="uid://ecinuv6cd5dj" path="res://component/vehicle/CT_VehicleLight.gd" id="8_fddof"]
 [ext_resource type="PackedScene" uid="uid://dgablj6dgsx6c" path="res://3d/skyline/wheel.glb" id="9_un5s0"]
 [ext_resource type="Script" uid="uid://cgpsyyx2x8kki" path="res://component/ui/MP_CanvasLayer.gd" id="10_un5s0"]
-[ext_resource type="Script" uid="uid://d0sttdxi6n81k" path="res://component/VehicleDriftDetector.gd" id="11_2imo2"]
+[ext_resource type="Script" uid="uid://d0sttdxi6n81k" path="res://component/VehicleSkidDetector.gd" id="11_2imo2"]
 [ext_resource type="PackedScene" uid="uid://b2hlchrj4h2b7" path="res://addons/gevp/scenes/engine_sound.tscn" id="12_jjc1r"]
 [ext_resource type="PackedScene" uid="uid://b36ise4k4tg7d" path="res://scenes/prefabs/player_ui/player_ui.tscn" id="13_n43dm"]
 
@@ -188,12 +188,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.567519, -0.11974269)
 shape = SubResource("BoxShape3D_yyyvj")
 
 [node name="WheelFrontLeft" type="RayCast3D" parent="." unique_id=28849053 node_paths=PackedStringArray("wheel_node")]
-transform = Transform3D(1, -8.47033e-22, 7.10543e-15, -8.47033e-22, 1, 1.42109e-14, 7.10543e-15, -1.42109e-14, 1, -0.924808, 0.0879494, -1.44939)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.72480804, 0.0879494, -1.44939)
 script = ExtResource("1_t35tt")
 wheel_node = NodePath("wheel")
 
 [node name="wheel" parent="WheelFrontLeft" unique_id=1216189755 instance=ExtResource("9_un5s0")]
-transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0.23397404, 0.010553598, -0.024101138)
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 0)
 
 [node name="SimusNetTransform" type="Node" parent="WheelFrontLeft/wheel" unique_id=128505212 node_paths=PackedStringArray("node")]
 script = ExtResource("2_tvnau")
@@ -201,12 +201,12 @@ node = NodePath("..")
 metadata/_custom_type_script = "uid://d1jwapkumdp1u"
 
 [node name="WheelFrontRight" type="RayCast3D" parent="." unique_id=905904741 node_paths=PackedStringArray("wheel_node")]
-transform = Transform3D(1, -8.47033e-22, 7.10543e-15, -8.47033e-22, 1, 1.42109e-14, 7.10543e-15, -1.42109e-14, 1, 0.924808, 0.0879494, -1.44939)
+transform = Transform3D(1, -8.47033e-22, 7.10543e-15, -8.47033e-22, 1, 1.42109e-14, 7.10543e-15, -1.42109e-14, 1, 0.72480804, 0.0879494, -1.44939)
 script = ExtResource("1_t35tt")
 wheel_node = NodePath("wheel")
 
 [node name="wheel" parent="WheelFrontRight" unique_id=1019925819 instance=ExtResource("9_un5s0")]
-transform = Transform3D(1, 3.6111186e-34, 0, -3.6111186e-34, 1, 0, 0, 0, 1, -0.15870643, 0, 0)
+transform = Transform3D(1, 3.6111186e-34, 0, -3.6111186e-34, 1, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="SimusNetTransform" type="Node" parent="WheelFrontRight/wheel" unique_id=1524784438 node_paths=PackedStringArray("node")]
 script = ExtResource("2_tvnau")
@@ -214,12 +214,12 @@ node = NodePath("..")
 metadata/_custom_type_script = "uid://d1jwapkumdp1u"
 
 [node name="WheelRearLeft" type="RayCast3D" parent="." unique_id=436384119 node_paths=PackedStringArray("wheel_node")]
-transform = Transform3D(1, -8.47033e-22, 7.10543e-15, -8.47033e-22, 1, 1.42109e-14, 7.10543e-15, -1.42109e-14, 1, -0.924808, 0.0879494, 1.2511023)
+transform = Transform3D(1, -8.47033e-22, 7.10543e-15, -8.47033e-22, 1, 1.42109e-14, 7.10543e-15, -1.42109e-14, 1, -0.725, 0.1, 1.2)
 script = ExtResource("1_t35tt")
 wheel_node = NodePath("wheel")
 
 [node name="wheel" parent="WheelRearLeft" unique_id=894349494 instance=ExtResource("9_un5s0")]
-transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0.23397404, 0.010553598, -0.024101138)
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 0)
 
 [node name="SimusNetTransform" type="Node" parent="WheelRearLeft/wheel" unique_id=455766463 node_paths=PackedStringArray("node")]
 script = ExtResource("2_tvnau")
@@ -227,24 +227,25 @@ node = NodePath("..")
 metadata/_custom_type_script = "uid://d1jwapkumdp1u"
 
 [node name="WheelRearRight" type="RayCast3D" parent="." unique_id=1655986858 node_paths=PackedStringArray("wheel_node")]
-transform = Transform3D(1, -8.47033e-22, 7.10543e-15, -8.47033e-22, 1, 1.42109e-14, 7.10543e-15, -1.42109e-14, 1, 0.7449385, 0.0879494, 1.2010561)
+transform = Transform3D(1, -8.47033e-22, 7.10543e-15, -8.47033e-22, 1, 1.42109e-14, 7.10543e-15, -1.42109e-14, 1, 0.725, 0.1, 1.201)
 script = ExtResource("1_t35tt")
 wheel_node = NodePath("wheel")
 
 [node name="wheel" parent="WheelRearRight" unique_id=1934745226 instance=ExtResource("9_un5s0")]
+transform = Transform3D(1, 3.6111186e-34, 0, -3.6111186e-34, 1, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="SimusNetTransform" type="Node" parent="WheelRearRight/wheel" unique_id=61786253 node_paths=PackedStringArray("node")]
 script = ExtResource("2_tvnau")
 node = NodePath("..")
 metadata/_custom_type_script = "uid://d1jwapkumdp1u"
 
-[node name="VehicleDriftDetector" type="Node" parent="." unique_id=153788919 node_paths=PackedStringArray("vehicle")]
+[node name="VehicleSkidDetector" type="Node" parent="." unique_id=153788919 node_paths=PackedStringArray("vehicle")]
 script = ExtResource("11_2imo2")
 vehicle = NodePath("..")
 
-[node name="VehicleSound" parent="." unique_id=416523495 node_paths=PackedStringArray("vehicle", "vehicle_drift_detector") instance=ExtResource("12_jjc1r")]
+[node name="VehicleSound" parent="." unique_id=416523495 node_paths=PackedStringArray("vehicle", "vehicle_skid_detector") instance=ExtResource("12_jjc1r")]
 vehicle = NodePath("..")
-vehicle_drift_detector = NodePath("../VehicleDriftDetector")
+vehicle_skid_detector = NodePath("../VehicleSkidDetector")
 
 [node name="MP_PlayerCanvasLayer" type="CanvasLayer" parent="." unique_id=1824422119 node_paths=PackedStringArray("player")]
 script = ExtResource("10_un5s0")

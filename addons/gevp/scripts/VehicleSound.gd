@@ -1,7 +1,7 @@
 class_name VehicleSound extends Node3D
 
 @export var vehicle: Vehicle
-@export var vehicle_drift_detector: VehicleDriftDetector
+@export var vehicle_skid_detector: VehicleSkidDetector
 
 @export_group("Settings")
 @export var sample_rpm := 3000.0
@@ -38,12 +38,12 @@ func _setup_player(stream: AudioStream) -> AudioStreamPlayer3D:
 	add_child(player)
 	return player
 
-func _physics_process(_delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	if not vehicle: return
 	
 	_update_engine_sound()
 	_update_transmission_sound()
-	_update_wheels_sound()
+	_update_wheels_sound(delta)
 
 func _update_engine_sound() -> void:
 	var rpm = vehicle.motor_rpm
@@ -60,13 +60,18 @@ func _update_engine_sound() -> void:
 
 func _update_transmission_sound() -> void:
 	var speed = vehicle.linear_velocity.length()
-	var speed_normalized = clamp(speed / 50.0, 0.0, 1.0) # 50 м/с как порог
+	var speed_normalized = clamp(speed / 50.0, 0.0, 1.0)
 	
 	transmission_player.pitch_scale = 0.5 + speed_normalized
 	transmission_player.volume_db = linear_to_db(speed_normalized * 0.8)
 
-func _update_wheels_sound() -> void:
-	var target_vol = 1.0 if vehicle_drift_detector.is_drifting else 0.01
-	var vol = lerp(wheels_player.volume_db, linear_to_db(target_vol), 0.2)
-	if vol:
-		wheels_player.volume_db = lerp(wheels_player.volume_db, linear_to_db(target_vol), 0.2)
+func _update_wheels_sound(delta: float) -> void:
+	var target_linear_vol = vehicle_skid_detector.get_skid_intensity()
+	var current_linear_vol = db_to_linear(wheels_player.volume_db)
+	
+	var smooth_speed = 5.0
+	var lerped = lerp(current_linear_vol, target_linear_vol, smooth_speed * delta)
+	lerped = clamp(lerped, 0.001, 1.0)
+	wheels_player.volume_db = linear_to_db(lerped)
+	
+	wheels_player.pitch_scale = 1.0 + (target_linear_vol * 0.2)
