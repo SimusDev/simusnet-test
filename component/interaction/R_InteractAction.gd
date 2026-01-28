@@ -28,7 +28,7 @@ static func get_from(object: Object) -> Array[R_InteractAction]:
 
 func append_to(object: Object) -> R_InteractAction:
 	if object is CollisionObject3D:
-		CT_Collisions.set_body_collision(object, CT_Collisions.LAYERS.INTERACTION)
+		CT_Collisions.set_body_collision(object, CT_Collisions.LAYERS.INTERACTION, true, false)
 	
 	get_from(object).append(self)
 	return self

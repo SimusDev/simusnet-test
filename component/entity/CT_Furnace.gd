@@ -91,7 +91,9 @@ func _ready() -> void:
 		_timer.timeout.connect(_on_server_tick)
 		add_child(_timer)
 
+
 func _on_server_tick() -> void:
+	
 	_timer.wait_time = 1.0 / tickrate
 	
 	if _fuel_ticks > 0:

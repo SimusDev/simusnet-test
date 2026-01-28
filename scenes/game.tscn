@@ -30,7 +30,6 @@ level_holder = NodePath("../LevelHolder")
 
 [node name="Sky3D" parent="Sky3D" index="0" unique_id=1126287609]
 current_time = 16.0
-minutes_per_day = 15.0
 
 [node name="SunLight" parent="Sky3D/Sky3D" index="0" unique_id=664705233]
 transform = Transform3D(0, -0.5805576, -0.8142192, 0.8522719, -0.42591718, 0.3036891, -0.52309895, -0.6939361, 0.49479297, -0.8142192, 0.3036891, 0.49479297)
@@ -46,7 +45,6 @@ moon_azimuth = -0.86138767
 moon_altitude = -2.0091393
 
 [node name="TimeOfDay" parent="Sky3D/Sky3D" index="3" unique_id=1662296329]
-minutes_per_day = 15.0
 current_time = 16.0
 
 [node name="Authentification" parent="." unique_id=1887314113 instance=ExtResource("6_p57ef")]

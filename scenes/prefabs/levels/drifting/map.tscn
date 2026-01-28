@@ -3,6 +3,11 @@
 [ext_resource type="PackedScene" uid="uid://dxnvsoi1pvfeu" path="res://addons/gevp/scenes/track.tscn" id="1_sidb7"]
 [ext_resource type="Script" uid="uid://fc6kpuv5syvv" path="res://component/level/CT_SpawnPoint3D.gd" id="2_li76b"]
 [ext_resource type="PackedScene" uid="uid://c0gcmsl4fll2x" path="res://scenes/prefabs/base_objects_tables.tscn" id="3_p5kfj"]
+[ext_resource type="PackedScene" uid="uid://h5f2r6nnwmsn" path="res://scenes/prefabs/seats/car/model.scn" id="4_uqwa7"]
+[ext_resource type="Script" uid="uid://hmy2t684xhdx" path="res://component/entity/CT_Seat.gd" id="5_0tcb7"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0tcb7"]
+size = Vector3(1, 0.6230469, 0.711853)
 
 [node name="Map" type="Node3D" unique_id=1782495043]
 
@@ -20,3 +25,18 @@ metadata/_custom_type_script = "uid://fc6kpuv5syvv"
 
 [node name="base_objects" parent="." unique_id=1906786045 instance=ExtResource("3_p5kfj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 0, 0)
+
+[node name="seat_test" type="RigidBody3D" parent="." unique_id=1490439919]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 8.273748, 1.2458689, 12.289463)
+collision_layer = 0
+
+[node name="Model" parent="seat_test" unique_id=1779698326 instance=ExtResource("4_uqwa7")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="seat_test" unique_id=298777625]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3857422, -0.0015563965)
+shape = SubResource("BoxShape3D_0tcb7")
+
+[node name="CT_Seat" type="Node3D" parent="seat_test" unique_id=1197944981 node_paths=PackedStringArray("_interactable")]
+script = ExtResource("5_0tcb7")
+_interactable = NodePath("..")
+metadata/_custom_type_script = "uid://hmy2t684xhdx"

@@ -51,9 +51,6 @@ static func get_components_from(object: Object) -> Array:
 		if value is Array:
 			return value
 		_debug_log_from_object(object, "%s must return an Array!" % METHOD, SD_ConsoleCategories.ERROR)
-	else:
-		pass
-		#_debug_log_from_object(object, "method %s was not found." % METHOD, SD_ConsoleCategories.WARNING)
 	
 	if Engine.is_editor_hint():
 		return []
@@ -63,7 +60,7 @@ static func get_components_from(object: Object) -> Array:
 	
 	var result: Array = []
 	object.set_meta(META, result)
-	return []
+	return result
 
 static func find_base_script(script: Script, recursive: bool = true) -> Script:
 	if not script:
