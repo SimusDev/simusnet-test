@@ -2,6 +2,8 @@
 
 [ext_resource type="Texture2D" uid="uid://dndfhyh82p3rv" path="res://src/textures/general/stone/0.png" id="1_k046m"]
 [ext_resource type="Texture2D" uid="uid://bglulose6qdii" path="res://src/textures/general/grass/grass1.png" id="2_ermea"]
+[ext_resource type="Resource" uid="uid://dd76mxp2nfucb" path="res://src/metadata_material/Concrete.tres" id="2_mbdu3"]
+[ext_resource type="Resource" uid="uid://01yjq1aidpsh" path="res://src/metadata_material/Grass.tres" id="3_k046m"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_62kxx"]
 size = Vector3(15, 1, 10)
@@ -63,8 +65,10 @@ path_continuous_u = true
 path_u_distance = 3.0
 path_joined = false
 material = SubResource("StandardMaterial3D_c4708")
+metadata/MetadataMaterial = ExtResource("2_mbdu3")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=667565384 groups=["Grass"]]
+metadata/MetadataMaterial = ExtResource("3_k046m")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D" unique_id=1852182791]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)

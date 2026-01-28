@@ -8,7 +8,7 @@
 [ext_resource type="Resource" uid="uid://dc2a2qlq72pvn" path="res://src/objects/item/flashlight/flashlight.tres" id="5_4c3i3"]
 [ext_resource type="Resource" uid="uid://c8wy5klyargde" path="res://src/objects/general/craft/crafting_table.tres" id="5_61k8a"]
 [ext_resource type="Resource" uid="uid://buqwpbav7fdx5" path="res://src/objects/general/furnace/furnace_tier1.tres" id="6_2mjuu"]
-[ext_resource type="Resource" uid="uid://ce1e2a4kac0ar" path="res://src/objects/item/coal.tres" id="7_x5rrb"]
+[ext_resource type="Resource" uid="uid://ce1e2a4kac0ar" path="res://src/objects/item/coal/coal.tres" id="7_x5rrb"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_6rygw"]
 size = Vector3(2, 1, 4)
@@ -98,7 +98,7 @@ mesh = SubResource("BoxMesh_6rygw")
 material = SubResource("StandardMaterial3D_p870i")
 
 [node name="CT_ObjectSpawn" type="Node3D" parent="table2" unique_id=2091790118]
-transform = Transform3D(-0.0094246, 0, -0.99995565, 0, 1, 0, 0.99995565, 0, -0.0094246, 0, 0.883276, -0.142519)
+transform = Transform3D(-0.036643688, 0, 0.9993284, 0, 1, 0, -0.9993284, 0, -0.036643688, 0, 0.883276, -0.142519)
 script = ExtResource("2_n32yt")
 object = ExtResource("4_vrnhv")
 metadata/_custom_type_script = "uid://dgp0pmmh5blth"
