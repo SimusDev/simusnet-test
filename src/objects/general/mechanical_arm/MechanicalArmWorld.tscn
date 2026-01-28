@@ -1,0 +1,97 @@
+[gd_scene format=3 uid="uid://bfw7xge8dgn1u"]
+
+[ext_resource type="Script" uid="uid://dgpefoiodenan" path="res://src/objects/general/mechanical_arm/mechanical_arm.gd" id="1_c7nmx"]
+[ext_resource type="PackedScene" uid="uid://cdd0mg2pp6edg" path="res://src/objects/general/mechanical_arm/MechanicalArmModel.tscn" id="2_ihb0s"]
+[ext_resource type="Script" uid="uid://bwwpj2rkss4cf" path="res://component/health/CT_Health.gd" id="2_spbmj"]
+[ext_resource type="Script" uid="uid://dehqcsswxyu8a" path="res://component/inventory/CT_Inventory.gd" id="3_ihb0s"]
+[ext_resource type="Script" uid="uid://b0jl432eesuju" path="res://component/health/CT_DestroyOnDeath.gd" id="3_j2xet"]
+[ext_resource type="Script" uid="uid://dvlnhvdrc3dy6" path="res://component/hitbox/CT_Hitbox.gd" id="3_sptq7"]
+[ext_resource type="Script" uid="uid://b7wl6dvtvsttb" path="res://component/inventory/CT_InventorySlot.gd" id="4_gkwvv"]
+[ext_resource type="PackedScene" uid="uid://pa0ttv4j400k" path="res://src/ui/backpacks/chest.tscn" id="7_v2l1n"]
+[ext_resource type="Script" uid="uid://dmmtiqx85a6oj" path="res://src/objects/interact/CT_NodeInteractions.gd" id="8_5imdp"]
+[ext_resource type="Script" uid="uid://ux3hdo53vt4p" path="res://component/interaction/R_InteractAction.gd" id="9_co6js"]
+[ext_resource type="Resource" uid="uid://xecviu4tcm2e" path="res://src/objects/interact/actions/open.tres" id="10_v2l1n"]
+[ext_resource type="Resource" uid="uid://cvbrrn0mme4i" path="res://src/objects/interact/actions/pickup.tres" id="12_v2l1n"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gkwvv"]
+size = Vector3(0.2, 1, 0.2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_sptq7"]
+size = Vector3(1, 1.4470215, 0.8525696)
+
+[node name="MechanicalArmWorld" type="StaticBody3D" unique_id=1574390254 node_paths=PackedStringArray("inventory", "input_area", "output_area", "custom_target")]
+script = ExtResource("1_c7nmx")
+inventory = NodePath("CT_Inventory")
+input_area = NodePath("input")
+output_area = NodePath("output")
+custom_target = NodePath("Target")
+
+[node name="CT_Health" type="Node" parent="." unique_id=170554197 node_paths=PackedStringArray("root")]
+script = ExtResource("2_spbmj")
+root = NodePath("..")
+metadata/_custom_type_script = "uid://bwwpj2rkss4cf"
+
+[node name="CT_DestroyOnDeath" type="Node" parent="CT_Health" unique_id=1081164555]
+script = ExtResource("3_j2xet")
+metadata/_custom_type_script = "uid://b0jl432eesuju"
+
+[node name="CT_Hitbox" type="Area3D" parent="." unique_id=763988953 node_paths=PackedStringArray("health")]
+script = ExtResource("3_sptq7")
+health = NodePath("../CT_Health")
+metadata/_custom_type_script = "uid://dvlnhvdrc3dy6"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CT_Hitbox" unique_id=1400981530]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.9802322e-08, 0.5, -2.9802322e-08)
+shape = SubResource("BoxShape3D_gkwvv")
+
+[node name="mechanical_arm_model" parent="." unique_id=1068801430 instance=ExtResource("2_ihb0s")]
+
+[node name="JacobianIK3D" parent="mechanical_arm_model/root/Armature/Skeleton3D" parent_id_path=PackedInt32Array(1068801430, 478333752) index="6" unique_id=1316577865]
+settings/0/target_node = NodePath("../../../../../Target")
+
+[node name="CT_Inventory" type="Node" parent="." unique_id=1357917572 node_paths=PackedStringArray("node")]
+script = ExtResource("3_ihb0s")
+node = NodePath("..")
+initial_slot_count = 0
+backpack_interface = ExtResource("7_v2l1n")
+metadata/_custom_type_script = "uid://dehqcsswxyu8a"
+
+[node name="0" type="Node" parent="CT_Inventory" unique_id=426245840]
+script = ExtResource("4_gkwvv")
+tags = Dictionary[String, Variant]({
+"input": null
+})
+metadata/_custom_type_script = "uid://b7wl6dvtvsttb"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=168959221]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.9802322e-08, 0.5, -2.9802322e-08)
+shape = SubResource("BoxShape3D_gkwvv")
+
+[node name="input" type="Area3D" parent="." unique_id=953907746]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0.7)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="input" unique_id=837652264]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.22351074, 0)
+shape = SubResource("BoxShape3D_sptq7")
+
+[node name="output" type="Area3D" parent="." unique_id=562155807]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -0.8)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="output" unique_id=1868030341]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.22351074, 0)
+shape = SubResource("BoxShape3D_sptq7")
+
+[node name="CT_NodeInteractions" type="Node" parent="." unique_id=790104284 node_paths=PackedStringArray("target")]
+script = ExtResource("8_5imdp")
+target = NodePath("..")
+list = Array[ExtResource("9_co6js")]([ExtResource("10_v2l1n"), ExtResource("12_v2l1n")])
+metadata/_custom_type_script = "uid://dmmtiqx85a6oj"
+
+[node name="Target" type="Marker3D" parent="." unique_id=1857840759]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0732276, 0)
+
+[node name="Label3D" type="Label3D" parent="Target" unique_id=1398853572]
+billboard = 2
+text = "T"
+
+[editable path="mechanical_arm_model"]

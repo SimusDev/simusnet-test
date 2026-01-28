@@ -1,12 +1,14 @@
 [gd_scene format=3 uid="uid://1geyvbuwfttm"]
 
 [ext_resource type="PackedScene" uid="uid://t2qm47a4v7ae" path="res://scenes/prefabs/object/military_box/military_box_model.tscn" id="1_q136o"]
+[ext_resource type="Script" uid="uid://ch1xuqxtpahcs" path="res://scenes/prefabs/object/military_box/military_box_world.gd" id="1_v1q55"]
 [ext_resource type="Script" uid="uid://lvn8qsil5p1x" path="res://component/containers/CT_Chest.gd" id="4_joo51"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_q136o"]
 size = Vector3(211.24937, 142.76637, 430.83246)
 
 [node name="RigidBody3D" type="RigidBody3D" unique_id=1686454376]
+script = ExtResource("1_v1q55")
 
 [node name="MilitaryBoxModel" parent="." unique_id=1426099507 instance=ExtResource("1_q136o")]
 

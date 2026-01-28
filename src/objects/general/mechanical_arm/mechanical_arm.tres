@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="R_WorldObject" format=3 uid="uid://crron1r60u25h"]
+
+[ext_resource type="Script" uid="uid://cxyhi06aga6j1" path="res://component/object/R_WorldObject.gd" id="1_3yiw2"]
+[ext_resource type="Script" uid="uid://cqdfkwb1galvp" path="res://component/viewmodel/R_ViewModel.gd" id="2_uwi0e"]
+[ext_resource type="PackedScene" uid="uid://dyp7n6f00k7eq" path="res://src/objects/general/mechanical_arm/MechanicalArmView.tscn" id="3_2s15t"]
+[ext_resource type="PackedScene" uid="uid://bfw7xge8dgn1u" path="res://src/objects/general/mechanical_arm/MechanicalArmWorld.tscn" id="4_1fd7i"]
+
+[sub_resource type="Resource" id="Resource_awy3o"]
+script = ExtResource("2_uwi0e")
+world = ExtResource("4_1fd7i")
+view = ExtResource("3_2s15t")
+metadata/_custom_type_script = "uid://cqdfkwb1galvp"
+
+[resource]
+script = ExtResource("1_3yiw2")
+viewmodel = SubResource("Resource_awy3o")
+metadata/_custom_type_script = "uid://cxyhi06aga6j1"

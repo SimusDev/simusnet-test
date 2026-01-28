@@ -4,9 +4,6 @@
 [ext_resource type="PackedScene" uid="uid://tyrhcomsutsi" path="res://src/objects/general/furnace/models/base/sketchfab.tscn" id="2_umk4i"]
 [ext_resource type="Script" uid="uid://ffif2k6n51yv" path="res://src/objects/general/furnace/tier_1.gd" id="2_xnar8"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_xnar8"]
-size = Vector3(0.6210518, 1.7273483, 0.9127197)
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_grlpn"]
 transparency = 1
 albedo_color = Color(0, 0, 0, 0.36078432)
@@ -15,17 +12,20 @@ albedo_color = Color(0, 0, 0, 0.36078432)
 material = SubResource("StandardMaterial3D_grlpn")
 size = Vector3(0.25, 0.25, 0.25)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_xnar8"]
+size = Vector3(0.6210518, 1.7273483, 0.9127197)
+
 [node name="Tier1" unique_id=1350484502 instance=ExtResource("1_qyghq")]
 script = ExtResource("2_xnar8")
 
-[node name="Sketchfab_Scene" parent="." index="2" unique_id=1173696965 instance=ExtResource("2_umk4i")]
+[node name="Sketchfab_Scene" parent="." index="0" unique_id=1173696965 instance=ExtResource("2_umk4i")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.017758042, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." index="3" unique_id=562509967]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.001203537, 0.8846092, 0.0016479492)
-shape = SubResource("BoxShape3D_xnar8")
+[node name="Audio" parent="." index="3" unique_id=1522678353]
+unit_size = 5.96
+max_distance = 26.75
 
-[node name="CPUParticles3D" type="CPUParticles3D" parent="." index="5" unique_id=910144609]
+[node name="CPUParticles3D" type="CPUParticles3D" parent="." index="4" unique_id=910144609]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8875186, 0.1837833)
 emitting = false
 amount = 16
@@ -35,9 +35,13 @@ gravity = Vector3(0, 1.56, 0)
 initial_velocity_min = 0.15
 initial_velocity_max = 0.6
 
-[node name="OmniLight3D" type="OmniLight3D" parent="." index="6" unique_id=1014929478]
+[node name="OmniLight3D" type="OmniLight3D" parent="." index="5" unique_id=1014929478]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.37437928, 0.4062606, 0)
 visible = false
 light_color = Color(1, 0.78431374, 0, 1)
 light_size = 0.416
 shadow_enabled = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." index="6" unique_id=562509967]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.001203537, 0.8846092, 0.0016479492)
+shape = SubResource("BoxShape3D_xnar8")

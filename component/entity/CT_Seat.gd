@@ -12,16 +12,25 @@ signal on_entity_unmounted(entity: Node3D)
 
 var _remote_transform: RemoteTransform3D
 
-var ACTION: R_InteractAction
+const ACTION: Resource = preload("res://src/objects/interact/actions/seat.tres")
 
 func _ready() -> void:
-	ACTION = load("res://src/objects/interact/actions/seat.tres")
-	
 	_remote_transform = RemoteTransform3D.new()
 	add_child(_remote_transform)
 	
 	if _interactable:
 		ACTION.append_to(_interactable)
+		
+	
+	SimusNetRPC.register(
+		[
+			
+		], 
+		SimusNetRPCConfig.new()
+		.flag_mode_any_peer()
+		.flag_serialization()
+		.flag_set_channel(Network.CHANNEL_INTERACTABLES)
+	)
 	
 	SimusNetRPC.register(
 		[
@@ -61,7 +70,7 @@ func _entity_mounted(entity: Node3D) -> void:
 	
 	CT_LocalInput.get_or_create(entity).on_input.connect(_on_local_input)
 	
-	_remote_transform.remote_path = _remote_transform.get_path_to(entity)
+	#_remote_transform.remote_path = _remote_transform.get_path_to(entity)
 	on_entity_mounted.emit(entity)
 
 func _entity_unmounted(entity: Node3D) -> void:
@@ -70,7 +79,7 @@ func _entity_unmounted(entity: Node3D) -> void:
 	
 	CT_LocalInput.get_or_create(entity).on_input.disconnect(_on_local_input)
 	
-	_remote_transform.remote_path = NodePath()
+	#_remote_transform.remote_path = NodePath()
 	on_entity_unmounted.emit(entity)
 
 func _on_local_input(event: InputEvent) -> void:
@@ -81,9 +90,7 @@ func _physics_process(delta: float) -> void:
 	if !get_mounted_entity():
 		return
 	
-	#_mounted_entity.global_position = self.global_position
-	#_mounted_entity.global_rotation.x = self.global_position.x
-	#_mounted_entity.global_rotation.z = self.global_position.z
+	_mounted_entity.global_position = self.global_position
 
 func set_mounted_entity(entity: Node3D) -> CT_Seat:
 	if SimusNetConnection.is_server():

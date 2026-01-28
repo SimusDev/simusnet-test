@@ -246,6 +246,13 @@ func try_pickup(object: Variant) -> bool:
 	stack.queue_free()
 	return false
 
+func get_free_slots() -> Array[CT_InventorySlot]:
+	var result:Array[CT_InventorySlot] = []
+	for i in get_slots():
+		if i.is_free():
+			result.append(i)
+	return result
+
 func get_free_slot_for(item: CT_ItemStack) -> CT_InventorySlot:
 	for i in get_slots():
 		if i.is_free() and i.can_handle_item(item):

@@ -43,11 +43,14 @@ func _physics_process(delta: float) -> void:
 
 func _on_hit(result: Dictionary, step: Vector3) -> void:
 	_spawn_impact_effects(result)
-	var collider:Node3D = result.get("collider") as Node3D
+	var collider = result.get("collider") as Node3D
 	
-	if SimusNetConnection.is_server():
-		if collider is CT_Hitbox:
-			pass
+	#if SimusNetConnection.is_server():
+	if collider is CT_Hitbox:
+		var damage = (R_Damage.new()
+			.set_value( 25.0 )
+			.apply(collider)
+		)
 	
 	var resistance = 1.0 ## 1.0 эта типа бетон
 	if MetadataMaterial.find_in(collider):
