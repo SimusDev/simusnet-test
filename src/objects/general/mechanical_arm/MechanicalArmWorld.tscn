@@ -52,7 +52,7 @@ settings/0/target_node = NodePath("../../../../../Target")
 [node name="CT_Inventory" type="Node" parent="." unique_id=1357917572 node_paths=PackedStringArray("node")]
 script = ExtResource("3_ihb0s")
 node = NodePath("..")
-initial_slot_count = 0
+initial_slot_count = 1
 backpack_interface = ExtResource("7_v2l1n")
 metadata/_custom_type_script = "uid://dehqcsswxyu8a"
 

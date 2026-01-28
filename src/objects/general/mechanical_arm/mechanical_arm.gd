@@ -34,41 +34,50 @@ func _ready() -> void:
 		area.body_exited.connect(func(_b): _update_queues())
 
 func _process(_delta: float) -> void:
-	if is_moving: return
+	if is_moving:
+		return
 	
-	if not inventory.get_free_slots():
+	if not inventory or inventory.get_free_slots().is_empty():
 		return
 	
 	var provider = _get_first_valid_inventory(input_area)
 	var receiver = _get_first_valid_inventory(output_area)
 	
-	if not provider:
-		if receiver:
-			if receiver != inventory:
-				provider = inventory
+	if not provider and receiver and receiver != inventory:
+		provider = inventory
 	
-	if provider:
-		if provider.get_item_stacks().is_empty():
-			return
-	
-	
-		_start_transfer(provider, receiver)
+	if not provider or provider.get_item_stacks().is_empty():
+		return
+	_start_transfer(provider, receiver)
 
 func _start_transfer(from: CT_Inventory, to: CT_Inventory) -> void:
 	is_moving = true
 	moved.emit()
+	
+	if not from or not from.node:
+		is_moving = false
+		return
 	
 	var tween = create_tween().set_trans(Tween.TRANS_SINE)
 	tween.tween_property(target_node, "global_position", from.node.global_position, speed)
 	tween.tween_callback(func(): _perform_logic_transfer(from, inventory))
 	
 	if to:
-		tween.tween_property(target_node, "global_position", to.node.global_position, speed)
-	tween.finished.connect(
-		func():
+		if not to.node:
 			is_moving = false
-			_perform_logic_transfer(inventory, to)
-			)
+			return
+		tween.tween_property(target_node, "global_position", to.node.global_position, speed)
+		tween.finished.connect(
+			func():
+				is_moving = false
+				_perform_logic_transfer(inventory, to)
+				)
+	else:
+		tween.finished.connect(
+			func():
+				is_moving = false
+				)
+
 
 func _perform_logic_transfer(from: CT_Inventory, to: CT_Inventory) -> void:
 	if not is_instance_valid(from) or not is_instance_valid(to):
@@ -81,19 +90,15 @@ func _perform_logic_transfer(from: CT_Inventory, to: CT_Inventory) -> void:
 	if not item_stack:
 		return
 	
-	var input_slot:CT_InventorySlot = null
-
-	print(to)
-	#if to.get_slot_by_tag("input"):
-		#input_slot = to.get_slot_by_tag("input")
-	#else:
-	if not to.get_item_stacks().is_empty():
+	var input_slot: CT_InventorySlot = null
+	
+	if to:
 		input_slot = to.get_free_slot_for(item_stack)
 	
-	if input_slot:
-		if input_slot.is_free():
+	if input_slot and input_slot.is_free():
+		var new_item_stack = to.try_add_item(item_stack)
+		if new_item_stack:
 			from.try_remove_item(item_stack)
-			to.try_add_item(item_stack)
 
 func _get_first_valid_inventory(area: Area3D) -> CT_Inventory:
 	for body in area.get_overlapping_bodies():
