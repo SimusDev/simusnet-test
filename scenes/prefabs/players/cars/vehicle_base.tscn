@@ -11,7 +11,7 @@
 [ext_resource type="Script" uid="uid://ecinuv6cd5dj" path="res://component/vehicle/CT_VehicleLight.gd" id="8_fddof"]
 [ext_resource type="PackedScene" uid="uid://dgablj6dgsx6c" path="res://3d/skyline/wheel.glb" id="9_un5s0"]
 [ext_resource type="Script" uid="uid://cgpsyyx2x8kki" path="res://component/ui/MP_CanvasLayer.gd" id="10_un5s0"]
-[ext_resource type="Script" uid="uid://d0sttdxi6n81k" path="res://component/VehicleSkidDetector.gd" id="11_2imo2"]
+[ext_resource type="Script" path="res://component/VehicleDriftDetector.gd" id="11_2imo2"]
 [ext_resource type="PackedScene" uid="uid://b2hlchrj4h2b7" path="res://addons/gevp/scenes/engine_sound.tscn" id="12_jjc1r"]
 [ext_resource type="PackedScene" uid="uid://b36ise4k4tg7d" path="res://scenes/prefabs/player_ui/player_ui.tscn" id="13_n43dm"]
 
