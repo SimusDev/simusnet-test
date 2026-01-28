@@ -46,9 +46,6 @@ func _muzzle_fire() -> void:
 	pass
 
 func _spawn_bullet() -> void:
-	if not is_multiplayer_authority():
-		return
-	
 	var bullet = load("res://scenes/prefabs/firearm_bullet.tscn").instantiate()
 	bullet.set("weapon", object)
 	
