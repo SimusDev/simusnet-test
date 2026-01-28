@@ -43,6 +43,7 @@ func get_itemstack_config() -> R_ItemStackConfig:
 
 func _spawned(instance: Node3D, level_group: LevelGroup) -> void:
 	if level_group.networked:
+		await instance.get_tree().process_frame
 		var pick_up_action: R_InteractAction = load("uid://cvbrrn0mme4i")
 		pick_up_action.append_to(instance)
 
