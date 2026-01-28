@@ -1,14 +1,18 @@
 extends Resource
 class_name SimusNetIdentity
 
-var owner: Object
+var owner: Object : get = get_owner
+
+func get_owner() -> Object:
+	if !is_instance_valid(owner):
+		owner = null
+	return owner
+
 var settings: SimusNetIdentitySettings
 
 signal on_ready()
 
 var is_ready: bool = false
-
-var _bytes_unique_id: PackedByteArray = PackedByteArray()
 
 var is_initialized: bool = false
 
@@ -21,14 +25,6 @@ static var _list_by_id: Dictionary[int, SimusNetIdentity] = {}
 static var _list_by_generated_id: Dictionary[Variant, SimusNetIdentity] = {}
 
 const BYTE_SIZE: int = 2
-
-var _invisible_for_peers: PackedInt32Array = []
-
-func is_visible_for_peer(id: int) -> bool:
-	return !_invisible_for_peers.has(id)
-
-func is_invisible_for_peer(id: int) -> bool:
-	return _invisible_for_peers.has(id)
 
 static func register(object: Object, settings: SimusNetIdentitySettings = null, from: SimusNetIdentity = null) -> SimusNetIdentity:
 	if object.has_meta("SimusNetIdentity"):
@@ -124,17 +120,12 @@ func _set_ready() -> void:
 	if is_ready:
 		return
 	
-	_bytes_unique_id.clear()
-	_bytes_unique_id.resize(BYTE_SIZE)
-	
-	_bytes_unique_id.encode_u16(0, get_unique_id())
-	
 	_list_by_id[get_unique_id()] = self
 	
 	is_ready = true
 	on_ready.emit()
 	
-	if is_instance_valid(owner):
+	if owner:
 		SimusNetVisibility._local_identity_create(self)
 
 func _tree_exited() -> void:
@@ -146,7 +137,7 @@ func _tree_exited() -> void:
 func _destroy() -> void:
 	_deinitialize_dynamic()
 	
-	if is_instance_valid(owner):
+	if owner:
 		SimusNetVisibility._local_identity_delete(self)
 	
 	SimusNetCache._uncache_identity(self)
@@ -154,23 +145,11 @@ func _destroy() -> void:
 	_list_by_id.erase(get_unique_id())
 	_list_by_generated_id.erase(get_generated_unique_id())
 
-func set_generated_unique_id(id: Variant) -> SimusNetIdentity:
-	_set_generated_unique_id_async(id)
-	return self
-
-func _set_generated_unique_id_async(id: Variant) -> void:
-	await _tree_exited()
-	settings.set_unique_id(id)
-	_tree_entered()
-
 func get_generated_unique_id() -> Variant:
 	return _generated_unique_id
 
 func get_unique_id() -> int:
 	return _unique_id
-
-func serialize_unique_id() -> PackedByteArray:
-	return _bytes_unique_id
 
 func try_serialize_into_variant() -> Variant:
 	if get_unique_id() >= 0:

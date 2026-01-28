@@ -1,0 +1,123 @@
+[gd_scene format=3 uid="uid://bqx58y6sxcy1v"]
+
+[ext_resource type="Script" uid="uid://gkpe7xci8on3" path="res://scenes/prefabs/ui/main_menu/main_menu.gd" id="1_026n6"]
+[ext_resource type="Script" uid="uid://dotjiengj0hqs" path="res://addons/simusdev/ui/SD_UINodeExitButton.gd" id="2_da2ht"]
+
+[node name="main_menu" type="Control" unique_id=186549104 node_paths=PackedStringArray("_button_container", "_screens_container")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_026n6")
+_button_container = [NodePath("Panel/MarginContainer/ScreenMain"), NodePath("Panel/MarginContainer/ScreenConnect"), NodePath("Panel/MarginContainer/ScreenSettings")]
+_screens_container = NodePath("Panel/MarginContainer")
+
+[node name="Devs" type="Label" parent="." unique_id=2008836150]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = -48.0
+offset_right = 708.0
+offset_bottom = -8.0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 32
+text = "Devs"
+
+[node name="Panel" type="Panel" parent="." unique_id=690560241]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.76100004
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -0.080078125
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel" unique_id=1512978073]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="ScreenMain" type="VBoxContainer" parent="Panel/MarginContainer" unique_id=2006840583]
+visible = false
+layout_mode = 2
+alignment = 1
+
+[node name="Play" type="Button" parent="Panel/MarginContainer/ScreenMain" unique_id=585285750]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Play"
+
+[node name="Multiplayer" type="Button" parent="Panel/MarginContainer/ScreenMain" unique_id=2025523503]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Multiplayer"
+
+[node name="Load Game" type="Button" parent="Panel/MarginContainer/ScreenMain" unique_id=1165464092]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Load Game"
+
+[node name="Save Game" type="Button" parent="Panel/MarginContainer/ScreenMain" unique_id=441975929]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+disabled = true
+text = "Save Game"
+
+[node name="Settings" type="Button" parent="Panel/MarginContainer/ScreenMain" unique_id=602292339]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Settings"
+
+[node name="Quit" type="Button" parent="Panel/MarginContainer/ScreenMain" unique_id=1556660542]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Quit"
+
+[node name="SD_UINodeExitButton" type="Node" parent="Panel/MarginContainer/ScreenMain/Quit" unique_id=120094287 node_paths=PackedStringArray("button")]
+script = ExtResource("2_da2ht")
+button = NodePath("..")
+metadata/_custom_type_script = "uid://dotjiengj0hqs"
+
+[node name="ScreenConnect" type="VBoxContainer" parent="Panel/MarginContainer" unique_id=277743264]
+layout_mode = 2
+alignment = 1
+
+[node name="LineEdit" type="LineEdit" parent="Panel/MarginContainer/ScreenConnect" unique_id=656455464]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "localhost:8080"
+placeholder_text = "Address"
+alignment = 1
+
+[node name="ConnectToServer" type="Button" parent="Panel/MarginContainer/ScreenConnect" unique_id=836580550]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Connect"
+
+[node name="BackToMain" type="Button" parent="Panel/MarginContainer/ScreenConnect" unique_id=319050546]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Back"
+
+[node name="ScreenSettings" type="VBoxContainer" parent="Panel/MarginContainer" unique_id=295347634]
+visible = false
+layout_mode = 2
+alignment = 1
+
+[node name="BackToMain" type="Button" parent="Panel/MarginContainer/ScreenSettings" unique_id=1344768111]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Back"

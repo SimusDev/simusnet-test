@@ -27,6 +27,7 @@ cache = SubResource("Resource_cxv7n")
 
 [resource]
 script = ExtResource("8")
+developer = "zxcvlxd and simusdev"
 gamebuild = SubResource("Resource_tfge0")
 network = SubResource("Resource_3krnf")
 multiplayer = SubResource("Resource_aioq7")

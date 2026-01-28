@@ -30,9 +30,6 @@ var _tickrate_time: float = 0.0
 func get_identity() -> SimusNetIdentity:
 	return _identity
 
-func get_object() -> SimusNetObject:
-	return _object
-
 func get_properties() -> PackedStringArray:
 	return _properties
 
