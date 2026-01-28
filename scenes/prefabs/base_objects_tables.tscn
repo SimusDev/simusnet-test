@@ -8,6 +8,7 @@
 [ext_resource type="Resource" uid="uid://dc2a2qlq72pvn" path="res://src/objects/item/flashlight/flashlight.tres" id="5_4c3i3"]
 [ext_resource type="Resource" uid="uid://c8wy5klyargde" path="res://src/objects/general/craft/crafting_table.tres" id="5_61k8a"]
 [ext_resource type="Resource" uid="uid://buqwpbav7fdx5" path="res://src/objects/general/furnace/furnace_tier1.tres" id="6_2mjuu"]
+[ext_resource type="Resource" uid="uid://crron1r60u25h" path="res://src/objects/general/mechanical_arm/mechanical_arm.tres" id="6_vrnhv"]
 [ext_resource type="Resource" uid="uid://ce1e2a4kac0ar" path="res://src/objects/item/coal/coal.tres" id="7_x5rrb"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_6rygw"]
@@ -20,7 +21,7 @@ uv1_triplanar = true
 [node name="base_objects" type="Node3D" unique_id=1906786045]
 
 [node name="table" type="CSGMesh3D" parent="." unique_id=2087113639]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.722687, 0.5, 7.796892)
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 7.722687, 0.5, 7.796892)
 use_collision = true
 mesh = SubResource("BoxMesh_6rygw")
 material = SubResource("StandardMaterial3D_p870i")
@@ -44,7 +45,7 @@ object = ExtResource("3_4c3i3")
 metadata/_custom_type_script = "uid://dgp0pmmh5blth"
 
 [node name="table5" type="CSGMesh3D" parent="." unique_id=675634582]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.722687, 0.5, 2.796892)
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 7.722687, 0.5, 2.796892)
 use_collision = true
 mesh = SubResource("BoxMesh_6rygw")
 material = SubResource("StandardMaterial3D_p870i")
@@ -68,7 +69,7 @@ object = ExtResource("4_n32yt")
 metadata/_custom_type_script = "uid://dgp0pmmh5blth"
 
 [node name="table6" type="CSGMesh3D" parent="." unique_id=1586225417]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.722687, 0.5, -2.2031078)
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 7.722687, 0.5, -2.2031078)
 use_collision = true
 mesh = SubResource("BoxMesh_6rygw")
 material = SubResource("StandardMaterial3D_p870i")
@@ -91,6 +92,30 @@ script = ExtResource("2_n32yt")
 object = ExtResource("5_4c3i3")
 metadata/_custom_type_script = "uid://dgp0pmmh5blth"
 
+[node name="table7" type="CSGMesh3D" parent="." unique_id=945741029]
+transform = Transform3D(0, 0, -1.0000001, 0, 1, 0, 1.0000001, 0, 0, 14.722687, 0.5, -2.2031078)
+use_collision = true
+mesh = SubResource("BoxMesh_6rygw")
+material = SubResource("StandardMaterial3D_p870i")
+
+[node name="CT_ObjectSpawn4" type="Node3D" parent="table7" unique_id=1999767036]
+transform = Transform3D(0.025005933, 0.57318854, -0.819042, -0.99904984, 0.043584563, 0, 0.03569758, 0.8182636, 0.5737337, -0.34614563, 0.6160201, 1.2031081)
+script = ExtResource("2_n32yt")
+object = ExtResource("6_vrnhv")
+metadata/_custom_type_script = "uid://dgp0pmmh5blth"
+
+[node name="CT_ObjectSpawn5" type="Node3D" parent="table7" unique_id=2025500413]
+transform = Transform3D(0.04334715, 0.9936078, -0.10423347, -0.99904984, 0.043584563, -1.5255847e-09, 0.004542956, 0.10413423, 0.9945531, -0.34614563, 0.6160201, 0.14766622)
+script = ExtResource("2_n32yt")
+object = ExtResource("6_vrnhv")
+metadata/_custom_type_script = "uid://dgp0pmmh5blth"
+
+[node name="CT_ObjectSpawn6" type="Node3D" parent="table7" unique_id=1872615242]
+transform = Transform3D(0.013070564, 0.29960504, 0.95397395, -0.9990498, 0.04358456, -2.1249196e-09, -0.04157853, -0.9530673, 0.29989022, 0.16615486, 0.6160201, -1.0279615)
+script = ExtResource("2_n32yt")
+object = ExtResource("6_vrnhv")
+metadata/_custom_type_script = "uid://dgp0pmmh5blth"
+
 [node name="table2" type="CSGMesh3D" parent="." unique_id=2063510842]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 4.7856064, 0.5, 11.747625)
 use_collision = true
@@ -98,6 +123,30 @@ mesh = SubResource("BoxMesh_6rygw")
 material = SubResource("StandardMaterial3D_p870i")
 
 [node name="CT_ObjectSpawn" type="Node3D" parent="table2" unique_id=2091790118]
+transform = Transform3D(-0.036643688, 0, 0.9993284, 0, 1, 0, -0.9993284, 0, -0.036643688, 0, 0.883276, -0.142519)
+script = ExtResource("2_n32yt")
+object = ExtResource("4_vrnhv")
+metadata/_custom_type_script = "uid://dgp0pmmh5blth"
+
+[node name="table8" type="CSGMesh3D" parent="." unique_id=2129207439]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 9.785606, 0.5, 11.747625)
+use_collision = true
+mesh = SubResource("BoxMesh_6rygw")
+material = SubResource("StandardMaterial3D_p870i")
+
+[node name="CT_ObjectSpawn" type="Node3D" parent="table8" unique_id=681705749]
+transform = Transform3D(-0.036643688, 0, 0.9993284, 0, 1, 0, -0.9993284, 0, -0.036643688, 0, 0.883276, -0.142519)
+script = ExtResource("2_n32yt")
+object = ExtResource("4_vrnhv")
+metadata/_custom_type_script = "uid://dgp0pmmh5blth"
+
+[node name="table9" type="CSGMesh3D" parent="." unique_id=1200015119]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 14.785606, 0.5, 11.747625)
+use_collision = true
+mesh = SubResource("BoxMesh_6rygw")
+material = SubResource("StandardMaterial3D_p870i")
+
+[node name="CT_ObjectSpawn" type="Node3D" parent="table9" unique_id=809475295]
 transform = Transform3D(-0.036643688, 0, 0.9993284, 0, 1, 0, -0.9993284, 0, -0.036643688, 0, 0.883276, -0.142519)
 script = ExtResource("2_n32yt")
 object = ExtResource("4_vrnhv")
@@ -161,4 +210,22 @@ metadata/_custom_type_script = "uid://dgp0pmmh5blth"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.58342266, 0.9837179, 1.4457512)
 script = ExtResource("2_n32yt")
 object = ExtResource("7_x5rrb")
+metadata/_custom_type_script = "uid://dgp0pmmh5blth"
+
+[node name="CT_ObjectSpawn" type="Node3D" parent="." unique_id=829456367]
+transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 15, 0.5281735, 6.0967493)
+script = ExtResource("2_n32yt")
+object = ExtResource("4_vrnhv")
+metadata/_custom_type_script = "uid://dgp0pmmh5blth"
+
+[node name="CT_ObjectSpawn2" type="Node3D" parent="." unique_id=898939578]
+transform = Transform3D(0.035789043, 0, 0.99935925, 0, 1, 0, -0.99935925, 0, 0.035789043, 15, 0.3, 4.115625)
+script = ExtResource("2_n32yt")
+object = ExtResource("6_2mjuu")
+metadata/_custom_type_script = "uid://dgp0pmmh5blth"
+
+[node name="CT_ObjectSpawn5" type="Node3D" parent="." unique_id=566600611]
+transform = Transform3D(1.0000001, 0, 0, 0, 1, 0, 0, 0, 1.0000002, 15.115303, 0, 5.0729795)
+script = ExtResource("2_n32yt")
+object = ExtResource("6_vrnhv")
 metadata/_custom_type_script = "uid://dgp0pmmh5blth"

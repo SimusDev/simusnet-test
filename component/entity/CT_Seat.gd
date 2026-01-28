@@ -12,7 +12,7 @@ signal on_entity_unmounted(entity: Node3D)
 
 var _remote_transform: RemoteTransform3D
 
-const ACTION: Resource = preload("uid://c8q13ivkuxli0")
+const ACTION: Resource = preload("res://src/objects/interact/actions/seat.tres")
 
 func _ready() -> void:
 	_remote_transform = RemoteTransform3D.new()

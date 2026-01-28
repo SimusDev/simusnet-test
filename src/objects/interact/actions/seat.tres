@@ -1,8 +1,8 @@
-[gd_resource type="Resource" format=3 uid="uid://c8q13ivkuxli0"]
+[gd_resource type="Resource" format=3 uid="uid://bxendey8gkqmd"]
 
 [ext_resource type="Script" uid="uid://c1w6r35q5nj2f" path="res://src/objects/interact/actions/scripts/seat.gd" id="1_e7p3p"]
 
 [resource]
 script = ExtResource("1_e7p3p")
-name = "seat"
+name = "Seat"
 metadata/_custom_type_script = "uid://ux3hdo53vt4p"
