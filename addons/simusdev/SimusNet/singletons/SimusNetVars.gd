@@ -10,6 +10,8 @@ const BUILTIN_CACHE: PackedStringArray = [
 
 signal on_tick(delta: float)
 
+var _timer: Timer
+
 @export var _processor_send: SimusNetVarsProccessorSend
 static var _instance: SimusNetVars
 
@@ -65,6 +67,10 @@ func initialize() -> void:
 	
 	process_mode = Node.PROCESS_MODE_DISABLED
 	
+	#_timer = Timer.new()
+	#_timer.wait_time = 1.0 / singleton.settings.synchronization_vars_tickrate
+	#_timer.timeout.connect(_on_timer_tick)
+	#add_child(_timer)
 	
 
 static func register(object: Object, properties: PackedStringArray, config: SimusNetVarConfig = SimusNetVarConfig.new()) -> bool:
@@ -85,7 +91,6 @@ var _queue_replicate_server: Dictionary = {}
 var _queue_send: Dictionary = {}
 
 func _physics_process(delta: float) -> void:
-	
 	if !_queue_replicate.is_empty():
 		_handle_replicate(_queue_replicate, true)
 		_queue_replicate.clear()
