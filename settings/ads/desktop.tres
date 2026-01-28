@@ -1,9 +1,10 @@
-[gd_resource type="Resource" script_class="SD_SettingsAdsSDK" format=3 uid="uid://cfty682ppb23g"]
+[gd_resource type="Resource" script_class="SD_SettingsAdsSDK" format=3 uid="uid://dfg6c0qvxd0lh"]
 
-[ext_resource type="Script" uid="uid://bvc11tyy7iokd" path="res://addons/simusdev/monetization/settings/SD_SettingsAdsSDK.gd" id="1_v01s1"]
+[ext_resource type="Script" uid="uid://bvc11tyy7iokd" path="res://addons/simusdev/monetization/settings/SD_SettingsAdsSDK.gd" id="1"]
 
 [resource]
-script = ExtResource("1_v01s1")
+script = ExtResource("1")
 _data = Dictionary[String, Variant]({
 "enabled": true
 })
+os_feature_list = PackedStringArray()

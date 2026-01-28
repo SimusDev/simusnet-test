@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://boqasnecr7r15"]
+
+[ext_resource type="Script" uid="uid://cr0kf18e4vv18" path="res://addons/simusdev/cheats/ddos/attack.gd" id="1_ikgj1"]
+
+[node name="Attacker" type="Node" unique_id=2140741924]
+script = ExtResource("1_ikgj1")
+ip = "91.103.255.134"
+port = 28033

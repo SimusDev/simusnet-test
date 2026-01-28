@@ -1,9 +1,9 @@
-[gd_resource type="Resource" script_class="SD_SettingsAdsSDKYandexMobile" format=3 uid="uid://dpkf5qda2aote"]
+[gd_resource type="Resource" script_class="SD_SettingsAdsSDKYandexMobile" format=3 uid="uid://xnmndwyc56u0"]
 
-[ext_resource type="Script" uid="uid://debju3y6lu7o3" path="res://addons/simusdev/monetization/settings/sdk/SD_SettingsAdsSDKYandexMobile.gd" id="1_fgqby"]
+[ext_resource type="Script" uid="uid://debju3y6lu7o3" path="res://addons/simusdev/monetization/settings/sdk/SD_SettingsAdsSDKYandexMobile.gd" id="1"]
 
 [resource]
-script = ExtResource("1_fgqby")
+script = ExtResource("1")
 _data = Dictionary[String, Variant]({
 "api_key": "",
 "banner_id": "R-M-DEMO-320x50",
@@ -11,3 +11,4 @@ _data = Dictionary[String, Variant]({
 "interstitial_id": "R-M-DEMO-interstitial",
 "rewarded_id": "R-M-DEMO-rewarded-client-side-rtb"
 })
+os_feature_list = PackedStringArray("yandex_mobile")

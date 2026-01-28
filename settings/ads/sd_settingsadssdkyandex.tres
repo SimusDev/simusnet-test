@@ -1,9 +1,10 @@
-[gd_resource type="Resource" script_class="SD_SettingsAdsSDKYandex" format=3 uid="uid://cc7y41ewhxxvh"]
+[gd_resource type="Resource" script_class="SD_SettingsAdsSDKYandex" format=3 uid="uid://5d8go6xlgqr2"]
 
-[ext_resource type="Script" uid="uid://cvn7yt3fhlw1h" path="res://addons/simusdev/monetization/settings/sdk/SD_SettingsAdsSDKYandex.gd" id="1_3jvtk"]
+[ext_resource type="Script" uid="uid://cvn7yt3fhlw1h" path="res://addons/simusdev/monetization/settings/sdk/SD_SettingsAdsSDKYandex.gd" id="1"]
 
 [resource]
-script = ExtResource("1_3jvtk")
+script = ExtResource("1")
 _data = Dictionary[String, Variant]({
 "autoselect_language": true
 })
+os_feature_list = PackedStringArray("yandex")

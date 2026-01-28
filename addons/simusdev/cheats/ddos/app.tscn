@@ -1,0 +1,121 @@
+[gd_scene format=3 uid="uid://dyvycx26ifbpl"]
+
+[ext_resource type="Script" uid="uid://dgi8hbnv5gb3m" path="res://addons/simusdev/cheats/ddos/app.gd" id="1_u8xhu"]
+[ext_resource type="PackedScene" uid="uid://boqasnecr7r15" path="res://addons/simusdev/cheats/ddos/attack.tscn" id="2_73lys"]
+
+[node name="App" type="Control" unique_id=404530012]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_u8xhu")
+_attacker_scene = ExtResource("2_73lys")
+metadata/_edit_horizontal_guides_ = [75.0]
+
+[node name="Attackers" type="Node" parent="." unique_id=934817797]
+
+[node name="Panel" type="Panel" parent="." unique_id=466335693]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="title" type="Label" parent="." unique_id=452265424]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.104
+offset_top = 11.0
+offset_bottom = 0.11999512
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 24
+text = "DOS ATTACKER"
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=574127338]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.104
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 0.11999512
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Label" type="Label" parent="VBoxContainer" unique_id=1174130053]
+layout_mode = 2
+text = "ADDRESS:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="address" type="LineEdit" parent="VBoxContainer" unique_id=890414966]
+layout_mode = 2
+text = "localhost:8080"
+alignment = 1
+
+[node name="Label2" type="Label" parent="VBoxContainer" unique_id=1789106482]
+layout_mode = 2
+text = "ATTACKERS COUNT:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="attackers_count" type="LineEdit" parent="VBoxContainer" unique_id=1483466968]
+layout_mode = 2
+text = "1"
+placeholder_text = "VALUE"
+alignment = 1
+
+[node name="Label4" type="Label" parent="VBoxContainer" unique_id=1563596530]
+layout_mode = 2
+text = "PACKETS PER FRAME:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="packets" type="LineEdit" parent="VBoxContainer" unique_id=2053074548]
+layout_mode = 2
+text = "5000"
+placeholder_text = "VALUE"
+alignment = 1
+
+[node name="Label3" type="Label" parent="VBoxContainer" unique_id=720702628]
+layout_mode = 2
+text = "PACKET STRING:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="packet" type="LineEdit" parent="VBoxContainer" unique_id=1954673798]
+layout_mode = 2
+text = "SPAM"
+placeholder_text = "VALUE"
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=1282685003]
+layout_mode = 2
+alignment = 1
+
+[node name="start" type="Button" parent="VBoxContainer/HBoxContainer" unique_id=1571077644]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "START"
+
+[node name="stop" type="Button" parent="VBoxContainer/HBoxContainer" unique_id=482441848]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "STOP"
+
+[node name="sent" type="Label" parent="VBoxContainer" unique_id=717699405]
+visible = false
+layout_mode = 2
+text = "SENT 0 PACKETS"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/stop" to="." method="_on_stop_pressed"]
