@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://b73wn5ongbuen"]
+
+[ext_resource type="Script" uid="uid://b6wpgkxd8wpv" path="res://component/EntityFootsteps.gd" id="1_6mfql"]
+
+[node name="EntityFootsteps" type="RayCast3D" unique_id=51040922]
+script = ExtResource("1_6mfql")
+metadata/_custom_type_script = "uid://b6wpgkxd8wpv"

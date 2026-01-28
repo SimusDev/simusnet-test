@@ -17,6 +17,7 @@
 [ext_resource type="Script" uid="uid://cgpsyyx2x8kki" path="res://component/ui/MP_CanvasLayer.gd" id="10_wdfrp"]
 [ext_resource type="Script" uid="uid://dfsnjhyc2ld3c" path="res://addons/simusdev/components/fp_controller/source_like/W_FPCSourceLikeCrouch.gd" id="10_y56kl"]
 [ext_resource type="PackedScene" uid="uid://b36ise4k4tg7d" path="res://scenes/prefabs/player_ui/player_ui.tscn" id="11_y56kl"]
+[ext_resource type="PackedScene" uid="uid://b73wn5ongbuen" path="res://src/prefabs/entity_footsteps.tscn" id="18_2uglv"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_yyb7l"]
 size = Vector3(1, 0.5, 1)
@@ -167,5 +168,8 @@ metadata/_custom_type_script = "uid://cgpsyyx2x8kki"
 
 [node name="Marker3D" type="Marker3D" parent="." unique_id=1961461207]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
+
+[node name="EntityFootsteps" parent="." unique_id=51040922 instance=ExtResource("18_2uglv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.9, 0)
 
 [editable path="Camera"]

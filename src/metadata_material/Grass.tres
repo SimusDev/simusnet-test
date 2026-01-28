@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="MetadataMaterial" format=3 uid="uid://01yjq1aidpsh"]
+
+[ext_resource type="AudioStream" uid="uid://dey6rj80c53i4" path="res://audio/hl2/player/footsteps/grass1.wav" id="1_4hifs"]
+[ext_resource type="Script" uid="uid://c7jvuxu4hsmtm" path="res://component/metadata/MetadataMaterial.gd" id="1_5vu20"]
+[ext_resource type="AudioStream" uid="uid://crcncqk51g4n4" path="res://audio/hl2/player/footsteps/grass2.wav" id="2_kh0ur"]
+[ext_resource type="AudioStream" uid="uid://crt8a5bvxb11o" path="res://audio/hl2/player/footsteps/grass3.wav" id="3_ysdbo"]
+[ext_resource type="AudioStream" uid="uid://bnqo3ov7nkks0" path="res://audio/hl2/player/footsteps/grass4.wav" id="4_l4gkc"]
+
+[resource]
+script = ExtResource("1_5vu20")
+resistance = 0.2
+footstep_sounds = Array[AudioStream]([ExtResource("1_4hifs"), ExtResource("2_kh0ur"), ExtResource("3_ysdbo"), ExtResource("4_l4gkc")])
+metadata/_custom_type_script = "uid://c7jvuxu4hsmtm"

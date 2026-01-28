@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="MetadataMaterial" format=3 uid="uid://dd76mxp2nfucb"]
+
+[ext_resource type="AudioStream" uid="uid://drgndwd50hnvg" path="res://audio/hl2/physics/concrete/concrete_break2.wav" id="1_4st87"]
+[ext_resource type="AudioStream" uid="uid://cofwig405nt13" path="res://audio/hl2/physics/concrete/concrete_impact_bullet1.wav" id="1_hck1q"]
+[ext_resource type="Script" uid="uid://c7jvuxu4hsmtm" path="res://component/metadata/MetadataMaterial.gd" id="1_xwioa"]
+[ext_resource type="AudioStream" uid="uid://bqdar7xg436cb" path="res://audio/hl2/physics/concrete/concrete_break3.wav" id="2_kl8s4"]
+[ext_resource type="AudioStream" uid="uid://8kjb3pfppj0n" path="res://audio/hl2/physics/concrete/concrete_impact_bullet2.wav" id="2_ri0g2"]
+[ext_resource type="AudioStream" uid="uid://cm8j5u0a77qu6" path="res://audio/hl2/physics/concrete/concrete_impact_bullet3.wav" id="3_1t460"]
+[ext_resource type="AudioStream" uid="uid://bnw4mx1rysxsu" path="res://audio/hl2/physics/concrete/concrete_impact_bullet4.wav" id="4_hombn"]
+[ext_resource type="AudioStream" uid="uid://b3372k2buofca" path="res://audio/hl2/physics/concrete/concrete_impact_hard1.wav" id="5_d22e1"]
+[ext_resource type="AudioStream" uid="uid://cqs7k2tjkdjjx" path="res://audio/hl2/player/footsteps/concrete1.wav" id="5_rhhoc"]
+[ext_resource type="AudioStream" uid="uid://bdiboxh5k3r35" path="res://audio/hl2/player/footsteps/concrete2.wav" id="6_4st87"]
+[ext_resource type="AudioStream" uid="uid://10pvdnxj02ey" path="res://audio/hl2/physics/concrete/concrete_impact_soft2.wav" id="6_rhhoc"]
+[ext_resource type="AudioStream" uid="uid://b23ctlkyrojsi" path="res://audio/hl2/physics/concrete/concrete_impact_soft3.wav" id="7_4st87"]
+[ext_resource type="AudioStream" uid="uid://bwer8p2x4sw3o" path="res://audio/hl2/player/footsteps/concrete3.wav" id="7_kl8s4"]
+[ext_resource type="AudioStream" uid="uid://ctk4fa7resa76" path="res://audio/hl2/player/footsteps/concrete4.wav" id="8_0qe63"]
+
+[resource]
+resource_name = "concrete"
+script = ExtResource("1_xwioa")
+impact_sounds = Array[AudioStream]([ExtResource("5_d22e1"), ExtResource("6_rhhoc"), ExtResource("7_4st87")])
+bullet_impact_sounds = Array[AudioStream]([ExtResource("1_hck1q"), ExtResource("2_ri0g2"), ExtResource("3_1t460"), ExtResource("4_hombn")])
+break_sounds = Array[AudioStream]([ExtResource("1_4st87"), ExtResource("2_kl8s4")])
+footstep_sounds = Array[AudioStream]([ExtResource("5_rhhoc"), ExtResource("6_4st87"), ExtResource("7_kl8s4"), ExtResource("8_0qe63")])
+metadata/_custom_type_script = "uid://c7jvuxu4hsmtm"

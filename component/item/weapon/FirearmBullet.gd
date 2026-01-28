@@ -2,7 +2,7 @@ class_name FirearmBullet extends Node3D
 
 var weapon: R_WeaponFirearm
 
-var speed: float = 10.0
+var speed: float = 250.0
 var gravity: float = 9.8 
 var mass: float = 0.009
 
@@ -15,10 +15,15 @@ var wind_direction: Vector3 = Vector3.ZERO
 var life_time:float = 15.0
 
 func _ready() -> void:
+	direction = -global_transform.basis.z 
 	velocity = direction * speed
-	await get_tree().create_timer(life_time).timeout
 	
+	await get_tree().create_timer(life_time).timeout
 	queue_free()
+
+func setup_bullet() -> void:
+	direction = -global_transform.basis.z 
+	velocity = direction * speed
 
 func _physics_process(delta: float) -> void:
 	velocity.y -= gravity * delta
@@ -38,21 +43,22 @@ func _physics_process(delta: float) -> void:
 
 func _on_hit(result: Dictionary, step: Vector3) -> void:
 	_spawn_impact_effects(result)
-	var collider = result.get("collider")
+	var collider:Node3D = result.get("collider") as Node3D
 	
 	if collider is CT_Hitbox:
 		pass
 	
-	var resistance = 1.0 ## 1.0 — бетон
-	if "material_resistance" in collider:
-		resistance = collider.material_resistance
+	var resistance = 1.0 ## 1.0 эта типа бетон
+	if MetadataMaterial.find_in(collider):
+		var metadata:MetadataMaterial = MetadataMaterial.find_in(collider)
+		resistance = metadata.resistance
 	
 	var speed_loss = resistance * 150.0 
 	var new_speed = velocity.length() - speed_loss
 	
 	if new_speed > 50.0:
 		velocity = velocity.normalized() * new_speed
-		#global_position = result.position + velocity.normalized() * 0.1
+		#global_position = result.position + velocity.normalized() * 0.1 #типа хрень какая то хз
 	else:
 		queue_free()
 

@@ -51,7 +51,13 @@ func _spawn_bullet() -> void:
 	
 	var bullet = load("res://scenes/prefabs/firearm_bullet.tscn").instantiate()
 	bullet.set("weapon", object)
+	
 	get_tree().root.add_child(bullet)
+	
+	bullet.global_transform = entity_head.get_eyes().global_transform
+	
+	if bullet.has_method("setup_bullet"):
+		bullet.setup_bullet()
 
 func _spawn_fake_bullet() -> void:
 	pass
