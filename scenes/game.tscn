@@ -7,6 +7,18 @@
 [ext_resource type="Resource" uid="uid://bq60pep62nfs6" path="res://src/levels/drifting.tres" id="5_u5sy4"]
 [ext_resource type="PackedScene" uid="uid://doc3v4vgjj4ti" path="res://src/ui/authentification/authentification.tscn" id="6_p57ef"]
 [ext_resource type="PackedScene" uid="uid://dbxq4udu4u41q" path="res://scenes/prefabs/level_handler.tscn" id="7_0tnpc"]
+[ext_resource type="Script" uid="uid://c0pedqo2h5vch" path="res://addons/simusdev/audio/SD_SoundInstance3D.gd" id="8_vtaks"]
+[ext_resource type="Script" uid="uid://cpwjwfhig01jj" path="res://addons/simusdev/audio/SD_SoundData3D.gd" id="9_kvpfn"]
+[ext_resource type="Script" uid="uid://b7fflt0r416ip" path="res://addons/simusdev/audio/SD_SoundPackage3D.gd" id="10_dinhu"]
+
+[sub_resource type="Resource" id="Resource_kvuet"]
+script = ExtResource("9_kvpfn")
+metadata/_custom_type_script = "uid://cpwjwfhig01jj"
+
+[sub_resource type="Resource" id="Resource_trtic"]
+script = ExtResource("10_dinhu")
+data = Array[ExtResource("9_kvpfn")]([SubResource("Resource_kvuet")])
+metadata/_custom_type_script = "uid://b7fflt0r416ip"
 
 [node name="Game" type="Node3D" unique_id=1979558274]
 script = ExtResource("1_yqjtg")
@@ -50,5 +62,10 @@ current_time = 16.0
 [node name="Authentification" parent="." unique_id=1887314113 instance=ExtResource("6_p57ef")]
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="." unique_id=174218927]
+
+[node name="SD_SoundInstance3D" type="Node3D" parent="." unique_id=1838592986]
+script = ExtResource("8_vtaks")
+package = SubResource("Resource_trtic")
+metadata/_custom_type_script = "uid://c0pedqo2h5vch"
 
 [editable path="Sky3D"]

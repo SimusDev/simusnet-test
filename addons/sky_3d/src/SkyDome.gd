@@ -116,13 +116,15 @@ func process_tick(delta: float) -> void:
 	var position_delta: Vector2 = _cloud_velocity * delta
 	if cumulus_visible:
 		_cumulus_position += position_delta
-		sky_material.set_shader_parameter("cumulus_position", _cumulus_position)
+		if is_instance_valid(sky_material):
+			sky_material.set_shader_parameter("cumulus_position", _cumulus_position)
 	if cirrus_visible:
 		position_delta *= cirrus_speed_reduction
 		_cirrus_position1 = (_cirrus_position1 + position_delta).posmod(1.0)
 		_cirrus_position2 = (_cirrus_position2 + position_delta).posmod(1.0)
-		sky_material.set_shader_parameter("cirrus_position1", _cirrus_position1)
-		sky_material.set_shader_parameter("cirrus_position2", _cirrus_position2)
+		if is_instance_valid(sky_material):
+			sky_material.set_shader_parameter("cirrus_position1", _cirrus_position1)
+			sky_material.set_shader_parameter("cirrus_position2", _cirrus_position2)
 
 
 #####################

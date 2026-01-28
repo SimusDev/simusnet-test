@@ -1,6 +1,8 @@
 [gd_scene format=3 uid="uid://bqy2338pry4q6"]
 
 [ext_resource type="Script" uid="uid://bj73hk8gh3dai" path="res://scenes/menu.gd" id="1_yqeox"]
+[ext_resource type="PackedScene" uid="uid://n4pif4vew3or" path="res://3d/menu/base_menu.tscn" id="2_vjb58"]
+[ext_resource type="PackedScene" uid="uid://bqx58y6sxcy1v" path="res://scenes/prefabs/ui/main_menu/main_menu.tscn" id="3_con2f"]
 
 [node name="Menu" type="Control" unique_id=1319707875]
 layout_mode = 3
@@ -10,3 +12,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_yqeox")
+
+[node name="BaseMenu" parent="." unique_id=2037880451 instance=ExtResource("2_vjb58")]
+
+[node name="main_menu" parent="." unique_id=186549104 instance=ExtResource("3_con2f")]
+layout_mode = 1

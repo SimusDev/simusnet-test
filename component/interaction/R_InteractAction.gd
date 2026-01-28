@@ -4,9 +4,9 @@ class_name R_InteractAction
 @export var name: String = ""
 const META: StringName = &"interact_actions"
 
-static var ACTION_OPEN: Resource = preload("uid://xecviu4tcm2e") 
-static var ACTION_PICKUP: Resource = preload("uid://cvbrrn0mme4i") 
-static var ACTION_USE: Resource = preload("uid://cd72i7612o4ut") 
+static var ACTION_OPEN: R_InteractAction = load("res://src/objects/interact/actions/open.tres")
+static var ACTION_PICKUP: R_InteractAction = load("res://src/objects/interact/actions/pickup.tres") 
+static var ACTION_USE: R_InteractAction = load("res://src/objects/interact/actions/use.tres") 
 
 static func get_group() -> String:
 	return "interact_action"

@@ -19,6 +19,11 @@ static func async_clear_all_children(node: Node) -> void:
 			i.queue_free()
 			await i.tree_exited
 
+static func set_children_visibility(node: Node, visibility: bool) -> void:
+	for i in node.get_children():
+		if i is CanvasItem or CanvasLayer:
+			i.visible = visibility
+
 static func async_queue_free(node: Node) -> void:
 	if !is_instance_valid(node):
 		return

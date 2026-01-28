@@ -6,6 +6,7 @@ extends Node
 @onready var CHANNEL_ENVIRONMENT: String = SimusNetChannels.register("environment")
 
 const MAX_PLAYERS: int = 1000
+const DEFAULT_PORT: int = 8080
 
 func _ready() -> void:
 	SimusNetEvents.event_connected.listen(_on_connected)
@@ -20,9 +21,8 @@ func _ready() -> void:
 	for i in commands_exec:
 		i.executed.connect(_on_cmd_executed.bind(i))
 	
-	return
 	if OS.has_feature("dedicated_server"):
-		create_server(R_GameSettings.instance().dedicated_server_port)
+		create_server(DEFAULT_PORT)
 
 func _on_connected() -> void:
 	SD_Console.i().write_info("connected to server.")
@@ -33,10 +33,7 @@ func _on_disconnected() -> void:
 func _on_cmd_executed(cmd: SD_ConsoleCommand) -> void:
 	match cmd.get_code():
 		"connect":
-			var parsed: PackedStringArray = cmd.get_value_as_string().split(":")
-			if parsed.size() == 2:
-				connect_to_server(parsed[0], int(parsed[1]))
-			
+			connect_to_server_by_address(cmd.get_value())
 		"disconnect":
 			SimusNetConnection.try_close_peer()
 		"start.server":
@@ -53,9 +50,14 @@ func _on_cmd_executed(cmd: SD_ConsoleCommand) -> void:
 func try_disconnect() -> void:
 	SimusNetConnection.try_close_peer()
 
-func connect_to_server(ip: String, port: int) -> void:
+func connect_to_server(ip: String, port: int = DEFAULT_PORT) -> void:
 	SimusNetConnectionENet.create_client(ip, port)
 
-func create_server(port: int, dedicated: bool = false) -> void:
+func connect_to_server_by_address(address: String) -> void:
+	var parsed: PackedStringArray = address.split(":")
+	if parsed.size() == 2:
+		connect_to_server(parsed[0], int(parsed[1]))
+
+func create_server(port: int = DEFAULT_PORT, dedicated: bool = false) -> void:
 	SimusNetConnection.set_dedicated_server(dedicated)
 	SimusNetConnectionENet.create_server(port, MAX_PLAYERS)
