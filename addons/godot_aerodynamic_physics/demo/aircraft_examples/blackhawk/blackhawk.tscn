@@ -1,6 +1,7 @@
-[gd_scene load_steps=71 format=3 uid="uid://ck8t2q48erc0o"]
+[gd_scene format=3 uid="uid://ck8t2q48erc0o"]
 
 [ext_resource type="PackedScene" uid="uid://cjpo2ftsfdr8x" path="res://addons/godot_aerodynamic_physics/demo/aircraft_examples/blackhawk/blackhawk.glb" id="1_o32yo"]
+[ext_resource type="Script" uid="uid://dfok55wn4kqd2" path="res://component/player/CT_Playable.gd" id="2_l68jr"]
 [ext_resource type="Script" uid="uid://xcgguqyfcrni" path="res://addons/godot_aerodynamic_physics/core/aero_influencer_3d/aero_mover_3d/aero_cyclic_propeller_3d.gd" id="2_ppgta"]
 [ext_resource type="Script" uid="uid://cc5dwx5pqkaur" path="res://addons/godot_aerodynamic_physics/components/AeroControlComponent.gd" id="2_u6cg8"]
 [ext_resource type="Script" uid="uid://c46td0go5kvp6" path="res://addons/godot_aerodynamic_physics/core/control_configs/aero_influencer_control_axis_config.gd" id="3_51nj3"]
@@ -14,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://bddf1hhmmre47" path="res://addons/godot_aerodynamic_physics/demo/misc_demo_assets/flight_info_label.tscn" id="7_6i8qa"]
 [ext_resource type="Script" uid="uid://crkbhmxpjff4o" path="res://addons/godot_aerodynamic_physics/core/aero_influencer_3d/aero_surface_3d/aero_surface_config.gd" id="7_lml3a"]
 [ext_resource type="Script" uid="uid://bsu5rdrtiqph7" path="res://addons/godot_aerodynamic_physics/core/aero_influencer_3d/aero_mover_3d/aero_propeller_3d.gd" id="11_wecnn"]
+[ext_resource type="Script" uid="uid://d1jwapkumdp1u" path="res://addons/simusdev/SimusNet/SimusNetTransform.gd" id="14_3hujt"]
 
 [sub_resource type="Resource" id="Resource_lhn4s"]
 script = ExtResource("3_lml3a")
@@ -372,21 +374,26 @@ max_value = Vector3(0.3, 0, 0)
 min_value = Vector3(-0.3, 0, 0)
 metadata/_custom_type_script = "uid://cblxodmmwvpt6"
 
-[node name="blackhawk" instance=ExtResource("1_o32yo")]
+[node name="blackhawk" unique_id=288989550 instance=ExtResource("1_o32yo")]
 mass = 5675.0
 can_sleep = false
 substeps_override = 4
 show_debug = true
 
-[node name="AeroControlComponent" type="Node" parent="." index="0"]
+[node name="CT_Playable" type="Node" parent="." index="0" unique_id=2017027599]
+script = ExtResource("2_l68jr")
+metadata/_custom_type_script = "uid://dfok55wn4kqd2"
+
+[node name="AeroControlComponent" type="Node" parent="." index="1" unique_id=1603449686]
 script = ExtResource("2_u6cg8")
 flight_assist = SubResource("Resource_1l4jb")
 control_config = SubResource("Resource_3ilvp")
 
-[node name="Camera3D" type="Camera3D" parent="." index="1"]
+[node name="Camera3D" type="Camera3D" parent="." index="2" unique_id=659954764]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.57868, 18.7799)
+current = true
 
-[node name="Label3D" type="Label3D" parent="Camera3D" index="0"]
+[node name="Label3D" type="Label3D" parent="Camera3D" index="0" unique_id=1084269646]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.11, 1.57529, -2.9862)
 text = "Controls:
 Pitch: W/A
@@ -395,21 +402,21 @@ Roll: A/D
 Throttle: Shift/Ctrl
 Collective: T/G"
 
-[node name="FlightInfoLabel" parent="Camera3D" index="1" instance=ExtResource("7_6i8qa")]
+[node name="FlightInfoLabel" parent="Camera3D" index="1" unique_id=780816140 instance=ExtResource("7_6i8qa")]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." index="3"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." index="4" unique_id=426962950]
 transform = Transform3D(1, 0, 0, 0, 6.12303e-17, -1, 0, 1, 6.12303e-17, 0, -0.0854921, -0.396524)
 shape = SubResource("CapsuleShape3D_6i8qa")
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="." index="4"]
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="." index="5" unique_id=2109718583]
 transform = Transform3D(1, 0, 0, 0, -0.0696242, -0.997573, 0, 0.997573, -0.0696242, 0, -0.276754, 5.3529)
 shape = SubResource("CapsuleShape3D_3hujt")
 
-[node name="CollisionShape3D3" type="CollisionShape3D" parent="." index="5"]
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="." index="6" unique_id=954294106]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.11664, -0.642627)
 shape = SubResource("BoxShape3D_l68jr")
 
-[node name="AeroCyclicPropeller3D" type="Node3D" parent="." index="6" node_paths=PackedStringArray("propeller_blade")]
+[node name="AeroCyclicPropeller3D" type="Node3D" parent="." index="7" unique_id=453526017 node_paths=PackedStringArray("propeller_blade")]
 transform = Transform3D(1, 0, 0, 0, 0.998441, 0.0558215, 0, -0.0558215, 0.998441, 0, 1.4656, 0)
 script = ExtResource("2_ppgta")
 cyclic_pitch = 10.0
@@ -423,7 +430,7 @@ show_lift = false
 show_thrust = true
 metadata/_custom_type_script = "uid://xcgguqyfcrni"
 
-[node name="ManualAeroSurface3D" type="Node3D" parent="AeroCyclicPropeller3D" index="0"]
+[node name="ManualAeroSurface3D" type="Node3D" parent="AeroCyclicPropeller3D" index="0" unique_id=1536621253]
 transform = Transform3D(1, 0, 0, 0, 1, 6.93889e-18, 0, -6.93889e-18, 1, 3.9, 0, 0)
 script = ExtResource("5_wecnn")
 manual_config = SubResource("Resource_f18v8")
@@ -431,40 +438,50 @@ wing_config = SubResource("Resource_nkd7l")
 actuation_config = SubResource("Resource_wecnn")
 metadata/_custom_type_script = "uid://d1725od371u4a"
 
-[node name="CSGBox3D" type="CSGBox3D" parent="AeroCyclicPropeller3D/ManualAeroSurface3D" index="0"]
+[node name="CSGBox3D" type="CSGBox3D" parent="AeroCyclicPropeller3D/ManualAeroSurface3D" index="0" unique_id=1850469581]
 transform = Transform3D(1, 0, 0, 0, 1, 2.08167e-15, 0, -2.08167e-15, 1, 0, 6.66134e-16, 0.126015)
 material_overlay = SubResource("StandardMaterial3D_o32yo")
 size = Vector3(7.0351, 0.1, 0.5179)
 
-[node name="ManualAeroSurface3D" type="Node3D" parent="." index="7"]
+[node name="SimusNetTransform" type="Node" parent="AeroCyclicPropeller3D/ManualAeroSurface3D" index="6" unique_id=251502567 node_paths=PackedStringArray("node")]
+script = ExtResource("14_3hujt")
+node = NodePath("..")
+metadata/_custom_type_script = "uid://d1jwapkumdp1u"
+
+[node name="SimusNetTransform" type="Node" parent="AeroCyclicPropeller3D" index="9" unique_id=293274123 node_paths=PackedStringArray("node")]
+script = ExtResource("14_3hujt")
+node = NodePath("..")
+metadata/_custom_type_script = "uid://d1jwapkumdp1u"
+
+[node name="ManualAeroSurface3D" type="Node3D" parent="." index="8" unique_id=441540637]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.82663, -0.352099)
 script = ExtResource("5_wecnn")
 manual_config = SubResource("Resource_4y6qq")
 wing_config = SubResource("Resource_lml3a")
 metadata/_custom_type_script = "uid://d1725od371u4a"
 
-[node name="ManualAeroSurface3D2" type="Node3D" parent="." index="8"]
+[node name="ManualAeroSurface3D2" type="Node3D" parent="." index="9" unique_id=566661038]
 transform = Transform3D(1, 0, 0, 0, 0.973532, -0.228551, 0, 0.228551, 0.973532, 0, -0.212944, 8.94837)
 script = ExtResource("5_wecnn")
 manual_config = SubResource("Resource_htcr8")
 wing_config = SubResource("Resource_oml6j")
 metadata/_custom_type_script = "uid://d1725od371u4a"
 
-[node name="ManualAeroSurface3D3" type="Node3D" parent="." index="9"]
+[node name="ManualAeroSurface3D3" type="Node3D" parent="." index="10" unique_id=1305457552]
 transform = Transform3D(6.12303e-17, 1, 0, -0.707107, 4.32964e-17, -0.707107, -0.707107, 4.32964e-17, 0.707107, 0, 0.378618, 9.09511)
 script = ExtResource("5_wecnn")
 manual_config = SubResource("Resource_103ye")
 wing_config = SubResource("Resource_6tp0p")
 metadata/_custom_type_script = "uid://d1725od371u4a"
 
-[node name="ManualAeroSurface3D4" type="Node3D" parent="." index="10"]
+[node name="ManualAeroSurface3D4" type="Node3D" parent="." index="11" unique_id=1584540703]
 transform = Transform3D(6.12303e-17, 1, 0, -1, 6.12303e-17, 0, 0, 0, 1, 0, -0.282207, 1.27538)
 script = ExtResource("5_wecnn")
 manual_config = SubResource("Resource_ajjy4")
 wing_config = SubResource("Resource_x88qx")
 metadata/_custom_type_script = "uid://d1725od371u4a"
 
-[node name="AeroPropeller3D" type="Node3D" parent="." index="11" node_paths=PackedStringArray("propeller_blade")]
+[node name="AeroPropeller3D" type="Node3D" parent="." index="12" unique_id=787919765 node_paths=PackedStringArray("propeller_blade")]
 transform = Transform3D(0.34202, 0.939693, 0, -0.939693, 0.34202, 0, 0, 0, 1, 0.216564, 1.91582, 9.89796)
 script = ExtResource("11_wecnn")
 propeller_amount = 4
@@ -475,7 +492,7 @@ show_lift = false
 show_thrust = true
 metadata/_custom_type_script = "uid://bsu5rdrtiqph7"
 
-[node name="ManualAeroSurface3D" type="Node3D" parent="AeroPropeller3D" index="0"]
+[node name="ManualAeroSurface3D" type="Node3D" parent="AeroPropeller3D" index="0" unique_id=2069455331]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.939, 0, 0)
 script = ExtResource("5_wecnn")
 manual_config = SubResource("Resource_f18v8")
@@ -483,7 +500,17 @@ wing_config = SubResource("Resource_3x6k4")
 actuation_config = SubResource("Resource_0r6mh")
 metadata/_custom_type_script = "uid://d1725od371u4a"
 
-[node name="CSGBox3D" type="CSGBox3D" parent="AeroPropeller3D/ManualAeroSurface3D" index="0"]
+[node name="CSGBox3D" type="CSGBox3D" parent="AeroPropeller3D/ManualAeroSurface3D" index="0" unique_id=955619335]
 transform = Transform3D(1, -6.10623e-16, 0, 6.10623e-16, 1, 0, 0, 0, 1, 0, 0, 0.103978)
 material_overlay = SubResource("StandardMaterial3D_o32yo")
 size = Vector3(1.63875, 0.0300794, 0.405596)
+
+[node name="SimusNetTransform" type="Node" parent="AeroPropeller3D/ManualAeroSurface3D" index="6" unique_id=1000516353 node_paths=PackedStringArray("node")]
+script = ExtResource("14_3hujt")
+node = NodePath("..")
+metadata/_custom_type_script = "uid://d1jwapkumdp1u"
+
+[node name="SimusNetTransform" type="Node" parent="AeroPropeller3D" index="9" unique_id=1559529192 node_paths=PackedStringArray("node")]
+script = ExtResource("14_3hujt")
+node = NodePath("..")
+metadata/_custom_type_script = "uid://d1jwapkumdp1u"

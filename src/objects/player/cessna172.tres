@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="R_Player" format=3 uid="uid://2aq8dje1kh50"]
+
+[ext_resource type="Script" uid="uid://krog7c2ovqsb" path="res://component/player/R_Player.gd" id="1_wtbt3"]
+[ext_resource type="Script" uid="uid://cqdfkwb1galvp" path="res://component/viewmodel/R_ViewModel.gd" id="2_sdogy"]
+[ext_resource type="PackedScene" uid="uid://bwpwxnufuujve" path="res://addons/godot_aerodynamic_physics/demo/aircraft_examples/cessna172/cessna172.tscn" id="3_wtbt3"]
+
+[sub_resource type="Resource" id="Resource_sdogy"]
+script = ExtResource("2_sdogy")
+world = ExtResource("3_wtbt3")
+metadata/_custom_type_script = "uid://cqdfkwb1galvp"
+
+[resource]
+script = ExtResource("1_wtbt3")
+viewmodel = SubResource("Resource_sdogy")
+metadata/_custom_type_script = "uid://krog7c2ovqsb"

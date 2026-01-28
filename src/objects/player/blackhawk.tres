@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="R_Player" format=3 uid="uid://m6455r2067yt"]
+
+[ext_resource type="Script" uid="uid://krog7c2ovqsb" path="res://component/player/R_Player.gd" id="1_nwoig"]
+[ext_resource type="Script" uid="uid://cqdfkwb1galvp" path="res://component/viewmodel/R_ViewModel.gd" id="2_370lb"]
+[ext_resource type="PackedScene" uid="uid://ck8t2q48erc0o" path="res://addons/godot_aerodynamic_physics/demo/aircraft_examples/blackhawk/blackhawk.tscn" id="3_nwoig"]
+
+[sub_resource type="Resource" id="Resource_370lb"]
+script = ExtResource("2_370lb")
+world = ExtResource("3_nwoig")
+metadata/_custom_type_script = "uid://cqdfkwb1galvp"
+
+[resource]
+script = ExtResource("1_nwoig")
+viewmodel = SubResource("Resource_370lb")
+metadata/_custom_type_script = "uid://krog7c2ovqsb"

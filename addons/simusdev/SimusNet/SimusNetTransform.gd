@@ -18,11 +18,11 @@ func get_interpolate_speed() -> float:
 func _ready() -> void:
 	super()
 	
-	if Engine.is_editor_hint():
-		return
-	
 	if !node:
 		node = get_parent()
+	
+	if Engine.is_editor_hint():
+		return
 	
 	if not "transform" in node:
 		return
