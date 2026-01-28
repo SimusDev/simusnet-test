@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="R_Player" format=3 uid="uid://drf25b20ae8j4"]
+
+[ext_resource type="Script" uid="uid://krog7c2ovqsb" path="res://component/player/R_Player.gd" id="1_l63q4"]
+[ext_resource type="Script" uid="uid://cqdfkwb1galvp" path="res://component/viewmodel/R_ViewModel.gd" id="2_sn4rl"]
+[ext_resource type="PackedScene" uid="uid://bhcf56o8msjwq" path="res://addons/godot_aerodynamic_physics/demo/aircraft_examples/su57/su57.tscn" id="3_l63q4"]
+
+[sub_resource type="Resource" id="Resource_sn4rl"]
+script = ExtResource("2_sn4rl")
+world = ExtResource("3_l63q4")
+metadata/_custom_type_script = "uid://cqdfkwb1galvp"
+
+[resource]
+script = ExtResource("1_l63q4")
+viewmodel = SubResource("Resource_sn4rl")
+metadata/_custom_type_script = "uid://krog7c2ovqsb"

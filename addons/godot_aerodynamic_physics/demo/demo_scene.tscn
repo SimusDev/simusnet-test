@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://ckyvuem8v7maq"]
+[gd_scene format=3 uid="uid://ckyvuem8v7maq"]
 
 [sub_resource type="GDScript" id="GDScript_2sti6"]
 script/source = "extends Node3D
@@ -94,27 +94,27 @@ func _on_button_pressed() -> void:
 	$\"..\".add_child(vehicle_instance)
 "
 
-[node name="Main" type="Node3D"]
+[node name="Main" type="Node3D" unique_id=1995205451]
 script = SubResource("GDScript_2sti6")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1433673685]
 transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
 shadow_enabled = true
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=888755956]
 environment = SubResource("Environment_bkiet")
 
-[node name="CSGBox3D" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.12099, -4151.1200113938085)
+[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=1542916273]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.12099, -4151.12)
 use_collision = true
 size = Vector3(10000, 1, 10000)
 material = SubResource("StandardMaterial3D_1sawy")
 
-[node name="VehicleSpawner" type="Marker3D" parent="."]
+[node name="VehicleSpawner" type="Marker3D" parent="." unique_id=1869665366]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 647.618, 0)
 script = SubResource("GDScript_bs15r")
 
-[node name="Control" type="Control" parent="VehicleSpawner"]
+[node name="Control" type="Control" parent="VehicleSpawner" unique_id=2066528754]
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -128,7 +128,7 @@ offset_bottom = 44.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VehicleSpawner/Control"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VehicleSpawner/Control" unique_id=1102165164]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -136,16 +136,16 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="OptionButton" type="OptionButton" parent="VehicleSpawner/Control/VBoxContainer"]
+[node name="OptionButton" type="OptionButton" parent="VehicleSpawner/Control/VBoxContainer" unique_id=1652496768]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Button" type="Button" parent="VehicleSpawner/Control/VBoxContainer"]
+[node name="Button" type="Button" parent="VehicleSpawner/Control/VBoxContainer" unique_id=418087591]
 layout_mode = 2
 size_flags_vertical = 3
 text = "Spawn"
 
-[node name="Label" type="Label" parent="VehicleSpawner"]
+[node name="Label" type="Label" parent="VehicleSpawner" unique_id=1876278708]
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0

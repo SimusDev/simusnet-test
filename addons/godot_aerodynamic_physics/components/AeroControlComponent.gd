@@ -3,7 +3,6 @@ extends Node
 class_name AeroControlComponent
 ## Component that provides high-level input and control mapping features for the [AeroBody3D].
 
-
 ## Include for the AeroMathUtils library.
 const AeroMathUtils = preload("../utils/math_utils.gd")
 
@@ -14,7 +13,38 @@ const AeroMathUtils = preload("../utils/math_utils.gd")
 ## Control configuration resource used to define control axes and key bindings.
 @export var control_config : AeroControlConfig = AeroControlConfig.new()
 
+func add_input(_name : String, keycode : int) -> void:
+	if InputMap.has_action(_name):
+		return
+	
+	InputMap.add_action(_name)
+	
+	if keycode != -1:
+		var input = InputEventKey.new()
+		input.keycode = keycode
+		InputMap.action_add_event(_name, input)
+
 func _ready() -> void:
+	add_input("pitch_up", KEY_S)
+	add_input("pitch_down", KEY_W)
+	add_input("yaw_left", KEY_Q)
+	add_input("yaw_right", KEY_E)
+	add_input("roll_left", KEY_A)
+	add_input("roll_right", KEY_D)
+	add_input("throttle_up", KEY_SHIFT)
+	add_input("throttle_down", KEY_CTRL)
+	add_input("brake_up", KEY_B)
+	add_input("brake_down", -1)
+	add_input("tilt_up", KEY_C)
+	add_input("tilt_down", KEY_V)
+	add_input("collective_up", KEY_T)
+	add_input("collective_down", KEY_G)
+
+	set_physics_process(SimusNet.is_network_authority(self))
+	for node in get_parent().get_children():
+		if node is Camera3D:
+			node.current = SimusNet.is_network_authority(self)
+	
 	#resource_local_to_scene impacts editability in some cases, so we manually duplicate the flight_assist resource.
 	if not Engine.is_editor_hint():
 		#if proportional_navigation: proportional_navigation = proportional_navigation.duplicate(true)
