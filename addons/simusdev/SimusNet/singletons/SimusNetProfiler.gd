@@ -27,11 +27,14 @@ var _timer: Timer
 var _timer_tickrate: float = 1.0
 
 var _rpcs_profiler: Dictionary[String, Dictionary] = {}
-var _vars_profiler: Dictionary[Dictionary, Dictionary] = {}
+var _vars_profiler: Dictionary[String, Dictionary] = {}
 var _transform_profiler: Dictionary[Dictionary, Dictionary] = {}
 
 signal on_rpc_profiler_add(key: String, data: Dictionary)
 signal on_rpc_profiler_change(key: String)
+
+signal on_var_profiler_add(key: String, data: Dictionary)
+signal on_var_profiler_change(key: String)
 
 func _ready() -> void:
 	_instance = self
@@ -132,6 +135,44 @@ func _put_rpc_traffic(size: int, identity: Variant, method: Variant, receive: bo
 	
 	if emit:
 		on_rpc_profiler_add.emit(key, data)
+
+func _put_var_traffic(size: int, identity: Variant, property: Variant, receive: bool) -> void:
+	var key_name: String = str(property)
+	var identity_name: String = ""
+	
+	if identity is SimusNetIdentity:
+		if is_instance_valid(identity.owner):
+			var obj_script: Variant = identity.owner.get_script()
+			identity_name = identity.owner.get_class()
+			if obj_script is Script:
+				identity_name = obj_script.get_global_name()
+	
+	var key: String = "(%s): %s" % [identity_name, key_name]
+	var emit: bool = !_vars_profiler.has(key)
+	var data: Dictionary = _vars_profiler.get_or_add(key, {})
+	
+	var down_traffic: int = data.get_or_add("down", 0)
+	var up_traffic: int = data.get_or_add("up", 0)
+	
+	var down_calls: int = data.get_or_add("down_calls", 0)
+	var up_calls: int = data.get_or_add("up_calls", 0)
+	
+	if receive:
+		down_calls += 1
+		down_traffic += size
+	else:
+		up_calls += 1
+		up_traffic += size
+	
+	data.down = down_traffic
+	data.up = up_traffic
+	data.down_calls = down_calls
+	data.up_calls = up_calls
+	
+	on_var_profiler_change.emit(key)
+	
+	if emit:
+		on_var_profiler_add.emit(key, data)
 
 func _timer_tick() -> void:
 	_up_packets /= 2

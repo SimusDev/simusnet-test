@@ -59,7 +59,7 @@ func _f_rep(value: bool = true) -> void:
 	else:
 		SimusNetVars.get_instance().on_tick.disconnect(_on_tick)
 
-func flag_serialize(value: bool = true) -> SimusNetVarConfig:
+func flag_serialization(value: bool = true) -> SimusNetVarConfig:
 	_serialize = value
 	return self
 

@@ -8,6 +8,11 @@
 
 config_version=5
 
+[GD-Sync]
+
+version="0.14"
+useSenderID=true
+
 [application]
 
 config/name="simusnet-test"

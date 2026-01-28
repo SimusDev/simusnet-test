@@ -51,4 +51,6 @@ current_time = 16.0
 
 [node name="Authentification" parent="." unique_id=1887314113 instance=ExtResource("6_p57ef")]
 
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="." unique_id=174218927]
+
 [editable path="Sky3D"]

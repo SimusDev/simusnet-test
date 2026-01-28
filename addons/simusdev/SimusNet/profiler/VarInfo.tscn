@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://b3ykrs0btkyup"]
+
+[ext_resource type="PackedScene" uid="uid://mimohkd1dw03" path="res://addons/simusdev/SimusNet/profiler/InfoBase.tscn" id="1_f53m2"]
+[ext_resource type="Script" uid="uid://c4rh2up2ufba0" path="res://addons/simusdev/SimusNet/profiler/VarInfo.gd" id="2_vgl7r"]
+[ext_resource type="Texture2D" uid="uid://nh8g1cxm42sk" path="res://addons/simusdev/SimusNet/icons/MemberProperty.svg" id="3_2naw4"]
+
+[node name="VarInfo" unique_id=1433760988 instance=ExtResource("1_f53m2")]
+script = ExtResource("2_vgl7r")
+
+[node name="Icon" parent="." index="1" unique_id=300308492]
+texture = ExtResource("3_2naw4")
+stretch_mode = 3

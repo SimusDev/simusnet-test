@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://djemqun1lbojh"]
 
 [ext_resource type="Script" uid="uid://bdl4cde0pdm4n" path="res://addons/simusdev/SimusNet/profiler/RPC.gd" id="1_ikxbe"]
-[ext_resource type="PackedScene" uid="uid://ccyf5l3rjmbxi" path="res://addons/simusdev/SimusNet/profiler/RpcInfo.tscn" id="2_522be"]
+[ext_resource type="PackedScene" uid="uid://ccn1na6bdrnjr" path="res://addons/simusdev/SimusNet/profiler/RpcInfo.tscn" id="2_522be"]
 
 [node name="RPC" type="Control" unique_id=2096271579 node_paths=PackedStringArray("_container")]
 layout_mode = 3

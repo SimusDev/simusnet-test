@@ -127,6 +127,9 @@ static func connect_network_node_callables(object: Node, on_ready: Callable, on_
 	
 	SimusNetEvents.event_connected.listen(on_ready)
 	
+	if !is_instance_valid(object):
+		return
+	
 	if !object.is_node_ready():
 		await object.ready
 	

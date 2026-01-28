@@ -34,20 +34,20 @@ theme_override_constants/outline_size = 8
 text = "120 fps"
 horizontal_alignment = 2
 
-[node name="InTraffic" type="Label" parent="Container" unique_id=2041685996]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 0.827451, 1)
-theme_override_constants/outline_size = 8
-text = "In: 0, 0 k/s"
-horizontal_alignment = 2
-
 [node name="OutTraffic" type="Label" parent="Container" unique_id=690242036]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 0.827451, 1)
 theme_override_constants/outline_size = 8
 text = "Out: 0, 0 k/s"
+horizontal_alignment = 2
+
+[node name="InTraffic" type="Label" parent="Container" unique_id=2041685996]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 0.827451, 1)
+theme_override_constants/outline_size = 8
+text = "In: 0, 0 k/s"
 horizontal_alignment = 2
 
 [node name="Ping" type="Label" parent="Container" unique_id=1953827934]

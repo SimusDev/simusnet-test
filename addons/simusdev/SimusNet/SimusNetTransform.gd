@@ -1,8 +1,9 @@
 @icon("./icons/MultiplayerSynchronizer.svg")
 @tool
-extends SimusNetNodeAutoVisible
+extends SimusNetNode
 class_name SimusNetTransform
 
+@export var node: Node
 @export var interpolate: bool = true : get = is_interpolated
 @export var interpolate_speed: float = 15.0 : get = get_interpolate_speed
 
@@ -64,7 +65,6 @@ func _process(delta: float) -> void:
 	node.scale = lerp(node.scale, scale, interpolate_speed * delta)
 
 func _enter_tree() -> void:
-	super()
 	
 	if Engine.is_editor_hint():
 		return
@@ -79,7 +79,6 @@ func _enter_tree() -> void:
 		SimusNetSynchronization._instance._transform_enter_tree(self)
 
 func _exit_tree() -> void:
-	super()
 	
 	if Engine.is_editor_hint():
 		return

@@ -35,7 +35,7 @@ func _ready() -> void:
 	["_mounted_entity"],
 	SimusNetVarConfig.new().flag_mode_server_only().
 	flag_reliable(Network.CHANNEL_INTERACTABLES)
-	.flag_serialize()
+	.flag_serialization()
 	.flag_replication()
 	)
 

@@ -2,13 +2,26 @@
 
 [ext_resource type="Script" uid="uid://brryrtgu36d7a" path="res://addons/simusdev/SimusNet/profiler/NetworkProfiler.gd" id="1_1a0sa"]
 [ext_resource type="PackedScene" uid="uid://bf864kpr2oox7" path="res://addons/simusdev/SimusNet/profiler/Transform.tscn" id="2_5bppx"]
+[ext_resource type="Texture2D" uid="uid://dbrj26dw4ql8y" path="res://addons/simusdev/SimusNet/icons/MultiplayerSynchronizer.svg" id="2_evcxb"]
 [ext_resource type="PackedScene" uid="uid://djemqun1lbojh" path="res://addons/simusdev/SimusNet/profiler/RPC.tscn" id="2_vg5hp"]
+[ext_resource type="Texture2D" uid="uid://c7icm4tablpa3" path="res://addons/simusdev/SimusNet/icons/Callable.svg" id="3_og61u"]
+[ext_resource type="PackedScene" uid="uid://cc2lq6y63sjj2" path="res://addons/simusdev/SimusNet/profiler/Vars.tscn" id="4_3dt68"]
 [ext_resource type="PackedScene" uid="uid://dbkexjmy17ak1" path="res://addons/simusdev/SimusNet/profiler/Visibility.tscn" id="4_ab0q5"]
+[ext_resource type="Texture2D" uid="uid://nh8g1cxm42sk" path="res://addons/simusdev/SimusNet/icons/MemberProperty.svg" id="4_i7b20"]
+[ext_resource type="Texture2D" uid="uid://djr25u7aborir" path="res://addons/simusdev/SimusNet/icons/MultiplayerSpawner.svg" id="5_og61u"]
+
+[sub_resource type="Animation" id="Animation_5j6bx"]
+resource_name = "idle"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_shprg"]
+_data = {
+&"idle": SubResource("Animation_5j6bx")
+}
 
 [node name="NetworkProfiler" type="Control" unique_id=2125781581]
 layout_mode = 3
 anchors_preset = 0
-offset_right = 640.0
+offset_right = 720.0
 offset_bottom = 560.0
 script = ExtResource("1_1a0sa")
 
@@ -33,6 +46,10 @@ grow_horizontal = 2
 grow_vertical = 2
 tab_alignment = 1
 current_tab = 1
+tab_0/icon = ExtResource("2_evcxb")
+tab_1/icon = ExtResource("3_og61u")
+tab_2/icon = ExtResource("4_i7b20")
+tab_3/icon = ExtResource("5_og61u")
 
 [node name="Transform" parent="TabContainer" unique_id=93813782 instance=ExtResource("2_5bppx")]
 visible = false
@@ -42,12 +59,12 @@ layout_mode = 2
 layout_mode = 2
 metadata/_tab_index = 1
 
-[node name="Vars" type="Control" parent="TabContainer" unique_id=1539673773]
+[node name="Vars" parent="TabContainer" unique_id=576791098 instance=ExtResource("4_3dt68")]
 visible = false
 layout_mode = 2
-metadata/_tab_index = 2
 
 [node name="Visibility" parent="TabContainer" unique_id=2135028624 instance=ExtResource("4_ab0q5")]
+visible = false
 layout_mode = 2
 
 [node name="Close" type="Control" parent="TabContainer" unique_id=757991902]
@@ -105,6 +122,9 @@ text = "Down (↓) : "
 unique_name_in_owner = true
 layout_mode = 2
 text = "Ping (↯) : "
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1258108068]
+libraries/ = SubResource("AnimationLibrary_shprg")
 
 [connection signal="timeout" from="EverySecond" to="." method="_on_every_second_timeout"]
 [connection signal="draw" from="TabContainer/Close" to="." method="_on_close_draw"]

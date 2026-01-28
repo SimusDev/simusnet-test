@@ -1,0 +1,58 @@
+[gd_scene format=3 uid="uid://mimohkd1dw03"]
+
+[ext_resource type="Script" uid="uid://5hsjlveq7wm2" path="res://addons/simusdev/SimusNet/profiler/InfoBase.gd" id="1_2xss0"]
+[ext_resource type="Texture2D" uid="uid://00t4kcrfgonh" path="res://addons/simusdev/SimusNet/icons/ArrowUp.svg" id="2_51qhs"]
+[ext_resource type="Texture2D" uid="uid://b888c78sgikvl" path="res://addons/simusdev/SimusNet/icons/ArrowDown.svg" id="3_uow6p"]
+
+[node name="InfoBase" type="Panel" unique_id=1433760988]
+process_mode = 4
+custom_minimum_size = Vector2(720, 64)
+offset_right = 600.0
+offset_bottom = 64.0
+mouse_filter = 2
+script = ExtResource("1_2xss0")
+
+[node name="Key" type="Label" parent="." unique_id=745941618]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.99200004
+anchor_bottom = 0.58900005
+offset_right = -0.08001709
+offset_bottom = 0.002998352
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 19
+text = "INFO"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Icon" type="TextureRect" parent="." unique_id=300308492]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.064
+anchor_bottom = 1.0
+offset_right = 0.039993286
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=2082515309]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 1.003
+anchor_right = 1.0
+anchor_bottom = 1.003
+offset_top = -29.963005
+offset_bottom = 0.036994934
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 2
+
+[node name="UpTraffic" type="Button" parent="HBoxContainer" unique_id=29294097]
+layout_mode = 2
+text = "Sent"
+icon = ExtResource("2_51qhs")
+icon_alignment = 2
+
+[node name="DownTraffic" type="Button" parent="HBoxContainer" unique_id=1559075377]
+layout_mode = 2
+text = "Received"
+icon = ExtResource("3_uow6p")
+icon_alignment = 2
