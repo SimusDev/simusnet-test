@@ -19,12 +19,12 @@ size = Vector3(0.2, 1, 0.2)
 [sub_resource type="BoxShape3D" id="BoxShape3D_sptq7"]
 size = Vector3(1, 1.4470215, 0.8525696)
 
-[node name="MechanicalArmWorld" type="StaticBody3D" unique_id=1574390254 node_paths=PackedStringArray("inventory", "input_area", "output_area", "custom_target")]
+[node name="MechanicalArmWorld" type="StaticBody3D" unique_id=1574390254 node_paths=PackedStringArray("inventory", "input_area", "output_area", "hand_node")]
 script = ExtResource("1_c7nmx")
 inventory = NodePath("CT_Inventory")
 input_area = NodePath("input")
 output_area = NodePath("output")
-custom_target = NodePath("Target")
+hand_node = NodePath("Target")
 
 [node name="CT_Health" type="Node" parent="." unique_id=170554197 node_paths=PackedStringArray("root")]
 script = ExtResource("2_spbmj")

@@ -1,110 +1,86 @@
 extends StaticBody3D
 
-signal moved
+signal transfer_started
+signal transfer_finished
 
-@export var speed: float = 1.0
+@export var speed: float = 1.5
 @export_group("References")
 @export var inventory: CT_Inventory
 @export var input_area: Area3D
 @export var output_area: Area3D
-@export var custom_target:Node3D
+@export var hand_node: Node3D
 
-var target_node: Node3D
-var is_moving: bool = false
+var _input_inventories: Array[CT_Inventory] = []
+var _output_inventories: Array[CT_Inventory] = []
+var _is_busy: bool = false
 
 func _ready() -> void:
-	if not input_area or not output_area:
+	if not SimusNetConnection.is_server():
+		return
+	
+	if not inventory or \
+		not input_area or \
+		not output_area or \
+		not hand_node:
 		set_process(false)
 		return
-	
-	target_node = custom_target
-	
-	if not target_node:
-		target_node = Node3D.new()
-		add_child(target_node)
-	
-	var label = Label3D.new()
-	label.text = "T"
-	label.billboard = BaseMaterial3D.BILLBOARD_ENABLED
 
-	target_node.add_child(label)
-	
-	for area in [input_area, output_area]:
-		area.body_entered.connect(func(_b): _update_queues())
-		area.body_exited.connect(func(_b): _update_queues())
+	input_area.body_entered.connect(func(b): _on_area_changed(b, _input_inventories, true))
+	input_area.body_exited.connect(func(b): _on_area_changed(b, _input_inventories, false))
+	output_area.body_entered.connect(func(b): _on_area_changed(b, _output_inventories, true))
+	output_area.body_exited.connect(func(b): _on_area_changed(b, _output_inventories, false))
 
 func _process(_delta: float) -> void:
-	if is_moving:
-		return
+	if _is_busy: return
 	
-	if not inventory or inventory.get_free_slots().is_empty():
-		return
+	if inventory.get_item_stacks().is_empty():
+		var provider = _get_active_inventory(_input_inventories)
+		if provider and not provider.get_item_stacks().is_empty():
+			var receiver = _get_active_inventory(_output_inventories)
+			if receiver and not receiver.get_free_slots().is_empty():
+				_drive_hand(provider.node.global_position, func(): _grab_item(provider))
 	
-	var provider = _get_first_valid_inventory(input_area)
-	var receiver = _get_first_valid_inventory(output_area)
-	
-	if not provider and receiver and receiver != inventory:
-		provider = inventory
-	
-	if not provider or provider.get_item_stacks().is_empty():
-		return
-	_start_transfer(provider, receiver)
-
-func _start_transfer(from: CT_Inventory, to: CT_Inventory) -> void:
-	is_moving = true
-	moved.emit()
-	
-	if not from or not from.node:
-		is_moving = false
-		return
-	
-	var tween = create_tween().set_trans(Tween.TRANS_SINE)
-	tween.tween_property(target_node, "global_position", from.node.global_position, speed)
-	tween.tween_callback(func(): _perform_logic_transfer(from, inventory))
-	
-	if to:
-		if not to.node:
-			is_moving = false
-			return
-		tween.tween_property(target_node, "global_position", to.node.global_position, speed)
-		tween.finished.connect(
-			func():
-				is_moving = false
-				_perform_logic_transfer(inventory, to)
-				)
 	else:
-		tween.finished.connect(
-			func():
-				is_moving = false
-				)
+		var receiver = _get_active_inventory(_output_inventories)
+		if receiver and not receiver.get_free_slots().is_empty():
+			_drive_hand(receiver.node.global_position, func(): _drop_item(receiver))
 
+func _drive_hand(target_pos: Vector3, callback: Callable) -> void:
+	_is_busy = true
+	var tween = create_tween().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	tween.tween_property(hand_node, "global_position", target_pos, 1.0 / speed)
+	tween.finished.connect(func():
+		callback.call()
+		_is_busy = false
+	)
 
-func _perform_logic_transfer(from: CT_Inventory, to: CT_Inventory) -> void:
-	if not is_instance_valid(from) or not is_instance_valid(to):
-		return
+func _grab_item(from: CT_Inventory) -> void:
+	var stacks = from.get_item_stacks()
+	if stacks.is_empty(): return
 	
-	if from.get_item_stacks().is_empty():
-		return
-	
-	var item_stack = from.get_item_stacks().front()
-	if not item_stack:
-		return
-	
-	var input_slot: CT_InventorySlot = null
-	
-	if to:
-		input_slot = to.get_free_slot_for(item_stack)
-	
-	if input_slot and input_slot.is_free():
-		var new_item_stack = to.try_add_item(item_stack)
-		if new_item_stack:
-			from.try_remove_item(item_stack)
+	var item = stacks.front()
+	if inventory.try_add_item(item):
+		from.try_remove_item(item)
+		transfer_started.emit()
 
-func _get_first_valid_inventory(area: Area3D) -> CT_Inventory:
-	for body in area.get_overlapping_bodies():
-		var inv = CT_Inventory.find_in(body)
-		if inv: return inv
+func _drop_item(to: CT_Inventory) -> void:
+	var stacks = inventory.get_item_stacks()
+	if stacks.is_empty(): return
+	
+	var item = stacks.front()
+	if to.try_add_item(item):
+		inventory.try_remove_item(item)
+		transfer_finished.emit()
+
+func _on_area_changed(body: Node3D, list: Array[CT_Inventory], added: bool) -> void:
+	var inv = CT_Inventory.find_in(body)
+	if not inv: return
+	if added:
+		if not list.has(inv): list.append(inv)
+	else:
+		list.erase(inv)
+
+func _get_active_inventory(list: Array[CT_Inventory]) -> CT_Inventory:
+	for inv in list:
+		if is_instance_valid(inv): return inv
 	return null
-
-func _update_queues() -> void:
-	pass
