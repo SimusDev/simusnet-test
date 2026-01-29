@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://cqdfkwb1galvp" path="res://component/viewmodel/R_ViewModel.gd" id="5_bnenu"]
 [ext_resource type="PackedScene" uid="uid://ccllc8l5eim8a" path="res://src/objects/item/weapon/rv78/Rv78View.tscn" id="6_gkmg4"]
 [ext_resource type="PackedScene" uid="uid://s1u8rslgdufh" path="res://src/objects/item/weapon/rv78/Rv78World.tscn" id="7_mniba"]
+[ext_resource type="PackedScene" uid="uid://dtn87yin11nfn" path="res://src/objects/item/weapon/rv78/Rv78Model.tscn" id="7_nhgbf"]
 
 [sub_resource type="Resource" id="Resource_3s3su"]
 script = ExtResource("3_mniba")
@@ -21,7 +22,8 @@ metadata/_custom_type_script = "uid://comfyg2dac6fj"
 [sub_resource type="Resource" id="Resource_tshyd"]
 script = ExtResource("5_bnenu")
 world = ExtResource("7_mniba")
-view = ExtResource("6_gkmg4")
+view = ExtResource("7_nhgbf")
+player = ExtResource("6_gkmg4")
 metadata/_custom_type_script = "uid://cqdfkwb1galvp"
 
 [resource]

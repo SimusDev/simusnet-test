@@ -1,0 +1,3 @@
+[gd_scene format=3 uid="uid://cllb68iygyjsl"]
+
+[node name="World" type="RigidBody3D" unique_id=218270224]

@@ -11,8 +11,29 @@ class_name CT_ItemStack
 			queue_free()
 
 @export var stack_size: int = 64
+@export var _metadata: Dictionary = {}
 
 signal on_quantity_changed()
+signal on_metadata_changed(key: Variant, value: Variant)
+
+var _logger: SD_Logger = SD_Logger.new(self)
+
+func metadata_put_or_get(key: Variant, default: Variant = null) -> Variant:
+	if !SimusNetConnection.is_server():
+		_logger.debug("only server can change metadata!", SD_ConsoleCategories.ERROR)
+		return default
+	
+	if !_metadata.has(key):
+		SimusNetRPC.invoke_all(_metadata_change_rpc, key, default)
+	
+	return _metadata[key]
+
+func metadata_get(key: Variant, default: Variant = null) -> Variant:
+	return _metadata.get(key, default)
+
+func _metadata_change_rpc(key: Variant, value: Variant) -> void:
+	_metadata[key] = value
+	on_metadata_changed.emit(key, value)
 
 var _slot: CT_InventorySlot
 var _inventory: CT_Inventory
@@ -66,6 +87,15 @@ func _ready() -> void:
 		flag_mode_server_only().flag_replication()
 	)
 	
+	SimusNetRPC.register(
+		[
+			_metadata_change_rpc,
+			
+		], SimusNetRPCConfig.new().flag_serialization().
+		flag_mode_server_only()
+		.flag_set_channel(Network.CHANNEL_INVENTORY)
+	)
+	
 	var item_config: R_ItemStackConfig = object.get_itemstack_config()
 	stackable = item_config.stackable
 	stack_size = item_config.stack_size
@@ -83,6 +113,7 @@ static func create_from_object_instance(instance: I_WorldObject) -> CT_ItemStack
 
 func serialize() -> Dictionary:
 	var data: Dictionary = {}
+	data[-2] = _metadata
 	data[-1] = SimusNetIdentity.server_serialize_instance(self)
 	data[0] = SimusNetSerializer.parse_resource(get_script())
 	
@@ -99,6 +130,7 @@ static func deserialize(data: Dictionary) -> CT_ItemStack:
 	
 	var item: CT_ItemStack = script.new()
 	SimusNetIdentity.client_deserialize_instance(data[-1], item)
+	item._metadata = data[-2]
 	item.name = data[1]
 	
 	var _object: Variant = data.get(2, null)

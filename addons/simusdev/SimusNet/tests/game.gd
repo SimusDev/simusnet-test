@@ -1,6 +1,5 @@
 extends Node2D
 
-@export var objects: Array[SimusNetObject]
 
 var _test: Dictionary[int, SimusNetIdentity] = {}
 

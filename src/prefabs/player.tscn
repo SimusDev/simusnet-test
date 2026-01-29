@@ -93,6 +93,7 @@ body = NodePath("..")
 metadata/SD_ECS = Array[Node]([])
 
 [node name="Camera3D" parent="Camera" index="0"]
+fov = 60.0
 metadata/SD_ECS = Array[Node]([])
 
 [node name="CameraShake" type="Node3D" parent="Camera/Camera3D" index="0" unique_id=77756217 node_paths=PackedStringArray("player", "viewmodel_root", "camera", "movement")]
@@ -107,6 +108,7 @@ metadata/SD_ECS = Array[Node]([])
 [node name="ViewModelRoot3D" type="Node3D" parent="Camera/Camera3D/CameraShake" unique_id=370646152]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.07311028, 0.97400725, 0.098163635)
 script = ExtResource("4_heeeb")
+type = 2
 metadata/SD_ECS = Array[Node]([])
 
 [node name="ViewModelSway" type="Node" parent="Camera/Camera3D/CameraShake/ViewModelRoot3D" unique_id=1406768518]

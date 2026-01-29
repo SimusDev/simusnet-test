@@ -47,6 +47,7 @@ func _initialize() -> void:
 		settings = SimusNetIdentitySettings.new()
 	
 	_net_settings = SimusNetSettings.get_or_create()
+	
 	SimusNetEvents.event_disconnected.listen(_deinitialize_dynamic)
 	
 	if SimusNetConnection.is_server():
@@ -125,14 +126,19 @@ func _set_ready() -> void:
 	is_ready = true
 	on_ready.emit()
 	
+	#print(_list_by_id.size())
+	#print(_list_by_generated_id.size())
+	
 	if owner:
 		SimusNetVisibility._local_identity_create(self)
+	
+	
 
 func _tree_exited() -> void:
 	if !is_ready:
 		await is_ready
 	
-	#_destroy()
+	_destroy()
 
 func _destroy() -> void:
 	_deinitialize_dynamic()

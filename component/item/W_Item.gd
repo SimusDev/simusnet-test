@@ -24,10 +24,12 @@ var _logger: SD_Logger = SD_Logger.new(self)
 
 var inventory: CT_Inventory
 var stack: CT_ItemStack
+var playable: CT_Playable
+var state_machine: CT_StateMachineSimple
 
 func _ready() -> void:
 	SimusNetIdentity.register(self)
-	event_pick.emit()
+	
 	stack = SD_ECS.find_first_component_by_script(self, [CT_ItemStack])
 	
 	inventory = SD_ECS.node_find_above_by_component(self, CT_Inventory)
@@ -44,6 +46,8 @@ func _ready() -> void:
 		_logger.debug("ENTITY HEAD COMPONENT WAS NOT FOUND!", SD_ConsoleCategories.ERROR)
 		return
 	
+	playable = CT_Playable.find_in(entity_head.get_entity())
+	
 	net_config = (SimusNetRPCConfig.new()
 		.flag_set_channel("item")
 		.flag_mode_any_peer()
@@ -58,7 +62,7 @@ func _ready() -> void:
 		],
 		net_config
 	)
-		
+	
 	if not object:
 		object = R_WorldObject.find_in(self)
 	
@@ -68,9 +72,34 @@ func _ready() -> void:
 		add_child(cooldown_timer)
 		cooldown_timer.wait_time = object.use_cooldown
 		cooldown_timer.one_shot = true
+		
+		if is_local() and SimusNetConnection.is_client():
+			for client_prefab: PackedScene in object.clientside_prefabs:
+				add_child(client_prefab.instantiate())
 	
-	set_process_input(SimusNet.is_network_authority(self))
 	
+	
+	state_machine = CT_StateMachineSimple.new()
+	state_machine.on_transitioned.connect(_state_machine_transitioned)
+	_state_machine_init()
+	state_machine.name = "sm"
+	add_child(state_machine)
+	
+	event_pick.emit()
+	
+	set_process_input(is_local())
+	set_process_unhandled_input(is_local())
+	set_process_shortcut_input(is_local())
+	set_process_unhandled_key_input(is_local())
+
+func _state_machine_init() -> void:
+	pass
+
+func _state_machine_transitioned(from: String, to: String) -> void:
+	pass
+
+func is_local() -> bool:
+	return is_instance_valid(playable) and playable.is_local()
 
 static func find_above(node:Node) -> W_Item:
 	if node is W_Item or node == null:
@@ -93,6 +122,11 @@ func _input(_event: InputEvent) -> void:
 		request_release_alt()
 	elif Input.is_action_just_released("item.inspect"):
 		event_inspect.emit()
+	
+	_local_input(_event)
+
+func _local_input(event: InputEvent) -> void:
+	pass
 
 func request_press() -> void:
 	SimusNetRPC.invoke_all(__pressed_net)
@@ -127,6 +161,9 @@ func _released() -> void: released.emit()
 
 func _pressed_alt() -> void: pressed_alt.emit()
 func _released_alt() -> void: released_alt.emit()
+
+func _local_client_ready() -> void:
+	pass
 
 func can_use() -> bool:
 	return (not in_cooldown()) and (SimusDev.ui.get_active_interfaces().is_empty())

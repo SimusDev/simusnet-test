@@ -1,0 +1,111 @@
+[gd_scene format=3 uid="uid://cqq8uweubhh44"]
+
+[ext_resource type="PackedScene" uid="uid://0iycjw3cd137" path="res://src/objects/item/weapon/pb/untitled.glb" id="1_skhka"]
+[ext_resource type="AnimationLibrary" uid="uid://b1080jbpsf0hv" path="res://src/objects/item/weapon/pb/animation.res" id="2_fqyir"]
+[ext_resource type="Script" uid="uid://htgmo1akqmdg" path="res://component/animation/weapon_animator.gd" id="3_x8kli"]
+[ext_resource type="Script" uid="uid://dgxlg0w7n7ara" path="res://component/animation/r_animation_hook.gd" id="4_2x8mp"]
+[ext_resource type="Script" uid="uid://dy2wtljxjfh8j" path="res://component/animation/r_animation_hook_signal.gd" id="5_8euj3"]
+
+[sub_resource type="Resource" id="Resource_0lqt5"]
+script = ExtResource("5_8euj3")
+name = &"event_pick"
+animations = Array[StringName]([&"_draw"])
+
+[sub_resource type="Resource" id="Resource_iywey"]
+script = ExtResource("5_8euj3")
+name = &"event_fire"
+animations = Array[StringName]([&"fire"])
+
+[sub_resource type="Resource" id="Resource_tqn13"]
+script = ExtResource("5_8euj3")
+name = &"event_reload"
+animations = Array[StringName]([&"reload"])
+
+[sub_resource type="Resource" id="Resource_ptvb0"]
+script = ExtResource("5_8euj3")
+name = &"event_inspect"
+animations = Array[StringName]([&"inspect"])
+
+[sub_resource type="Resource" id="Resource_pxavl"]
+script = ExtResource("5_8euj3")
+name = &"event_aim_enter"
+animations = Array[StringName]([&""])
+metadata/_custom_type_script = "uid://dy2wtljxjfh8j"
+
+[sub_resource type="Resource" id="Resource_n7c3x"]
+script = ExtResource("5_8euj3")
+name = &"event_aim_exit"
+metadata/_custom_type_script = "uid://dy2wtljxjfh8j"
+
+[node name="Clientside" type="Node3D" unique_id=167970683]
+
+[node name="root" type="Node3D" parent="." unique_id=71728825]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, -1, 0, 4.371139e-08, 0.33, -0.012, 0.685)
+
+[node name="untitled" parent="root" unique_id=1464867256 instance=ExtResource("1_skhka")]
+
+[node name="Skeleton3D" parent="root/untitled/v_pb_ARM" parent_id_path=PackedInt32Array(1464867256, 236012712) index="0" unique_id=1907955124]
+bones/0/position = Vector3(0.9411889, -0.4324946, 0.1332755)
+bones/0/rotation = Quaternion(0.5601602, 0.4302517, 0.43023667, 0.5621392)
+bones/1/rotation = Quaternion(0.6261194, 0.7494751, 0.05429556, -0.20811933)
+bones/2/rotation = Quaternion(0.08737427, 0.51555735, -0.59610015, 0.6092874)
+bones/3/rotation = Quaternion(2.224857e-08, 0.5437665, 1.679607e-08, 0.8392365)
+bones/4/rotation = Quaternion(0.948263, -0.06112832, 0.25027454, -0.18553543)
+bones/5/rotation = Quaternion(-0.5941875, -0.03635977, -0.3387145, 0.7286233)
+bones/6/rotation = Quaternion(-8.91624e-11, -0.13482757, -1.1882078e-09, 0.9908691)
+bones/7/rotation = Quaternion(-2.793669e-09, -0.1950713, 1.1818074e-09, 0.98078907)
+bones/8/rotation = Quaternion(-0.14129157, -0.44073948, -0.05815878, 0.88453555)
+bones/9/rotation = Quaternion(1.4291128e-08, -0.30069435, -2.0074362e-08, 0.9537206)
+bones/10/rotation = Quaternion(-2.1009868e-08, -0.2714252, 1.562826e-08, 0.9624595)
+bones/11/rotation = Quaternion(-0.053895924, -0.387123, 0.11169622, 0.91364926)
+bones/12/rotation = Quaternion(-2.4939782e-08, -0.34198081, -1.2401454e-08, 0.939707)
+bones/13/rotation = Quaternion(-1.8065354e-08, -0.3048468, 5.453484e-09, 0.95240146)
+bones/14/rotation = Quaternion(-0.039159775, -0.42224586, 0.19726558, 0.8838899)
+bones/15/rotation = Quaternion(6.99434e-09, -0.2881803, 1.3174436e-08, 0.95757616)
+bones/16/rotation = Quaternion(6.055182e-09, -0.30899608, 1.3063875e-08, 0.9510634)
+bones/17/rotation = Quaternion(-0.0212145, -0.42456996, 0.31515867, 0.8485077)
+bones/18/rotation = Quaternion(-5.60246e-09, -0.30484676, -1.5581557e-08, 0.9524015)
+bones/19/rotation = Quaternion(-2.1438709e-08, -0.25879273, -5.111589e-08, 0.96593285)
+bones/20/rotation = Quaternion(-0.57087684, -0.017028745, -0.006286622, 0.82083505)
+bones/21/rotation = Quaternion(-0.6190468, 0.62749356, 0.3901356, 0.26613358)
+bones/22/rotation = Quaternion(-0.06797747, 0.75769633, 0.038211003, 0.6479316)
+bones/23/rotation = Quaternion(1.4005337e-08, 0.5723612, -1.7402353e-08, 0.8200017)
+bones/24/rotation = Quaternion(0.96631724, -0.074457526, 0.24447887, -0.030285016)
+bones/25/rotation = Quaternion(0.7470051, 0.07994075, 0.40247425, 0.5230749)
+bones/26/rotation = Quaternion(-1.744526e-08, -0.26300517, -1.3129261e-08, 0.9647944)
+bones/27/rotation = Quaternion(1.4105923e-09, -0.19507125, 1.1091857e-08, 0.98078907)
+bones/28/rotation = Quaternion(-0.018188491, 0.02227785, 0.017211933, 0.9994382)
+bones/29/rotation = Quaternion(3.5043115e-09, -0.42257875, 7.4970625e-09, 0.9063263)
+bones/30/rotation = Quaternion(-1.0479114e-08, -0.5112732, 7.612305e-09, 0.8594183)
+bones/31/rotation = Quaternion(0.034882534, -0.28888592, -0.17514414, 0.9405598)
+bones/32/rotation = Quaternion(6.781201e-05, -0.73727936, 6.78185e-05, 0.6755881)
+bones/33/rotation = Quaternion(4.6239492e-09, -0.38669297, -1.05651505e-08, 0.9222085)
+bones/34/rotation = Quaternion(0.0060472265, -0.57560796, -0.205964, 0.7913393)
+bones/35/rotation = Quaternion(1.444657e-08, -0.56278485, -5.0823474e-09, 0.8266035)
+bones/36/rotation = Quaternion(-5.6698113e-10, -0.26721656, -2.1701556e-09, 0.9636365)
+bones/37/rotation = Quaternion(-0.02145291, -0.65636134, -0.24109347, 0.7145652)
+bones/38/rotation = Quaternion(8.590739e-09, -0.3461035, 1.0710144e-08, 0.93819636)
+bones/39/rotation = Quaternion(-1.4467924e-08, -0.38265347, -2.201867e-08, 0.92389196)
+bones/40/rotation = Quaternion(0.9977003, -0.04324353, 0.03158571, -0.041552957)
+bones/41/position = Vector3(0.35486865, -0.38439053, 0.743159)
+bones/41/rotation = Quaternion(0.7925279, 0.00263024, 0.60981894, -0.0036752888)
+bones/42/position = Vector3(0.059392326, -0.031430297, 0.11843125)
+bones/42/rotation = Quaternion(5.068131e-10, 0.0031127925, 2.9241276e-11, 0.9999952)
+bones/43/rotation = Quaternion(0.5369575, 0.003691675, 0.8435961, 0.0029538365)
+bones/44/position = Vector3(-0.008002598, 0.00016822445, 0.03672043)
+bones/45/rotation = Quaternion(3.5935288e-10, 0.67418265, 5.9117147e-12, 0.7385647)
+
+[node name="AnimationPlayer" parent="root/untitled" index="3" unique_id=1777860940]
+libraries/ = ExtResource("2_fqyir")
+speed_scale = 1.3
+
+[node name="CT_WeaponAnimator" type="Node" parent="." unique_id=1926733964 node_paths=PackedStringArray("player")]
+script = ExtResource("3_x8kli")
+hooks = Array[ExtResource("4_2x8mp")]([SubResource("Resource_0lqt5"), SubResource("Resource_iywey"), SubResource("Resource_tqn13"), SubResource("Resource_ptvb0"), SubResource("Resource_pxavl"), SubResource("Resource_n7c3x")])
+player = NodePath("../root/untitled/AnimationPlayer")
+initialized = true
+metadata/_custom_type_script = "uid://htgmo1akqmdg"
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1340626199]
+
+[editable path="root/untitled"]

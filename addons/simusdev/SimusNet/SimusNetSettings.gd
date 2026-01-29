@@ -29,6 +29,7 @@ static var ___ref: SimusNetSettings
 static func get_or_create() -> SimusNetSettings:
 	if ___ref:
 		return ___ref
+	
 	var resource: Resource = ResourceLoader.load(FILEPATH)
 	if resource:
 		___ref = resource

@@ -10,6 +10,7 @@
 [ext_resource type="Resource" uid="uid://buqwpbav7fdx5" path="res://src/objects/general/furnace/furnace_tier1.tres" id="6_2mjuu"]
 [ext_resource type="Resource" uid="uid://crron1r60u25h" path="res://src/objects/general/mechanical_arm/mechanical_arm.tres" id="6_vrnhv"]
 [ext_resource type="Resource" uid="uid://ce1e2a4kac0ar" path="res://src/objects/item/coal/coal.tres" id="7_x5rrb"]
+[ext_resource type="Resource" uid="uid://blrx7kglr2oec" path="res://src/objects/item/weapon/pb/pb.tres" id="11_61k8a"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_6rygw"]
 size = Vector3(2, 1, 4)
@@ -210,6 +211,18 @@ metadata/_custom_type_script = "uid://dgp0pmmh5blth"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.58342266, 0.9837179, 1.4457512)
 script = ExtResource("2_n32yt")
 object = ExtResource("7_x5rrb")
+metadata/_custom_type_script = "uid://dgp0pmmh5blth"
+
+[node name="table10" type="CSGMesh3D" parent="." unique_id=1610893416]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -3.2759857, 0.5, 17.17117)
+use_collision = true
+mesh = SubResource("BoxMesh_6rygw")
+material = SubResource("StandardMaterial3D_p870i")
+
+[node name="CT_ObjectSpawn" type="Node3D" parent="table10" unique_id=1022186924]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5834217, 0.9837179, 1.4298055)
+script = ExtResource("2_n32yt")
+object = ExtResource("11_61k8a")
 metadata/_custom_type_script = "uid://dgp0pmmh5blth"
 
 [node name="CT_ObjectSpawn" type="Node3D" parent="." unique_id=829456367]

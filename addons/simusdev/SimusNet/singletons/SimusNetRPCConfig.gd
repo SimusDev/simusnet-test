@@ -1,8 +1,6 @@
 extends Resource
 class_name SimusNetRPCConfig
 
-var _handler: SimusNetRPCConfigHandler
-
 var _channel: int = 0
 var _transfer_mode: SimusNetRPC.TRANSFER_MODE = SimusNetRPC.TRANSFER_MODE.RELIABLE
 
@@ -21,15 +19,11 @@ func _initialize(handler: SimusNetRPCConfigHandler, callable: Callable) -> void:
 	#self.callable = callable
 	self.object = callable.get_object()
 	
-	_handler = handler
-	
-	_handler._list_by_name[callable.get_method()] = self
+	handler._list_by_name[callable.get_method()] = self
 	
 	handler._list.set(callable, self)
 	
 	SimusNetMethods.cache(callable)
-	
-	#flag_serialization(SimusNetSettings.get_or_create().serialization_deserialization_enable)
 	
 	unique_id_bytes = await SimusNetMethods.serialize(callable)
 	unique_id = SimusNetMethods.get_id(callable)
@@ -39,7 +33,6 @@ func _initialize(handler: SimusNetRPCConfigHandler, callable: Callable) -> void:
 	is_ready = true
 	on_ready.emit()
 	
-
 #//////////////////////////////////////////////////////////////
 
 static func try_find_in(callable: Callable) -> SimusNetRPCConfig:

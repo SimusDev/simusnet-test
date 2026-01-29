@@ -3,11 +3,19 @@ class_name W_WeaponFirearm extends W_Item
 signal event_reload
 signal event_fire
 
+signal event_aim_enter
+signal event_aim_exit
+
 @export var shell_point:Node3D
 @export var muzzle_point:Node3D
 
+var firearm_object: R_WeaponFirearm
+
+var alt_state_machine: CT_StateMachineSimple
+
 func _ready() -> void:
 	super()
+	firearm_object = object as R_WeaponFirearm
 	randomize()
 	
 	var rpc_config = SimusNetRPCConfig.new()
@@ -18,12 +26,33 @@ func _ready() -> void:
 		],
 		rpc_config
 	)
+	
+	if SimusNetConnection.is_server():
+		stack.metadata_put_or_get("bullets", 0)
 
+func _state_machine_init() -> void:
+	state_machine.debug = true
+	state_machine.add_state("idle").add_state("fire")
+	state_machine.add_state("reload")
 
-func _input(event: InputEvent) -> void:
+func _state_machine_transitioned(from: String, to: String) -> void:
+	pass
+
+func _local_input(event: InputEvent) -> void:
 	super(event)
 	if Input.is_action_just_pressed("weapon.reload"):
 		event_reload.emit()
+
+func __pressed_alt_net() -> void:
+	event_aim_enter.emit()
+	
+	if !is_local():
+		return
+	
+
+func __released_alt_net() -> void:
+	event_aim_exit.emit()
+	
 
 func _process(_delta: float) -> void:
 	if is_using:
