@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="R_Limb" format=3 uid="uid://2opa052my0d0"]
+
+[ext_resource type="Script" uid="uid://b0wp4cby1vdwl" path="res://component/object/limb/R_Limb.gd" id="1_cdnib"]
+
+[resource]
+script = ExtResource("1_cdnib")
+metadata/_custom_type_script = "uid://b0wp4cby1vdwl"

@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://cc6trvruecdbv" path="res://src/ui/inventory/window.tscn" id="6_nlyav"]
 [ext_resource type="Script" uid="uid://c4okankbwa8k" path="res://component/inventory/CT_InventorySlotCloth.gd" id="8_egj3e"]
 [ext_resource type="Script" path="res://component/inventory/CT_InventorySlotHot.gd" id="9_v1wcs"]
+[ext_resource type="Script" uid="uid://dnh4tar62u70p" path="res://component/inventory/limb/CT_InventorySlotLimb.gd" id="12_5g0a8"]
 
 [node name="Backpack" type="Control" unique_id=810392567]
 layout_mode = 3
@@ -52,16 +53,17 @@ close_on_escape = false
 metadata/_custom_type_script = "uid://d1l1jkmj6s53f"
 
 [node name="_PlayerWindow" parent="." unique_id=1923403923 instance=ExtResource("6_nlyav")]
+custom_minimum_size = Vector2(515, 446)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 19.0
-offset_top = -187.0
-offset_right = 630.0
-offset_bottom = 187.0
+offset_left = 112.0
+offset_top = -184.0
+offset_right = 627.0
+offset_bottom = 262.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -83,6 +85,119 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 columns = 6
+
+[node name="_AvatarPlayer" parent="_PlayerWindow" unique_id=1942722791 instance=ExtResource("6_gl4hf")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -345.5
+offset_top = -311.0
+offset_right = -265.5
+offset_bottom = -231.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="_ClothWindow" parent="_PlayerWindow" unique_id=1548234732 instance=ExtResource("6_nlyav")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -345.5
+offset_top = -223.0
+offset_right = -265.5
+offset_bottom = 223.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="player_cloth_slots" type="Node" parent="_PlayerWindow/_ClothWindow" unique_id=2099228590 node_paths=PackedStringArray("_container")]
+unique_name_in_owner = true
+script = ExtResource("3_v4jt5")
+_container = NodePath("../ScrollContainer/VBoxContainer")
+_slots_scripts = Array[GDScript]([ExtResource("8_egj3e")])
+use_default_script = false
+metadata/_custom_type_script = "uid://do3dlfequ75dj"
+
+[node name="ScrollContainer" type="CenterContainer" parent="_PlayerWindow/_ClothWindow" unique_id=2002325819]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="_PlayerWindow/_ClothWindow/ScrollContainer" unique_id=1992019274]
+layout_mode = 2
+
+[node name="_HotbarWindow" parent="_PlayerWindow" unique_id=1214025144 instance=ExtResource("6_nlyav")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -257.5
+offset_top = 233.0
+offset_right = 257.5
+offset_bottom = 305.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="player_hotbar_slots" type="Node" parent="_PlayerWindow/_HotbarWindow" unique_id=1734855913 node_paths=PackedStringArray("_container")]
+unique_name_in_owner = true
+script = ExtResource("3_v4jt5")
+_container = NodePath("../ScrollContainer/HBoxContainer")
+_slots_scripts = Array[GDScript]([ExtResource("9_v1wcs")])
+use_default_script = false
+metadata/_custom_type_script = "uid://do3dlfequ75dj"
+
+[node name="ScrollContainer" type="CenterContainer" parent="_PlayerWindow/_HotbarWindow" unique_id=137663548]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="_PlayerWindow/_HotbarWindow/ScrollContainer" unique_id=1668169088]
+layout_mode = 2
+
+[node name="_LimbWindow" parent="_PlayerWindow" unique_id=381566854 instance=ExtResource("6_nlyav")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -257.5
+offset_top = -311.0
+offset_right = 254.5
+offset_bottom = -231.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="player_limb_slots" type="Node" parent="_PlayerWindow/_LimbWindow" unique_id=191613648 node_paths=PackedStringArray("_container")]
+unique_name_in_owner = true
+script = ExtResource("3_v4jt5")
+_container = NodePath("../ScrollContainer/HBoxContainer")
+_slots_scripts = Array[GDScript]([ExtResource("12_5g0a8")])
+use_default_script = false
+metadata/_custom_type_script = "uid://do3dlfequ75dj"
+
+[node name="ScrollContainer" type="CenterContainer" parent="_PlayerWindow/_LimbWindow" unique_id=747044731]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="_PlayerWindow/_LimbWindow/ScrollContainer" unique_id=1519461255]
+layout_mode = 2
 
 [node name="_OtherWindow" parent="." unique_id=1339617772 instance=ExtResource("6_nlyav")]
 layout_mode = 1
@@ -109,99 +224,27 @@ mouse_filter = 2
 script = ExtResource("6_egj3e")
 metadata/_custom_type_script = "uid://3h3uaulqm56k"
 
-[node name="_AvatarOther" parent="." unique_id=431189554 instance=ExtResource("6_gl4hf")]
+[node name="_AvatarOther" parent="_OtherWindow" unique_id=431189554 instance=ExtResource("6_gl4hf")]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -109.0
-offset_top = -278.0
-offset_right = -19.0
-offset_bottom = -188.0
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = -0.003
+anchor_right = 1.0
+anchor_bottom = -0.003
+offset_left = -90.0
+offset_top = -89.878
+offset_right = 0.0
+offset_bottom = 0.12199998
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="_AvatarPlayer" parent="." unique_id=1942722791 instance=ExtResource("6_gl4hf")]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 19.0
-offset_top = -278.0
-offset_right = 109.0
-offset_bottom = -188.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="_ClothWindow" parent="." unique_id=1548234732 instance=ExtResource("6_nlyav")]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 113.0
-offset_top = -269.0
-offset_right = 630.0
-offset_bottom = -196.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="player_cloth_slots" type="Node" parent="_ClothWindow" unique_id=2099228590 node_paths=PackedStringArray("_container")]
-unique_name_in_owner = true
-script = ExtResource("3_v4jt5")
-_container = NodePath("../ScrollContainer/HBoxContainer")
-_slots_scripts = Array[GDScript]([ExtResource("8_egj3e")])
-use_default_script = false
-metadata/_custom_type_script = "uid://do3dlfequ75dj"
-
-[node name="ScrollContainer" type="CenterContainer" parent="_ClothWindow" unique_id=2002325819]
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=366905357]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="HBoxContainer" type="HBoxContainer" parent="_ClothWindow/ScrollContainer" unique_id=5017200]
-layout_mode = 2
-
-[node name="_HotbarWindow" parent="." unique_id=1214025144 instance=ExtResource("6_nlyav")]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 19.0
-offset_top = 193.0
-offset_right = 630.0
-offset_bottom = 265.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="player_hotbar_slots" type="Node" parent="_HotbarWindow" unique_id=1734855913 node_paths=PackedStringArray("_container")]
-unique_name_in_owner = true
-script = ExtResource("3_v4jt5")
-_container = NodePath("../ScrollContainer/HBoxContainer")
-_slots_scripts = Array[GDScript]([ExtResource("9_v1wcs")])
-use_default_script = false
-metadata/_custom_type_script = "uid://do3dlfequ75dj"
-
-[node name="ScrollContainer" type="CenterContainer" parent="_HotbarWindow" unique_id=137663548]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="HBoxContainer" type="HBoxContainer" parent="_HotbarWindow/ScrollContainer" unique_id=1668169088]
-layout_mode = 2
 
 [connection signal="draw" from="." to="." method="_on_draw"]
 [connection signal="hidden" from="." to="." method="_on_hidden"]

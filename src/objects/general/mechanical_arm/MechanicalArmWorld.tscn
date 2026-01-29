@@ -6,12 +6,14 @@
 [ext_resource type="Script" uid="uid://dehqcsswxyu8a" path="res://component/inventory/CT_Inventory.gd" id="3_ihb0s"]
 [ext_resource type="Script" uid="uid://b0jl432eesuju" path="res://component/health/CT_DestroyOnDeath.gd" id="3_j2xet"]
 [ext_resource type="Script" uid="uid://dvlnhvdrc3dy6" path="res://component/hitbox/CT_Hitbox.gd" id="3_sptq7"]
-[ext_resource type="Script" uid="uid://b7wl6dvtvsttb" path="res://component/inventory/CT_InventorySlot.gd" id="4_gkwvv"]
+[ext_resource type="Script" uid="uid://dpblk4cnhdonv" path="res://component/viewmodel/ViewModelRoot3D.gd" id="6_dx3r4"]
 [ext_resource type="PackedScene" uid="uid://pa0ttv4j400k" path="res://src/ui/backpacks/chest.tscn" id="7_v2l1n"]
 [ext_resource type="Script" uid="uid://dmmtiqx85a6oj" path="res://src/objects/interact/CT_NodeInteractions.gd" id="8_5imdp"]
+[ext_resource type="Script" path="res://component/inventory/CT_InventorySlotHot.gd" id="9_4ebk4"]
 [ext_resource type="Script" uid="uid://ux3hdo53vt4p" path="res://component/interaction/R_InteractAction.gd" id="9_co6js"]
 [ext_resource type="Resource" uid="uid://xecviu4tcm2e" path="res://src/objects/interact/actions/open.tres" id="10_v2l1n"]
 [ext_resource type="Resource" uid="uid://cvbrrn0mme4i" path="res://src/objects/interact/actions/pickup.tres" id="12_v2l1n"]
+[ext_resource type="Script" uid="uid://d1jwapkumdp1u" path="res://addons/simusdev/SimusNet/SimusNetTransform.gd" id="13_7coma"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_gkwvv"]
 size = Vector3(0.2, 1, 0.2)
@@ -19,12 +21,13 @@ size = Vector3(0.2, 1, 0.2)
 [sub_resource type="BoxShape3D" id="BoxShape3D_sptq7"]
 size = Vector3(1, 1.4470215, 0.8525696)
 
-[node name="MechanicalArmWorld" type="StaticBody3D" unique_id=1574390254 node_paths=PackedStringArray("inventory", "input_area", "output_area", "hand_node")]
+[node name="MechanicalArmWorld" type="StaticBody3D" unique_id=1574390254 node_paths=PackedStringArray("inventory", "input_area", "output_area", "hand_node", "home_node")]
 script = ExtResource("1_c7nmx")
 inventory = NodePath("CT_Inventory")
 input_area = NodePath("input")
 output_area = NodePath("output")
 hand_node = NodePath("Target")
+home_node = NodePath("HomeTarget")
 
 [node name="CT_Health" type="Node" parent="." unique_id=170554197 node_paths=PackedStringArray("root")]
 script = ExtResource("2_spbmj")
@@ -46,6 +49,12 @@ shape = SubResource("BoxShape3D_gkwvv")
 
 [node name="mechanical_arm_model" parent="." unique_id=1068801430 instance=ExtResource("2_ihb0s")]
 
+[node name="ViewModelRoot3D" type="Node3D" parent="mechanical_arm_model/root/Armature/Skeleton3D/Wrist" parent_id_path=PackedInt32Array(1068801430, 938706071) index="1" unique_id=183940436]
+transform = Transform3D(1.39, 0, 0, 0, 1.39, 0, 0, 0, 1.39, 0, 3.6465511, 0)
+script = ExtResource("6_dx3r4")
+type = 0
+metadata/_custom_type_script = "uid://dpblk4cnhdonv"
+
 [node name="JacobianIK3D" parent="mechanical_arm_model/root/Armature/Skeleton3D" parent_id_path=PackedInt32Array(1068801430, 478333752) index="6" unique_id=1316577865]
 settings/0/target_node = NodePath("../../../../../Target")
 
@@ -56,12 +65,11 @@ initial_slot_count = 1
 backpack_interface = ExtResource("7_v2l1n")
 metadata/_custom_type_script = "uid://dehqcsswxyu8a"
 
-[node name="0" type="Node" parent="CT_Inventory" unique_id=426245840]
-script = ExtResource("4_gkwvv")
+[node name="0" type="Node" parent="CT_Inventory" unique_id=1464387627]
+script = ExtResource("9_4ebk4")
 tags = Dictionary[String, Variant]({
 "input": null
 })
-metadata/_custom_type_script = "uid://b7wl6dvtvsttb"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=168959221]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.9802322e-08, 0.5, -2.9802322e-08)
@@ -88,10 +96,18 @@ list = Array[ExtResource("9_co6js")]([ExtResource("10_v2l1n"), ExtResource("12_v
 metadata/_custom_type_script = "uid://dmmtiqx85a6oj"
 
 [node name="Target" type="Marker3D" parent="." unique_id=1857840759]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0732276, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
 [node name="Label3D" type="Label3D" parent="Target" unique_id=1398853572]
 billboard = 2
 text = "T"
+
+[node name="SimusNetTransform" type="Node" parent="Target" unique_id=1964499632 node_paths=PackedStringArray("node")]
+script = ExtResource("13_7coma")
+node = NodePath("..")
+metadata/_custom_type_script = "uid://d1jwapkumdp1u"
+
+[node name="HomeTarget" type="Marker3D" parent="." unique_id=2003775673]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.365, 0)
 
 [editable path="mechanical_arm_model"]
