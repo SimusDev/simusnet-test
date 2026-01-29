@@ -34,8 +34,8 @@ metadata/_custom_type_script = "uid://comfyg2dac6fj"
 [sub_resource type="Resource" id="Resource_g2v7l"]
 script = ExtResource("8_f8dc3")
 world = ExtResource("10_rjx1o")
-view = ExtResource("9_ay5e7")
-player = ExtResource("7_5dj1s")
+view = ExtResource("7_5dj1s")
+player = ExtResource("9_ay5e7")
 metadata/_custom_type_script = "uid://cqdfkwb1galvp"
 
 [resource]
