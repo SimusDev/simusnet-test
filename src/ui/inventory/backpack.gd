@@ -4,12 +4,12 @@ class_name UI_Backpack
 var _player_inventory: CT_Inventory
 
 
-@onready var _other_window: Panel = $_OtherWindow
+@onready var _other_window: Panel = $CenterContainer/HBoxContainer/_OtherWindow
 
-@onready var _avatar_other: UI_InventoryAvatar = $_AvatarOther
-@onready var _avatar_player: UI_InventoryAvatar = $_AvatarPlayer
+@onready var _avatar_other: UI_InventoryAvatar = $CenterContainer/HBoxContainer/_OtherWindow/_AvatarOther
+@onready var _avatar_player: UI_InventoryAvatar = $CenterContainer/HBoxContainer/_PlayerWindow/_AvatarPlayer
 
-@onready var _ui_backpack_custom: UI_BackpackCustom = $_OtherWindow/_UI_BackpackCustom
+@onready var _ui_backpack_custom: UI_BackpackCustom = $CenterContainer/HBoxContainer/_OtherWindow/_UI_BackpackCustom
 
 @onready var _sound: AudioStreamPlayer = $_Sound
 @export var _audio_open: AudioStream
@@ -22,6 +22,7 @@ func _ready() -> void:
 	$player_slots.inventory = _player_inventory
 	%player_cloth_slots.inventory = _player_inventory
 	%player_hotbar_slots.inventory = _player_inventory
+	%player_limb_slots.inventory = _player_inventory
 	
 	if _player_inventory:
 		_player_inventory.on_inventory_opened.connect(_on_player_inventory_opened)

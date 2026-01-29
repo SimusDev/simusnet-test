@@ -12,6 +12,7 @@ signal event_aim_exit
 var firearm_object: R_WeaponFirearm
 
 var alt_state_machine: CT_StateMachineSimple
+var exclude_rids:Array[RID]
 
 func _ready() -> void:
 	super()
@@ -29,6 +30,9 @@ func _ready() -> void:
 	
 	if SimusNetConnection.is_server():
 		stack.metadata_put_or_get("bullets", 0)
+	var entity = entity_head.get_entity()
+	if entity is Entity:
+		exclude_rids = entity.find_collisions_rids_above()
 
 func _state_machine_init() -> void:
 	state_machine.debug = true
@@ -77,6 +81,7 @@ func _muzzle_fire() -> void:
 func _spawn_bullet() -> void:
 	var bullet = load("res://scenes/prefabs/firearm_bullet.tscn").instantiate()
 	bullet.set("weapon", object)
+	bullet.set("exclude_rids", exclude_rids)
 	
 	get_tree().root.add_child(bullet)
 	

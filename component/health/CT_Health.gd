@@ -30,6 +30,9 @@ func _ready() -> void:
 			value_max = e.read(1)
 	)
 
+static func find_above(node:Node3D) -> CT_Health:
+	return null
+
 func set_value(new: float) -> CT_Health:
 	value = clamp(value, 0.0, value_max)
 	value = new

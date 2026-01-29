@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://dtmwlx74fxbd7" path="res://src/textures/general/metal1.jpeg" id="1_ruo76"]
 [ext_resource type="Script" uid="uid://dgp0pmmh5blth" path="res://component/object/CT_ObjectSpawn.gd" id="2_n32yt"]
-[ext_resource type="Resource" uid="uid://cic3i440xvcwv" path="res://src/objects/item/weapon/crowbar.tres" id="3_4c3i3"]
+[ext_resource type="Resource" uid="uid://cic3i440xvcwv" path="res://src/objects/item/weapon/crowbar/crowbar.tres" id="3_4c3i3"]
 [ext_resource type="Resource" uid="uid://dp5m3auwen4jw" path="res://src/objects/item/weapon/rv78/rv78.tres" id="4_n32yt"]
 [ext_resource type="Resource" uid="uid://c1dipp0t421cv" path="res://src/objects/military_box.tres" id="4_vrnhv"]
 [ext_resource type="Resource" uid="uid://dc2a2qlq72pvn" path="res://src/objects/item/flashlight/flashlight.tres" id="5_4c3i3"]

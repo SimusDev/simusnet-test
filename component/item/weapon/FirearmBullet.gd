@@ -8,6 +8,8 @@ var mass: float = 0.009
 
 var penetration_power: float = 10.0
 
+var exclude_rids:Array[RID]
+
 var velocity: Vector3 = Vector3.ZERO 
 var direction: Vector3 = Vector3(0, 0, -1)
 var wind_direction: Vector3 = Vector3.ZERO
@@ -31,7 +33,8 @@ func _physics_process(delta: float) -> void:
 	
 	var space_state = get_world_3d().direct_space_state
 	var query = PhysicsRayQueryParameters3D.create(global_position, global_position + step)
-	
+	query.exclude = exclude_rids
+	query.collide_with_areas = true
 	var result = space_state.intersect_ray(query)
 	
 	if result:
@@ -46,10 +49,12 @@ func _on_hit(result: Dictionary, step: Vector3) -> void:
 	var collider = result.get("collider") as Node3D
 	
 	#if SimusNetConnection.is_server():
+	
+	
 	if collider is CT_Hitbox:
 		var damage = (R_Damage.new()
-			.set_value( 25.0 )
-			.apply(collider)
+			.set_value( 25.0 * collider.damage_multiplier)
+			.apply(collider.health)
 		)
 	
 	var resistance = 1.0 ## 1.0 эта типа бетон
@@ -62,7 +67,7 @@ func _on_hit(result: Dictionary, step: Vector3) -> void:
 	
 	if new_speed > 50.0:
 		velocity = velocity.normalized() * new_speed
-		#global_position = result.position + velocity.normalized() * 0.1 #типа хрень какая то хз
+		global_position = result.position + velocity.normalized() * 0.1 #типа хрень какая то хз
 	else:
 		queue_free()
 

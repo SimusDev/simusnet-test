@@ -1,0 +1,49 @@
+[gd_resource type="Resource" script_class="R_WeaponMelee" format=3 uid="uid://cic3i440xvcwv"]
+
+[ext_resource type="Texture2D" uid="uid://bm4jiq2m75y1y" path="res://src/objects/item/weapon/crowbar/icon.png" id="1_dtlsj"]
+[ext_resource type="Script" uid="uid://comfyg2dac6fj" path="res://component/object/sound/R_SoundObject.gd" id="2_vbp0f"]
+[ext_resource type="Script" uid="uid://xha6xbf0d6g2" path="res://component/object/sound/R_SoundSource.gd" id="3_ecl1x"]
+[ext_resource type="AudioStream" uid="uid://c1cwen707d0e1" path="res://audio/hl1/crowbar/half-life-crowbar-impact.mp3" id="4_3oero"]
+[ext_resource type="Script" uid="uid://brr64v6n8sy30" path="res://component/object/item/weapon/R_WeaponMelee.gd" id="5_jmp7t"]
+[ext_resource type="AudioStream" uid="uid://dennpauvioqw5" path="res://audio/hl1/crowbar/half-life-crowbar-swing.mp3" id="6_uct2v"]
+[ext_resource type="PackedScene" uid="uid://dy5pg5df2wsi2" path="res://3d/crowbar/crowbar_model.tscn" id="7_5dj1s"]
+[ext_resource type="Script" uid="uid://cqdfkwb1galvp" path="res://component/viewmodel/R_ViewModel.gd" id="8_f8dc3"]
+[ext_resource type="PackedScene" uid="uid://c02tkhar84byp" path="res://scenes/prefabs/object/item/weapon/crowbar/crowbar_view.tscn" id="9_ay5e7"]
+[ext_resource type="PackedScene" uid="uid://67y8e2hng6vf" path="res://scenes/prefabs/object/item/weapon/crowbar/crowbar_world.tscn" id="10_rjx1o"]
+
+[sub_resource type="Resource" id="Resource_lu1r4"]
+script = ExtResource("3_ecl1x")
+streams = Array[AudioStream]([ExtResource("4_3oero")])
+metadata/_custom_type_script = "uid://xha6xbf0d6g2"
+
+[sub_resource type="Resource" id="Resource_tul18"]
+script = ExtResource("2_vbp0f")
+sources = Array[ExtResource("3_ecl1x")]([SubResource("Resource_lu1r4")])
+metadata/_custom_type_script = "uid://comfyg2dac6fj"
+
+[sub_resource type="Resource" id="Resource_8pp38"]
+script = ExtResource("3_ecl1x")
+streams = Array[AudioStream]([ExtResource("6_uct2v")])
+metadata/_custom_type_script = "uid://xha6xbf0d6g2"
+
+[sub_resource type="Resource" id="Resource_malms"]
+script = ExtResource("2_vbp0f")
+sources = Array[ExtResource("3_ecl1x")]([SubResource("Resource_8pp38")])
+metadata/_custom_type_script = "uid://comfyg2dac6fj"
+
+[sub_resource type="Resource" id="Resource_g2v7l"]
+script = ExtResource("8_f8dc3")
+world = ExtResource("10_rjx1o")
+view = ExtResource("9_ay5e7")
+player = ExtResource("7_5dj1s")
+metadata/_custom_type_script = "uid://cqdfkwb1galvp"
+
+[resource]
+script = ExtResource("5_jmp7t")
+attack_range = 2.2
+swing_sound = SubResource("Resource_malms")
+impact_sound = SubResource("Resource_tul18")
+use_cooldown = 0.34
+viewmodel = SubResource("Resource_g2v7l")
+icon = ExtResource("1_dtlsj")
+metadata/_custom_type_script = "uid://brr64v6n8sy30"
