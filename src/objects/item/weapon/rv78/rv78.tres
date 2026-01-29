@@ -1,5 +1,6 @@
 [gd_resource type="Resource" script_class="R_WeaponFirearm" format=3 uid="uid://dp5m3auwen4jw"]
 
+[ext_resource type="Texture2D" uid="uid://c862dxexcegeg" path="res://src/objects/item/weapon/rv78/icon.png" id="1_mniba"]
 [ext_resource type="Script" uid="uid://bkandi6sbfmht" path="res://component/object/item/weapon/R_WeaponFirearm.gd" id="1_xsn38"]
 [ext_resource type="Script" uid="uid://comfyg2dac6fj" path="res://component/object/sound/R_SoundObject.gd" id="2_gkmg4"]
 [ext_resource type="Script" uid="uid://xha6xbf0d6g2" path="res://component/object/sound/R_SoundSource.gd" id="3_mniba"]
@@ -29,4 +30,5 @@ script = ExtResource("1_xsn38")
 shot_sound = SubResource("Resource_jpkrp")
 use_cooldown = 0.15
 viewmodel = SubResource("Resource_tshyd")
+icon = ExtResource("1_mniba")
 metadata/_custom_type_script = "uid://bkandi6sbfmht"

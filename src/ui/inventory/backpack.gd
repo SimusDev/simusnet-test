@@ -4,12 +4,12 @@ class_name UI_Backpack
 var _player_inventory: CT_Inventory
 
 
-@onready var _other_window: Panel = $_OtherWindow
+@onready var _other_window: Panel = $CenterContainer/HBoxContainer/_OtherWindow
 
-@onready var _avatar_other: UI_InventoryAvatar = $_OtherWindow/_AvatarOther
-@onready var _avatar_player: UI_InventoryAvatar = $_PlayerWindow/_AvatarPlayer
+@onready var _avatar_other: UI_InventoryAvatar = $CenterContainer/HBoxContainer/_OtherWindow/_AvatarOther
+@onready var _avatar_player: UI_InventoryAvatar = $CenterContainer/HBoxContainer/_PlayerWindow/_AvatarPlayer
 
-@onready var _ui_backpack_custom: UI_BackpackCustom = $_OtherWindow/_UI_BackpackCustom
+@onready var _ui_backpack_custom: UI_BackpackCustom = $CenterContainer/HBoxContainer/_OtherWindow/_UI_BackpackCustom
 
 @onready var _sound: AudioStreamPlayer = $_Sound
 @export var _audio_open: AudioStream

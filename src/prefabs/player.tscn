@@ -6,13 +6,14 @@
 [ext_resource type="Script" uid="uid://bwwpj2rkss4cf" path="res://component/health/CT_Health.gd" id="3_eb5im"]
 [ext_resource type="PackedScene" uid="uid://bb30gdt6q8ij" path="res://addons/simusdev/components/fp_controller/source_like/W_FPCSourceLikeCamera.tscn" id="3_j7lg1"]
 [ext_resource type="Script" uid="uid://dfok55wn4kqd2" path="res://component/player/CT_Playable.gd" id="3_rlttd"]
+[ext_resource type="Script" uid="uid://b0jl432eesuju" path="res://component/health/CT_DestroyOnDeath.gd" id="4_10txx"]
 [ext_resource type="PackedScene" uid="uid://be7h2lkvpihn3" path="res://addons/simusdev/components/fp_controller/source_like/W_FPCSourceLikeMovement.tscn" id="4_d5u4l"]
 [ext_resource type="Script" uid="uid://dpblk4cnhdonv" path="res://component/viewmodel/ViewModelRoot3D.gd" id="4_heeeb"]
 [ext_resource type="PackedScene" uid="uid://cmmrufl5ygbop" path="res://component/inventory/prefabs/inventory.tscn" id="4_wdfrp"]
 [ext_resource type="Script" uid="uid://dvlnhvdrc3dy6" path="res://component/hitbox/CT_Hitbox.gd" id="5_yyb7l"]
-[ext_resource type="Script" path="res://component/CameraShake.gd" id="8_k5oc5"]
+[ext_resource type="Script" uid="uid://c1pmyb3w7dbto" path="res://component/CameraShake.gd" id="8_k5oc5"]
 [ext_resource type="Script" uid="uid://bfvmikvjmhnii" path="res://component/entity/CT_EntityHead.gd" id="9_k5oc5"]
-[ext_resource type="Script" path="res://component/ViewModelSway.gd" id="9_xiv16"]
+[ext_resource type="Script" uid="uid://cth053db6jxla" path="res://component/ViewModelSway.gd" id="9_xiv16"]
 [ext_resource type="Script" uid="uid://diojix86rolea" path="res://component/interaction/CT_InteractionRay.gd" id="9_y56kl"]
 [ext_resource type="Script" uid="uid://cgpsyyx2x8kki" path="res://component/ui/MP_CanvasLayer.gd" id="10_wdfrp"]
 [ext_resource type="Script" uid="uid://dfsnjhyc2ld3c" path="res://addons/simusdev/components/fp_controller/source_like/W_FPCSourceLikeCrouch.gd" id="10_y56kl"]
@@ -45,6 +46,10 @@ sound = ExtResource("2_rlttd")
 script = ExtResource("3_eb5im")
 root = NodePath("..")
 metadata/_custom_type_script = "uid://bwwpj2rkss4cf"
+
+[node name="CT_DestroyOnDeath" type="Node" parent="CT_Health" unique_id=1420265547]
+script = ExtResource("4_10txx")
+metadata/_custom_type_script = "uid://b0jl432eesuju"
 
 [node name="CT_Playable" type="Node" parent="." unique_id=768027577 node_paths=PackedStringArray("node")]
 script = ExtResource("3_rlttd")

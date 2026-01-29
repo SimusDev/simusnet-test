@@ -6,6 +6,8 @@ signal event_fire
 @export var shell_point:Node3D
 @export var muzzle_point:Node3D
 
+var exclude_rids:Array[RID]
+
 func _ready() -> void:
 	super()
 	randomize()
@@ -18,6 +20,10 @@ func _ready() -> void:
 		],
 		rpc_config
 	)
+	
+	var entity = entity_head.get_entity()
+	if entity is Entity:
+		exclude_rids = entity.find_collisions_rids_above()
 
 
 func _input(event: InputEvent) -> void:
@@ -48,6 +54,7 @@ func _muzzle_fire() -> void:
 func _spawn_bullet() -> void:
 	var bullet = load("res://scenes/prefabs/firearm_bullet.tscn").instantiate()
 	bullet.set("weapon", object)
+	bullet.set("exclude_rids", exclude_rids)
 	
 	get_tree().root.add_child(bullet)
 	

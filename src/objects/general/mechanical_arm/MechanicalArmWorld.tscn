@@ -39,6 +39,7 @@ script = ExtResource("3_j2xet")
 metadata/_custom_type_script = "uid://b0jl432eesuju"
 
 [node name="CT_Hitbox" type="Area3D" parent="." unique_id=763988953 node_paths=PackedStringArray("health")]
+transform = Transform3D(1.01, 0, 0, 0, 1.01, 0, 0, 0, 1.01, 0, 0, 0)
 script = ExtResource("3_sptq7")
 health = NodePath("../CT_Health")
 metadata/_custom_type_script = "uid://dvlnhvdrc3dy6"

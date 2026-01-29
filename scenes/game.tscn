@@ -1,15 +1,16 @@
 [gd_scene format=3 uid="uid://e55eek63c86k"]
 
 [ext_resource type="Script" uid="uid://doxf33wt4344v" path="res://scenes/game.gd" id="1_yqjtg"]
+[ext_resource type="PackedScene" uid="uid://c1h5oc6onij4e" path="res://src/prefabs/game_commands/game_commands.tscn" id="2_kvpfn"]
 [ext_resource type="Script" uid="uid://b6tiuh31wjnqw" path="res://component/gamescript/CT_GameScriptHandler.gd" id="3_u5sy4"]
 [ext_resource type="PackedScene" uid="uid://doaq5fchetdqp" path="res://component/sky/sky_3d.tscn" id="4_lbhrr"]
 [ext_resource type="Script" uid="uid://ddut1xlh5rvp5" path="res://component/player/CT_CharacterSelect.gd" id="5_iywne"]
 [ext_resource type="Resource" uid="uid://bq60pep62nfs6" path="res://src/levels/drifting.tres" id="5_u5sy4"]
 [ext_resource type="PackedScene" uid="uid://doc3v4vgjj4ti" path="res://src/ui/authentification/authentification.tscn" id="6_p57ef"]
 [ext_resource type="PackedScene" uid="uid://dbxq4udu4u41q" path="res://scenes/prefabs/level_handler.tscn" id="7_0tnpc"]
-[ext_resource type="Script" uid="uid://c0pedqo2h5vch" path="res://addons/simusdev/audio/SD_SoundInstance3D.gd" id="8_vtaks"]
-[ext_resource type="Script" uid="uid://cpwjwfhig01jj" path="res://addons/simusdev/audio/SD_SoundData3D.gd" id="9_kvpfn"]
-[ext_resource type="Script" uid="uid://b7fflt0r416ip" path="res://addons/simusdev/audio/SD_SoundPackage3D.gd" id="10_dinhu"]
+[ext_resource type="Script" path="res://addons/simusdev/audio/SD_SoundInstance3D.gd" id="8_vtaks"]
+[ext_resource type="Script" path="res://addons/simusdev/audio/SD_SoundData3D.gd" id="9_kvpfn"]
+[ext_resource type="Script" path="res://addons/simusdev/audio/SD_SoundPackage3D.gd" id="10_dinhu"]
 
 [sub_resource type="Resource" id="Resource_kvuet"]
 script = ExtResource("9_kvpfn")
@@ -22,6 +23,8 @@ metadata/_custom_type_script = "uid://b7fflt0r416ip"
 
 [node name="Game" type="Node3D" unique_id=1979558274]
 script = ExtResource("1_yqjtg")
+
+[node name="GameCommands" parent="." unique_id=1530606417 instance=ExtResource("2_kvpfn")]
 
 [node name="CT_CharacterSelect" type="Node" parent="." unique_id=1174110634]
 script = ExtResource("5_iywne")
@@ -66,6 +69,5 @@ current_time = 16.0
 [node name="SD_SoundInstance3D" type="Node3D" parent="." unique_id=1838592986]
 script = ExtResource("8_vtaks")
 package = SubResource("Resource_trtic")
-metadata/_custom_type_script = "uid://c0pedqo2h5vch"
 
 [editable path="Sky3D"]

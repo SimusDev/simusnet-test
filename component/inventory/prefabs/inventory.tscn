@@ -7,7 +7,7 @@
 [ext_resource type="Resource" uid="uid://ute54ojiaapq" path="res://component/cloth/type_body.tres" id="4_2w4dx"]
 [ext_resource type="Script" uid="uid://dmwy4xv7t1dip" path="res://component/inventory/CT_ItemStack.gd" id="4_a7c31"]
 [ext_resource type="Resource" uid="uid://djknbi1s1ik1s" path="res://component/cloth/type_leggings.tres" id="5_jvfio"]
-[ext_resource type="Resource" uid="uid://cic3i440xvcwv" path="res://src/objects/item/weapon/crowbar.tres" id="5_kpfa4"]
+[ext_resource type="Resource" uid="uid://cic3i440xvcwv" path="res://src/objects/item/weapon/crowbar/crowbar.tres" id="5_kpfa4"]
 [ext_resource type="Resource" uid="uid://4cl1v8s70evr" path="res://component/cloth/type_boots.tres" id="6_cpvdu"]
 [ext_resource type="Script" uid="uid://dnh4tar62u70p" path="res://component/inventory/limb/CT_InventorySlotLimb.gd" id="10_2w4dx"]
 

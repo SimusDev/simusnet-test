@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://c1h5oc6onij4e"]
+
+[ext_resource type="Script" uid="uid://wx4x10gi4tia" path="res://src/prefabs/game_commands/game_commands.gd" id="1_tdymj"]
+[ext_resource type="Script" uid="uid://bptu8uuecjoc5" path="res://addons/simusdev/console/SD_NodeCommandObject.gd" id="2_t5gg4"]
+[ext_resource type="Script" uid="uid://mtgs568pxn5x" path="res://addons/simusdev/console/SD_NodeCommandObjectBind.gd" id="3_mrpuw"]
+
+[sub_resource type="Resource" id="Resource_kepqv"]
+script = ExtResource("2_t5gg4")
+code = "player.kill"
+metadata/_custom_type_script = "uid://bptu8uuecjoc5"
+
+[node name="GameCommands" type="Node" unique_id=1530606417]
+script = ExtResource("1_tdymj")
+commands = Array[ExtResource("2_t5gg4")]([SubResource("Resource_kepqv")])
+metadata/_custom_type_script = "uid://38osx81mny15"
