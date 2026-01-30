@@ -2,6 +2,7 @@ class_name W_WeaponFirearm extends W_Item
 
 signal event_reload
 signal event_fire
+signal event_fire_empty
 
 signal event_aim_enter
 signal event_aim_exit
@@ -14,6 +15,12 @@ var firearm_object: R_WeaponFirearm
 var alt_state_machine: CT_StateMachineSimple
 var exclude_rids:Array[RID]
 
+static func find_above(node:Node) -> W_WeaponFirearm:
+	return super(node) as W_WeaponFirearm
+
+func _get_stack() -> CT_ItemStackFireArmWeapon:
+	return super() as CT_ItemStackFireArmWeapon
+
 func _ready() -> void:
 	super()
 	firearm_object = object as R_WeaponFirearm
@@ -23,13 +30,12 @@ func _ready() -> void:
 	
 	SimusNetRPC.register(
 		[
-			
+			_request_reload_server,
+			_request_reload_receive,
 		],
 		rpc_config
 	)
 	
-	if SimusNetConnection.is_server():
-		stack.metadata_put_or_get("bullets", 0)
 	var entity = entity_head.get_entity()
 	if entity is Entity:
 		exclude_rids = entity.find_collisions_rids_above()
@@ -44,29 +50,53 @@ func _state_machine_transitioned(from: String, to: String) -> void:
 
 func _local_input(event: InputEvent) -> void:
 	super(event)
+	
 	if Input.is_action_just_pressed("weapon.reload"):
-		event_reload.emit()
+		request_reload()
+
+func request_reload() -> void:
+	if state_machine.get_current_state() == "idle":
+		if is_local() and _get_stack().can_reload():
+			SimusNetRPC.invoke_on_server(_request_reload_server)
+
+func _request_reload_server() -> void:
+	if !_get_stack().can_reload():
+		return
+	
+	if _get_stack().try_reload():
+		SimusNetRPC.invoke_on_sender(_request_reload_receive)
+
+func _request_reload_receive() -> void:
+	event_reload.emit()
+	state_machine.try_switch("reload").make_cooldown_and_switch_to(firearm_object.reload_time, "idle")
 
 func __pressed_alt_net() -> void:
 	event_aim_enter.emit()
 	
-	if !is_local():
-		return
-	
 
 func __released_alt_net() -> void:
 	event_aim_exit.emit()
-	
+
+func _pressed() -> void:
+	if state_machine.get_current_state() == "idle" and _get_stack().bullets > 0:
+		state_machine.try_switch("fire")
+
+func _released() -> void:
+	if state_machine.get_current_state() == "fire":
+		state_machine.try_switch("idle")
 
 func _process(_delta: float) -> void:
-	if is_using:
+	if state_machine.get_current_state() == "fire":
 		fire()
 
 func fire() -> void:
-	if not can_use():
+	if not can_use() or _get_stack().bullets <= 0:
 		return
 	
 	cooldown_timer.start()
+	
+	if SimusNetConnection.is_server():
+		_get_stack().bullets -= 1
 	
 	_spawn_bullet()
 	_muzzle_fire()

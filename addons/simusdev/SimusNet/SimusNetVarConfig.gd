@@ -22,7 +22,8 @@ var _mode: MODE = MODE.AUTHORITY
 
 var _object: Object
 var _identity: SimusNetIdentity
-var _properties: PackedStringArray = []
+var _properties: PackedStringArray
+var _spawn_replicated_properties: PackedStringArray
 
 var _tickrate: float = 0.0
 var _tickrate_time: float = 0.0
@@ -45,6 +46,9 @@ func flag_tickrate(ticks: float) -> SimusNetVarConfig:
 func _f_rep(value: bool = true) -> void:
 	if !is_ready:
 		await on_ready
+	
+	if _replication == value:
+		return
 	
 	_replication = value
 	
@@ -144,7 +148,9 @@ func _initialize(object: Object, properties: PackedStringArray) -> void:
 		SimusNetVars.cache(p)
 	
 	_object = object
-	_properties = properties.duplicate()
+	for p in properties:
+		if !p in _properties:
+			_properties.append(p)
 	
 	for p_name in properties:
 		get_configs(object).set(p_name, self)

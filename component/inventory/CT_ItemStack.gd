@@ -10,11 +10,16 @@ class_name CT_ItemStack
 		if quantity < 1 and SimusNetConnection.is_server():
 			queue_free()
 
+@export var durability: float = 0
+@export var durability_max: float = 0
+
 @export var stack_size: int = 64
 @export var _metadata: Dictionary = {}
 
 signal on_quantity_changed()
 signal on_metadata_changed(key: Variant, value: Variant)
+
+@onready var _network_var_config: SimusNetVarConfig = SimusNetVarConfig.new().flag_reliable(Network.CHANNEL_INVENTORY).flag_mode_server_only().flag_replication()
 
 var _logger: SD_Logger = SD_Logger.new(self)
 
@@ -83,10 +88,10 @@ func _ready() -> void:
 			"stackable",
 			"quantity",
 			"stack_size",
-			
-		], 
-		SimusNetVarConfig.new().flag_reliable(Network.CHANNEL_INVENTORY).
-		flag_mode_server_only().flag_replication()
+			"durability",
+			"durability_max"
+		],
+		_network_var_config
 	)
 	
 	SimusNetRPC.register(
@@ -101,7 +106,6 @@ func _ready() -> void:
 	var item_config: R_ItemStackConfig = object.get_itemstack_config()
 	stackable = item_config.stackable
 	stack_size = item_config.stack_size
-	
 
 static func create_from_object(_object: R_WorldObject) -> CT_ItemStack:
 	var item: CT_ItemStack = _object.get_itemstack_config().get_item_script().new()
@@ -123,7 +127,11 @@ func serialize() -> Dictionary:
 	data[1] = name
 	if object:
 		data[2] = SimusNetSerializer.parse_resource(object)
+	serialize_custom(data)
 	return data
+
+func serialize_custom(data: Dictionary) -> void:
+	pass
 
 static func deserialize(data: Dictionary) -> CT_ItemStack:
 	var script: GDScript = SimusNetDeserializer.parse_resource(data.get(0, CT_ItemStack))
@@ -139,7 +147,40 @@ static func deserialize(data: Dictionary) -> CT_ItemStack:
 	if _object:
 		item.object = SimusNetDeserializer.parse_resource(_object)
 	
+	deserialize_custom(data, item)
 	return item
+
+static func deserialize_custom(data: Dictionary, stack: CT_ItemStack) -> void:
+	pass
+
+func serialize_gamestate() -> Dictionary:
+	var data: Dictionary = {}
+	data.id = object
+	data.script = get_script()
+	
+	data.base = s_GameState.serialize_object_properties(self, [
+		"quantity",
+		"durability",
+		"durability_max",
+		"_metadata",
+		
+	])
+	
+	serialize_gamestate_custom(data)
+	return data
+
+func serialize_gamestate_custom(data: Dictionary) -> void:
+	pass
+
+static func deserialize_gamestate(data: Dictionary) -> CT_ItemStack:
+	var item: CT_ItemStack = data.script.new()
+	item.object = data.id
+	s_GameState.deserialize_object_properties(item, data.base)
+	deserialize_gamestate_custom(data, item)
+	return item
+
+static func deserialize_gamestate_custom(data: Dictionary, stack: CT_ItemStack) -> void:
+	pass
 
 static func serialize_array(array: Array[CT_ItemStack]) -> PackedByteArray:
 	var result: Array = []

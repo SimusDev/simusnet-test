@@ -55,6 +55,14 @@ func try_switch(to: String) -> CT_StateMachineSimple:
 	
 	return self
 
+func make_cooldown_and_switch_to(time: float, state: String) -> CT_StateMachineSimple:
+	_make_cd_and_switch(time, state)
+	return self
+
+func _make_cd_and_switch(time: float, state: String) -> void:
+	await get_tree().create_timer(time, false).timeout
+	try_switch(state)
+
 func _transition(to: String) -> void:
 	if get_current_state() == to:
 		return

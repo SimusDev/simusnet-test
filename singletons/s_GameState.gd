@@ -69,3 +69,13 @@ func load_game(save: String) -> void:
 			_register_instance(node)
 	
 	on_load.emit()
+
+func serialize_object_properties(object: Object, properties: PackedStringArray) -> Dictionary:
+	var data: Dictionary = {}
+	for p in properties:
+		data.set(p, object.get(p))
+	return data
+
+func deserialize_object_properties(object: Object, data: Dictionary) -> void:
+	for p: String in data:
+		object.set(p, data[p])

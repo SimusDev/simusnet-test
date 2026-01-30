@@ -23,9 +23,12 @@ var entity_head: CT_EntityHead
 var _logger: SD_Logger = SD_Logger.new(self)
 
 var inventory: CT_Inventory
-var stack: CT_ItemStack
+var stack: CT_ItemStack : get = _get_stack
 var playable: CT_Playable
 var state_machine: CT_StateMachineSimple
+
+func _get_stack() -> CT_ItemStack:
+	return stack
 
 func _ready() -> void:
 	SimusNetIdentity.register(self)
@@ -171,4 +174,5 @@ func can_use() -> bool:
 func in_cooldown() -> bool:
 	if not is_instance_valid(cooldown_timer):
 		return true
+	cooldown_timer.wait_time = (object as R_Item).use_cooldown
 	return cooldown_timer.time_left > 0
