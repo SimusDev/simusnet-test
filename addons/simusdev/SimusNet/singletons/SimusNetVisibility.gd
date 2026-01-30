@@ -83,7 +83,6 @@ func _server_receive_identities(packet: PackedByteArray, creation: bool = true) 
 					var ids: Array = _peers_and_identities.get_or_add(authority, [])
 					ids.append(identity.get_unique_id())
 	
-	
 	if _peers_and_identities.is_empty():
 		return
 	
@@ -110,7 +109,6 @@ func _client_receive_identities_owner(peer: int, bytes: PackedByteArray, creatio
 	var ids: Array = SimusNetDecompressor.parse(bytes)
 	for s_id in ids:
 		_owner_recursive_receive(peer, s_id, creation, 360)
-
 
 func _owner_recursive_receive(peer: int, identity_id: Variant, creation: bool, attempts: int) -> void:
 	if attempts <= 0:
