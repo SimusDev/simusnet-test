@@ -1,2 +1,0 @@
-extends SimusNetEventIdentity
-class_name SimusNetEventIdentityCached
