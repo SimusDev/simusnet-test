@@ -17,6 +17,8 @@ func _on_connected() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 
 func _on_disconnected() -> void:
+	_queue_create.clear()
+	_queue_delete.clear()
 	process_mode = Node.PROCESS_MODE_DISABLED
 
 func _process(delta: float) -> void:
