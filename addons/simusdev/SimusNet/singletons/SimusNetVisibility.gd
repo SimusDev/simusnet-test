@@ -86,16 +86,29 @@ func _server_receive_identities(packet: PackedByteArray, creation: bool = true) 
 	if _peers_and_identities.is_empty():
 		return
 	
-	_client_receive_identities_sender.rpc_id(sender, SimusNetCompressor.parse(_peers_and_identities), creation)
+	var sender_bytes: PackedByteArray = SimusNetCompressor.parse(_peers_and_identities)
+	_client_receive_identities_sender.rpc_id(sender, sender, creation)
+	
+	SimusNetProfiler._put_up_packet()
+	SimusNetProfiler._instance._put_visibility_up_traffic(sender_bytes.size())
+	SimusNetProfiler._instance._visibility_sent += _peers_and_identities.size()
 	
 	for pid: int in _peers_and_identities:
-		_client_receive_identities_owner.rpc_id(pid, sender, SimusNetCompressor.parse(_peers_and_identities[pid]), creation)
+		var owner_bytes: PackedByteArray = SimusNetCompressor.parse(_peers_and_identities[pid])
+		_client_receive_identities_owner.rpc_id(pid, sender, owner_bytes, creation)
+		SimusNetProfiler._put_up_packet()
+		SimusNetProfiler._instance._put_visibility_up_traffic(sender_bytes.size())
+		SimusNetProfiler._instance._visibility_sent += _peers_and_identities[pid].size()
 
 @rpc("authority", "call_remote", "reliable", SimusNetChannels.BUILTIN.VISIBILITY)
 func _client_receive_identities_sender(bytes: PackedByteArray, creation: bool) -> void:
+	SimusNetProfiler._put_down_packet()
+	SimusNetProfiler._instance._put_visibility_down_traffic(bytes.size())
+	
 	var _peers_and_identities: Dictionary[int, Array] = SimusNetDecompressor.parse(bytes)
 	for pid: int in _peers_and_identities:
 		var ids: Array = _peers_and_identities[pid]
+		SimusNetProfiler._instance._visibility_received += ids.size()
 		for s_id in ids:
 			var identity: SimusNetIdentity = SimusNetIdentity.try_deserialize_from_variant(s_id)
 			#print("sender receive: ", s_id, ", ", identity)
@@ -106,7 +119,11 @@ func _client_receive_identities_sender(bytes: PackedByteArray, creation: bool) -
 
 @rpc("authority", "call_remote", "reliable", SimusNetChannels.BUILTIN.VISIBILITY)
 func _client_receive_identities_owner(peer: int, bytes: PackedByteArray, creation: bool) -> void:
+	SimusNetProfiler._put_down_packet()
+	SimusNetProfiler._instance._put_visibility_down_traffic(bytes.size())
+	
 	var ids: Array = SimusNetDecompressor.parse(bytes)
+	SimusNetProfiler._instance._visibility_received += ids.size()
 	for s_id in ids:
 		_owner_recursive_receive(peer, s_id, creation, 360)
 
