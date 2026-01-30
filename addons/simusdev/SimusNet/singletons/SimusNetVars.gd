@@ -125,6 +125,9 @@ static func replicate(object: Object, properties: PackedStringArray, reliable: b
 			continue
 		
 		var identity: SimusNetIdentity = config.get_identity()
+		if !identity.is_ready:
+			await identity.on_ready
+		
 		var packet: Dictionary = _instance._queue_replicate_unreliable
 		if reliable:
 			packet = _instance._queue_replicate

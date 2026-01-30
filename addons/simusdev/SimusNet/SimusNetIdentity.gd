@@ -28,7 +28,11 @@ const BYTE_SIZE: int = 2
 
 static func register(object: Object, settings: SimusNetIdentitySettings = null, from: SimusNetIdentity = null) -> SimusNetIdentity:
 	if object.has_meta("SimusNetIdentity"):
-		return object.get_meta("SimusNetIdentity")
+		var variant: Variant = object.get_meta("SimusNetIdentity")
+		if is_instance_valid(variant):
+			if variant is SimusNetIdentity:
+				if variant.owner:
+					return variant
 	
 	var identity: SimusNetIdentity = from
 	if !identity:
@@ -111,8 +115,6 @@ func _tree_entered() -> void:
 	
 	_list_by_generated_id[_generated_unique_id] = self
 	
-	SimusNetCache._cache_identity(self)
-	
 	if SimusNetConnection.is_server():
 		_set_ready()
 	
@@ -133,6 +135,8 @@ func _set_ready() -> void:
 		SimusNetVisibility._local_identity_create(self)
 	
 	
+	
+	
 
 func _tree_exited() -> void:
 	if !is_ready:
@@ -140,16 +144,23 @@ func _tree_exited() -> void:
 	
 	_destroy()
 
+static func _parse_and_clear_identities_with_no_owner() -> void:
+	for identity_id: Variant in _list_by_id:
+		var identity: SimusNetIdentity = _list_by_id[identity_id]
+		if !identity.owner:
+			_list_by_id.erase(identity_id)
+			_list_by_generated_id.erase(identity.get_generated_unique_id())
+
 func _destroy() -> void:
 	_deinitialize_dynamic()
 	
 	if owner:
 		SimusNetVisibility._local_identity_delete(self)
 	
-	SimusNetCache._uncache_identity(self)
+	_parse_and_clear_identities_with_no_owner()
 	
-	_list_by_id.erase(get_unique_id())
-	_list_by_generated_id.erase(get_generated_unique_id())
+	#_list_by_id.erase(get_unique_id())
+	#_list_by_generated_id.erase(get_generated_unique_id())
 
 func get_generated_unique_id() -> Variant:
 	return _generated_unique_id

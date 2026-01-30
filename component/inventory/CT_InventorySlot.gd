@@ -21,16 +21,17 @@ func get_object() -> R_WorldObject:
 	return null
 
 func _ready() -> void:
+	SimusNetVisible.get_or_create(self).set_server_only()
 	SimusNetIdentity.register(self)
 
 func can_handle_item(item: CT_ItemStack) -> bool:
 	return true
 
 func get_id() -> int:
-	return get_index()
+	return _inventory._slots.find(self)
 
 static func get_by_id(inventory: CT_Inventory, id: int) -> CT_InventorySlot:
-	return inventory.get_child(id)
+	return inventory._slots.get(id)
 
 func is_free() -> bool:
 	return !is_instance_valid(_item_stack)

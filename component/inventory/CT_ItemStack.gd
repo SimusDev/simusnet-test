@@ -75,6 +75,8 @@ func _exit_tree() -> void:
 	_slot._item_stack = null
 
 func _ready() -> void:
+	SimusNetVisible.get_or_create(self).set_server_only()
+	
 	SimusNetVars.register(
 		self,
 		[

@@ -66,24 +66,27 @@ func _on_transform_tick() -> void:
 		if !identity.is_ready:
 			continue
 		
+		var properties: Dictionary = {}
+		#var properties: Dictionary = identities.get_or_add(identity.try_serialize_into_variant(), {})
+		_parse_property_sender(transform, properties, "position", transform.node.position)
+		_parse_property_sender(transform, properties, "rotation", transform.node.rotation)
+		_parse_property_sender(transform, properties, "scale", transform.node.scale)
+		
 		for peer in SimusNetConnection.get_connected_peers():
-			if peer == SimusNetConnection.get_unique_id() or !SimusNetVisibility.is_visible_for(peer, transform.node):
+			if peer == SimusNetConnection.get_unique_id() or !SimusNetVisibility.is_visible_for(peer, transform):
 				continue
 			
 			var identities: Dictionary = data.get(peer, {})
-			var properties: Dictionary = identities.get_or_add(identity.try_serialize_into_variant(), {})
-			_parse_property_sender(transform, properties, "position", transform.node.position)
-			_parse_property_sender(transform, properties, "rotation", transform.node.rotation)
-			_parse_property_sender(transform, properties, "scale", transform.node.scale)
+			identities.get_or_add(identity.try_serialize_into_variant(), properties)
+			
+			#_parse_property_sender(transform, properties, "transform", transform.node.transform)
+			
 			
 			if !properties.is_empty():
 				data[peer] = identities
 				#print("[%s]: %s" % [SimusNetConnection.is_server(), identities])
 	
 	for peer: int in data:
-		#if SimusNetConnection.is_server():
-			#print(SimusNetCompressor.parse(var_to_bytes(data[peer])).size())
-			#print(var_to_bytes(data[peer]).size())
 		var bytes: PackedByteArray = SimusNetCompressor.parse(data[peer])
 		SimusNetProfiler.get_instance()._transform_up_traffic += bytes.size()
 		SimusNetProfiler.get_instance()._total_traffic += bytes.size()

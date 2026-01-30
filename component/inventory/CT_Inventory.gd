@@ -75,6 +75,7 @@ func get_slot_by_tag(tag: String) -> CT_InventorySlot:
 	return null
 
 func _ready() -> void:
+	SimusNetVisible.get_or_create(self).set_server_only()
 	_network_setup()
 	
 	if !node:
@@ -325,7 +326,10 @@ func _try_move_item_server(item: CT_ItemStack, slot: CT_InventorySlot) -> void:
 
 func _send() -> void:
 	var bytes: PackedByteArray = CT_InventorySlot.serialize_array(get_slots())
-	SimusNetRPC.invoke_on(SimusNetRemote.sender_id, _receive, bytes, _selected_slot)
+	var selected_id: int = -1
+	if get_selected_slot():
+		selected_id = get_selected_slot().get_id()
+	SimusNetRPC.invoke_on(SimusNetRemote.sender_id, _receive, bytes, selected_id)
 
 func clear_slots() -> void:
 	if !SimusNetConnection.is_server():
@@ -336,7 +340,7 @@ func clear_slots() -> void:
 			i.queue_free()
 			await i.tree_exited
 
-func _receive(raw: PackedByteArray, _selected: CT_InventorySlot) -> void:
+func _receive(raw: PackedByteArray, _selected: int) -> void:
 	for i in get_children():
 		if i is CT_InventorySlot:
 			i.queue_free()
@@ -346,7 +350,8 @@ func _receive(raw: PackedByteArray, _selected: CT_InventorySlot) -> void:
 	for i in slots:
 		add_child(i)
 	
-	_selected_slot = _selected
+	if _selected > -1:
+		_selected_slot = CT_InventorySlot.get_by_id(self, _selected)
 	
 	_do_network_ready()
 

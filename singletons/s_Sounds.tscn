@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://brqa4yciw61rt"]
+
+[ext_resource type="Script" uid="uid://bfupo4pdcu488" path="res://singletons/s_Sounds.gd" id="1_0x5dr"]
+
+[node name="SSounds" type="Node" unique_id=693923596]
+script = ExtResource("1_0x5dr")

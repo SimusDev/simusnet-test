@@ -9,9 +9,9 @@ func _physics_process(delta: float) -> void:
 	if !is_visible_in_tree():
 		return
 	
-	fps.text = "%s fps" % Engine.get_frames_per_second()
-	out_traffic.text = "in: %s/s, %s/s" % [SimusNetProfiler.get_up_packets_count(), String.humanize_size(SimusNetProfiler.get_up_traffic_per_second()).to_lower()] 
-	in_traffic.text = "out: %s/s, %s/s" % [SimusNetProfiler.get_down_packets_count(), String.humanize_size(SimusNetProfiler.get_down_traffic_per_second()).to_lower()] 
+	fps.text = "(ID: %s), %s fps" % [SimusNetConnection.get_unique_id(), Engine.get_frames_per_second()]
+	out_traffic.text = "in: %s/s, %s/s" % [SimusNetProfiler.get_down_packets_count(), String.humanize_size(SimusNetProfiler.get_down_traffic_per_second()).to_lower()] 
+	in_traffic.text = "out: %s/s, %s/s" % [SimusNetProfiler.get_up_packets_count(), String.humanize_size(SimusNetProfiler.get_up_traffic_per_second()).to_lower()] 
 	ping.text = "ping: %s ms" % [SimusNetProfiler.get_ping()]
 
 func _on_timer_timeout() -> void:

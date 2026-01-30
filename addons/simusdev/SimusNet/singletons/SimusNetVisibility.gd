@@ -20,13 +20,14 @@ func _on_disconnected() -> void:
 	process_mode = Node.PROCESS_MODE_DISABLED
 
 func _process(delta: float) -> void:
+	if !_queue_delete.is_empty():
+		_handle(_queue_delete, false)
+		_queue_delete.clear()
+	
 	if !_queue_create.is_empty():
 		_handle(_queue_create, true)
 		_queue_create.clear()
 	
-	if !_queue_delete.is_empty():
-		_handle(_queue_delete, false)
-		_queue_delete.clear()
 
 func _handle(array: Array[SimusNetIdentity], creation: bool) -> void:
 	var parsed_identities: PackedByteArray = _parse_identities(array)
@@ -40,8 +41,7 @@ func _handle(array: Array[SimusNetIdentity], creation: bool) -> void:
 func _parse_identities(array: Array[SimusNetIdentity]) -> PackedByteArray:
 	var result: Array = []
 	for i in array:
-		if is_instance_valid(i.owner):
-			result.append(i.get_unique_id())
+		result.append(i.get_unique_id())
 	return SimusNetCompressor.parse(result)
 
 func _parse_identities_from_packet(packet: PackedByteArray) -> Array[SimusNetIdentity]:
@@ -49,7 +49,7 @@ func _parse_identities_from_packet(packet: PackedByteArray) -> Array[SimusNetIde
 	var array: Array = SimusNetDecompressor.parse(packet)
 	for i in array:
 		var id: SimusNetIdentity = SimusNetIdentity.try_deserialize_from_variant(i)
-		if is_instance_valid(id.owner):
+		if is_instance_valid(id) and is_instance_valid(id.owner):
 			result.append(id)
 	return result
 
@@ -65,42 +65,67 @@ func _server_receive_identities(packet: PackedByteArray, creation: bool = true) 
 	
 	var identities: Array[SimusNetIdentity] = _parse_identities_from_packet(packet)
 	
-	var non_server_identities: Dictionary[int, Array] = {}
+	var peers_and_identities_for_sender: Dictionary[Variant, PackedInt32Array] = {}
+	
+	SimusNetProfiler._instance._visibility_received += identities.size()
+	
+	var _peers_and_identities: Dictionary[int, Array] = {}
 	
 	for identity in identities:
-		SimusNetProfiler._instance._visibility_received += 1
-		
 		var authority: int = SimusNet.get_network_authority(identity.owner)
+		var visibile: SimusNetVisible = SimusNetVisible.get_or_create(identity.owner)
 		
-		set_visible_for(sender, identity.owner, creation)
+		visibile.set_visible_for(sender, creation)
 		
-		if authority != SimusNet.SERVER_ID and authority != sender:
-			var ids: Array[SimusNetIdentity] = non_server_identities.get_or_add(authority, [] as Array[SimusNetIdentity])
-			ids.append(identity)
+		if not visibile.is_server_only():
+			if authority != SimusNet.SERVER_ID:
+				if sender != authority:
+					var ids: Array = _peers_and_identities.get_or_add(authority, [])
+					ids.append(identity.get_unique_id())
 	
-	if non_server_identities.is_empty():
+	
+	if _peers_and_identities.is_empty():
 		return
 	
-	for pid: int in non_server_identities:
-		var ids: Array[SimusNetIdentity] = non_server_identities[pid]
-		var bytes: PackedByteArray = _parse_identities(ids)
-		
-		SimusNetProfiler._put_up_packet()
-		SimusNetProfiler._instance._put_visibility_up_traffic(bytes.size())
-		SimusNetProfiler._instance._visibility_sent += ids.size()
-		
-		_client_receive_identities_from.rpc_id(pid, sender, bytes, creation)
-
-@rpc("any_peer", "call_remote", "reliable", SimusNetChannels.BUILTIN.VISIBILITY)
-func _client_receive_identities_from(peer: int, packet: PackedByteArray, creation: bool = true) -> void:
-	SimusNetProfiler._put_down_packet()
-	SimusNetProfiler._instance._put_visibility_down_traffic(packet.size() + 8)
+	_client_receive_identities_sender.rpc_id(sender, SimusNetCompressor.parse(_peers_and_identities), creation)
 	
-	var identities: Array[SimusNetIdentity] = _parse_identities_from_packet(packet)
-	for identity in identities:
-		SimusNetProfiler._instance._visibility_received += 1
+	for pid: int in _peers_and_identities:
+		_client_receive_identities_owner.rpc_id(pid, sender, SimusNetCompressor.parse(_peers_and_identities[pid]), creation)
+
+@rpc("authority", "call_remote", "reliable", SimusNetChannels.BUILTIN.VISIBILITY)
+func _client_receive_identities_sender(bytes: PackedByteArray, creation: bool) -> void:
+	var _peers_and_identities: Dictionary[int, Array] = SimusNetDecompressor.parse(bytes)
+	for pid: int in _peers_and_identities:
+		var ids: Array = _peers_and_identities[pid]
+		for s_id in ids:
+			var identity: SimusNetIdentity = SimusNetIdentity.try_deserialize_from_variant(s_id)
+			#print("sender receive: ", s_id, ", ", identity)
+			
+			if is_instance_valid(identity) and identity.owner:
+				set_visible_for(pid, identity.owner, creation)
+			
+
+@rpc("authority", "call_remote", "reliable", SimusNetChannels.BUILTIN.VISIBILITY)
+func _client_receive_identities_owner(peer: int, bytes: PackedByteArray, creation: bool) -> void:
+	var ids: Array = SimusNetDecompressor.parse(bytes)
+	for s_id in ids:
+		_owner_recursive_receive(peer, s_id, creation, 360)
+
+
+func _owner_recursive_receive(peer: int, identity_id: Variant, creation: bool, attempts: int) -> void:
+	if attempts <= 0:
+		logger.push_error("_owner_recursive_receive(): failed to receive %s from %s" % [identity_id, peer])
+		return
+	
+	var identity: SimusNetIdentity = SimusNetIdentity.try_deserialize_from_variant(identity_id)
+	#print("owner receive: ", identity_id, ", ", identity)
+	
+	if is_instance_valid(identity) and identity.owner:
 		set_visible_for(peer, identity.owner, creation)
-		
+		return
+	
+	await get_tree().physics_frame
+	_owner_recursive_receive(peer, identity_id, creation, attempts - 1)
 	
 
 static func _local_identity_create(identity: SimusNetIdentity) -> void:

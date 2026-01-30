@@ -8,6 +8,15 @@ var _peers: PackedInt32Array = [SimusNet.SERVER_ID]
 var _methods_always_visible: Array[StringName] = []
 var _public_visible: bool = true
 
+var _server_only: bool = false
+
+func is_server_only() -> bool:
+	return _server_only
+
+func set_server_only(value: bool = true) -> SimusNetVisible:
+	_server_only = value
+	return self
+
 func is_public_visible() -> bool:
 	return _public_visible
 

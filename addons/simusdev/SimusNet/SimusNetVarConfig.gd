@@ -84,11 +84,23 @@ func flag_mode_server_only() -> SimusNetVarConfig:
 	_mode = MODE.SERVER_ONLY
 	return self
 
+func _is_network_authority() -> bool:
+	if _mode == MODE.SERVER_ONLY:
+		return SimusNetConnection.is_server()
+	
+	if _identity.owner:
+		return SimusNet.is_network_authority(_identity.owner)
+	
+	return false
+
+func _get_network_authority() -> int:
+	return SimusNet.get_network_authority(_identity.owner)
+
 func _validate_send() -> bool:
-	return true
+	return _is_network_authority()
 
 func _validate_send_receive(from_peer: int) -> bool:
-	return true
+	return _get_network_authority() == from_peer
 
 func _validate_replicate() -> bool:
 	return true
