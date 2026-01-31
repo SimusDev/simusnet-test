@@ -9,12 +9,15 @@ signal transfer_finished
 @export var input_area: Area3D
 @export var output_area: Area3D
 @export var hand_node: Node3D
-@export var home_node: Node3D # <-- НОВЫЙ: узел, определяющий позицию "покоя"
+@export var home_node: Node3D
+@export var audio_player: AudioStreamPlayer3D
 
 var _input_inventories: Array[CT_Inventory] = []
 var _output_inventories: Array[CT_Inventory] = []
 var _is_busy: bool = false
-var _active_tween: Tween # <-- НОВЫЙ: ссылка на активный твин для управления им
+var _at_home: bool = false
+
+var _active_tween: Tween
 
 func _ready() -> void:
 	if not inventory or not input_area or not output_area or not hand_node or not home_node:
@@ -22,7 +25,7 @@ func _ready() -> void:
 		return
 
 	if not SimusNetConnection.is_server():
-		set_process(false) # Клиенты только реплицируют свойства
+		set_process(false)
 		return
 		
 	input_area.body_entered.connect(func(b): _on_area_changed(b, _input_inventories, true))
@@ -37,40 +40,48 @@ func _process(_delta: float) -> void:
 	var receiver = _get_active_inventory(_output_inventories)
 	var has_item_in_hand = not inventory.get_item_stacks().is_empty()
 
-	# 1. Если в руке предмет -> пытаемся отдать или возвращаемся домой
 	if has_item_in_hand:
 		if receiver and not receiver.get_free_slots().is_empty():
 			_drive_hand(receiver.node.global_position, func(): 
 				_drop_item(receiver)
-				# После отдачи сразу идем домой
-				_drive_hand(home_node.global_position) 
+				_drive_hand_to_home()
 			)
-		# Если отдать не можем, просто возвращаемся домой
 		elif hand_node.global_position != home_node.global_position:
-			_drive_hand(home_node.global_position)
+			_drive_hand_to_home()
 
-	# 2. Если рука пуста -> пытаемся взять
 	else:
 		if provider and not provider.get_item_stacks().is_empty():
-			# Убеждаемся, что есть куда класть, прежде чем брать
 			if receiver and not receiver.get_free_slots().is_empty():
 				_drive_hand(provider.node.global_position, func(): 
 					_grab_item(provider)
-					# После захвата *сразу* идем домой (следующее _process отправит его к приемнику)
-					_drive_hand(home_node.global_position)
+					_drive_hand_to_home()
 				)
-		# Если взять нечего, просто возвращаемся домой
 		elif hand_node.global_position != home_node.global_position:
-			_drive_hand(home_node.global_position)
+			_drive_hand_to_home()
+
+func _drive_hand_to_home() -> void:
+	if _at_home:
+		return
+	
+	_drive_hand(home_node.global_position)
+	_at_home = true
 
 func _drive_hand(target_pos: Vector3, callback: Callable = Callable(_do_nothing)) -> void:
-	# Останавливаем предыдущий твин, если он еще активен
+	if target_pos == hand_node.global_position:
+		return
+	
+	_at_home = false
+	
 	if _active_tween and is_instance_valid(_active_tween):
 		_active_tween.kill()
 
+	if audio_player:
+		audio_player.pitch_scale = speed
+		audio_player.play()
+
 	_is_busy = true
 	_active_tween = create_tween().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
-	_active_tween.tween_property(hand_node, "global_position", target_pos, 1.0 / speed)
+	_active_tween.tween_property(hand_node, "global_position", target_pos, 0.7 / speed)
 	
 	_active_tween.finished.connect(func():
 		callback.call()

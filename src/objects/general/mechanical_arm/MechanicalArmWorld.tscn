@@ -14,6 +14,7 @@
 [ext_resource type="Resource" uid="uid://xecviu4tcm2e" path="res://src/objects/interact/actions/open.tres" id="10_v2l1n"]
 [ext_resource type="Resource" uid="uid://cvbrrn0mme4i" path="res://src/objects/interact/actions/pickup.tres" id="12_v2l1n"]
 [ext_resource type="Script" uid="uid://d1jwapkumdp1u" path="res://addons/simusdev/SimusNet/SimusNetTransform.gd" id="13_7coma"]
+[ext_resource type="AudioStream" uid="uid://cb8s45h08ku4o" path="res://src/objects/general/mechanical_arm/moving.ogg" id="15_4ebk4"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_gkwvv"]
 size = Vector3(0.2, 1, 0.2)
@@ -21,13 +22,14 @@ size = Vector3(0.2, 1, 0.2)
 [sub_resource type="BoxShape3D" id="BoxShape3D_sptq7"]
 size = Vector3(1, 1.4470215, 0.8525696)
 
-[node name="MechanicalArmWorld" type="StaticBody3D" unique_id=1574390254 node_paths=PackedStringArray("inventory", "input_area", "output_area", "hand_node", "home_node")]
+[node name="MechanicalArmWorld" type="StaticBody3D" unique_id=1574390254 node_paths=PackedStringArray("inventory", "input_area", "output_area", "hand_node", "home_node", "audio_player")]
 script = ExtResource("1_c7nmx")
 inventory = NodePath("CT_Inventory")
 input_area = NodePath("input")
 output_area = NodePath("output")
 hand_node = NodePath("Target")
 home_node = NodePath("HomeTarget")
+audio_player = NodePath("AudioStreamPlayer3D")
 
 [node name="CT_Health" type="Node" parent="." unique_id=170554197 node_paths=PackedStringArray("root")]
 script = ExtResource("2_spbmj")
@@ -110,5 +112,9 @@ metadata/_custom_type_script = "uid://d1jwapkumdp1u"
 
 [node name="HomeTarget" type="Marker3D" parent="." unique_id=2003775673]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.365, 0)
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="." unique_id=1660647712]
+stream = ExtResource("15_4ebk4")
+volume_db = 11.812
 
 [editable path="mechanical_arm_model"]
