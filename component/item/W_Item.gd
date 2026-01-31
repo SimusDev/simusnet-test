@@ -86,6 +86,7 @@ func _ready() -> void:
 	state_machine.on_transitioned.connect(_state_machine_transitioned)
 	_state_machine_init()
 	state_machine.name = "sm"
+	state_machine.set_multiplayer_authority(get_multiplayer_authority())
 	add_child(state_machine)
 	
 	event_pick.emit()

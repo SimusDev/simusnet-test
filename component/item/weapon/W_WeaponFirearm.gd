@@ -33,9 +33,15 @@ func _ready() -> void:
 	SimusNetRPC.register(
 		[
 			_request_reload_server,
-			_request_reload_receive,
 		],
 		rpc_config
+	)
+	
+	SimusNetRPC.register(
+		[
+			_request_reload_receive,
+		],
+		SimusNetRPCConfig.new().flag_set_channel("item").flag_serialization().flag_mode_server_only()
 	)
 	
 	var entity = entity_head.get_entity()
@@ -74,7 +80,6 @@ func _request_reload_receive() -> void:
 
 func __pressed_alt_net() -> void:
 	event_aim_enter.emit()
-	
 
 func __released_alt_net() -> void:
 	event_aim_exit.emit()
@@ -94,7 +99,7 @@ func _process(_delta: float) -> void:
 		fire()
 
 func fire() -> void:
-	if not can_use() or _get_stack().bullets <= 0:
+	if _get_stack().bullets <= 0 or !can_use():
 		return
 	
 	cooldown_timer.start()
