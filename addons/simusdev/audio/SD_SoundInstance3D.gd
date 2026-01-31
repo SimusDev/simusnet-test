@@ -14,6 +14,8 @@ var _logger: SD_Logger = SD_Logger.new(self)
 @export_tool_button("Stop") var _stop_cb: Callable = instance_stop
 @export_tool_button("Reload") var _reload_cb: Callable = instance_reload
 
+signal on_instance_finished()
+
 var _time: float = 0.0
 
 static func is_instance_can_be_created_in_world(_package: SD_SoundPackage3D, global_pos: Vector3) -> bool:
@@ -104,6 +106,7 @@ static func _get_camera() -> Camera3D:
 
 func _create_player(data: SD_SoundData3D) -> AudioStreamPlayer3D:
 	var player: AudioStreamPlayer3D = self.duplicate()
+	player.position = Vector3.ZERO
 	player.set_script(null)
 	player.stream = data.streams.pick_random()
 	player.set("parameters/looping", data.looping)

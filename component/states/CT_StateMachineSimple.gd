@@ -44,11 +44,11 @@ func get_state_list() -> PackedStringArray:
 
 func try_switch(to: String) -> CT_StateMachineSimple:
 	if not SimusNet.is_network_authority(self):
-		_logger.debug("failed to switch state to %s, you're not the owner.", SD_ConsoleCategories.ERROR)
+		_logger.debug("failed to switch state to %s, you're not the owner." % to, SD_ConsoleCategories.ERROR)
 		return self
 	
 	if !_states.has(to):
-		_logger.debug("failed to switch state, cant find: %s", SD_ConsoleCategories.ERROR)
+		_logger.debug("failed to switch state, cant find: %s" % to, SD_ConsoleCategories.ERROR)
 		return self
 	
 	_transition(to)
