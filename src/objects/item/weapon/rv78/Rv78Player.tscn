@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://c0sj4ct7dllx5" path="res://component/item/weapon/W_WeaponFirearm.gd" id="1_ns5nu"]
 [ext_resource type="PackedScene" uid="uid://dtn87yin11nfn" path="res://src/objects/item/weapon/rv78/Rv78Model.tscn" id="2_qvwhy"]
+[ext_resource type="PackedScene" uid="uid://c57abkcqpltxr" path="res://src/objects/item/weapon/muzzleflash.tscn" id="3_6jc72"]
 [ext_resource type="Script" uid="uid://htgmo1akqmdg" path="res://component/animation/weapon_animator.gd" id="3_kkwcw"]
 [ext_resource type="Script" uid="uid://dgxlg0w7n7ara" path="res://component/animation/r_animation_hook.gd" id="4_gabp7"]
 [ext_resource type="Script" uid="uid://dy2wtljxjfh8j" path="res://component/animation/r_animation_hook_signal.gd" id="5_pm1cq"]
@@ -27,16 +28,20 @@ script = ExtResource("5_pm1cq")
 name = &"event_inspect"
 animations = Array[StringName]([&"inspect"])
 
-[node name="Rv78View" type="Node3D" unique_id=129659672 node_paths=PackedStringArray("muzzle_point")]
+[node name="Rv78Player" type="Node3D" unique_id=129659672 node_paths=PackedStringArray("muzzle_flash", "muzzle_point")]
 script = ExtResource("1_ns5nu")
+muzzle_flash = NodePath("Rv78Model/Muzzle/Muzzleflash")
 muzzle_point = NodePath("Rv78Model/Muzzle")
 metadata/_custom_type_script = "uid://c0sj4ct7dllx5"
 
 [node name="Rv78Model" parent="." unique_id=111857276 instance=ExtResource("2_qvwhy")]
-transform = Transform3D(0.9070441, -0.39146915, 0.1549936, 0, 0.3681245, 0.92977643, -0.42103586, -0.84334815, 0.33390513, 0.31, -0.585, -0.465)
+transform = Transform3D(0.9070441, -0.39146912, 0.1549936, 0, 0.36812449, 0.9297764, -0.42103586, -0.843348, 0.33390513, 0.31, -0.585, -0.465)
 
 [node name="Muzzle" type="Marker3D" parent="Rv78Model" unique_id=164668055]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.18785736, -0.87362874)
+
+[node name="Muzzleflash" parent="Rv78Model/Muzzle" unique_id=443736027 instance=ExtResource("3_6jc72")]
+transform = Transform3D(-1.0000001, 0, -1.5099585e-07, 0, 1.0000001, 0, 1.5099582e-07, 0, -1.0000002, 0, 0, 0.135)
 
 [node name="CT_WeaponAnimator" type="Node" parent="." unique_id=941445766 node_paths=PackedStringArray("player")]
 script = ExtResource("3_kkwcw")

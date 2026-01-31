@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://dyp7n6f00k7eq"]
+
+[ext_resource type="Script" uid="uid://d0q02rkjl2np2" path="res://component/item/W_Item.gd" id="1_21nbv"]
+[ext_resource type="PackedScene" uid="uid://cdd0mg2pp6edg" path="res://src/objects/general/mechanical_arm/MechanicalArmModel.tscn" id="2_2d7ge"]
+[ext_resource type="Script" uid="uid://b7il0848tlrkq" path="res://component/building/CT_Placeable.gd" id="3_e7kfb"]
+[ext_resource type="Script" uid="uid://b446loaai0cao" path="res://component/building/R_PlaceableSettings.gd" id="4_kssvm"]
+
+[sub_resource type="Resource" id="Resource_yhw1n"]
+script = ExtResource("4_kssvm")
+model_prefab = ExtResource("2_2d7ge")
+metadata/_custom_type_script = "uid://b446loaai0cao"
+
+[node name="MechanicalArmPlayer" type="Node3D" unique_id=833574231]
+script = ExtResource("1_21nbv")
+metadata/_custom_type_script = "uid://d0q02rkjl2np2"
+
+[node name="mechanical_arm_model" parent="." unique_id=1068801430 instance=ExtResource("2_2d7ge")]
+transform = Transform3D(-0.051469125, 0.9947076, 0.08892445, 0.95985436, 0.07385674, -0.27060053, -0.27573606, 0.07142695, -0.9585759, -0.47, -0.25, -0.46)
+
+[node name="CT_Placeable" type="Node" parent="." unique_id=1315480476]
+script = ExtResource("3_e7kfb")
+placeable = SubResource("Resource_yhw1n")
+metadata/_custom_type_script = "uid://b7il0848tlrkq"

@@ -2,16 +2,17 @@
 
 [ext_resource type="PackedScene" uid="uid://0iycjw3cd137" path="res://src/objects/item/weapon/pb/untitled.glb" id="1_skhka"]
 [ext_resource type="AnimationLibrary" uid="uid://b1080jbpsf0hv" path="res://src/objects/item/weapon/pb/animation.res" id="2_fqyir"]
-[ext_resource type="Script" uid="uid://dre0iiwrqbrvg" path="res://component/animation/firearm_clientside_animator.gd" id="6_n7c3x"]
+[ext_resource type="PackedScene" uid="uid://c57abkcqpltxr" path="res://src/objects/item/weapon/muzzleflash.tscn" id="2_kq3i5"]
+[ext_resource type="Script" path="res://component/animation/firearm_clientside_animator.gd" id="6_n7c3x"]
 
 [node name="Clientside" type="Node3D" unique_id=167970683]
 
 [node name="root" type="Node3D" parent="." unique_id=71728825]
-transform = Transform3D(0.008108013, -0.00013151001, -0.9999671, 0.016217625, 0.9998685, 0, -0.9998356, 0.016217092, -0.00810908, 0.33, -0.012, 0.685)
+transform = Transform3D(0.008108013, -0.00013151001, -0.99996704, 0.016217625, 0.9998685, 0, -0.9998356, 0.016217092, -0.008109079, 0.33, -0.012, 0.685)
 
 [node name="untitled" parent="root" unique_id=1464867256 instance=ExtResource("1_skhka")]
 
-[node name="Skeleton3D" parent="root/untitled/v_pb_ARM" parent_id_path=PackedInt32Array(1464867256, 236012712) index="0" unique_id=1907955124]
+[node name="Skeleton3D" parent="root/untitled/v_pb_ARM" parent_id_path=PackedInt32Array(1464867256, 1720950241) index="0" unique_id=894505682]
 bones/0/position = Vector3(0.9411889, -0.4324946, 0.1332755)
 bones/0/rotation = Quaternion(0.5601602, 0.4302517, 0.43023667, 0.5621392)
 bones/1/rotation = Quaternion(0.6261194, 0.7494751, 0.05429559, -0.20811936)
@@ -62,7 +63,9 @@ bones/43/rotation = Quaternion(0.5369575, 0.0036916723, 0.84359604, 0.0029538372
 bones/44/position = Vector3(-0.00800242, 0.00016816786, 0.036720444)
 bones/45/rotation = Quaternion(9.665927e-09, 0.67418265, 3.887521e-09, 0.7385647)
 
-[node name="AnimationPlayer" parent="root/untitled" index="3" unique_id=1777860940]
+[node name="Muzzleflash" parent="root/untitled/muzzle" parent_id_path=PackedInt32Array(1464867256, 1148909093) index="0" unique_id=443736027 instance=ExtResource("2_kq3i5")]
+
+[node name="AnimationPlayer" parent="root/untitled" index="3" unique_id=162458136]
 libraries/ = ExtResource("2_fqyir")
 speed_scale = 1.3
 
@@ -81,6 +84,5 @@ default_position = Vector3(0.33, -0.012, 0.685)
 default_rotation = Vector3(0, 1.5707964, -3.1415927)
 aim_position = Vector3(-0.26, 0.098, 1.08)
 aim_rotation = Vector3(0, 1.5626872, -3.1253743)
-metadata/_custom_type_script = "uid://dre0iiwrqbrvg"
 
 [editable path="root/untitled"]

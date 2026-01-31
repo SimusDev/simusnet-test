@@ -6,7 +6,7 @@
 [ext_resource type="Script" uid="uid://xha6xbf0d6g2" path="res://component/object/sound/R_SoundSource.gd" id="3_mniba"]
 [ext_resource type="AudioStream" uid="uid://di4mij02f8nxq" path="res://src/objects/item/weapon/rv78/shot.mp3" id="4_nhgbf"]
 [ext_resource type="Script" uid="uid://cqdfkwb1galvp" path="res://component/viewmodel/R_ViewModel.gd" id="5_bnenu"]
-[ext_resource type="PackedScene" uid="uid://ccllc8l5eim8a" path="res://src/objects/item/weapon/rv78/Rv78View.tscn" id="6_gkmg4"]
+[ext_resource type="PackedScene" uid="uid://ccllc8l5eim8a" path="res://src/objects/item/weapon/rv78/Rv78Player.tscn" id="6_gkmg4"]
 [ext_resource type="PackedScene" uid="uid://s1u8rslgdufh" path="res://src/objects/item/weapon/rv78/Rv78World.tscn" id="7_mniba"]
 [ext_resource type="PackedScene" uid="uid://dtn87yin11nfn" path="res://src/objects/item/weapon/rv78/Rv78Model.tscn" id="7_nhgbf"]
 

@@ -1,3 +1,45 @@
 [gd_scene format=3 uid="uid://c57abkcqpltxr"]
 
+[ext_resource type="Texture2D" uid="uid://43h6hk826jm1" path="res://src/textures/particles/muzzleflash.png" id="1_g8385"]
+[ext_resource type="ArrayMesh" uid="uid://bd7qm4bcwjc73" path="res://3d/base_muzzleflash/MuzzleFlashPlanes01.obj" id="2_7dkqj"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pk6ih"]
+transparency = 1
+blend_mode = 1
+cull_mode = 2
+shading_mode = 0
+vertex_color_use_as_albedo = true
+vertex_color_is_srgb = true
+albedo_texture = ExtResource("1_g8385")
+
+[sub_resource type="Curve" id="Curve_g8385"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_7dkqj"]
+curve = SubResource("Curve_g8385")
+
+[sub_resource type="Curve" id="Curve_pk6ih"]
+_data = [Vector2(0.012875542, 0), 0.0, 3.2967129, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_qipbx"]
+curve = SubResource("Curve_pk6ih")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_qu5lf"]
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_qipbx")
+color = Color(1.35, 1.1676753, 0.9232166, 1)
+alpha_curve = SubResource("CurveTexture_7dkqj")
+
 [node name="Muzzleflash" type="GPUParticles3D" unique_id=443736027]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_pk6ih")
+emitting = false
+amount = 1
+lifetime = 0.1
+one_shot = true
+randomness = 1.0
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_qu5lf")
+draw_pass_1 = ExtResource("2_7dkqj")

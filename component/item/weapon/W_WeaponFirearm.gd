@@ -7,6 +7,8 @@ signal event_fire_empty
 signal event_aim_enter
 signal event_aim_exit
 
+@export var muzzle_flash:GPUParticles3D
+
 @export var shell_point:Node3D
 @export var muzzle_point:Node3D
 
@@ -94,7 +96,8 @@ func fire() -> void:
 		return
 	
 	cooldown_timer.start()
-	
+	if muzzle_flash:
+		muzzle_flash.emitting = true
 	if SimusNetConnection.is_server():
 		_get_stack().bullets -= 1
 	
