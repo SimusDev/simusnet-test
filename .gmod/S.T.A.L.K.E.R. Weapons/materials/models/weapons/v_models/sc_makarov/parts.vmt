@@ -1,0 +1,5 @@
+ "VertexLitGeneric"
+{
+	"$baseTexture" "models\weapons\v_models\sc_makarov\parts"
+	"$bumpmap" "models\weapons\v_models\sc_makarov\parts_bump"
+}

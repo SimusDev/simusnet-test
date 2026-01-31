@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://cc0cnju0at7p8"]
+
+[ext_resource type="Texture2D" uid="uid://dtmwlx74fxbd7" path="res://src/textures/general/metal1.jpeg" id="1_qs83d"]
+[ext_resource type="Script" uid="uid://dgp0pmmh5blth" path="res://component/object/CT_ObjectSpawn.gd" id="2_inqea"]
+[ext_resource type="Resource" uid="uid://blrx7kglr2oec" path="res://src/objects/item/weapon/sr_pb/sr_pb.tres" id="3_s48m2"]
+[ext_resource type="Script" uid="uid://bkhjaq3ccadol" path="res://component/object/spawn/R_SpawnTag.gd" id="4_31nm7"]
+[ext_resource type="Script" uid="uid://cgxdi4cljlv7m" path="res://component/object/spawn/R_SpawnTagFreeze.gd" id="5_snhrs"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lgt62"]
+albedo_texture = ExtResource("1_qs83d")
+uv1_triplanar = true
+
+[sub_resource type="Resource" id="Resource_7xe81"]
+script = ExtResource("5_snhrs")
+metadata/_custom_type_script = "uid://cgxdi4cljlv7m"
+
+[node name="WeaponTestStand" type="Node3D" unique_id=1902507942]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=30586093]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2066252, 0)
+use_collision = true
+size = Vector3(0.5, 2.4676666, 10)
+material = SubResource("StandardMaterial3D_lgt62")
+
+[node name="wpn_pb" type="Node3D" parent="." unique_id=1785018424]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.27718982, 2.1169133, 4.7359343)
+script = ExtResource("2_inqea")
+object = ExtResource("3_s48m2")
+tags = Array[ExtResource("4_31nm7")]([SubResource("Resource_7xe81")])
+metadata/_custom_type_script = "uid://dgp0pmmh5blth"

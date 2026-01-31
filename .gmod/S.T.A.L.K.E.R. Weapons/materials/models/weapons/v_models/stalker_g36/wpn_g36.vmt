@@ -1,0 +1,8 @@
+"VertexLitGeneric"
+{
+	"$baseTexture" "models\weapons\v_models\stalker_g36\wpn_g36"
+	"$envmap" "env_cubemap"
+      	"$bumpmap" "models\weapons\v_models\stalker_g36\wpn_g36_normal"
+	"$normalmapalphaenvmapmask" "1"
+	"$envmaptint" "[.40 .40 .40]"
+}

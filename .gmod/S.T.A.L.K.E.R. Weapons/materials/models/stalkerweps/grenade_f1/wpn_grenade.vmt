@@ -1,0 +1,16 @@
+"VertexLitGeneric"
+{
+	"$basetexture" "models\stalkerweps\grenade_f1\wpn_grenade"
+	"$bumpmap" "models\stalkerweps\grenade_f1\wpn_grenade_nm"
+	"$surfaceprop" "metal"
+	"$model" 1
+	"$nocull" 1
+	"$phong"				"1"
+	"$phongboost"			"1.5"
+	"$phongexponent"			"32"
+	"$phongtint"			"[0.3 0.3 0.3]"
+	"$phongfresnelranges"		"[0.4 0.4 0.4]"
+	"$rimlight" 				"12"	
+	"$rimlightexponent" 			"50"
+	"$rimlightboost"			"0.1"
+}

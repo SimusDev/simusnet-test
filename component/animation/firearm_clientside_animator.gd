@@ -10,6 +10,8 @@ class_name FirearmClientSideAnimator
 @export var anim_shoot: Array[StringName]
 @export var anim_reload: Array[StringName]
 
+@export var muzzleflash_particles: Array[GPUParticles3D]
+
 @export_group("Positioning")
 @export var editor_process: bool = false
 @export var is_aiming: bool = false
@@ -19,6 +21,7 @@ class_name FirearmClientSideAnimator
 @export var aim_position: Vector3
 @export var aim_rotation: Vector3
 @export var interp_speed: float = 10.0
+
 
 var _item: W_WeaponFirearm
 
@@ -37,8 +40,13 @@ func _ready() -> void:
 	_item.event_aim_enter.connect(_set_aim.bind(true))
 	_item.event_aim_exit.connect(_set_aim.bind(false))
 	_item.event_fire.connect(_play_animation.bind(anim_shoot))
+	_item.event_fire.connect(_play_particles.bind(muzzleflash_particles))
 	_item.event_reload.connect(_play_animation.bind(anim_reload))
 	_item.event_pick.connect(_play_animation.bind(anim_pickup))
+
+func _play_particles(particles: Array[GPUParticles3D]) -> void:
+	for i in particles:
+		i.emitting = true
 
 func _play_animation(anims: Array[StringName]) -> void:
 	if !animation_player:

@@ -1,0 +1,6 @@
+"VertexLitGeneric"
+{
+	"$baseTexture" "models\StalkerWeps\Beretta92fs/beretta92fs_bump"
+	"$bumpmap" "models\StalkerWeps\Beretta92fs/Beretta92fs_Bump"
+	"$model" "1"
+}

@@ -1,0 +1,7 @@
+"VertexLitGeneric"
+{
+	"$baseTexture" "models\weapons\v_models\striker12\Mesh01"
+	"$bumpmap" "models\weapons\v_models\striker12\Mesh01_normal"
+
+
+}

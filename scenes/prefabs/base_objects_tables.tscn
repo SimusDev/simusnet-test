@@ -10,7 +10,8 @@
 [ext_resource type="Resource" uid="uid://buqwpbav7fdx5" path="res://src/objects/general/furnace/furnace_tier1.tres" id="6_2mjuu"]
 [ext_resource type="Resource" uid="uid://crron1r60u25h" path="res://src/objects/general/mechanical_arm/mechanical_arm.tres" id="6_vrnhv"]
 [ext_resource type="Resource" uid="uid://ce1e2a4kac0ar" path="res://src/objects/item/coal/coal.tres" id="7_x5rrb"]
-[ext_resource type="Resource" uid="uid://blrx7kglr2oec" path="res://src/objects/item/weapon/pb/pb.tres" id="11_61k8a"]
+[ext_resource type="Resource" uid="uid://blrx7kglr2oec" path="res://src/objects/item/weapon/sr_pb/sr_pb.tres" id="11_61k8a"]
+
 
 [sub_resource type="BoxMesh" id="BoxMesh_6rygw"]
 size = Vector3(2, 1, 4)

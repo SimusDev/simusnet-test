@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://cllb68iygyjsl"]
+
+[ext_resource type="PackedScene" uid="uid://ci7purl748cfo" path="res://src/objects/item/weapon/sr_pb/model.tscn" id="1_oewfb"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_oewfb"]
+size = Vector3(0.061935425, 0.21618652, 0.5559082)
+
+[node name="World" type="RigidBody3D" unique_id=218270224]
+
+[node name="model" parent="." unique_id=748167079 instance=ExtResource("1_oewfb")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1081235741]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.004814148, 0.010803223, -0.15246582)
+shape = SubResource("BoxShape3D_oewfb")

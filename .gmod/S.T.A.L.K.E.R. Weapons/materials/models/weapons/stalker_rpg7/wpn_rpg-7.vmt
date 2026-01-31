@@ -1,0 +1,17 @@
+"VertexLitGeneric"
+{
+	"$basetexture" "models\weapons\stalker_rpg7\wpn_rpg-7"
+	"$bumpmap" "models\weapons\stalker_rpg7\wpn_rpg-7_normal"
+	"$envmapcontrast" 1
+	"$surfaceprop" "metal"
+	"$model" 1
+	"$nocull" 1
+
+	"$phong" "1"
+	"$phongboost"	"5"
+	"$phongfresnelranges"	"[0.10 0.1 1]"
+	"$halflambert" "1"
+	"$phongexponent"  "5"
+
+
+}

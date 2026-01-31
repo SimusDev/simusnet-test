@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cpwjwfhig01jj" path="res://addons/simusdev/audio/SD_SoundData3D.gd" id="1_1ivwu"]
 [ext_resource type="AudioStream" uid="uid://c8qdrb3o1iq14" path="res://audio/gm_death.mp3" id="2_3gp3i"]
-[ext_resource type="Script" path="res://addons/simusdev/audio/SD_SoundPackage3D.gd" id="2_uauhc"]
+[ext_resource type="Script" uid="uid://b7fflt0r416ip" path="res://addons/simusdev/audio/SD_SoundPackage3D.gd" id="2_uauhc"]
 
 [sub_resource type="Resource" id="Resource_dinhu"]
 script = ExtResource("1_1ivwu")

@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://bym3dx73dt8gw"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_nb771"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3aim2"]
+shading_mode = 0
+albedo_color = Color(0, 1, 0, 1)
+
+[node name="Chromakey" type="MeshInstance3D" unique_id=1401120724]
+mesh = SubResource("BoxMesh_nb771")
+surface_material_override/0 = SubResource("StandardMaterial3D_3aim2")

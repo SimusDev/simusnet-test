@@ -6,6 +6,8 @@ class_name CT_ObjectSpawn
 @export var local: bool = false
 @export var object: R_WorldObject : set = set_object
 
+@export var tags: Array[R_SpawnTag]
+
 var _preview: Node = null
 
 func set_object(ref: R_WorldObject) -> void:
@@ -34,13 +36,21 @@ func set_object(ref: R_WorldObject) -> void:
 		printerr("level instance was not found.")
 	
 	if local:
-		I_WorldObject.new(level, object).instantiate_local().get_instance().global_transform = global_transform
+		var instance: Node = I_WorldObject.new(level, object).instantiate_local().get_instance()
+		instance.global_transform = global_transform
+		_apply_tags(instance, object, tags)
 		queue_free()
 		return
 	
 	if !SimusNetConnection.is_server():
 		return
 	
-	I_WorldObject.new(level, object).instantiate().get_instance().global_transform = global_transform
+	var instance: Node = I_WorldObject.new(level, object).instantiate().get_instance()
+	_apply_tags(instance, object, tags)
+	instance.global_transform = global_transform
 	queue_free()
 	
+
+func _apply_tags(instance: Node, _object: R_WorldObject, _tags: Array[R_SpawnTag]) -> void:
+	for i in _tags:
+		i.init(instance, _object)

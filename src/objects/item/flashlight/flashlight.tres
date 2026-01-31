@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="R_Item" format=3 uid="uid://dc2a2qlq72pvn"]
 
 [ext_resource type="Script" uid="uid://fweno6le4k1y" path="res://component/object/item/R_Item.gd" id="1_eav1o"]
-[ext_resource type="PackedScene" uid="uid://c04w24gdmfpdp" path="res://src/objects/item/flashlight/FlashlightPlayer.tscn" id="2_gnmxf"]
+[ext_resource type="PackedScene" path="res://src/objects/item/flashlight/FlashlightView.tscn" id="2_gnmxf"]
 [ext_resource type="Script" uid="uid://cqdfkwb1galvp" path="res://component/viewmodel/R_ViewModel.gd" id="2_vfmfd"]
 [ext_resource type="PackedScene" uid="uid://ca6mvf3lwtx3d" path="res://src/objects/item/flashlight/FlashlightWorld.tscn" id="4_wvlqb"]
 

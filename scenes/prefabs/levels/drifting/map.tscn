@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://c0gcmsl4fll2x" path="res://scenes/prefabs/base_objects_tables.tscn" id="3_p5kfj"]
 [ext_resource type="PackedScene" uid="uid://h5f2r6nnwmsn" path="res://scenes/prefabs/seats/car/model.scn" id="4_uqwa7"]
 [ext_resource type="Script" uid="uid://hmy2t684xhdx" path="res://component/entity/CT_Seat.gd" id="5_0tcb7"]
+[ext_resource type="PackedScene" uid="uid://cc0cnju0at7p8" path="res://scenes/prefabs/weapon_test_stand.tscn" id="6_vjnfq"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_0tcb7"]
 size = Vector3(1, 0.6230469, 0.711853)
@@ -40,3 +41,6 @@ shape = SubResource("BoxShape3D_0tcb7")
 script = ExtResource("5_0tcb7")
 _interactable = NodePath("..")
 metadata/_custom_type_script = "uid://hmy2t684xhdx"
+
+[node name="WeaponTestStand" parent="." unique_id=1902507942 instance=ExtResource("6_vjnfq")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 22.644875, 0.0041746497, -8.0837555)

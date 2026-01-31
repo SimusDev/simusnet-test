@@ -43,7 +43,7 @@ func _ready() -> void:
 		exclude_rids = entity.find_collisions_rids_above()
 
 func _state_machine_init() -> void:
-	state_machine.debug = true
+	#state_machine.debug = true
 	state_machine.add_state("idle").add_state("fire")
 	state_machine.add_state("reload")
 
@@ -79,11 +79,13 @@ func __pressed_alt_net() -> void:
 func __released_alt_net() -> void:
 	event_aim_exit.emit()
 
-func _pressed() -> void:
+func request_press() -> void:
+	super()
 	if state_machine.get_current_state() == "idle" and _get_stack().bullets > 0:
 		state_machine.try_switch("fire")
 
-func _released() -> void:
+func request_release() -> void:
+	super()
 	if state_machine.get_current_state() == "fire":
 		state_machine.try_switch("idle")
 

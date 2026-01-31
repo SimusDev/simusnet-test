@@ -1,0 +1,13 @@
+"AddonInfo"
+{
+	"name" "S.T.A.L.K.E.R. Weapons"
+	"author_name" "Author Name"
+	"info" "{
+	"description": "Description",
+	"type": "weapon",
+	"tags": [
+		"roleplay",
+		"scenic"
+	]
+}"
+}

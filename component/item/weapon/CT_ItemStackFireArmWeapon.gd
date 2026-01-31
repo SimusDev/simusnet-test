@@ -39,6 +39,5 @@ func try_reload() -> bool:
 					item.quantity -= 1
 					success = true
 					if bullets >= _firearm.ammo_max:
-						
-						break
+						return success
 	return success

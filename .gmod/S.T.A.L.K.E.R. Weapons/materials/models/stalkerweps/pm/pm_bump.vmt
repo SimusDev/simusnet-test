@@ -1,0 +1,6 @@
+"VertexLitGeneric"
+{
+	"$baseTexture" "models\StalkerWeps\Pm/pm_bump"
+	"$bumpmap" "models\StalkerWeps\Pm/Pm_Bump"
+	"$model" "1"
+}
