@@ -1,3 +1,4 @@
+@icon("./icons/slot.png")
 extends Node
 class_name CT_InventorySlot
 

@@ -1,3 +1,4 @@
+@icon("../icons/inventory.png")
 extends SimusNetNode
 class_name CT_Inventory
 

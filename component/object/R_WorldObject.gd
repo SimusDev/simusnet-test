@@ -1,3 +1,4 @@
+@icon("../icons/item.png")
 extends R_Object
 class_name R_WorldObject
 

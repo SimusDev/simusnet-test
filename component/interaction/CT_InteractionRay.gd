@@ -11,7 +11,6 @@ var _ui: UI_InteractActions
 var playable: CT_Playable
 
 func _ready() -> void:
-	SimusNetVisible.get_or_create(self).set_server_only()
 	collide_with_areas = true
 	collide_with_bodies = true
 	
@@ -21,6 +20,8 @@ func _ready() -> void:
 	
 	if Engine.is_editor_hint():
 		return
+	
+	SimusNetVisible.get_or_create(self).set_server_only()
 	
 	SimusNetRPC.register(
 		[
