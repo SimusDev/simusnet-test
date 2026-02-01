@@ -27,7 +27,13 @@ func _ready() -> void:
 	if !inventory:
 		inventory = CT_Inventory.find_in(root)
 	
+	set_physics_process(!SimusDev.ui.has_active_interface())
+	SimusDev.ui.interface_opened_or_closed.connect(_on_interface_opened_or_closed)
+	
 	#CT_LocalInput.get_or_create(root).on_input.connect(_on_input)
+
+func _on_interface_opened_or_closed(ui: Node, status: bool) -> void:
+	set_physics_process(!SimusDev.ui.has_active_interface())
 
 func _physics_process(delta: float) -> void:
 	var id: int = -2
