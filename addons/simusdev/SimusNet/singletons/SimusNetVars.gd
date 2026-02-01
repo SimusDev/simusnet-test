@@ -74,7 +74,9 @@ func initialize() -> void:
 	
 
 static func register(object: Object, properties: PackedStringArray, config: SimusNetVarConfig = SimusNetVarConfig.new()) -> bool:
-	config._initialize(object, properties)
+	var handler: SimusNetVarConfigHandler = SimusNetVarConfigHandler.get_or_create(object)
+	for p in properties:
+		handler._add_cfg(config, p)
 	return true
 
 func _on_connected() -> void:
@@ -114,17 +116,19 @@ static func replicate(object: Object, properties: PackedStringArray, reliable: b
 	if SimusNetConnection.is_server():
 		return
 	
+	var handler: SimusNetVarConfigHandler = SimusNetVarConfigHandler.get_or_create(object)
+	
 	for p_name in properties:
 		var config: SimusNetVarConfig = SimusNetVarConfig.get_config(object, p_name)
 		if !config:
 			_instance.logger.debug_error("replicate(), cant find config for %s, property: %s" % [object, p_name])
 			continue
 		
-		var validate: bool = await config._validate_replicate()
+		var validate: bool = await config._validate_replicate(handler)
 		if !validate:
 			continue
 		
-		var identity: SimusNetIdentity = config.get_identity()
+		var identity: SimusNetIdentity = handler.get_identity()
 		if !identity.is_ready:
 			await identity.on_ready
 		
@@ -159,6 +163,11 @@ func _replicate_rpc_server(packet: PackedByteArray, peer: int, reliable: bool) -
 			logger.debug_error("_replicate_rpc_server() identity with %s ID was not found." % identity_id)
 			continue
 		
+		if !identity.owner:
+			continue
+		
+		var handler: SimusNetVarConfigHandler = SimusNetVarConfigHandler.get_or_create(identity.owner)
+		
 		var peer_data: Dictionary = _queue_replicate_server.get_or_add(peer, {})
 		
 		var properties: PackedStringArray = try_deserialize_array_from_variant(data[identity_id])
@@ -167,16 +176,13 @@ func _replicate_rpc_server(packet: PackedByteArray, peer: int, reliable: bool) -
 		var identity_data: Dictionary = reliable_data.get_or_add(identity_id, {})
 		
 		for p_name: String in properties:
-			if !is_instance_valid(identity.owner):
-				continue
-			
 			SimusNetVisibility.set_visible_for(peer, identity.owner, true)
 			
 			var config: SimusNetVarConfig = SimusNetVarConfig.get_config(identity.owner, p_name)
 			if !config:
 				continue
 			
-			var validated: bool = await config._validate_replicate_receive(peer)
+			var validated: bool = await config._validate_replicate_receive(handler, peer)
 			if !validated:
 				continue
 			
@@ -252,7 +258,7 @@ func _replicate_rpc_unreliable(packet: Variant) -> void:
 
 static func send(object: Object, properties: PackedStringArray, reliable: bool = true, log_error: bool = true) -> void:
 	if SimusNet.is_network_authority(object) or SimusNetConnection.is_server():
-		
+		var handler: SimusNetVarConfigHandler = SimusNetVarConfigHandler.get_or_create(object)
 		var changed_properties: Dictionary[StringName, Variant] = SimusNetSynchronization.get_changed_properties(object)
 		for property in properties:
 			if changed_properties.get_or_add(property, object.get(property)) == object.get(property):
@@ -263,14 +269,11 @@ static func send(object: Object, properties: PackedStringArray, reliable: bool =
 				_instance.logger.debug_error("send(), cant find config for %s, property: %s" % [object, property])
 				continue
 			
-			var validate: bool = await config._validate_send()
+			var validate: bool = await config._validate_send(handler)
 			if !validate:
 				continue
 			
-			if !config.is_ready:
-				await config.on_ready
-			
-			var identity: SimusNetIdentity = config.get_identity()
+			var identity: SimusNetIdentity = handler.get_identity()
 			
 			for p_id in SimusNetConnection.get_connected_peers():
 				if SimusNetVisibility.is_visible_for(p_id, identity.owner):

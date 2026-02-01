@@ -8,13 +8,11 @@ var _logger: SD_Logger = SD_Logger.new(self)
 @export var updaterate: float = 20.0
 @export var instance_autoplay: bool = false
 
-@export var is_finished: bool = false
-
 @export_tool_button("Play") var _play_cb: Callable = instance_play
 @export_tool_button("Stop") var _stop_cb: Callable = instance_stop
 @export_tool_button("Reload") var _reload_cb: Callable = instance_reload
 
-signal on_instance_finished()
+signal on_play_finish()
 
 var _time: float = 0.0
 
@@ -73,6 +71,7 @@ func _set(property: StringName, value: Variant) -> bool:
 
 func set_package(new: SD_SoundPackage3D) -> void:
 	package = new
+	instance_reload()
 
 func get_players() -> Array[AudioStreamPlayer3D]:
 	var new: Array[AudioStreamPlayer3D] = []
@@ -103,6 +102,11 @@ static func _get_camera() -> Camera3D:
 @export_group("Private")
 @export var _data_and_player: Dictionary[SD_SoundData3D, AudioStreamPlayer3D] = {}
 @export var _states: Dictionary[SD_SoundData3D, Dictionary]
+@export var _finished_streams: int = 0
+
+func _finish() -> void:
+	#_logger.debug("on_play_finish()")
+	on_play_finish.emit()
 
 func _create_player(data: SD_SoundData3D) -> AudioStreamPlayer3D:
 	var player: AudioStreamPlayer3D = self.duplicate()
@@ -111,14 +115,20 @@ func _create_player(data: SD_SoundData3D) -> AudioStreamPlayer3D:
 	player.stream = data.streams.pick_random()
 	player.set("parameters/looping", data.looping)
 	player.max_distance = data.max_distance
+	if !data.looping:
+		player.finished.connect(_finish_stream.bind(data))
 	return player
 
 func instance_reload() -> void:
+	await SD_Nodes.async_clear_all_children(self)
+	
+	if !package:
+		return
+	
 	for data in _states:
 		if !data in package.data:
 			_states.erase(data)
 	
-	SD_Nodes.clear_all_children(self)
 
 func tick() -> void:
 	var camera: Camera3D = _get_camera()
@@ -126,9 +136,6 @@ func tick() -> void:
 		return
 	
 	var camera_distance: float = camera.global_position.distance_to(self.global_position)
-	
-	#print(camera_distance)
-	
 	
 	if !is_instance_valid(package):
 		return
@@ -172,13 +179,38 @@ func tick() -> void:
 				if camera_distance > data.max_distance:
 					_data_and_player.erase(data)
 					_write_states_tick(data, player)
+					_write_states_queue_free(data, player)
 					player.queue_free()
 			
 			if data.min_distance > 0:
 				if camera_distance < data.min_distance:
 					_data_and_player.erase(data)
 					_write_states_tick(data, player)
+					_write_states_queue_free(data, player)
 					player.queue_free()
+
+func _update_finished_streams() -> void:
+	var count: int = 0
+	if !package:
+		return
+	
+	for i in package.data:
+		if i.looping:
+			count += 1 
+	
+	if _finished_streams >= count:
+		_finish()
+
+func _finish_stream(data: SD_SoundData3D) -> void:
+	if data.looping:
+		return
+	
+	if _read_state(data, "finished", false) == true:
+		return
+	
+	_finished_streams += 1
+	_write_state(data, "finished", true)
+	_update_finished_streams()
 
 func _write_states_tick(data: SD_SoundData3D, player: AudioStreamPlayer3D) -> void:
 	var dict: Dictionary = _states.get_or_add(data, {})
@@ -186,13 +218,23 @@ func _write_states_tick(data: SD_SoundData3D, player: AudioStreamPlayer3D) -> vo
 		var playbacks: Dictionary = dict.get_or_add("playbacks", {})
 		playbacks[player.stream] = player.get_playback_position()
 
+func _write_states_queue_free(data: SD_SoundData3D, player: AudioStreamPlayer3D) -> void:
+	_finish_stream(data)
+
 func _write_state(data: SD_SoundData3D, key: Variant, value: Variant) -> void:
 	var dict: Dictionary = _states.get_or_add(data, {})
 	dict.set(key, value)
 
-func _read_states(data: SD_SoundData3D, player: AudioStreamPlayer3D) -> void:
+func _read_state(data: SD_SoundData3D, key: String, default: Variant = null) -> bool:
 	var dict: Dictionary = _states.get_or_add(data, {})
-	var _is_playing: bool = dict.get("playing", false)
+	return dict.get(key, default)
+
+func _read_states(data: SD_SoundData3D, player: AudioStreamPlayer3D) -> void:
+	if !player.is_inside_tree():
+		await player.tree_entered
+	
+	var dict: Dictionary = _states.get_or_add(data, {})
+	var _is_playing: bool = dict.get("playing", false) and !dict.get("finished")
 	
 	var playbacks: Dictionary = dict.get_or_add("playbacks", {})
 	var pos: float = playbacks.get(player.stream, 0.0)
@@ -218,11 +260,22 @@ func _perform(status: bool) -> void:
 	if !Engine.is_editor_hint() and SimusNetConnection.is_dedicated_server():
 		return
 	
+	await instance_reload()
+	
 	if !package:
 		return
 	
+	if status:
+		_finished_streams = 0
+	
 	for data in package.data:
+		_write_state(data, "finished", false)
 		_write_state(data, "playing", status)
+		
+		if !data.looping:
+			var player: Variant = _data_and_player.get(data)
+			if !is_instance_valid(player):
+				_finish_stream(data)
 	
 	for data in _states:
 		if !data in package.data:

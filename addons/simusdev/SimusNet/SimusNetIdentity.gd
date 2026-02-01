@@ -102,7 +102,10 @@ func _deinitialize_dynamic() -> void:
 	if !is_initialized:
 		return
 	
+	_unique_id = -1
 	is_initialized = false
+	is_ready = false
+	_initialize_dynamic()
 
 func _tree_entered() -> void:
 	if settings.get_unique_id() == null:
@@ -152,7 +155,6 @@ static func _parse_and_clear_identities_with_no_owner() -> void:
 			_list_by_generated_id.erase(identity.get_generated_unique_id())
 
 func _destroy() -> void:
-	_deinitialize_dynamic()
 	
 	if owner:
 		SimusNetVisibility._local_identity_delete(self)

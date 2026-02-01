@@ -170,6 +170,9 @@ func _local_client_ready() -> void:
 	pass
 
 func can_use() -> bool:
+	if !is_local():
+		return !in_cooldown()
+	
 	return (not in_cooldown()) and (SimusDev.ui.get_active_interfaces().is_empty())
 
 func in_cooldown() -> bool:

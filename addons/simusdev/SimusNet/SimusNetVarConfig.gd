@@ -1,17 +1,12 @@
 extends RefCounted
 class_name SimusNetVarConfig
 
-const _META: StringName = &"simusnet_var_configs"
-
 var _channel: int = SimusNetChannels.BUILTIN.VARS_SEND_RELIABLE
 var _reliable: bool = true
 
 var _replication: bool = false
 var _replicate_on_spawn: bool = true
 var _serialize: bool = false
-
-var is_ready: bool = false
-signal on_ready()
 
 enum MODE {
 	AUTHORITY,
@@ -20,19 +15,8 @@ enum MODE {
 
 var _mode: MODE = MODE.AUTHORITY
 
-var _object: Object
-var _identity: SimusNetIdentity
-var _properties: PackedStringArray
-var _spawn_replicated_properties: PackedStringArray
-
 var _tickrate: float = 0.0
 var _tickrate_time: float = 0.0
-
-func get_identity() -> SimusNetIdentity:
-	return _identity
-
-func get_properties() -> PackedStringArray:
-	return _properties
 
 func flag_replication(on_spawn: bool = true, value: bool = true) -> SimusNetVarConfig:
 	_replicate_on_spawn = on_spawn
@@ -44,21 +28,10 @@ func flag_tickrate(ticks: float) -> SimusNetVarConfig:
 	return self
 
 func _f_rep(value: bool = true) -> void:
-	if !is_ready:
-		await on_ready
-	
 	if _replication == value:
 		return
 	
 	_replication = value
-	
-	if _replicate_on_spawn:
-		SimusNetVars.replicate(_object, _properties, _reliable)
-	
-	if _replication:
-		SimusNetVars.get_instance().on_tick.connect(_on_tick)
-	else:
-		SimusNetVars.get_instance().on_tick.disconnect(_on_tick)
 
 func flag_serialization(value: bool = true) -> SimusNetVarConfig:
 	_serialize = value
@@ -88,93 +61,63 @@ func flag_mode_server_only() -> SimusNetVarConfig:
 	_mode = MODE.SERVER_ONLY
 	return self
 
-func _is_network_authority() -> bool:
+func _is_network_authority(handler: SimusNetVarConfigHandler) -> bool:
 	if _mode == MODE.SERVER_ONLY:
 		return SimusNetConnection.is_server()
 	
-	if _identity.owner:
-		return SimusNet.is_network_authority(_identity.owner)
-	
-	return false
+	return SimusNet.is_network_authority(handler.get_identity().owner)
 
-func _get_network_authority() -> int:
-	return SimusNet.get_network_authority(_identity.owner)
+func _get_network_authority(handler: SimusNetVarConfigHandler) -> int:
+	return SimusNet.get_network_authority(handler.get_identity().owner)
 
-func _validate_send() -> bool:
-	return _is_network_authority()
+func _validate_send(handler: SimusNetVarConfigHandler) -> bool:
+	return _is_network_authority(handler)
 
-func _validate_send_receive(from_peer: int) -> bool:
-	return _get_network_authority() == from_peer
+func _validate_send_receive(handler: SimusNetVarConfigHandler, from_peer: int) -> bool:
+	return _get_network_authority(handler) == from_peer
 
-func _validate_replicate() -> bool:
+func _validate_replicate(handler: SimusNetVarConfigHandler) -> bool:
 	return true
 
-func _validate_replicate_receive(from_peer: int) -> bool:
+func _validate_replicate_receive(handler: SimusNetVarConfigHandler, from_peer: int) -> bool:
 	return true
 
-func _on_spawn_replicate() -> void:
-	if not _replication:
+func _on_tick(handler: SimusNetVarConfigHandler, delta: float) -> void:
+	if !_replication:
 		return
 	
-	if _replicate_on_spawn:
-		SimusNetVars.replicate(_object, _properties, _reliable)
-
-func _on_tick(delta: float) -> void:
 	if _tickrate <= 0.0:
-		_process_sync()
+		_process_sync(handler)
 		return
 	
 	_tickrate_time = move_toward(_tickrate_time, 1.0 / _tickrate, delta)
 	if _tickrate_time >= 1.0 / _tickrate:
-		_process_sync()
+		_process_sync(handler)
 		_tickrate_time = 0
 
-
-func _process_sync() -> void:
-	if !SimusNet.is_network_authority(_object) and _mode == MODE.AUTHORITY:
+func _process_sync(handler: SimusNetVarConfigHandler) -> void:
+	if !_is_network_authority(handler) and _mode == MODE.AUTHORITY:
 		return
+	
 	
 	if !SimusNetConnection.is_server() and _mode == MODE.SERVER_ONLY:
 		return
 	
-	SimusNetVars.send(_object, _properties, _reliable)
-	
+	if handler.get_object():
+		SimusNetVars.send(handler.get_object(), handler.get_properties_for(self), _reliable)
 
-func _initialize(object: Object, properties: PackedStringArray) -> void:
-	if Engine.is_editor_hint():
+func _network_ready(handler: SimusNetVarConfigHandler) -> void:
+	if !handler.get_object():
 		return
 	
-	for p in properties:
-		SimusNetVars.cache(p)
-	
-	_object = object
-	for p in properties:
-		if !p in _properties:
-			_properties.append(p)
-	
-	for p_name in properties:
-		get_configs(object).set(p_name, self)
-	
-	if object is Node:
-		if !object.is_node_ready():
-			await object.ready
-	
-	var identity: SimusNetIdentity = SimusNetIdentity.register(object)
-	_identity = identity
-	if !identity.is_ready:
-		await identity.on_ready
-	
-	_on_spawn_replicate()
-	
-	is_ready = true
-	on_ready.emit()
+	if _replication and _replicate_on_spawn:
+		SimusNetVars.replicate(handler.get_object(), handler.get_properties_for(self), _reliable)
+
+func _network_disconnect(handler: SimusNetVarConfigHandler) -> void:
+	pass
 
 static func get_configs(object: Object) -> Dictionary[StringName, SimusNetVarConfig]:
-	if object.has_meta(_META):
-		return object.get_meta(_META)
-	var result: Dictionary[StringName, SimusNetVarConfig] = {}
-	object.set_meta(_META, result)
-	return result
+	return SimusNetVarConfigHandler.get_or_create(object)._list
 
 static func get_config(object: Object, property: StringName) -> SimusNetVarConfig:
 	return get_configs(object).get(property)

@@ -86,27 +86,32 @@ func __released_alt_net() -> void:
 
 func request_press() -> void:
 	super()
+	
 	if state_machine.get_current_state() == "idle" and _get_stack().bullets > 0:
 		state_machine.try_switch("fire")
 
 func request_release() -> void:
 	super()
+	
 	if state_machine.get_current_state() == "fire":
 		state_machine.try_switch("idle")
 
 func _process(_delta: float) -> void:
 	if state_machine.get_current_state() == "fire":
-		fire()
+		if can_use():
+			fire()
 
 func fire() -> void:
-	if _get_stack().bullets <= 0 or !can_use():
+	if _get_stack().bullets <= 0:
 		return
+	
+	if SimusNetConnection.is_server():
+		_get_stack().bullets -= 1
 	
 	cooldown_timer.start()
 	if muzzle_flash:
 		muzzle_flash.emitting = true
-	if SimusNetConnection.is_server():
-		_get_stack().bullets -= 1
+	
 	
 	_spawn_bullet()
 	_muzzle_fire()

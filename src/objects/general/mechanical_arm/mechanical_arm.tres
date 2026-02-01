@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="R_WorldObject" format=3 uid="uid://crron1r60u25h"]
 
 [ext_resource type="Script" uid="uid://cxyhi06aga6j1" path="res://component/object/R_WorldObject.gd" id="1_3yiw2"]
-[ext_resource type="PackedScene" path="res://src/objects/general/mechanical_arm/MechanicalArmView.tscn" id="2_2s15t"]
+[ext_resource type="PackedScene" path="res://src/objects/general/mechanical_arm/MechanicalArmPlayer.tscn" id="2_2s15t"]
 [ext_resource type="Script" uid="uid://cqdfkwb1galvp" path="res://component/viewmodel/R_ViewModel.gd" id="2_uwi0e"]
 [ext_resource type="PackedScene" uid="uid://bfw7xge8dgn1u" path="res://src/objects/general/mechanical_arm/MechanicalArmWorld.tscn" id="4_1fd7i"]
 
