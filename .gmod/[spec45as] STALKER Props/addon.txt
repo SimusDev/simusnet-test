@@ -1,0 +1,13 @@
+"AddonInfo"
+{
+	"name" "[spec45as] STALKER Props"
+	"author_name" "Author Name"
+	"info" "{
+	"description": "Description",
+	"type": "model",
+	"tags": [
+		"roleplay",
+		"realism"
+	]
+}"
+}

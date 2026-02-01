@@ -6,6 +6,7 @@ class_name CT_ItemStack
 @export var quantity: int = 1 : 
 	set(value):
 		quantity = value
+		quantity = clampi(quantity, 0, stack_size)
 		on_quantity_changed.emit()
 		if quantity < 1 and SimusNetConnection.is_server():
 			queue_free()

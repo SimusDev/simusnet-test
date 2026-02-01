@@ -1,0 +1,2 @@
+extends Node3D
+class_name W_CharacterModel3D
