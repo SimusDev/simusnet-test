@@ -4,8 +4,10 @@
 [ext_resource type="PackedScene" uid="uid://cqq8uweubhh44" path="res://src/objects/item/weapon/sr_pb/clientside.tscn" id="2_hk3es"]
 [ext_resource type="Texture2D" uid="uid://brtnpe156rnyq" path="res://src/objects/item/weapon/sr_pb/icon.png" id="3_5x3bh"]
 [ext_resource type="Script" uid="uid://bkandi6sbfmht" path="res://component/object/item/weapon/R_WeaponFirearm.gd" id="4_0ct1j"]
+[ext_resource type="AudioStream" uid="uid://bpe2lovhf4odu" path="res://src/objects/sound/item/weapons/sr_pb/pm_draw.wav" id="4_01pb1"]
 [ext_resource type="AudioStream" uid="uid://b2n2ufh2vxnrs" path="res://src/objects/sound/item/weapons/sr_pb/pm_reload.wav" id="4_hk3es"]
 [ext_resource type="PackedScene" uid="uid://ba54lir38wjmj" path="res://src/objects/item/weapon/sr_pb/view.tscn" id="5_01pb1"]
+[ext_resource type="Resource" uid="uid://bjhas13bc0amg" path="res://src/objects/sound/item/weapons/sr_pb/sr_pb_fire.tres" id="6_5x3bh"]
 [ext_resource type="Script" uid="uid://cqdfkwb1galvp" path="res://component/viewmodel/R_ViewModel.gd" id="6_wav73"]
 [ext_resource type="PackedScene" uid="uid://ci7purl748cfo" path="res://src/objects/item/weapon/sr_pb/model.tscn" id="7_bq2ep"]
 [ext_resource type="PackedScene" uid="uid://cllb68iygyjsl" path="res://src/objects/item/weapon/sr_pb/world.tscn" id="8_6dys3"]
@@ -22,9 +24,11 @@ script = ExtResource("4_0ct1j")
 ammo = ExtResource("1_iua8o")
 ammo_max = 12
 reload_time = 2.7
+shot_sound = ExtResource("6_5x3bh")
 reload_sound = ExtResource("4_hk3es")
 use_cooldown = 0.28
 clientside_prefabs = Array[PackedScene]([ExtResource("2_hk3es")])
+pickup_sound = Array[AudioStream]([ExtResource("4_01pb1")])
 viewmodel = SubResource("Resource_eg5bf")
 icon = ExtResource("3_5x3bh")
 metadata/_custom_type_script = "uid://bkandi6sbfmht"

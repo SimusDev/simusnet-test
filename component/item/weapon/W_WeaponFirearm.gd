@@ -126,6 +126,8 @@ func fire() -> void:
 	
 	play_fire_sound()
 	event_fire.emit()
+	
+	s_Sounds.local_play(firearm_object.shot_sound, self.global_position)
 
 func _muzzle_fire() -> void:
 	pass

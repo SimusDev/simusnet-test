@@ -93,6 +93,12 @@ func _ready() -> void:
 	
 	event_pick.emit()
 	
+	if object is R_Item:
+		if !object.pickup_sound.is_empty():
+			_get_or_create_sound("pickup").stream = object.pickup_sound.pick_random()
+			_get_or_create_sound("pickup").max_distance = 10
+			_get_or_create_sound("pickup").play()
+	
 	set_process_input(is_local())
 	set_process_unhandled_input(is_local())
 	set_process_shortcut_input(is_local())

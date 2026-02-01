@@ -11,10 +11,10 @@ func _init() -> void:
 	_instance = self
 
 static func get_synced_properties(object: Object) -> Dictionary[StringName, Variant]:
-	return SD_Variables.get_or_add_object_meta(object, &"simusnetspynced", {} as Dictionary[StringName, Variant])
+	return SD_Variables.get_or_add_object_meta(object, &"SimusNetPSynced", {} as Dictionary[StringName, Variant])
 
 static func get_changed_properties(object: Object) -> Dictionary[StringName, Variant]:
-	return SD_Variables.get_or_add_object_meta(object, &"simusnetpchange", {} as Dictionary[StringName, Variant])
+	return SD_Variables.get_or_add_object_meta(object, &"SimusNetPChanges", {} as Dictionary[StringName, Variant])
 
 static func get_transforms() -> Array[SimusNetTransform]:
 	return _instance._transforms

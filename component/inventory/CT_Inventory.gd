@@ -74,6 +74,25 @@ func get_slot_by_tag(tag: String) -> CT_InventorySlot:
 			return i
 	return null
 
+func stack_item(item: CT_ItemStack) -> void:
+	if !SimusNetConnection.is_server():
+		return
+	
+	if item.stackable:
+		for another in get_item_stacks_by_object(item.object):
+			if item == another:
+				continue
+			
+			if another.stackable:
+				if item.quantity >= item.stack_size:
+					return
+				
+				while item.quantity < item.stack_size:
+					item.quantity += 1
+					another.quantity -= 1
+					if another.quantity <= 0:
+						break
+
 func _ready() -> void:
 	SimusNetVisible.get_or_create(self).set_server_only()
 	_network_setup()
@@ -274,6 +293,7 @@ func try_add_item(item: CT_ItemStack) -> CT_ItemStack:
 		return null
 	
 	free_slot.add_child(new)
+	stack_item(new)
 	
 	return new
 	
@@ -367,8 +387,10 @@ func _on_item_added(slot: CT_InventorySlot, item: CT_ItemStack) -> void:
 	if !SimusNetConnection.is_server():
 		return
 	
+	var serialized: Variant = item.serialize()
+	
 	await get_tree().process_frame
-	SimusNetRPC.invoke(_receive_item_add, slot, item.serialize())
+	SimusNetRPC.invoke(_receive_item_add, slot, serialized)
 
 func _on_item_removed(slot: CT_InventorySlot, item: CT_ItemStack) -> void:
 	on_item_removed.emit(slot, item)
@@ -377,7 +399,8 @@ func _on_item_removed(slot: CT_InventorySlot, item: CT_ItemStack) -> void:
 		return
 	
 	await get_tree().process_frame
-	SimusNetRPC.invoke(_receive_item_remove, slot)
+	if is_instance_valid(slot):
+		SimusNetRPC.invoke(_receive_item_remove, slot)
 
 func _receive_item_add(slot: CT_InventorySlot, item: Variant) -> void:
 	if !is_ready:

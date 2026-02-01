@@ -43,16 +43,21 @@ func _server_play_rpc(resource: R_SoundObject, from: Variant, properties: Dictio
 		if not SD_SoundInstance3D.is_instance_can_be_created_in_world(resource.package, LevelInstance.get_global_position_from(from)):
 			return
 		
-		var position: Vector3 = LevelInstance.get_global_position_from(from)
-		
-		var sound: SD_SoundInstance3D = SD_SoundInstance3D.new()
-		sound.package = resource.package
-		sound.on_play_finish.connect(sound.queue_free)
-		sound.instance_autoplay = true
-		
-		if from is Node:
-			from.add_child(sound)
-		else:
-			add_child(sound)
-			sound.global_position = position
-		
+		var sound: SD_SoundInstance3D = local_play(resource, from)
+		for p: String in properties:
+			sound.set(p, properties[p])
+
+func local_play(resource: R_SoundObject, from: Variant) -> SD_SoundInstance3D:
+	var position: Vector3 = LevelInstance.get_global_position_from(from)
+	
+	var sound: SD_SoundInstance3D = SD_SoundInstance3D.new()
+	sound.package = resource.package
+	sound.on_play_finish.connect(sound.queue_free)
+	sound.instance_autoplay = true
+	
+	if from is Node:
+		from.add_child(sound)
+	else:
+		add_child(sound)
+		sound.global_position = position
+	return sound

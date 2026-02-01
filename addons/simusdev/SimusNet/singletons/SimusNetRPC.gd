@@ -221,10 +221,11 @@ static func _cooldown_create_or_get_storage(callable: Callable) -> Dictionary[St
 	var object: Object = callable.get_object()
 	var storage: Dictionary[String, SimusNetCooldownTimer] = {}
 	
-	if object.has_meta(_META_COOLDOWN):
-		storage = object.get_meta(_META_COOLDOWN)
-	else:
-		object.set_meta(_META_COOLDOWN, storage)
+	if is_instance_valid(object):
+		if object.has_meta(_META_COOLDOWN):
+			storage = object.get_meta(_META_COOLDOWN)
+		else:
+			object.set_meta(_META_COOLDOWN, storage)
 	return storage
 
 static func set_cooldown(callable: Callable, time: float = 0.0) -> SimusNetRPC:

@@ -99,7 +99,6 @@ func _process_sync(handler: SimusNetVarConfigHandler) -> void:
 	if !_is_network_authority(handler) and _mode == MODE.AUTHORITY:
 		return
 	
-	
 	if !SimusNetConnection.is_server() and _mode == MODE.SERVER_ONLY:
 		return
 	

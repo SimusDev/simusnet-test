@@ -24,7 +24,7 @@ func _ready() -> void:
 	
 	SimusNetRPC.register(
 		[
-			
+			_request_interact
 		], 
 		SimusNetRPCConfig.new()
 		.flag_mode_any_peer()
@@ -126,7 +126,10 @@ func unmount() -> void:
 func try_interact() -> void:
 	var player: CT_Playable = CT_Playable.get_local()
 	if player:
-		SimusNetRPC.invoke_on_server(_try_interact_server, player.node)
+		SimusNetRPC.invoke_on_server(_request_interact, player.node)
+
+func _request_interact(entity: Node3D) -> void:
+	_try_interact_server(entity)
 
 func _try_interact_server(entity: Node3D) -> void:
 	if !is_instance_valid(entity):

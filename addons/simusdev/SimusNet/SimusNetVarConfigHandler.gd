@@ -45,16 +45,16 @@ func _initialize_dynamic() -> void:
 	_network_ready()
 
 func _tick(delta: float) -> void:
-	for property in _list:
-		_list[property]._on_tick(self, delta)
+	for config in _properties_for:
+		config._on_tick(self, delta)
 
 func _network_ready() -> void:
-	for cfg in _list:
-		_list[cfg]._network_ready(self)
+	for cfg in _properties_for:
+		cfg._network_ready(self)
 
 func _network_disconnect() -> void:
-	for cfg in _list:
-		_list[cfg]._network_disconnect(self)
+	for cfg in _properties_for:
+		cfg._network_disconnect(self)
 
 func _deinitialize_dynamic() -> void:
 	_network_disconnect()
