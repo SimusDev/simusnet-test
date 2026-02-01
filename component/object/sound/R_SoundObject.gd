@@ -1,6 +1,6 @@
 class_name R_SoundObject extends R_Object
 
-@export var sources: Array[R_SoundSource]
+@export var package: SD_SoundPackage3D
 
 func local_play(parent:Node3D, position:Vector3) -> R_SoundObject:
 	if SimusNetConnection.is_dedicated_server():

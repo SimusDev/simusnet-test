@@ -30,6 +30,7 @@ func _ready() -> void:
 	sprite.billboard = BaseMaterial3D.BILLBOARD_ENABLED
 
 static func local_create(res: R_SoundObject, parent:Node3D, pos: Vector3, pitch:float = 1.0) -> void:
+	return
 	if res.sources.size() == 0:
 		return
 	
@@ -56,6 +57,7 @@ static func local_create(res: R_SoundObject, parent:Node3D, pos: Vector3, pitch:
 		src_player.play()
 
 static func create(res: R_SoundObject, parent:Node3D, pos: Vector3, pitch:float = 1.0) -> void:
+	return
 	SimusNetRPC.invoke_all(
 		local_create,
 		res,

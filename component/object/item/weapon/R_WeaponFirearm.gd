@@ -8,6 +8,7 @@ class_name R_WeaponFirearm extends R_Item
 
 @export_group("Audio")
 @export var shot_sound:R_SoundObject
+@export var reload_sound: AudioStream
 
 static func get_group() -> String:
 	return "weapon"

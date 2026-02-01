@@ -47,6 +47,8 @@ func _ready() -> void:
 	var entity = entity_head.get_entity()
 	if entity is Entity:
 		exclude_rids = entity.find_collisions_rids_above()
+	
+	_get_or_create_sound("reload").max_distance = 15
 
 func _state_machine_init() -> void:
 	#state_machine.debug = true
@@ -54,7 +56,12 @@ func _state_machine_init() -> void:
 	state_machine.add_state("reload")
 
 func _state_machine_transitioned(from: String, to: String) -> void:
-	pass
+	match to:
+		"reload":
+			_get_or_create_sound("reload").stream = firearm_object.reload_sound
+			_get_or_create_sound("reload").play()
+			event_reload.emit()
+		
 
 func _local_input(event: InputEvent) -> void:
 	super(event)
@@ -75,8 +82,8 @@ func _request_reload_server() -> void:
 		SimusNetRPC.invoke_on_sender(_request_reload_receive)
 
 func _request_reload_receive() -> void:
-	event_reload.emit()
 	state_machine.try_switch("reload").make_cooldown_and_switch_to(firearm_object.reload_time, "idle")
+
 
 func __pressed_alt_net() -> void:
 	event_aim_enter.emit()

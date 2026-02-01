@@ -15,10 +15,15 @@ static func get_local() -> CT_Playable:
 		_local = null
 	return _local
 
+func get_peer_id() -> int:
+	return get_multiplayer_authority()
+
 func is_local() -> bool:
 	return get_local() == self
 
 func _ready() -> void:
+	SimusNetIdentity.register(self)
+	
 	SD_ECS.append_to(node, self)
 	
 	if SimusNet.is_network_authority(self):

@@ -12,6 +12,15 @@ const SCENE: PackedScene = preload("uid://c8wx4j8l5ed75")
 
 var _spawnpoints: Array[CT_SpawnPoint3D] = []
 
+static func get_global_position_from(from: Variant) -> Vector3:
+	if from is Vector3:
+		return from
+	
+	if from is Node3D:
+		return from.global_position
+	
+	return Vector3.ZERO
+
 func get_spawnpoints() -> Array[CT_SpawnPoint3D]:
 	return _spawnpoints
 

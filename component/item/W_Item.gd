@@ -27,6 +27,8 @@ var stack: CT_ItemStack : get = _get_stack
 var playable: CT_Playable
 var state_machine: CT_StateMachineSimple
 
+var _sounds: Dictionary[String, AudioStreamPlayer3D]
+
 func _get_stack() -> CT_ItemStack:
 	return stack
 
@@ -95,6 +97,15 @@ func _ready() -> void:
 	set_process_unhandled_input(is_local())
 	set_process_shortcut_input(is_local())
 	set_process_unhandled_key_input(is_local())
+
+func _get_or_create_sound(key: String) -> AudioStreamPlayer3D:
+	if key in _sounds:
+		return _sounds[key]
+	
+	var new: AudioStreamPlayer3D = AudioStreamPlayer3D.new()
+	_sounds[key] = new
+	add_child(new)
+	return new
 
 func _state_machine_init() -> void:
 	pass

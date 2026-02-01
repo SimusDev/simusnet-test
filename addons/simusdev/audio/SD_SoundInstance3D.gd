@@ -131,6 +131,10 @@ func instance_reload() -> void:
 	
 
 func tick() -> void:
+	if !Engine.is_editor_hint():
+		if SimusNetConnection.is_dedicated_server():
+			return
+	
 	var camera: Camera3D = _get_camera()
 	if !camera:
 		return
