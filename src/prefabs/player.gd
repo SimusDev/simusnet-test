@@ -9,8 +9,6 @@ static var _local: Player
 static func get_local() -> Player:
 	return _local
 
-@export var sound: R_SoundObject
-
 @export var debug_queue_free: bool = false : set = set_debug_queue_free
 
 func set_debug_queue_free(val: bool) -> void:
