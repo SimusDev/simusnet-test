@@ -256,7 +256,7 @@ func try_pickup(object: Variant) -> bool:
 		if not world_object:
 			return false
 	
-		stack = CT_ItemStack.create_from_object_instance(world_object)
+		stack = CT_ItemStack.create_from_node(world_object.get_instance())
 	
 	if get_free_slot_for(stack) != null:
 		try_add_item(stack)

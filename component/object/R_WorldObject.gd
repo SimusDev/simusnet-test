@@ -44,10 +44,10 @@ func get_itemstack_config() -> R_ItemStackConfig:
 
 func _spawned(instance: Node3D, level_group: LevelGroup) -> void:
 	if level_group.networked:
-		
 		if !SimusNetConnection.is_server():
 			if instance is RigidBody3D:
 				instance.freeze = true
+		
 		
 		await instance.get_tree().process_frame
 		var pick_up_action: R_InteractAction = load("uid://cvbrrn0mme4i")

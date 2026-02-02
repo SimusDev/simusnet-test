@@ -1,6 +1,7 @@
 extends Resource
 class_name R_Object
 
+@export var group: StringName
 @export var id: StringName
 
 @export var icon: Texture : get = get_icon

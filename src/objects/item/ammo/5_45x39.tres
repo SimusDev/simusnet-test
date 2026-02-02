@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="R_WorldObject" format=3 uid="uid://dt2tx25ql5rtp"]
+
+[ext_resource type="Script" uid="uid://cxyhi06aga6j1" path="res://component/object/R_WorldObject.gd" id="1_5wntr"]
+
+[resource]
+script = ExtResource("1_5wntr")
+group = &"ammo"
+metadata/_custom_type_script = "uid://cxyhi06aga6j1"

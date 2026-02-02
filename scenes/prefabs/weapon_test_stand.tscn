@@ -2,13 +2,20 @@
 
 [ext_resource type="Texture2D" uid="uid://dtmwlx74fxbd7" path="res://src/textures/general/metal1.jpeg" id="1_qs83d"]
 [ext_resource type="Script" uid="uid://dgp0pmmh5blth" path="res://component/object/CT_ObjectSpawn.gd" id="2_inqea"]
+[ext_resource type="Resource" uid="uid://b74p68w4oudik" path="res://src/objects/item/ammo/9x18.tres" id="3_31nm7"]
 [ext_resource type="Resource" uid="uid://blrx7kglr2oec" path="res://src/objects/item/weapon/sr_pb/sr_pb.tres" id="3_s48m2"]
 [ext_resource type="Script" uid="uid://bkhjaq3ccadol" path="res://component/object/spawn/R_SpawnTag.gd" id="4_31nm7"]
+[ext_resource type="Script" uid="uid://cvh6l86iib7cw" path="res://component/object/spawn/R_SpawnTagStackSize.gd" id="5_31nm7"]
 [ext_resource type="Script" uid="uid://cgxdi4cljlv7m" path="res://component/object/spawn/R_SpawnTagFreeze.gd" id="5_snhrs"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lgt62"]
 albedo_texture = ExtResource("1_qs83d")
 uv1_triplanar = true
+
+[sub_resource type="Resource" id="Resource_snhrs"]
+script = ExtResource("5_31nm7")
+quantity = 64
+metadata/_custom_type_script = "uid://cvh6l86iib7cw"
 
 [sub_resource type="Resource" id="Resource_7xe81"]
 script = ExtResource("5_snhrs")
@@ -21,6 +28,47 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2066252, 0)
 use_collision = true
 size = Vector3(0.5, 2.4676666, 10)
 material = SubResource("StandardMaterial3D_lgt62")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="." unique_id=10618076]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.92538476, 0.45389622, -3.2187276)
+use_collision = true
+size = Vector3(2.2954102, 0.9370117, 3.560913)
+material = SubResource("StandardMaterial3D_lgt62")
+
+[node name="ammo_9x18" type="Node3D" parent="CSGBox3D2" unique_id=154406808]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.98378265, 0.641872, -1.5824094)
+script = ExtResource("2_inqea")
+object = ExtResource("3_31nm7")
+tags = Array[ExtResource("4_31nm7")]([SubResource("Resource_snhrs")])
+metadata/_custom_type_script = "uid://dgp0pmmh5blth"
+
+[node name="ammo_9x19" type="Node3D" parent="CSGBox3D2" unique_id=1373057150]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7847656, 0.641872, -1.5824094)
+script = ExtResource("2_inqea")
+object = ExtResource("3_31nm7")
+tags = Array[ExtResource("4_31nm7")]([SubResource("Resource_snhrs")])
+metadata/_custom_type_script = "uid://dgp0pmmh5blth"
+
+[node name="ammo_9x20" type="Node3D" parent="CSGBox3D2" unique_id=1986784898]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.57231295, 0.641872, -1.5824094)
+script = ExtResource("2_inqea")
+object = ExtResource("3_31nm7")
+tags = Array[ExtResource("4_31nm7")]([SubResource("Resource_snhrs")])
+metadata/_custom_type_script = "uid://dgp0pmmh5blth"
+
+[node name="ammo_9x21" type="Node3D" parent="CSGBox3D2" unique_id=874269010]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.37283504, 0.641872, -1.5824094)
+script = ExtResource("2_inqea")
+object = ExtResource("3_31nm7")
+tags = Array[ExtResource("4_31nm7")]([SubResource("Resource_snhrs")])
+metadata/_custom_type_script = "uid://dgp0pmmh5blth"
+
+[node name="ammo_9x22" type="Node3D" parent="CSGBox3D2" unique_id=644858196]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1602993, 0.641872, -1.5824094)
+script = ExtResource("2_inqea")
+object = ExtResource("3_31nm7")
+tags = Array[ExtResource("4_31nm7")]([SubResource("Resource_snhrs")])
+metadata/_custom_type_script = "uid://dgp0pmmh5blth"
 
 [node name="wpn_pb" type="Node3D" parent="." unique_id=1785018424]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.27718982, 2.1169133, 4.7359343)

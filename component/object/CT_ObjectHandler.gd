@@ -46,7 +46,11 @@ func async_load_directory(path: String) -> void:
 			if id.is_empty():
 				id = resource.resource_path.get_file().get_basename()
 			
-			id = resource.get_group() + ":" + id
+			var group: String = resource.get_group()
+			if !resource.group.is_empty():
+				group = resource.group
+			
+			id = group + ":" + id
 			
 			resource.id = id
 			register(id, resource)

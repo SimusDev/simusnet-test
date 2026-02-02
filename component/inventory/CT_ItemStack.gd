@@ -118,6 +118,9 @@ static func create_from_object_instance(instance: I_WorldObject) -> CT_ItemStack
 	item.object = instance.get_object()
 	return item
 
+static func create_from_node(node: Node) -> CT_ItemStack:
+	return deserialize_gamestate(find_or_create_gamestate_stack_in(node))
+
 func serialize() -> Dictionary:
 	var data: Dictionary = {}
 	data[-2] = _metadata
@@ -182,6 +185,35 @@ static func deserialize_gamestate(data: Dictionary) -> CT_ItemStack:
 
 static func deserialize_gamestate_custom(data: Dictionary, stack: CT_ItemStack) -> void:
 	pass
+
+static func find_gamestate_stack_in(node: Object) -> Variant:
+	if node.has_meta("ItemStack"):
+		return node.get_meta("ItemStack")
+	return null
+
+static func find_or_create_gamestate_stack_in(node: Object) -> Dictionary:
+	if node.has_meta("ItemStack"):
+		return node.get_meta("ItemStack")
+	
+	var item: CT_ItemStack = create_from_object(I_WorldObject.find_in(node).get_object())
+	item.queue_free()
+	return create_gamestate_stack_in(node, item)
+
+static func find_or_create_gamestate_stack_reference_in(node: Object) -> CT_ItemStack:
+	var ref: CT_ItemStack = deserialize_gamestate(find_or_create_gamestate_stack_in(node))
+	_find_or_create_gamestate_stack_reference_in_update(node, ref)
+	return ref
+
+static func _find_or_create_gamestate_stack_reference_in_update(node: Object, ref: CT_ItemStack) -> void:
+	await SimusDev.get_tree().process_frame
+	create_gamestate_stack_in(node, ref)
+	ref.queue_free()
+	
+
+static func create_gamestate_stack_in(node: Object, from: CT_ItemStack) -> Dictionary:
+	var data: Dictionary = from.serialize_gamestate()
+	node.set_meta("ItemStack", data)
+	return data
 
 static func serialize_array(array: Array[CT_ItemStack]) -> PackedByteArray:
 	var result: Array = []
