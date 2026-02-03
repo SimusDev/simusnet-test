@@ -211,7 +211,7 @@ func _network_setup() -> void:
 			_receive_item_remove,
 			_open_server,
 			_close_server,
-			_request_slot_select_rpc
+			_request_slot_select_rpc,
 			
 		], SimusNetRPCConfig.new().flag_mode_server_only().
 		flag_set_channel(Network.CHANNEL_INVENTORY).flag_serialization()
@@ -261,8 +261,6 @@ func _request_drop_server(item: CT_ItemStack) -> void:
 	
 	var is_inventory_authority: bool = SimusNet.get_network_authority(item.get_inventory()) == SimusNetRemote.sender_id
 	var is_inventory_opened: bool = get_opened().has(item.get_inventory())
-	
-	print(item.object)
 	
 	if is_inventory_authority or is_inventory_opened:
 		item.queue_free()

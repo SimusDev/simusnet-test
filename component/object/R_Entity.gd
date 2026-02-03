@@ -6,7 +6,7 @@ class_name R_Entity
 
 static var _entities: Dictionary[String, R_Entity]
 
-static func get_group() -> String:
+func _get_group() -> String:
 	return "entity"
 
 static func get_entity_list() -> Array[R_Entity]:

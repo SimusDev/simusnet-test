@@ -1,0 +1,92 @@
+[gd_scene format=3 uid="uid://7snekvg028ei"]
+
+[ext_resource type="Script" uid="uid://xfn454wwtf0c" path="res://src/ui/spawner/spawner.gd" id="1_ib670"]
+[ext_resource type="Script" uid="uid://c8aak514meidq" path="res://component/ui/CT_IControlInterface.gd" id="1_s0pjj"]
+[ext_resource type="PackedScene" uid="uid://lrobxkrcwpbl" path="res://src/ui/spawner/object.tscn" id="2_cciel"]
+
+[node name="Spawner" type="Control" unique_id=1812698674 node_paths=PackedStringArray("_object_container")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ib670")
+_object_container = NodePath("ScrollContainer/ObjectContainer")
+_object_ui = ExtResource("2_cciel")
+
+[node name="Panel" type="Panel" parent="." unique_id=1863772503]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Bottom" type="Panel" parent="." unique_id=1220320602]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.87600005
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 0.27996826
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Bottom" unique_id=1236789761]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="InventoryCheckbox" type="CheckButton" parent="Bottom/HBoxContainer" unique_id=20827941]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Inventory"
+alignment = 1
+expand_icon = true
+
+[node name="QuantityLineEdit" type="LineEdit" parent="Bottom/HBoxContainer" unique_id=187789435]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(111, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+placeholder_text = "Quantity"
+
+[node name="CT_IControlInterface" type="Node" parent="." unique_id=1451901296 node_paths=PackedStringArray("target")]
+script = ExtResource("1_s0pjj")
+target = NodePath("..")
+input_type = 2
+input_action = &"spawner"
+hide_at_start = true
+metadata/_custom_type_script = "uid://c8aak514meidq"
+
+[node name="Tree" type="Tree" parent="." unique_id=426663808]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.18400002
+anchor_bottom = 0.87600005
+offset_right = 0.47998047
+offset_bottom = 0.27996826
+
+[node name="ScrollContainer" type="ScrollContainer" parent="." unique_id=1045393757]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.18400002
+anchor_right = 1.0
+anchor_bottom = 0.87600005
+offset_left = 0.47998047
+offset_bottom = 0.27996826
+
+[node name="ObjectContainer" type="FlowContainer" parent="ScrollContainer" unique_id=1864870947]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 1
+
+[connection signal="item_selected" from="Tree" to="." method="_on_tree_item_selected"]

@@ -3,7 +3,7 @@ class_name R_Player
 
 static var _players: Dictionary[String, R_Player]
 
-static func get_group() -> String:
+func _get_group() -> String:
 	return "player"
 
 func is_supports_gamestate() -> bool:
@@ -22,3 +22,6 @@ func _registered() -> void:
 func _unregistered() -> void:
 	super()
 	_players.erase(id)
+
+func is_spawnable() -> bool:
+	return false

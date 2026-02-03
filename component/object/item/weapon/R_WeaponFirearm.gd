@@ -10,7 +10,7 @@ class_name R_WeaponFirearm extends R_Item
 @export var shot_sound:R_SoundObject
 @export var reload_sound: AudioStream
 
-static func get_group() -> String:
+func _get_group() -> String:
 	return "weapon"
 
 func get_itemstack_config() -> R_ItemStackConfig:

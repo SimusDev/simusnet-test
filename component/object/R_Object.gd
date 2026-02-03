@@ -23,7 +23,12 @@ static func get_list() -> Array[R_Object]:
 static func find_by_id(value: String) -> R_Object:
 	return _objects.get(value)
 
-static func get_group() -> String:
+func get_group() -> String:
+	if group.is_empty():
+		return _get_group()
+	return group
+
+func _get_group() -> String:
 	return "object"
 
 static func is_level_group_supported() -> bool:
@@ -47,4 +52,11 @@ func _registered() -> void:
 	SimusNetResources.cache(self)
 
 func _unregistered() -> void:
+	if _groups.has(get_group()):
+		_groups.erase(get_group())
+	
+	if is_level_group_supported():
+		if _groups_level.has(get_group()):
+			_groups_level.erase(get_group())
+	
 	_objects.erase(id)

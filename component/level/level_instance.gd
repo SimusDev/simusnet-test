@@ -12,6 +12,11 @@ const SCENE: PackedScene = preload("uid://c8wx4j8l5ed75")
 
 var _spawnpoints: Array[CT_SpawnPoint3D] = []
 
+static var _current: LevelInstance
+
+static func get_current() -> LevelInstance:
+	return _current
+
 static func get_global_position_from(from: Variant) -> Vector3:
 	if from is Vector3:
 		return from
@@ -25,6 +30,10 @@ func get_spawnpoints() -> Array[CT_SpawnPoint3D]:
 	return _spawnpoints
 
 func _ready() -> void:
+	SimusNetIdentity.register(self)
+	
+	_current = self
+	
 	for group in R_Object.get_level_group_list():
 		get_local_group(group)
 		get_networked_group(group)

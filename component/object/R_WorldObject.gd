@@ -15,6 +15,9 @@ static func get_world_object_list() -> Array[R_WorldObject]:
 static func find_by_id(value: String) -> R_WorldObject:
 	return _world_objects.get(value)
 
+func is_spawnable() -> bool:
+	return true
+
 func _registered() -> void:
 	super()
 	_world_objects[id] = self

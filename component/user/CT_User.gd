@@ -88,6 +88,8 @@ func get_peer() -> int:
 
 func _ready() -> void:
 	set_multiplayer_authority(SimusNet.SERVER_ID)
+	if _peer == SimusNetConnection.get_unique_id():
+		_local = self
 
 func _enter_tree() -> void:
 	_dictionary[get_peer()] = self

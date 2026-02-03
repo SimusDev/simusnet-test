@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://doxf33wt4344v" path="res://scenes/game.gd" id="1_yqjtg"]
 [ext_resource type="PackedScene" uid="uid://c1h5oc6onij4e" path="res://src/prefabs/game_commands/game_commands.tscn" id="2_kvpfn"]
+[ext_resource type="Script" uid="uid://c5qulw0wtcu7e" path="res://component/SpawnableObjects.gd" id="3_kvpfn"]
 [ext_resource type="Script" uid="uid://b6tiuh31wjnqw" path="res://component/gamescript/CT_GameScriptHandler.gd" id="3_u5sy4"]
 [ext_resource type="PackedScene" uid="uid://doaq5fchetdqp" path="res://component/sky/sky_3d.tscn" id="4_lbhrr"]
 [ext_resource type="Script" uid="uid://ddut1xlh5rvp5" path="res://component/player/CT_CharacterSelect.gd" id="5_iywne"]
@@ -13,6 +14,10 @@
 
 [node name="Game" type="Node3D" unique_id=1979558274]
 script = ExtResource("1_yqjtg")
+
+[node name="SpawnableObjects" type="Node3D" parent="." unique_id=1077681083]
+script = ExtResource("3_kvpfn")
+metadata/_custom_type_script = "uid://c5qulw0wtcu7e"
 
 [node name="GameCommands" parent="." unique_id=1530606417 instance=ExtResource("2_kvpfn")]
 

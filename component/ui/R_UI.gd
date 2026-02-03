@@ -30,5 +30,5 @@ func _unregistered() -> void:
 	super()
 	_uis.erase(id)
 
-static func get_group() -> String:
+func _get_group() -> String:
 	return "ui"

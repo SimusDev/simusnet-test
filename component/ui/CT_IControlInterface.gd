@@ -3,7 +3,34 @@ class_name CT_IControlInterface
 
 @export var target: Control
 
+@export var input_type: INPUT_TYPE = INPUT_TYPE.DISABLED
+@export var input_action: StringName = ""
+@export var hide_at_start: bool = false
+
+enum INPUT_TYPE {
+	DISABLED,
+	PRESS,
+	JUST_PRESS,
+}
+
+func _input(event: InputEvent) -> void:
+	if input_type == INPUT_TYPE.DISABLED or input_action.is_empty():
+		return
+	
+	if input_type == INPUT_TYPE.JUST_PRESS:
+		if Input.is_action_just_pressed(input_action):
+			target.visible = !target.visible
+
+func _process(delta: float) -> void:
+	if input_type != INPUT_TYPE.PRESS:
+		return
+	
+	target.visible = Input.is_action_pressed(input_action)
+
 func _ready() -> void:
+	if hide_at_start:
+		target.hide()
+	
 	if !target:
 		target = get_parent()
 	

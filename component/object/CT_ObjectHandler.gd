@@ -11,10 +11,11 @@ signal on_unregistered(object: Object, id: String)
 func clear_registry() -> void:
 	for i in _registry.keys():
 		unregister(i)
+	
+	_registry.clear()
 
 
 func register(id: String, object: Object) -> bool:
-	
 	if _registry.has(id):
 		_logger.debug("is already registered!: %s, %s" % [id, _logger.variant_to_string(object)], SD_ConsoleCategories.ERROR)
 		return false

@@ -13,3 +13,6 @@ func play(parent:Node3D, position: Vector3 = Vector3.ZERO, pitch:float = 1.0) ->
 		return
 	SoundInstance3D.create(self, parent, position, pitch)
 	return self
+
+func _get_group() -> String:
+	return "sound"

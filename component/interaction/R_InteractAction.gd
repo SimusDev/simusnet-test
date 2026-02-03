@@ -8,7 +8,7 @@ static var ACTION_OPEN: R_InteractAction = load("res://src/objects/interact/acti
 static var ACTION_PICKUP: R_InteractAction = load("res://src/objects/interact/actions/pickup.tres") 
 static var ACTION_USE: R_InteractAction = load("res://src/objects/interact/actions/use.tres") 
 
-static func get_group() -> String:
+func _get_group() -> String:
 	return "interact_action"
 
 func _server_selected_world(object: Node3D, raycast: CT_InteractionRay) -> void:

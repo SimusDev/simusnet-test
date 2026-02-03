@@ -11,7 +11,7 @@ class_name R_Recipe
 
 static var _recipes: Dictionary[String, R_Recipe]
 
-static func get_group() -> String:
+func _get_group() -> String:
 	return "recipe"
 
 static func get_recipe_list() -> Array[R_Recipe]:
