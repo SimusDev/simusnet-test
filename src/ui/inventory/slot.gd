@@ -89,7 +89,7 @@ func _on_sd_ui_drag_and_drop_dropped(draggable: Control, at: Control) -> void:
 					return
 			
 			if Input.is_action_pressed("item.stack"):
-				_local_inventory.stack_items(at.slot.get_item_stack(), _item)
+				_local_inventory.request_stack_items(at.slot.get_item_stack(), _item)
 				return
 			
 			_local_inventory.try_move_item(_item, at.slot)

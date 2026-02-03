@@ -94,6 +94,14 @@ func stack_item(item: CT_ItemStack) -> void:
 					if another.quantity <= 0:
 						break
 
+func request_stack_items(to: CT_ItemStack, stackable: CT_ItemStack) -> void:
+	if is_instance_valid(to) and is_instance_valid(stackable):
+		SimusNetRPC.invoke_on_server(_request_stack_items_rpc, to, stackable)
+
+func _request_stack_items_rpc(to: CT_ItemStack, stackable: CT_ItemStack) -> void:
+	if SimusNetConnection.is_server():
+		stack_items(to, stackable)
+
 func stack_items(to: CT_ItemStack, stackable: CT_ItemStack) -> void:
 	if !SimusNetConnection.is_server():
 		return
@@ -181,8 +189,6 @@ func add_slot(slot: CT_InventorySlot) -> CT_InventorySlot:
 	return slot
 
 func _network_setup() -> void:
-	SimusNetNodeAutoVisible.register_or_get(self)
-	
 	SimusNetRPC.register(
 		[
 			_send,
@@ -190,6 +196,7 @@ func _network_setup() -> void:
 			_request_slot_select_server,
 			_request_drop_server,
 			_try_split_item_server,
+			_request_stack_items_rpc,
 			
 		], SimusNetRPCConfig.new().flag_mode_any_peer().
 		flag_set_channel(Network.CHANNEL_INVENTORY).flag_serialization()
@@ -369,15 +376,17 @@ func try_move_item(item: CT_ItemStack, slot: CT_InventorySlot) -> void:
 		#if slot.is_free():
 		SimusNetRPC.invoke_on_server(_try_move_item_server, item, slot)
 
-func can_split_item(item: CT_ItemStack, to_slot: CT_InventorySlot) -> bool:
+func can_split_item(item: CT_ItemStack, to_slot: CT_InventorySlot, peer: int = SimusNetConnection.get_unique_id()) -> bool:
 	if !is_instance_valid(item) or !is_instance_valid(to_slot) or item.is_queued_for_deletion() or to_slot.is_queued_for_deletion():
 		return false
 	
-	var is_inventory_authority: bool = SimusNet.is_network_authority(to_slot.get_inventory())
+	var is_inventory_authority: bool = SimusNet.get_network_authority(to_slot.get_inventory()) == peer
 	var is_inventory_opened: bool = get_opened().has(to_slot.get_inventory())
 	
 	if item.stackable:
-		return is_inventory_authority or is_inventory_opened
+		var status: bool = is_inventory_authority or is_inventory_opened
+		#print(status)
+		return status
 	return false
 
 func try_split_item(item: CT_ItemStack, to_slot: CT_InventorySlot, quantity: int = 0) -> void:
@@ -385,8 +394,7 @@ func try_split_item(item: CT_ItemStack, to_slot: CT_InventorySlot, quantity: int
 		SimusNetRPC.invoke_on_server(_try_split_item_server, item, to_slot, quantity)
 
 func _try_split_item_server(item: CT_ItemStack, to_slot: CT_InventorySlot, quantity: int) -> void:
-	if can_split_item(item, to_slot):
-		
+	if can_split_item(item, to_slot, SimusNetRemote.sender_id):
 		if quantity <= 0:
 			quantity = item.quantity / 2
 		
