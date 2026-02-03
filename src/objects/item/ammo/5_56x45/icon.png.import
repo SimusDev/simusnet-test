@@ -2,24 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://db42lytct4vm2"
-path.s3tc="res://.godot/imported/model_wpn_ammo.png-08ae62d19afd031a452118f5f22e3257.s3tc.ctex"
+uid="uid://dugnk53cn25fd"
+path="res://.godot/imported/icon.png-3a0b2c113787fa003edc79cadcf8497b.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
-}
-generator_parameters={
-"md5": "c91a15267c6dec4c265602fb14655dcd"
+"vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/objects/item/ammo/9x18/model_wpn_ammo.png"
-dest_files=["res://.godot/imported/model_wpn_ammo.png-08ae62d19afd031a452118f5f22e3257.s3tc.ctex"]
+source_file="res://src/objects/item/ammo/5_56x45/icon.png"
+dest_files=["res://.godot/imported/icon.png-3a0b2c113787fa003edc79cadcf8497b.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0
@@ -27,7 +23,7 @@ compress/rdo_quality_loss=0.0
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=true
+mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""
@@ -41,4 +37,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=0
+detect_3d/compress_to=1

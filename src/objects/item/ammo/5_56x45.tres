@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="R_Ammo" format=3 uid="uid://cd6q0ankueu8w"]
+
+[ext_resource type="Texture2D" uid="uid://dugnk53cn25fd" path="res://src/objects/item/ammo/5_56x45/icon.png" id="1_yefhl"]
+[ext_resource type="Script" uid="uid://bxy1kdk7uqaew" path="res://component/item/ammo/R_Ammo.gd" id="2_yh0u1"]
+[ext_resource type="PackedScene" uid="uid://dshhww6epn4yl" path="res://src/objects/item/ammo/5_56x45/player.tscn" id="3_vdan0"]
+[ext_resource type="Script" uid="uid://cqdfkwb1galvp" path="res://component/viewmodel/R_ViewModel.gd" id="4_pqqmm"]
+[ext_resource type="PackedScene" uid="uid://djxk0pjspl8xx" path="res://src/objects/item/ammo/5_56x45/world.tscn" id="5_yefhl"]
+[ext_resource type="PackedScene" uid="uid://b1tak8wclyq20" path="res://src/objects/item/ammo/5_56x45/view.tscn" id="5_yh0u1"]
+
+[sub_resource type="Resource" id="Resource_vdan0"]
+script = ExtResource("4_pqqmm")
+world = ExtResource("5_yefhl")
+view = ExtResource("5_yh0u1")
+player = ExtResource("3_vdan0")
+metadata/_custom_type_script = "uid://cqdfkwb1galvp"
+
+[resource]
+script = ExtResource("2_yh0u1")
+viewmodel = SubResource("Resource_vdan0")
+icon = ExtResource("1_yefhl")
+metadata/_custom_type_script = "uid://cxyhi06aga6j1"

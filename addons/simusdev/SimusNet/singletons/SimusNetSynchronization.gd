@@ -7,6 +7,8 @@ var _transforms: Array[SimusNetTransform] = []
 
 var _timer_transform: Timer
 
+const TRANSFORM_META: StringName = &"NetworkTransform"
+
 func _init() -> void:
 	_instance = self
 
@@ -93,6 +95,14 @@ func _on_transform_tick() -> void:
 		SimusNetProfiler.get_instance()._up_traffic += bytes.size()
 		SimusNetProfiler.get_instance()._put_up_packet()
 		_recieve_transform.rpc_id(peer, bytes)
+
+func _parse_transform_property(object: Object, identities: Dictionary, current_value: Variant) -> void:
+	var change_hook: Dictionary = get_changed_properties(object)
+	
+	if change_hook.get_or_add("transform", current_value) == current_value:
+		return
+	
+	
 
 func _parse_property_sender(object: Object, properties: Dictionary, property: String, current_value: Variant) -> void:
 	var change_hook: Dictionary = get_changed_properties(object)
