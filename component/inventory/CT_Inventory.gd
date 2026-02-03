@@ -259,8 +259,10 @@ func _request_drop_server(item: CT_ItemStack) -> void:
 	if item.is_queued_for_deletion():
 		return
 	
-	var is_inventory_authority: bool = SimusNet.is_network_authority(item.get_inventory())
+	var is_inventory_authority: bool = SimusNet.get_network_authority(item.get_inventory()) == SimusNetRemote.sender_id
 	var is_inventory_opened: bool = get_opened().has(item.get_inventory())
+	
+	print(item.object)
 	
 	if is_inventory_authority or is_inventory_opened:
 		item.queue_free()
