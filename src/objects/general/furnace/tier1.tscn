@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://cgtkgpuy2qjin" path="res://src/objects/general/furnace/base.tscn" id="1_qyghq"]
 [ext_resource type="PackedScene" uid="uid://tyrhcomsutsi" path="res://src/objects/general/furnace/models/base/sketchfab.tscn" id="2_umk4i"]
 [ext_resource type="Script" uid="uid://ffif2k6n51yv" path="res://src/objects/general/furnace/tier_1.gd" id="2_xnar8"]
+[ext_resource type="Resource" uid="uid://uey8a88a0p4j" path="res://src/metadata_material/Metal.tres" id="3_grlpn"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_grlpn"]
 transparency = 1
@@ -17,6 +18,7 @@ size = Vector3(0.6210518, 1.7273483, 0.9127197)
 
 [node name="Tier1" unique_id=1350484502 instance=ExtResource("1_qyghq")]
 script = ExtResource("2_xnar8")
+metadata/MetadataMaterial = ExtResource("3_grlpn")
 
 [node name="Sketchfab_Scene" parent="." index="0" unique_id=1173696965 instance=ExtResource("2_umk4i")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.017758042, 0)

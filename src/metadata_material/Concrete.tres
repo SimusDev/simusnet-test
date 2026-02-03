@@ -6,6 +6,7 @@
 [ext_resource type="AudioStream" uid="uid://bqdar7xg436cb" path="res://audio/hl2/physics/concrete/concrete_break3.wav" id="2_kl8s4"]
 [ext_resource type="AudioStream" uid="uid://8kjb3pfppj0n" path="res://audio/hl2/physics/concrete/concrete_impact_bullet2.wav" id="2_ri0g2"]
 [ext_resource type="AudioStream" uid="uid://cm8j5u0a77qu6" path="res://audio/hl2/physics/concrete/concrete_impact_bullet3.wav" id="3_1t460"]
+[ext_resource type="Texture2D" uid="uid://jsv0qhwj32l8" path="res://src/textures/decals/bullet_hole_decal_0.png" id="3_kl8s4"]
 [ext_resource type="AudioStream" uid="uid://bnw4mx1rysxsu" path="res://audio/hl2/physics/concrete/concrete_impact_bullet4.wav" id="4_hombn"]
 [ext_resource type="AudioStream" uid="uid://b3372k2buofca" path="res://audio/hl2/physics/concrete/concrete_impact_hard1.wav" id="5_d22e1"]
 [ext_resource type="AudioStream" uid="uid://cqs7k2tjkdjjx" path="res://audio/hl2/player/footsteps/concrete1.wav" id="5_rhhoc"]

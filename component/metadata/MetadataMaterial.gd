@@ -3,6 +3,13 @@ class_name MetadataMaterial extends Resource
 @export_group("Physics")
 @export var resistance:float = 1.0
 
+
+@export_group("VFX")
+@export var bullet_impact_particles:PackedScene = preload("res://src/prefabs/bullet_impact_vfx.tscn")
+@export_subgroup("Decal")
+@export var bullet_impact_decal:PackedScene = preload("res://src/prefabs/bullet_decal.tscn")
+@export var melee_impact_decal:PackedScene = preload("res://src/prefabs/bullet_decal.tscn")
+
 @export_group("Sound")
 @export var impact_sounds:Array[AudioStream]
 @export var bullet_impact_sounds:Array[AudioStream]
@@ -26,3 +33,9 @@ static func find_in(node:Node, find_in_parents:bool = true) -> MetadataMaterial:
 			current_parent = current_parent.get_parent()
 		return found
 	return null
+
+static func safe_find_in(node:Node, find_in_parents:bool = true) -> MetadataMaterial:
+	var found:MetadataMaterial = find_in(node, find_in_parents)
+	if not found:
+		return MetadataMaterial.new()
+	return found

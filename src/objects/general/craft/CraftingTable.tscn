@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://b1iexr43rqfsn" path="res://src/objects/general/craft/crafting_table.gd" id="1_c2v0c"]
 [ext_resource type="PackedScene" uid="uid://8ub7tg8673fx" path="res://src/objects/general/craft/sketchfab_scene.tscn" id="1_xonl8"]
+[ext_resource type="Resource" uid="uid://gbs7veun2apl" path="res://src/metadata_material/Wood.tres" id="2_qb2cv"]
 [ext_resource type="PackedScene" uid="uid://bj73871srb72m" path="res://src/ui/craft/crafting.tscn" id="4_3b32p"]
 [ext_resource type="Script" uid="uid://dehqcsswxyu8a" path="res://component/inventory/CT_Inventory.gd" id="4_fm1nw"]
 [ext_resource type="Script" uid="uid://ctwac3q3rgmx2" path="res://component/inventory/CT_InventorySlotInput.gd" id="5_451ni"]
@@ -15,6 +16,7 @@
 [node name="CraftingTable" type="RigidBody3D" unique_id=1227370585 node_paths=PackedStringArray("_ct_inventory")]
 script = ExtResource("1_c2v0c")
 _ct_inventory = NodePath("_CT_Inventory")
+metadata/MetadataMaterial = ExtResource("2_qb2cv")
 
 [node name="Model" parent="." unique_id=353388669 instance=ExtResource("1_xonl8")]
 

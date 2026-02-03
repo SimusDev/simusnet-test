@@ -1,8 +1,9 @@
 [gd_scene format=3 uid="uid://c0gcmsl4fll2x"]
 
+[ext_resource type="PackedScene" uid="uid://db5dr2m5cse03" path="res://scenes/prefabs/table.tscn" id="1_2mjuu"]
 [ext_resource type="Texture2D" uid="uid://dtmwlx74fxbd7" path="res://src/textures/general/metal1.jpeg" id="1_ruo76"]
+[ext_resource type="Resource" uid="uid://uey8a88a0p4j" path="res://src/metadata_material/Metal.tres" id="2_2mjuu"]
 [ext_resource type="Script" uid="uid://dgp0pmmh5blth" path="res://component/object/CT_ObjectSpawn.gd" id="2_n32yt"]
-[ext_resource type="Resource" uid="uid://cic3i440xvcwv" path="res://src/objects/item/weapon/crowbar/crowbar.tres" id="3_4c3i3"]
 [ext_resource type="Resource" uid="uid://dp5m3auwen4jw" path="res://src/objects/item/weapon/rv78/rv78.tres" id="4_n32yt"]
 [ext_resource type="Resource" uid="uid://c1dipp0t421cv" path="res://src/objects/military_box.tres" id="4_vrnhv"]
 [ext_resource type="Resource" uid="uid://dc2a2qlq72pvn" path="res://src/objects/item/flashlight/flashlight.tres" id="5_4c3i3"]
@@ -11,7 +12,6 @@
 [ext_resource type="Resource" uid="uid://crron1r60u25h" path="res://src/objects/general/mechanical_arm/mechanical_arm.tres" id="6_vrnhv"]
 [ext_resource type="Resource" uid="uid://ce1e2a4kac0ar" path="res://src/objects/item/coal/coal.tres" id="7_x5rrb"]
 [ext_resource type="Resource" uid="uid://blrx7kglr2oec" path="res://src/objects/item/weapon/sr_pb/sr_pb.tres" id="11_61k8a"]
-
 
 [sub_resource type="BoxMesh" id="BoxMesh_6rygw"]
 size = Vector3(2, 1, 4)
@@ -22,35 +22,15 @@ uv1_triplanar = true
 
 [node name="base_objects" type="Node3D" unique_id=1906786045]
 
-[node name="table" type="CSGMesh3D" parent="." unique_id=2087113639]
+[node name="table" parent="." unique_id=1376381248 instance=ExtResource("1_2mjuu")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 7.722687, 0.5, 7.796892)
-use_collision = true
-mesh = SubResource("BoxMesh_6rygw")
-material = SubResource("StandardMaterial3D_p870i")
-
-[node name="CT_ObjectSpawn4" type="Node3D" parent="table" unique_id=452818626]
-transform = Transform3D(0.025005933, 0.57318854, -0.819042, -0.99904984, 0.043584563, 0, 0.03569758, 0.8182636, 0.5737337, -0.34614563, 0.6160201, 1.2031081)
-script = ExtResource("2_n32yt")
-object = ExtResource("3_4c3i3")
-metadata/_custom_type_script = "uid://dgp0pmmh5blth"
-
-[node name="CT_ObjectSpawn5" type="Node3D" parent="table" unique_id=1079009766]
-transform = Transform3D(0.04334715, 0.9936078, -0.10423347, -0.99904984, 0.043584563, -1.5255847e-09, 0.004542956, 0.10413423, 0.9945531, -0.34614563, 0.6160201, 0.14766622)
-script = ExtResource("2_n32yt")
-object = ExtResource("3_4c3i3")
-metadata/_custom_type_script = "uid://dgp0pmmh5blth"
-
-[node name="CT_ObjectSpawn6" type="Node3D" parent="table" unique_id=929052873]
-transform = Transform3D(0.013070564, 0.29960504, 0.95397395, -0.9990498, 0.04358456, -2.1249196e-09, -0.04157853, -0.9530673, 0.29989022, -0.34614563, 0.6160201, -1.0279617)
-script = ExtResource("2_n32yt")
-object = ExtResource("3_4c3i3")
-metadata/_custom_type_script = "uid://dgp0pmmh5blth"
 
 [node name="table5" type="CSGMesh3D" parent="." unique_id=675634582]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 7.722687, 0.5, 2.796892)
 use_collision = true
 mesh = SubResource("BoxMesh_6rygw")
 material = SubResource("StandardMaterial3D_p870i")
+metadata/MetadataMaterial = ExtResource("2_2mjuu")
 
 [node name="CT_ObjectSpawn4" type="Node3D" parent="table5" unique_id=1670109274]
 transform = Transform3D(0.025005933, 0.57318854, -0.819042, -0.99904984, 0.043584563, 0, 0.03569758, 0.8182636, 0.5737337, -0.34614563, 0.6160201, 1.2031081)
@@ -75,6 +55,7 @@ transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 7.72
 use_collision = true
 mesh = SubResource("BoxMesh_6rygw")
 material = SubResource("StandardMaterial3D_p870i")
+metadata/MetadataMaterial = ExtResource("2_2mjuu")
 
 [node name="CT_ObjectSpawn4" type="Node3D" parent="table6" unique_id=444945893]
 transform = Transform3D(0.025005933, 0.57318854, -0.819042, -0.99904984, 0.043584563, 0, 0.03569758, 0.8182636, 0.5737337, -0.34614563, 0.6160201, 1.2031081)

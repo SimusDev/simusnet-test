@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://fhbv1gj7e63b"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6e6s2"]
+cull_mode = 2
+vertex_color_use_as_albedo = true
+vertex_color_is_srgb = true
+metallic = 1.0
+roughness = 0.0
+emission_enabled = true
+emission = Color(1, 0.44705883, 0.11372549, 1)
+emission_energy_multiplier = 2.66
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_qdphw"]
+initial_velocity_min = 1.0
+initial_velocity_max = 2.0
+
+[sub_resource type="TubeTrailMesh" id="TubeTrailMesh_k7md8"]
+radius = 0.009
+section_length = 0.028
+
+[node name="BulletImpactVFX" type="GPUParticles3D" unique_id=1260386312]
+material_override = SubResource("StandardMaterial3D_6e6s2")
+emitting = false
+amount = 24
+lifetime = 0.2
+one_shot = true
+process_material = SubResource("ParticleProcessMaterial_qdphw")
+draw_pass_1 = SubResource("TubeTrailMesh_k7md8")

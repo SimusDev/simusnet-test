@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://db5dr2m5cse03"]
+
+[ext_resource type="Texture2D" uid="uid://dtmwlx74fxbd7" path="res://src/textures/general/metal1.jpeg" id="1_0fqcp"]
+[ext_resource type="Resource" uid="uid://uey8a88a0p4j" path="res://src/metadata_material/Metal.tres" id="2_eorjw"]
+[ext_resource type="Script" uid="uid://dgp0pmmh5blth" path="res://component/object/CT_ObjectSpawn.gd" id="3_6y16a"]
+[ext_resource type="Resource" uid="uid://cic3i440xvcwv" path="res://src/objects/item/weapon/crowbar/crowbar.tres" id="4_1fvwl"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_6rygw"]
+size = Vector3(2, 1, 4)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p870i"]
+albedo_texture = ExtResource("1_0fqcp")
+uv1_triplanar = true
+
+[node name="table" type="CSGMesh3D" unique_id=1376381248]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0)
+use_collision = true
+mesh = SubResource("BoxMesh_6rygw")
+material = SubResource("StandardMaterial3D_p870i")
+metadata/MetadataMaterial = ExtResource("2_eorjw")
+
+[node name="CT_ObjectSpawn4" type="Node3D" parent="." unique_id=90225773]
+transform = Transform3D(0.025005933, 0.57318854, -0.819042, -0.99904984, 0.043584563, 0, 0.03569758, 0.8182636, 0.5737337, -0.34614563, 0.6160201, 1.2031081)
+script = ExtResource("3_6y16a")
+object = ExtResource("4_1fvwl")
+metadata/_custom_type_script = "uid://dgp0pmmh5blth"
+
+[node name="CT_ObjectSpawn5" type="Node3D" parent="." unique_id=1424798718]
+transform = Transform3D(0.04334715, 0.9936078, -0.10423347, -0.99904984, 0.043584563, -1.5255847e-09, 0.004542956, 0.10413423, 0.9945531, -0.34614563, 0.6160201, 0.14766622)
+script = ExtResource("3_6y16a")
+object = ExtResource("4_1fvwl")
+metadata/_custom_type_script = "uid://dgp0pmmh5blth"
+
+[node name="CT_ObjectSpawn6" type="Node3D" parent="." unique_id=130270999]
+transform = Transform3D(0.013070564, 0.29960504, 0.95397395, -0.9990498, 0.04358456, -2.1249196e-09, -0.04157853, -0.9530673, 0.29989022, -0.34614563, 0.6160201, -1.0279617)
+script = ExtResource("3_6y16a")
+object = ExtResource("4_1fvwl")
+metadata/_custom_type_script = "uid://dgp0pmmh5blth"

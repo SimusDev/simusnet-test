@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://chujx0oxcky1r"]
+
+[ext_resource type="Texture2D" uid="uid://jsv0qhwj32l8" path="res://src/textures/decals/bullet_hole_decal_0.png" id="1_0tx1m"]
+
+[node name="Decal" type="Decal" unique_id=1439181548]
+transform = Transform3D(-1, 8.742278e-08, 0, -8.742278e-08, -1, 0, 0, 0, 1, 0, 0, 0)
+size = Vector3(0.09, 0.09, 0.09)
+texture_albedo = ExtResource("1_0tx1m")
+distance_fade_enabled = true

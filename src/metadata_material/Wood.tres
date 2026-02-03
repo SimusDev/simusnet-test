@@ -1,0 +1,29 @@
+[gd_resource type="Resource" script_class="MetadataMaterial" format=3 uid="uid://gbs7veun2apl"]
+
+[ext_resource type="AudioStream" uid="uid://03std56wfe0v" path="res://audio/hl2/physics/wood/wood_crate_break1.wav" id="1_bgsa0"]
+[ext_resource type="PackedScene" uid="uid://chujx0oxcky1r" path="res://src/prefabs/bullet_decal.tscn" id="1_uwpjd"]
+[ext_resource type="Script" uid="uid://c7jvuxu4hsmtm" path="res://component/metadata/MetadataMaterial.gd" id="2_0pibd"]
+[ext_resource type="AudioStream" uid="uid://bd4nkx66wpwsr" path="res://audio/hl2/physics/wood/wood_crate_break2.wav" id="2_kow7i"]
+[ext_resource type="AudioStream" uid="uid://da0agjil4r1sw" path="res://audio/hl2/physics/wood/wood_crate_break3.wav" id="3_6rdyj"]
+[ext_resource type="AudioStream" uid="uid://cbiulsltfs4fm" path="res://audio/hl2/physics/wood/wood_crate_break4.wav" id="4_cvj1g"]
+[ext_resource type="AudioStream" uid="uid://dimhrkui3yhbq" path="res://audio/hl2/physics/wood/wood_crate_break5.wav" id="5_qhn4e"]
+[ext_resource type="AudioStream" uid="uid://c4h4rg6u8uomn" path="res://audio/hl2/physics/wood/wood_box_impact_bullet1.wav" id="7_baywa"]
+[ext_resource type="AudioStream" uid="uid://ci1f1f4b5xgng" path="res://audio/hl2/physics/wood/wood_box_impact_bullet2.wav" id="8_qnmmc"]
+[ext_resource type="AudioStream" uid="uid://c2rvv48ddmvcr" path="res://audio/hl2/physics/wood/wood_box_impact_bullet3.wav" id="9_eb3ql"]
+[ext_resource type="AudioStream" uid="uid://dfqrrics5lflr" path="res://audio/hl2/physics/wood/wood_box_impact_bullet4.wav" id="10_uxw1f"]
+[ext_resource type="AudioStream" uid="uid://wsiwrjrfh17v" path="res://audio/hl2/player/footsteps/wood1.wav" id="11_sem30"]
+[ext_resource type="AudioStream" uid="uid://dj4j8hjdpr48w" path="res://audio/hl2/player/footsteps/wood2.wav" id="12_saxwn"]
+[ext_resource type="AudioStream" uid="uid://x43goxqclq3d" path="res://audio/hl2/player/footsteps/wood3.wav" id="13_h24y7"]
+[ext_resource type="AudioStream" uid="uid://dfbtndtene1ar" path="res://audio/hl2/player/footsteps/wood4.wav" id="14_aujq5"]
+[ext_resource type="AudioStream" uid="uid://b4ordn2dxyw0n" path="res://audio/hl2/physics/wood/wood_box_impact_soft1.wav" id="15_kbd4x"]
+[ext_resource type="AudioStream" uid="uid://cut6plhdoiaj0" path="res://audio/hl2/physics/wood/wood_box_impact_soft2.wav" id="16_h6xy0"]
+[ext_resource type="AudioStream" uid="uid://bbr2df5bjo8g0" path="res://audio/hl2/physics/wood/wood_box_impact_soft3.wav" id="17_88e86"]
+
+[resource]
+script = ExtResource("2_0pibd")
+resistance = 0.5
+impact_sounds = Array[AudioStream]([ExtResource("15_kbd4x"), ExtResource("16_h6xy0"), ExtResource("17_88e86")])
+bullet_impact_sounds = Array[AudioStream]([ExtResource("7_baywa"), ExtResource("8_qnmmc"), ExtResource("9_eb3ql"), ExtResource("10_uxw1f")])
+break_sounds = Array[AudioStream]([ExtResource("1_bgsa0"), ExtResource("2_kow7i"), ExtResource("3_6rdyj"), ExtResource("4_cvj1g"), ExtResource("5_qhn4e")])
+footstep_sounds = Array[AudioStream]([ExtResource("11_sem30"), ExtResource("12_saxwn"), ExtResource("13_h24y7"), ExtResource("14_aujq5")])
+metadata/_custom_type_script = "uid://c7jvuxu4hsmtm"
