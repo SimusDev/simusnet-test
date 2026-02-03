@@ -90,9 +90,10 @@ static func find_components_by_script(from: Object, by: Array[Script], pick: PIC
 	
 	var filtered: Array = components.filter(
 		func(i: Variant):
-			var is_object: bool = i is Object
-			if is_object:
-				return by.has(i.get_script()) or by.has(find_base_script(i.get_script()))
+			if is_instance_valid(i):
+				var is_object: bool = i is Object
+				if is_object:
+					return by.has(i.get_script()) or by.has(find_base_script(i.get_script()))
 			return false
 	)
 	

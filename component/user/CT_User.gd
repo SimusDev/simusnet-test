@@ -10,6 +10,9 @@ var _server_data: R_LocalData
 
 var _nickname: String = ""
 
+signal on_nickname_changed()
+signal on_avatar_changed()
+
 static var _local: CT_User
 
 var _node: Node

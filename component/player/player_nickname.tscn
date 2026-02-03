@@ -1,0 +1,64 @@
+[gd_scene format=3 uid="uid://bnxbgsea816pv"]
+
+[ext_resource type="Script" uid="uid://bss8w54gfij34" path="res://component/player/player_nickname.gd" id="1_mqequ"]
+[ext_resource type="Texture2D" uid="uid://jqsxep3h4fus" path="res://icon.svg" id="2_vkijd"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_mqequ"]
+font_size = 24
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_mqequ"]
+viewport_path = NodePath("SubViewport")
+
+[node name="PlayerNickname" type="Node3D" unique_id=1249404441]
+script = ExtResource("1_mqequ")
+
+[node name="SubViewport" type="SubViewport" parent="." unique_id=269588971]
+disable_3d = true
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(512, 72)
+render_target_update_mode = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SubViewport" unique_id=1469263580]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Nick" type="Label" parent="SubViewport/HBoxContainer" unique_id=186535674]
+unique_name_in_owner = true
+layout_mode = 2
+text = "USER.NICKNAME"
+label_settings = SubResource("LabelSettings_mqequ")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Panel" type="Panel" parent="SubViewport/HBoxContainer/Nick" unique_id=1209114471]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Avatar" type="TextureRect" parent="SubViewport/HBoxContainer" unique_id=2144701763]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+texture = ExtResource("2_vkijd")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Sprite3D" type="Sprite3D" parent="." unique_id=1807437433]
+gi_mode = 0
+pixel_size = 0.008
+billboard = 1
+texture = SubResource("ViewportTexture_mqequ")

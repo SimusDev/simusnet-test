@@ -7,6 +7,8 @@ var _item: CT_ItemStack
 
 var _local_inventory: CT_Inventory
 
+var is_mouse_entered: bool = false
+
 @export var _quantity: Label
 
 @onready var icon: TextureRect = $icon
@@ -81,11 +83,26 @@ func _on_quantity_changed() -> void:
 func _on_sd_ui_drag_and_drop_dropped(draggable: Control, at: Control) -> void:
 	if is_instance_valid(_item):
 		if at is UI_InventorySlot:
+			if Input.is_action_pressed("item.split"):
+				if _local_inventory.can_split_item(_item, at.slot):
+					_local_inventory.try_split_item(_item, at.slot)
+					return
+			
+			if Input.is_action_pressed("item.stack"):
+				_local_inventory.request_stack_items(at.slot.get_item_stack(), _item)
+				return
+			
 			_local_inventory.try_move_item(_item, at.slot)
 
 func _on_gui_input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("item.use") and Input.is_action_pressed("sprint"):
 		on_fast_move_item_request.emit()
+
+func _input(event: InputEvent) -> void:
+	if is_mouse_entered:
+		if Input.is_action_just_pressed("item.fast_drop"):
+			if get_item():
+				get_item().get_inventory().request_drop(get_item())
 
 func _on_sd_ui_drag_and_drop_drag_started() -> void:
 	icon.self_modulate.a = 0.5
@@ -95,3 +112,10 @@ func _on_sd_ui_drag_and_drop_drag_started() -> void:
 
 func _on_sd_ui_drag_and_drop_drag_stopped() -> void:
 	icon.self_modulate.a = 1
+
+
+func _on_mouse_entered() -> void:
+	is_mouse_entered = true
+
+func _on_mouse_exited() -> void:
+	is_mouse_entered = false

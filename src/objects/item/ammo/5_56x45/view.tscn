@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://b1tak8wclyq20"]
+
+[ext_resource type="PackedScene" uid="uid://cah3cjba1df00" path="res://src/objects/item/ammo/5_56x45/model.tscn" id="1_3ojtk"]
+
+[node name="View" type="Node3D" unique_id=701809463]
+
+[node name="model" parent="." unique_id=233410675 instance=ExtResource("1_3ojtk")]

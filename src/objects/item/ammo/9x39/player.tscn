@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://nkkqp521ukem"]
+
+[ext_resource type="Script" uid="uid://d0q02rkjl2np2" path="res://component/item/W_Item.gd" id="1_50iw3"]
+[ext_resource type="PackedScene" uid="uid://dp1egqtjo6lod" path="res://src/objects/item/ammo/9x39/model.tscn" id="2_ado3h"]
+
+[node name="Player" type="Node3D" unique_id=652022364]
+script = ExtResource("1_50iw3")
+metadata/_custom_type_script = "uid://d0q02rkjl2np2"
+
+[node name="model" parent="." unique_id=1674258476 instance=ExtResource("2_ado3h")]
