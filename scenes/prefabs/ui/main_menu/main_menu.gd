@@ -1,9 +1,13 @@
 extends Control
 
+@export var ingame: bool = false
 @export var _button_container: Array[Control] = []
 @export var _screens_container: Control
 
 @onready var _connect_to_server_: LineEdit = $Panel/MarginContainer/ScreenConnect/LineEdit
+
+@export var _hide_ingame: Array[CanvasItem]
+@export var _show_ingame: Array[CanvasItem]
 
 func _ready() -> void:
 	_connect_to_server_.text = SD_ConsoleCommand.get_or_create("last_address", "localhost:8080").get_value_as_string()
@@ -16,6 +20,12 @@ func _ready() -> void:
 				child.pressed.connect(_on_button_pressed.bind(child))
 	
 	_switch_buttons_screen("ScreenMain")
+	
+	if ingame:
+		for i in _hide_ingame:
+			i.hide()
+		for i in _show_ingame:
+			i.show()
 
 func _switch_buttons_screen(_name: String) -> void:
 	SD_Nodes.set_children_visibility(_screens_container, false)
@@ -23,6 +33,8 @@ func _switch_buttons_screen(_name: String) -> void:
 
 func _on_button_pressed(button: Button) -> void:
 	match button.name:
+		"Disconnect":
+			Network.try_disconnect()
 		"Play":
 			Network.create_server()
 		"Multiplayer":

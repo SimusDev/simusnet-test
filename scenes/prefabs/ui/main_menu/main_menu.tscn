@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://gkpe7xci8on3" path="res://scenes/prefabs/ui/main_menu/main_menu.gd" id="1_026n6"]
 [ext_resource type="Script" uid="uid://dotjiengj0hqs" path="res://addons/simusdev/ui/SD_UINodeExitButton.gd" id="2_da2ht"]
 
-[node name="main_menu" type="Control" unique_id=186549104 node_paths=PackedStringArray("_button_container", "_screens_container")]
+[node name="main_menu" type="Control" unique_id=186549104 node_paths=PackedStringArray("_button_container", "_screens_container", "_hide_ingame", "_show_ingame")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -13,6 +13,8 @@ grow_vertical = 2
 script = ExtResource("1_026n6")
 _button_container = [NodePath("Panel/MarginContainer/ScreenMain"), NodePath("Panel/MarginContainer/ScreenConnect"), NodePath("Panel/MarginContainer/ScreenSettings")]
 _screens_container = NodePath("Panel/MarginContainer")
+_hide_ingame = [NodePath("Panel/MarginContainer/ScreenMain/Play"), NodePath("Panel/MarginContainer/ScreenMain/Multiplayer"), NodePath("Panel/MarginContainer/ScreenMain/Quit")]
+_show_ingame = [NodePath("Panel/MarginContainer/ScreenMain/Disconnect")]
 
 [node name="Devs" type="Label" parent="." unique_id=2008836150]
 layout_mode = 1
@@ -51,7 +53,6 @@ theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
 [node name="ScreenMain" type="VBoxContainer" parent="Panel/MarginContainer" unique_id=2006840583]
-visible = false
 layout_mode = 2
 alignment = 1
 
@@ -81,6 +82,12 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Settings"
 
+[node name="Disconnect" type="Button" parent="Panel/MarginContainer/ScreenMain" unique_id=1559847820]
+visible = false
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Disconnect"
+
 [node name="Quit" type="Button" parent="Panel/MarginContainer/ScreenMain" unique_id=1556660542]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
@@ -92,6 +99,7 @@ button = NodePath("..")
 metadata/_custom_type_script = "uid://dotjiengj0hqs"
 
 [node name="ScreenConnect" type="VBoxContainer" parent="Panel/MarginContainer" unique_id=277743264]
+visible = false
 layout_mode = 2
 alignment = 1
 
