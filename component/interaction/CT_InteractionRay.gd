@@ -21,6 +21,8 @@ func _ready() -> void:
 	if Engine.is_editor_hint():
 		return
 	
+	SD_ECS.append_to(root, self)
+	
 	SimusNetVisible.get_or_create(self).set_server_only()
 	
 	SimusNetRPC.register(

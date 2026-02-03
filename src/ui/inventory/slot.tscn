@@ -28,6 +28,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 color = Color(0.047557652, 0.047557652, 0.04755763, 0.77254903)
 
 [node name="slot_icon" type="TextureRect" parent="." unique_id=75636182]
@@ -41,6 +42,7 @@ offset_right = -2.0
 offset_bottom = -2.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 expand_mode = 1
 stretch_mode = 5
 
@@ -55,6 +57,7 @@ offset_right = -2.0
 offset_bottom = -2.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 expand_mode = 1
 stretch_mode = 5
 
@@ -74,6 +77,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 texture = ExtResource("3_cunr2")
 expand_mode = 1
 
@@ -94,6 +98,8 @@ horizontal_alignment = 2
 vertical_alignment = 2
 
 [connection signal="gui_input" from="." to="." method="_on_gui_input"]
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
 [connection signal="drag_started" from="SD_UIDragAndDrop" to="." method="_on_sd_ui_drag_and_drop_drag_started"]
 [connection signal="drag_stopped" from="SD_UIDragAndDrop" to="." method="_on_sd_ui_drag_and_drop_drag_stopped"]
 [connection signal="dropped" from="SD_UIDragAndDrop" to="." method="_on_sd_ui_drag_and_drop_dropped"]

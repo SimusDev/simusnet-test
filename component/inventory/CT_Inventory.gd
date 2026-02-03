@@ -94,6 +94,17 @@ func stack_item(item: CT_ItemStack) -> void:
 					if another.quantity <= 0:
 						break
 
+func stack_items(to: CT_ItemStack, stackable: CT_ItemStack) -> void:
+	if !SimusNetConnection.is_server():
+		return
+	
+	if is_instance_valid(to) and is_instance_valid(stackable):
+		if to.stackable and stackable.stackable:
+			if to.object == stackable.object:
+				while stackable.quantity > 0 and to.quantity < to.stack_size:
+					stackable.quantity -= 1
+					to.quantity += 1
+
 func _ready() -> void:
 	SimusNetVisible.get_or_create(self).set_server_only()
 	_network_setup()
@@ -177,6 +188,8 @@ func _network_setup() -> void:
 			_send,
 			_try_move_item_server,
 			_request_slot_select_server,
+			_request_drop_server,
+			_try_split_item_server,
 			
 		], SimusNetRPCConfig.new().flag_mode_any_peer().
 		flag_set_channel(Network.CHANNEL_INVENTORY).flag_serialization()
@@ -215,6 +228,46 @@ func request_slot_select(slot: CT_InventorySlot) -> void:
 	
 	if slot is CT_InventorySlotHot:
 		SimusNetRPC.invoke_on_server(_request_slot_select_server, slot)
+
+func request_drop(item: CT_ItemStack) -> void:
+	if !is_instance_valid(item):
+		return
+	
+	if !is_instance_valid(item.get_inventory()):
+		return
+	
+	if item.is_inside_tree():
+		SimusNetRPC.invoke_on_server(_request_drop_server, item)
+
+func _request_drop_server(item: CT_ItemStack) -> void:
+	if !is_instance_valid(item):
+		return
+	
+	if !item.is_inside_tree():
+		return
+	
+	if !is_instance_valid(item.get_inventory()):
+		return
+	
+	if item.is_queued_for_deletion():
+		return
+	
+	var is_inventory_authority: bool = SimusNet.is_network_authority(item.get_inventory())
+	var is_inventory_opened: bool = get_opened().has(item.get_inventory())
+	
+	if is_inventory_authority or is_inventory_opened:
+		item.queue_free()
+		
+		var object: I_WorldObject = I_WorldObject.new(LevelInstance.find_above(self), item.object)
+		var instance: Node3D = object.instantiate().get_instance()
+		item.create_gamestate_stack_in(instance, item)
+		
+		var ray: CT_InteractionRay = SD_ECS.find_first_component_by_script(node, [CT_InteractionRay])
+		if ray:
+			var pos: Vector3 = ray.global_position + ray.target_position.rotated(Vector3(0, 1, 0), ray.global_rotation.y)
+			instance.global_position = pos
+		else:
+			instance.global_position = node.global_position
 	
 
 func request_slot_select_by_id(id: int) -> void:
@@ -315,6 +368,52 @@ func try_move_item(item: CT_ItemStack, slot: CT_InventorySlot) -> void:
 	if is_inventory_authority or is_inventory_opened:
 		#if slot.is_free():
 		SimusNetRPC.invoke_on_server(_try_move_item_server, item, slot)
+
+func can_split_item(item: CT_ItemStack, to_slot: CT_InventorySlot) -> bool:
+	if !is_instance_valid(item) or !is_instance_valid(to_slot) or item.is_queued_for_deletion() or to_slot.is_queued_for_deletion():
+		return false
+	
+	var is_inventory_authority: bool = SimusNet.is_network_authority(to_slot.get_inventory())
+	var is_inventory_opened: bool = get_opened().has(to_slot.get_inventory())
+	
+	if item.stackable:
+		return is_inventory_authority or is_inventory_opened
+	return false
+
+func try_split_item(item: CT_ItemStack, to_slot: CT_InventorySlot, quantity: int = 0) -> void:
+	if can_split_item(item, to_slot):
+		SimusNetRPC.invoke_on_server(_try_split_item_server, item, to_slot, quantity)
+
+func _try_split_item_server(item: CT_ItemStack, to_slot: CT_InventorySlot, quantity: int) -> void:
+	if can_split_item(item, to_slot):
+		
+		if quantity <= 0:
+			quantity = item.quantity / 2
+		
+		if quantity <= 0:
+			quantity = 1
+		
+		if to_slot.is_free():
+			var new_item: CT_ItemStack = CT_ItemStack.create_from_object(item.object)
+			to_slot.add_child(new_item)
+			
+			while item.quantity > 0 and quantity > 0:
+				item.quantity -= 1
+				quantity -= 1
+				new_item.quantity += 1
+			
+			new_item.quantity -= 1
+			
+			return
+		
+		var slot_item: CT_ItemStack = to_slot.get_item_stack()
+		if slot_item.object == item.object:
+			if slot_item.stackable and item.stackable:
+				while item.quantity > 0 and quantity > 0 and slot_item.quantity < slot_item.stack_size:
+					item.quantity -= 1
+					quantity -= 1
+					slot_item.quantity += 1
+		
 
 func _try_move_item_server(item: CT_ItemStack, slot: CT_InventorySlot) -> void:
 	if !is_instance_valid(slot) or !is_instance_valid(item):
