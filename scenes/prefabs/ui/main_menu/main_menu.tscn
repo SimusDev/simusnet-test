@@ -3,6 +3,12 @@
 [ext_resource type="Script" uid="uid://gkpe7xci8on3" path="res://scenes/prefabs/ui/main_menu/main_menu.gd" id="1_026n6"]
 [ext_resource type="Script" uid="uid://dotjiengj0hqs" path="res://addons/simusdev/ui/SD_UINodeExitButton.gd" id="2_da2ht"]
 
+[sub_resource type="LabelSettings" id="LabelSettings_5h2bh"]
+font_color = Color(1, 1, 1, 0.5686275)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wmaw6"]
+bg_color = Color(0.5858467, 1.8049031e-06, 4.3317675e-07, 1)
+
 [node name="main_menu" type="Control" unique_id=186549104 node_paths=PackedStringArray("_button_container", "_screens_container", "_hide_ingame", "_show_ingame")]
 layout_mode = 3
 anchors_preset = 15
@@ -22,12 +28,13 @@ anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_left = 8.0
-offset_top = -48.0
+offset_top = -29.0
 offset_right = 708.0
 offset_bottom = -8.0
 grow_vertical = 0
 theme_override_font_sizes/font_size = 32
-text = "Devs"
+text = "by: zxcvlxd and simusdev"
+label_settings = SubResource("LabelSettings_5h2bh")
 
 [node name="Panel" type="Panel" parent="." unique_id=690560241]
 layout_mode = 1
@@ -129,3 +136,14 @@ alignment = 1
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Back"
+
+[node name="version" type="Label" parent="." unique_id=1409942562]
+layout_mode = 1
+offset_left = -39.429756
+offset_top = 268.42975
+offset_right = 400.2787
+offset_bottom = 289.42975
+rotation = -0.7853982
+theme_override_styles/normal = SubResource("StyleBoxFlat_wmaw6")
+text = "v0.00000000001-alpha"
+horizontal_alignment = 1
