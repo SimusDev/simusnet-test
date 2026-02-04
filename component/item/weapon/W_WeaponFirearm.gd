@@ -19,6 +19,7 @@ var exclude_rids:Array[RID]
 
 const BULLET_SCENE = preload("res://scenes/prefabs/firearm_bullet.tscn")
 
+var _ammo_packs_ui: R_UI
 
 static func find_above(node:Node) -> W_WeaponFirearm:
 	return super(node) as W_WeaponFirearm
@@ -28,6 +29,8 @@ func _get_stack() -> CT_ItemStackFireArmWeapon:
 
 func _ready() -> void:
 	super()
+	_ammo_packs_ui = R_UI.find_by_id("ui:ammo_packs")
+	
 	firearm_object = object as R_WeaponFirearm
 	randomize()
 	
@@ -70,6 +73,19 @@ func _local_input(event: InputEvent) -> void:
 	
 	if Input.is_action_just_pressed("weapon.reload"):
 		request_reload()
+	
+
+func _local_input_no_interface_check(event: InputEvent) -> void:
+	if Input.is_action_just_pressed("change_ammo_type"):
+		var ui: Control = await _ammo_packs_ui.async_get_instance()
+		ui.set_item(self)
+		ui.set_pack(_get_stack()._firearm.ammo_pack)
+		ui.visible = !ui.visible
+
+func _exit_tree() -> void:
+	if is_local():
+		var ui: Control = await _ammo_packs_ui.async_get_instance()
+		ui.hide()
 
 func request_reload() -> void:
 	if state_machine.get_current_state() == "idle":
@@ -85,7 +101,6 @@ func _request_reload_server() -> void:
 
 func _request_reload_receive() -> void:
 	state_machine.try_switch("reload").make_cooldown_and_switch_to(firearm_object.reload_time, "idle")
-
 
 func __pressed_alt_net() -> void:
 	event_aim_enter.emit()

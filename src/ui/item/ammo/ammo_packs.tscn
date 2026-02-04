@@ -1,0 +1,60 @@
+[gd_scene format=3 uid="uid://cg1r4ncr5iq7q"]
+
+[ext_resource type="Script" uid="uid://bhartb7x5hl1m" path="res://src/ui/item/ammo/ammo_packs.gd" id="1_8cbgx"]
+[ext_resource type="PackedScene" uid="uid://xtgy533yqj1b" path="res://src/ui/item/ammo/ammo.tscn" id="2_4sms6"]
+[ext_resource type="Script" uid="uid://c8aak514meidq" path="res://component/ui/CT_IControlInterface.gd" id="3_opkfv"]
+
+[node name="AmmoPacks" type="Panel" unique_id=214171438 node_paths=PackedStringArray("_container")]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -256.0
+offset_top = -128.5
+offset_right = 256.0
+offset_bottom = 128.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_8cbgx")
+_container = NodePath("ScrollContainer/CenterContainer/Container")
+_ammo_scene = ExtResource("2_4sms6")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="." unique_id=1455067456]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.79800004
+offset_bottom = -0.086013794
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="ScrollContainer" unique_id=1537809481]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Container" type="GridContainer" parent="ScrollContainer/CenterContainer" unique_id=1316085094]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+columns = 2
+
+[node name="UnloadWeapon" type="Button" parent="." unique_id=1687608103]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.79800004
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -0.086013794
+grow_horizontal = 2
+grow_vertical = 2
+text = "Unload Weapon"
+
+[node name="CT_IControlInterface" type="Node" parent="." unique_id=1359173273 node_paths=PackedStringArray("target")]
+script = ExtResource("3_opkfv")
+target = NodePath("..")
+hide_at_start = true
+metadata/_custom_type_script = "uid://c8aak514meidq"
+
+[connection signal="pressed" from="UnloadWeapon" to="." method="_on_unload_weapon_pressed"]

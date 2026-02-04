@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cpwjwfhig01jj" path="res://addons/simusdev/audio/SD_SoundData3D.gd" id="1_lv4i1"]
 [ext_resource type="AudioStream" uid="uid://crnkcuchlg225" path="res://src/objects/sound/item/weapons/sr_pb/pb_shoot.wav" id="2_iq6e7"]
-[ext_resource type="Script" path="res://addons/simusdev/audio/SD_SoundPackage3D.gd" id="3_4kguq"]
+[ext_resource type="Script" uid="uid://b7fflt0r416ip" path="res://addons/simusdev/audio/SD_SoundPackage3D.gd" id="3_4kguq"]
 [ext_resource type="Script" uid="uid://comfyg2dac6fj" path="res://component/object/sound/R_SoundObject.gd" id="4_7ymt1"]
 
 [sub_resource type="Resource" id="Resource_oha8k"]
