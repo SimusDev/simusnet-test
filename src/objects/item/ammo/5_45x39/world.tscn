@@ -1,11 +1,13 @@
 [gd_scene format=3 uid="uid://c6gej2ljju8kd"]
 
 [ext_resource type="PackedScene" uid="uid://bovnsm4p25btt" path="res://src/objects/item/ammo/5_45x39/model.tscn" id="1_3l8sn"]
+[ext_resource type="Resource" uid="uid://01yjq1aidpsh" path="res://src/metadata_material/Grass.tres" id="1_7wpo5"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_7labn"]
 size = Vector3(0.1412201, 0.09856415, 0.2675171)
 
 [node name="World" type="RigidBody3D" unique_id=1162966362]
+metadata/MetadataMaterial = ExtResource("1_7wpo5")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=939347114]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.8146973e-05, 0.050807953, -9.1552734e-05)

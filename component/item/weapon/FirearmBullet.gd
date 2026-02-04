@@ -109,9 +109,9 @@ func _on_hit(result: Dictionary, step: Vector3) -> void:
 			velocity = Vector3.ZERO
 			queue_free()
 	
-	if collider is RigidBody3D:
-		var impulse_vector = (velocity_before - velocity) * ammo.mass
-		collider.apply_impulse(impulse_vector, result.position - collider.global_position)
+	#if collider is RigidBody3D:
+		#var impulse_vector = (velocity_before - velocity) * ammo.mass
+		#collider.apply_impulse(impulse_vector, result.position - collider.global_position)
 
 	if collider is CT_Hitbox and ammo:
 		var _damage = (R_Damage.new()
@@ -123,10 +123,10 @@ func _on_hit(result: Dictionary, step: Vector3) -> void:
 		queue_free()
 
 
-func _play_ricochet_sound(result:Dictionary, metadata:MetadataMaterial) -> void:
+func _play_ricochet_sound(result:Dictionary, _metadata:MetadataMaterial) -> void:
 	s_Sounds.local_play(
 		RICOCHET_SOUND,
-		self.global_position
+		result.position
 	).pitch_scale = randf_range(0.9, 1.2)
 
 #normalno normalno (nadeus memory leak netu))) ) 
@@ -156,19 +156,20 @@ func _play_impact_sound(result:Dictionary, metadata:MetadataMaterial) -> void:
 	)
 	new_audio_player.play()
 
-func _spawn_impact_effects(result: Dictionary, metadata:MetadataMaterial) -> void:
-	var collider:Node3D = result.get("collider") as Node3D
-	
+func _spawn_impact_effects(result: Dictionary, metadata: MetadataMaterial) -> void:
+	if not metadata or not metadata.bullet_impact_decal: return
+	var collider = result.collider
+	if not is_instance_valid(collider): return
+
 	var decal = metadata.bullet_impact_decal.instantiate()
-	if decal is Node3D:
-		collider.add_child(decal)
-		decal.global_position = result.position
-		if result.normal.is_equal_approx(Vector3.UP):
-			decal.look_at(result.position + result.normal, Vector3.LEFT)
-		else:
-			decal.look_at(result.position + result.normal, Vector3.UP)
-		
-		decal.rotation.y = randf_range(0, TAU)
+	collider.add_child(decal)
+	decal.global_position = result.position
+	
+	if abs(result.normal.dot(Vector3.UP)) > 0.99:
+		decal.look_at(result.position + result.normal, Vector3.RIGHT)
+	else:
+		decal.look_at(result.position + result.normal, Vector3.UP)
+	decal.rotation.z = randf() * TAU
 
 func _calculate_thickness(entry_pos: Vector3, travel_dir: Vector3, target: Node3D, max_depth: float) -> float:
 	var space_state = get_world_3d().direct_space_state
