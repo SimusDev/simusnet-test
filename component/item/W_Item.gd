@@ -20,6 +20,9 @@ var net_config:SimusNetRPCConfig
 
 var entity_head: CT_EntityHead
 
+var entity:Entity = null
+var entity_eyes:Node3D = null
+
 var _logger: SD_Logger = SD_Logger.new(self)
 
 var inventory: CT_Inventory
@@ -51,7 +54,10 @@ func _ready() -> void:
 		_logger.debug("ENTITY HEAD COMPONENT WAS NOT FOUND!", SD_ConsoleCategories.ERROR)
 		return
 	
-	playable = CT_Playable.find_in(entity_head.get_entity())
+	entity = entity_head.get_entity()
+	entity_eyes = entity_head.get_eyes()
+	
+	playable = CT_Playable.find_in(entity)
 	
 	net_config = (SimusNetRPCConfig.new()
 		.flag_set_channel("item")

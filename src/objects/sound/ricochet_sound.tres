@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="R_SoundObject" format=3 uid="uid://d2s8ltcwp6xsh"]
+
+[ext_resource type="Script" uid="uid://cpwjwfhig01jj" path="res://addons/simusdev/audio/SD_SoundData3D.gd" id="1_x00lb"]
+[ext_resource type="AudioStream" uid="uid://c1atbryh2lw8r" path="res://audio/sfx/ricochet_1.mp3" id="2_urktf"]
+[ext_resource type="AudioStream" uid="uid://md2lltseb6dp" path="res://audio/sfx/ricochet_2.mp3" id="3_8uiia"]
+[ext_resource type="Script" path="res://addons/simusdev/audio/SD_SoundPackage3D.gd" id="3_urktf"]
+[ext_resource type="Script" uid="uid://comfyg2dac6fj" path="res://component/object/sound/R_SoundObject.gd" id="4_8uiia"]
+[ext_resource type="AudioStream" uid="uid://dly51yafxwh2v" path="res://audio/sfx/ricochet_3.mp3" id="4_i5p0a"]
+
+[sub_resource type="Resource" id="Resource_i5p0a"]
+script = ExtResource("1_x00lb")
+streams = Array[AudioStream]([ExtResource("2_urktf"), ExtResource("3_8uiia"), ExtResource("4_i5p0a")])
+max_distance = 55.0
+metadata/_custom_type_script = "uid://cpwjwfhig01jj"
+
+[sub_resource type="Resource" id="Resource_3364g"]
+script = ExtResource("3_urktf")
+data = Array[ExtResource("1_x00lb")]([SubResource("Resource_i5p0a")])
+
+[resource]
+script = ExtResource("4_8uiia")
+package = SubResource("Resource_3364g")
+metadata/_custom_type_script = "uid://comfyg2dac6fj"

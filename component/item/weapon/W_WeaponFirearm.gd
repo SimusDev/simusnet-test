@@ -17,6 +17,9 @@ var firearm_object: R_WeaponFirearm
 var alt_state_machine: CT_StateMachineSimple
 var exclude_rids:Array[RID]
 
+const BULLET_SCENE = preload("res://scenes/prefabs/firearm_bullet.tscn")
+
+
 static func find_above(node:Node) -> W_WeaponFirearm:
 	return super(node) as W_WeaponFirearm
 
@@ -44,8 +47,7 @@ func _ready() -> void:
 		SimusNetRPCConfig.new().flag_set_channel("item").flag_serialization().flag_mode_server_only()
 	)
 	
-	var entity = entity_head.get_entity()
-	if entity is Entity:
+	if entity:
 		exclude_rids = entity.find_collisions_rids_above()
 	
 	_get_or_create_sound("reload").max_distance = 15
@@ -121,38 +123,38 @@ func fire() -> void:
 	
 	
 	_spawn_bullet()
-	_muzzle_fire()
 	_spawn_fake_bullet()
 	
-	play_fire_sound()
 	event_fire.emit()
 	
 	s_Sounds.local_play(firearm_object.shot_sound, self.global_position)
 
-func _muzzle_fire() -> void:
-	pass
 
 func _spawn_bullet() -> void:
-	var bullet = load("res://scenes/prefabs/firearm_bullet.tscn").instantiate()
-	bullet.set("weapon", object)
-	bullet.set("exclude_rids", exclude_rids)
+	var bullet = BULLET_SCENE.instantiate()
+	if bullet is FirearmBullet:
+		bullet.weapon = firearm_object 
+		bullet.exclude_rids = exclude_rids
+		
+		get_tree().root.add_child(bullet)
+		
+		var base_direction = -entity_eyes.global_transform.basis.z
+		var dispersion_radians = deg_to_rad(firearm_object.base_dispersion)
 	
-	get_tree().root.add_child(bullet)
+		var spread_rotation = Basis().rotated(Vector3.UP, randf_range(-dispersion_radians, dispersion_radians))
+		spread_rotation *= Basis().rotated(Vector3.RIGHT, randf_range(-dispersion_radians, dispersion_radians))
+		
+		var final_direction = (spread_rotation * base_direction).normalized()
 	
-	bullet.global_transform = entity_head.get_eyes().global_transform
-	
-	if bullet.has_method("setup_bullet"):
-		bullet.setup_bullet()
+		if muzzle_point:
+			bullet.global_position = muzzle_point.global_position
+		elif entity_eyes:
+			bullet.global_transform = entity_eyes.global_transform
+		
+		if final_direction.length() > 0.001:
+			bullet.look_at(bullet.global_position + final_direction)
+		
+		bullet.setup_bullet( firearm_object.ammo  )
 
 func _spawn_fake_bullet() -> void:
 	pass
-
-func play_fire_sound():
-	var rand_pitch:float = randf_range(.95, 1.05)
-	object = object as R_WeaponFirearm 
-	if object.shot_sound:
-		object.shot_sound.play(
-			entity_head.get_eyes(),
-			entity_head.get_eyes().global_position,
-			rand_pitch
-			)
