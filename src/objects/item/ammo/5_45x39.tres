@@ -16,12 +16,6 @@ metadata/_custom_type_script = "uid://cqdfkwb1galvp"
 
 [resource]
 script = ExtResource("2_ylltn")
-base_damage = 30.0
-muzzle_velocity = 95.0
-mass = 0.0039000000000000146
-penetration_power = 25.0
-ricochet_chance = 0.4
-dispersion_after_penetration = 1.5
 viewmodel = SubResource("Resource_byc6n")
 icon = ExtResource("1_ylltn")
 metadata/_custom_type_script = "uid://cxyhi06aga6j1"

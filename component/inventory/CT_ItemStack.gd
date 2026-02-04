@@ -20,7 +20,7 @@ class_name CT_ItemStack
 signal on_quantity_changed()
 signal on_metadata_changed(key: Variant, value: Variant)
 
-@onready var _network_var_config: SimusNetVarConfig = SimusNetVarConfig.new().flag_reliable(Network.CHANNEL_INVENTORY).flag_mode_server_only().flag_replication()
+@onready var _network_var_config: SimusNetVarConfig = SimusNetVarConfig.new().flag_reliable(Network.CHANNEL_INVENTORY).flag_mode_server_only().flag_serialization().flag_replication()
 
 var _logger: SD_Logger = SD_Logger.new(self)
 

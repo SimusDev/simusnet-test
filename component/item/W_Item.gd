@@ -134,6 +134,8 @@ static func find_above(node:Node) -> W_Item:
 	return find_above(node.get_parent())
 
 func _input(_event: InputEvent) -> void:
+	_local_input_no_interface_check(_event)
+	
 	if SimusDev.ui.has_active_interface():
 		is_using = false
 		is_using_alt = false
@@ -153,6 +155,9 @@ func _input(_event: InputEvent) -> void:
 	_local_input(_event)
 
 func _local_input(event: InputEvent) -> void:
+	pass
+
+func _local_input_no_interface_check(event: InputEvent) -> void:
 	pass
 
 func request_press() -> void:

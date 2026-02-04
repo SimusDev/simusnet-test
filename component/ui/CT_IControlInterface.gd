@@ -6,6 +6,8 @@ class_name CT_IControlInterface
 @export var input_type: INPUT_TYPE = INPUT_TYPE.DISABLED
 @export var input_action: StringName = ""
 @export var hide_at_start: bool = false
+@export var close_on_escape: bool = true
+@export var when_last_interface: bool = true
 
 enum INPUT_TYPE {
 	DISABLED,
@@ -14,6 +16,11 @@ enum INPUT_TYPE {
 }
 
 func _input(event: InputEvent) -> void:
+	if target.is_visible_in_tree():
+		if close_on_escape:
+			if Input.is_action_just_pressed(SimusDev.ui.ACTION_CLOSE_MENU):
+				target.hide()
+	
 	if input_type == INPUT_TYPE.DISABLED or input_action.is_empty():
 		return
 	

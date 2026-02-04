@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://xtgy533yqj1b"]
+
+[ext_resource type="Script" uid="uid://befpxgepvjdq2" path="res://src/ui/item/ammo/ammo.gd" id="1_m3vy7"]
+
+[node name="Ammo" type="Button" unique_id=1569025596]
+custom_minimum_size = Vector2(232, 64)
+offset_right = 232.0
+offset_bottom = 64.0
+expand_icon = true
+script = ExtResource("1_m3vy7")

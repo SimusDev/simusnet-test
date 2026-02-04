@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="R_UI" format=3 uid="uid://cpraawpt0nfsi"]
+
+[ext_resource type="PackedScene" uid="uid://cg1r4ncr5iq7q" path="res://src/ui/item/ammo/ammo_packs.tscn" id="1_jc4bh"]
+[ext_resource type="Script" uid="uid://dsmndmeduwv2n" path="res://component/ui/R_UI.gd" id="2_e2bwk"]
+
+[resource]
+script = ExtResource("2_e2bwk")
+global = true
+layer = 2
+prefab = ExtResource("1_jc4bh")

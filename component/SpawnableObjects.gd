@@ -3,6 +3,8 @@ class_name SpawnableObjects
 
 static var _instance: SpawnableObjects
 
+const CAMERA_RAYCAST_RANGE: float = 100.0
+
 func _ready() -> void:
 	_instance = self
 	SimusNetRPC.register([
@@ -40,21 +42,13 @@ static func request_spawn_from_camera(object: R_WorldObject, quantity: int = 1, 
 	if !camera:
 		return
 	
-	
-	var space_state: PhysicsDirectSpaceState3D = _instance.get_world_3d().direct_space_state
-	var origin: Vector3 = camera.global_position
-	var target: Vector3 = origin - camera.global_transform.basis.z * 100
-	
-	var query: PhysicsRayQueryParameters3D = PhysicsRayQueryParameters3D.create(origin, target)
-	
-	var result = space_state.intersect_ray(query)
+	var result: Dictionary = SD_Raycasting3D.intersect_ray_from_node(camera, CAMERA_RAYCAST_RANGE)
 	if result:
 		var collider: Object = result.collider
 		if collider:
 			var pos: Vector3 = result.position
 			request_spawn(object, pos, quantity, inventory)
 			return
-	
 
 static func request_spawn(object: R_WorldObject, global_position: Vector3, quantity: int = 1, inventory: bool = false) -> void:
 	var user: CT_User = CT_User.get_local()
@@ -95,9 +89,6 @@ func _request_spawn_rpc(object: R_WorldObject, level: LevelInstance, global_posi
 			instance.global_position = global_position
 			CT_ItemStack.find_or_create_gamestate_stack_reference_in(instance).quantity = quantity
 			server_get_undo_queue(user).append(instance)
-	
-	
-	
 
 static func request_undo() -> void:
 	var user: CT_User = CT_User.get_local()

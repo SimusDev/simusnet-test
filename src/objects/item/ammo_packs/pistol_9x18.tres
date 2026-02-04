@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="R_AmmoPack" format=3 uid="uid://du3v848gj0k53"]
+
+[ext_resource type="Script" uid="uid://bxy1kdk7uqaew" path="res://component/item/ammo/R_Ammo.gd" id="1_x5onw"]
+[ext_resource type="Resource" uid="uid://b74p68w4oudik" path="res://src/objects/item/ammo/9x18.tres" id="2_7jnol"]
+[ext_resource type="Script" uid="uid://ipdmmclowjmj" path="res://component/item/ammo/R_AmmoPack.gd" id="2_asch7"]
+
+[resource]
+script = ExtResource("2_asch7")
+list = Array[ExtResource("1_x5onw")]([ExtResource("2_7jnol")])
+metadata/_custom_type_script = "uid://ipdmmclowjmj"
