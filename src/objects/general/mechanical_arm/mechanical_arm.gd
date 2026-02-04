@@ -4,6 +4,7 @@ signal transfer_started
 signal transfer_finished
 
 @export var speed: float = 0.5
+@export var capacity:int = 1
 @export_group("References")
 @export var inventory: CT_Inventory
 @export var input_area: Area3D

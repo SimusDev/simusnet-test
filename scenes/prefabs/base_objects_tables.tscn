@@ -80,6 +80,7 @@ transform = Transform3D(0, 0, -1.0000001, 0, 1, 0, 1.0000001, 0, 0, 14.722687, 0
 use_collision = true
 mesh = SubResource("BoxMesh_6rygw")
 material = SubResource("StandardMaterial3D_p870i")
+metadata/MetadataMaterial = ExtResource("2_2mjuu")
 
 [node name="CT_ObjectSpawn4" type="Node3D" parent="table7" unique_id=1999767036]
 transform = Transform3D(0.025005933, 0.57318854, -0.819042, -0.99904984, 0.043584563, 0, 0.03569758, 0.8182636, 0.5737337, -0.34614563, 0.6160201, 1.2031081)
@@ -104,6 +105,7 @@ transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 4.78
 use_collision = true
 mesh = SubResource("BoxMesh_6rygw")
 material = SubResource("StandardMaterial3D_p870i")
+metadata/MetadataMaterial = ExtResource("2_2mjuu")
 
 [node name="CT_ObjectSpawn" type="Node3D" parent="table2" unique_id=2091790118]
 transform = Transform3D(-0.036643688, 0, 0.9993284, 0, 1, 0, -0.9993284, 0, -0.036643688, 0, 0.883276, -0.142519)
@@ -116,6 +118,7 @@ transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 9.78
 use_collision = true
 mesh = SubResource("BoxMesh_6rygw")
 material = SubResource("StandardMaterial3D_p870i")
+metadata/MetadataMaterial = ExtResource("2_2mjuu")
 
 [node name="CT_ObjectSpawn" type="Node3D" parent="table8" unique_id=681705749]
 transform = Transform3D(-0.036643688, 0, 0.9993284, 0, 1, 0, -0.9993284, 0, -0.036643688, 0, 0.883276, -0.142519)
@@ -128,6 +131,7 @@ transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 14.7
 use_collision = true
 mesh = SubResource("BoxMesh_6rygw")
 material = SubResource("StandardMaterial3D_p870i")
+metadata/MetadataMaterial = ExtResource("2_2mjuu")
 
 [node name="CT_ObjectSpawn" type="Node3D" parent="table9" unique_id=809475295]
 transform = Transform3D(-0.036643688, 0, 0.9993284, 0, 1, 0, -0.9993284, 0, -0.036643688, 0, 0.883276, -0.142519)
@@ -140,6 +144,7 @@ transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0.69
 use_collision = true
 mesh = SubResource("BoxMesh_6rygw")
 material = SubResource("StandardMaterial3D_p870i")
+metadata/MetadataMaterial = ExtResource("2_2mjuu")
 
 [node name="CT_ObjectSpawn" type="Node3D" parent="table3" unique_id=2074192432]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0655136, -1.108141)
@@ -158,6 +163,7 @@ transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -3.2
 use_collision = true
 mesh = SubResource("BoxMesh_6rygw")
 material = SubResource("StandardMaterial3D_p870i")
+metadata/MetadataMaterial = ExtResource("2_2mjuu")
 
 [node name="CT_ObjectSpawn" type="Node3D" parent="table4" unique_id=1913981933]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.58342266, 0.9837179, -1.4105988)
@@ -200,6 +206,7 @@ transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -3.2
 use_collision = true
 mesh = SubResource("BoxMesh_6rygw")
 material = SubResource("StandardMaterial3D_p870i")
+metadata/MetadataMaterial = ExtResource("2_2mjuu")
 
 [node name="CT_ObjectSpawn" type="Node3D" parent="table10" unique_id=1022186924]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5834217, 0.9837179, 1.4298055)

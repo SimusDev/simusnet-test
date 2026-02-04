@@ -1,5 +1,10 @@
 [gd_scene format=4 uid="uid://cdd0mg2pp6edg"]
 
+[ext_resource type="Texture2D" uid="uid://do2gu83iih5tk" path="res://src/textures/general/metal2.png" id="1_rt728"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3hgph"]
+albedo_texture = ExtResource("1_rt728")
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jepjm"]
 uv1_scale = Vector3(0.015, 0.015, 0.015)
 uv1_triplanar = true
@@ -317,6 +322,7 @@ bone_name = "Claw 2"
 bone_idx = 7
 
 [node name="Claw 2" type="MeshInstance3D" parent="root/Armature/Skeleton3D/Claw 2" unique_id=1168686243]
+material_override = SubResource("StandardMaterial3D_3hgph")
 mesh = SubResource("ArrayMesh_1twvc")
 
 [node name="Claw 1" type="BoneAttachment3D" parent="root/Armature/Skeleton3D" unique_id=1897079300]
@@ -325,6 +331,7 @@ bone_name = "Claw 1"
 bone_idx = 10
 
 [node name="Claw 1" type="MeshInstance3D" parent="root/Armature/Skeleton3D/Claw 1" unique_id=533892688]
+material_override = SubResource("StandardMaterial3D_3hgph")
 mesh = SubResource("ArrayMesh_rt728")
 
 [node name="Wrist" type="BoneAttachment3D" parent="root/Armature/Skeleton3D" unique_id=938706071]
@@ -333,6 +340,7 @@ bone_name = "Wrist"
 bone_idx = 11
 
 [node name="Wrist" type="MeshInstance3D" parent="root/Armature/Skeleton3D/Wrist" unique_id=1226386222]
+material_override = SubResource("StandardMaterial3D_3hgph")
 mesh = SubResource("ArrayMesh_3hgph")
 
 [node name="Arm 2" type="BoneAttachment3D" parent="root/Armature/Skeleton3D" unique_id=2147134871]
@@ -341,6 +349,7 @@ bone_name = "Arm 2"
 bone_idx = 12
 
 [node name="Arm 2" type="MeshInstance3D" parent="root/Armature/Skeleton3D/Arm 2" unique_id=2027142534]
+material_override = SubResource("StandardMaterial3D_3hgph")
 mesh = SubResource("ArrayMesh_jppu7")
 
 [node name="Arm 1" type="BoneAttachment3D" parent="root/Armature/Skeleton3D" unique_id=1174011220]
@@ -349,6 +358,7 @@ bone_name = "Arm 1"
 bone_idx = 13
 
 [node name="Arm 1" type="MeshInstance3D" parent="root/Armature/Skeleton3D/Arm 1" unique_id=797836217]
+material_override = SubResource("StandardMaterial3D_3hgph")
 mesh = SubResource("ArrayMesh_erolg")
 
 [node name="Base" type="BoneAttachment3D" parent="root/Armature/Skeleton3D" unique_id=1651403414]
@@ -356,6 +366,7 @@ bone_name = "Base"
 bone_idx = 14
 
 [node name="Base" type="MeshInstance3D" parent="root/Armature/Skeleton3D/Base" unique_id=1889342598]
+material_override = SubResource("StandardMaterial3D_3hgph")
 mesh = SubResource("ArrayMesh_1xu6m")
 
 [node name="JacobianIK3D" type="JacobianIK3D" parent="root/Armature/Skeleton3D" unique_id=1316577865]

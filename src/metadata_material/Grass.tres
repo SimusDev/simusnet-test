@@ -5,11 +5,17 @@
 [ext_resource type="PackedScene" uid="uid://chujx0oxcky1r" path="res://src/prefabs/bullet_decal.tscn" id="1_ysdbo"]
 [ext_resource type="AudioStream" uid="uid://crcncqk51g4n4" path="res://audio/hl2/player/footsteps/grass2.wav" id="2_kh0ur"]
 [ext_resource type="PackedScene" uid="uid://fhbv1gj7e63b" path="res://src/prefabs/bullet_impact_vfx.tscn" id="2_l4gkc"]
+[ext_resource type="AudioStream" uid="uid://dr0btxfhdqy0j" path="res://audio/hl2/physics/surfaces/sand_impact_bullet1.wav" id="3_8qynb"]
 [ext_resource type="AudioStream" uid="uid://crt8a5bvxb11o" path="res://audio/hl2/player/footsteps/grass3.wav" id="3_ysdbo"]
 [ext_resource type="AudioStream" uid="uid://bnqo3ov7nkks0" path="res://audio/hl2/player/footsteps/grass4.wav" id="4_l4gkc"]
+[ext_resource type="AudioStream" uid="uid://j7yob3t54nsw" path="res://audio/hl2/physics/surfaces/sand_impact_bullet2.wav" id="4_u0laj"]
+[ext_resource type="AudioStream" uid="uid://bqmfxyf8re1kk" path="res://audio/hl2/physics/surfaces/sand_impact_bullet3.wav" id="5_s4f43"]
+[ext_resource type="AudioStream" uid="uid://cpxm20uhhupmk" path="res://audio/hl2/physics/surfaces/sand_impact_bullet4.wav" id="6_bc8l2"]
 
 [resource]
 script = ExtResource("1_5vu20")
 resistance = 0.2
+impact_sounds = Array[AudioStream]([ExtResource("3_8qynb"), ExtResource("4_u0laj"), ExtResource("5_s4f43"), ExtResource("6_bc8l2")])
+bullet_impact_sounds = Array[AudioStream]([ExtResource("3_8qynb"), ExtResource("4_u0laj"), ExtResource("5_s4f43"), ExtResource("6_bc8l2")])
 footstep_sounds = Array[AudioStream]([ExtResource("1_4hifs"), ExtResource("2_kh0ur"), ExtResource("3_ysdbo"), ExtResource("4_l4gkc")])
 metadata/_custom_type_script = "uid://c7jvuxu4hsmtm"

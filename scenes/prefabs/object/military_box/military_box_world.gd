@@ -14,7 +14,5 @@ func _ready() -> void:
 			await get_tree().create_timer(0.1).timeout
 	
 	
-	
 	for x in range(0, inv.get_slots().size() - 1):
-		print(inv.get_slots().size())
 		inv.try_add_item( CT_ItemStack.create_from_object(COAL) )

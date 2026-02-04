@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://bkhjaq3ccadol" path="res://component/object/spawn/R_SpawnTag.gd" id="4_31nm7"]
 [ext_resource type="Script" uid="uid://cvh6l86iib7cw" path="res://component/object/spawn/R_SpawnTagStackSize.gd" id="5_31nm7"]
 [ext_resource type="Script" uid="uid://cgxdi4cljlv7m" path="res://component/object/spawn/R_SpawnTagFreeze.gd" id="5_snhrs"]
+[ext_resource type="Resource" uid="uid://uey8a88a0p4j" path="res://src/metadata_material/Metal.tres" id="6_ln63a"]
 [ext_resource type="Resource" uid="uid://dt2tx25ql5rtp" path="res://src/objects/item/ammo/5_45x39.tres" id="6_snhrs"]
 [ext_resource type="Resource" uid="uid://cd6q0ankueu8w" path="res://src/objects/item/ammo/5_56x45.tres" id="7_7xe81"]
 [ext_resource type="Resource" uid="uid://r7fprqqkevp8" path="res://src/objects/item/ammo/9x39.tres" id="10_fsq02"]
@@ -37,9 +38,45 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2066252, 0)
 use_collision = true
 size = Vector3(0.5, 2.4676666, 10)
 material = SubResource("StandardMaterial3D_lgt62")
+metadata/MetadataMaterial = ExtResource("6_ln63a")
 
 [node name="wpn_pb" type="Node3D" parent="weapons" unique_id=1785018424]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.27718982, 0.9102881, 4.7359343)
+script = ExtResource("2_inqea")
+object = ExtResource("3_s48m2")
+tags = Array[ExtResource("4_31nm7")]([SubResource("Resource_7xe81")])
+metadata/_custom_type_script = "uid://dgp0pmmh5blth"
+
+[node name="wpn_pb2" type="Node3D" parent="weapons" unique_id=662513131]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.27718982, 0.61028814, 4.7359343)
+script = ExtResource("2_inqea")
+object = ExtResource("3_s48m2")
+tags = Array[ExtResource("4_31nm7")]([SubResource("Resource_7xe81")])
+metadata/_custom_type_script = "uid://dgp0pmmh5blth"
+
+[node name="wpn_pb3" type="Node3D" parent="weapons" unique_id=2072853134]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.27718982, 0.3102882, 4.7359343)
+script = ExtResource("2_inqea")
+object = ExtResource("3_s48m2")
+tags = Array[ExtResource("4_31nm7")]([SubResource("Resource_7xe81")])
+metadata/_custom_type_script = "uid://dgp0pmmh5blth"
+
+[node name="wpn_pb4" type="Node3D" parent="weapons" unique_id=478699210]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.27718982, 0.0102882385, 4.7359343)
+script = ExtResource("2_inqea")
+object = ExtResource("3_s48m2")
+tags = Array[ExtResource("4_31nm7")]([SubResource("Resource_7xe81")])
+metadata/_custom_type_script = "uid://dgp0pmmh5blth"
+
+[node name="wpn_pb5" type="Node3D" parent="weapons" unique_id=630784726]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.27718982, -0.28971177, 4.7359343)
+script = ExtResource("2_inqea")
+object = ExtResource("3_s48m2")
+tags = Array[ExtResource("4_31nm7")]([SubResource("Resource_7xe81")])
+metadata/_custom_type_script = "uid://dgp0pmmh5blth"
+
+[node name="wpn_pb6" type="Node3D" parent="weapons" unique_id=107229176]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.27718982, -0.5897118, 4.7359343)
 script = ExtResource("2_inqea")
 object = ExtResource("3_s48m2")
 tags = Array[ExtResource("4_31nm7")]([SubResource("Resource_7xe81")])
@@ -50,6 +87,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.92538476, 0.45389622, -3.21
 use_collision = true
 size = Vector3(2.2954102, 0.9370117, 3.560913)
 material = SubResource("StandardMaterial3D_lgt62")
+metadata/MetadataMaterial = ExtResource("6_ln63a")
 
 [node name="ammo_9x18" type="Node3D" parent="ammo" unique_id=154406808]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.98378265, 0.641872, -1.5824094)
