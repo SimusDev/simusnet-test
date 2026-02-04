@@ -12,7 +12,7 @@ extends Control
 func _ready() -> void:
 	_connect_to_server_.text = SD_ConsoleCommand.get_or_create("last_address", "localhost:8080").get_value_as_string()
 	
-	$Devs.text = "Devs: %s" % SD_EngineSettings.create_or_get().developer
+	$Devs.text = "by: %s" % SD_EngineSettings.create_or_get().developer
 	
 	for _container in _button_container:
 		for child in _container.get_children():
