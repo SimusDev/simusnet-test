@@ -93,6 +93,7 @@ func _clear_container(container_node:Node) -> void:
 
 func _add_character_select_button(resource:R_Player) -> void:
 	var new_btn = character_select_button.instantiate()
+	
 	if new_btn is Button:
 		character_list_container.add_child(new_btn)
 		

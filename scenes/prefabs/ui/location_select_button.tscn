@@ -65,6 +65,7 @@ grow_horizontal = 2
 grow_vertical = 2
 border_color = Color(0.9019608, 0.9019608, 0.88235295, 1)
 border_width = 2.0
+editor_only = false
 
 [connection signal="button_down" from="." to="." method="_on_button_down"]
 [connection signal="button_up" from="." to="." method="_on_button_up"]

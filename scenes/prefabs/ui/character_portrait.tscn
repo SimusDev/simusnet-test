@@ -10,8 +10,6 @@ corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 corner_detail = 5
 
-[sub_resource type="BoxMesh" id="BoxMesh_hmxlb"]
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kyw84"]
 content_margin_left = 0.0
 content_margin_top = 0.0
@@ -58,15 +56,9 @@ grow_vertical = 2
 stretch = true
 
 [node name="SubViewport" type="SubViewport" parent="Window/SubViewportContainer" unique_id=1430715226]
+handle_input_locally = false
 size = Vector2i(354, 330)
-
-[node name="Node3D" type="Node3D" parent="Window/SubViewportContainer/SubViewport" unique_id=1985895902]
-
-[node name="Camera3D" type="Camera3D" parent="Window/SubViewportContainer/SubViewport/Node3D" unique_id=555125992]
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Window/SubViewportContainer/SubViewport/Node3D" unique_id=1083027231]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.3802202)
-mesh = SubResource("BoxMesh_hmxlb")
+render_target_update_mode = 4
 
 [node name="Head" type="Panel" parent="." unique_id=1243007932]
 layout_mode = 1

@@ -3,6 +3,7 @@ extends Button
 var is_current:bool = false :
 	set(val):
 		is_current = val
+		print(is_current)
 		$ReferenceRect.visible = val
 
 func _ready() -> void:
