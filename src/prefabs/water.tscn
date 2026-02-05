@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://cw7rjiwvg4pda"]
+
+[ext_resource type="Shader" uid="uid://beff5dyd88hei" path="res://shaders/water.gdshader" id="1_3rg05"]
+[ext_resource type="Texture2D" uid="uid://cpav8p4gip0uk" path="res://addons/boujie_water_shader/shader/refraction.png" id="2_3rg05"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_hox2i"]
+noise_type = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_37ri6"]
+noise = SubResource("FastNoiseLite_hox2i")
+seamless = true
+in_3d_space = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kvuet"]
+render_priority = 0
+shader = ExtResource("1_3rg05")
+shader_parameter/water_color = Color(0.3670645, 0.6409923, 0.94178015, 1)
+shader_parameter/shallow_color = Color(0.1, 0.4, 0.4, 1)
+shader_parameter/depth_distance = 2.0
+shader_parameter/wave_1 = Vector4(1, 0, 0.1, 5)
+shader_parameter/wave_2 = Vector4(0.7, 0.7, 0.05, 2.5)
+shader_parameter/wave_speed = 0.29
+shader_parameter/normal_map = ExtResource("2_3rg05")
+shader_parameter/foam_noise = SubResource("NoiseTexture2D_37ri6")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_3rg05"]
+size = Vector2(1000, 1000)
+
+[node name="Water" type="Node3D" unique_id=443045665]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=2003374163]
+material_override = SubResource("ShaderMaterial_kvuet")
+mesh = SubResource("PlaneMesh_3rg05")

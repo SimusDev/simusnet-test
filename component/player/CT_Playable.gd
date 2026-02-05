@@ -1,3 +1,5 @@
+@icon("res://component/icons/playable.png")
+
 extends Node
 class_name CT_Playable
 

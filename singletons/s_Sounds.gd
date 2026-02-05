@@ -58,6 +58,6 @@ func local_play(resource: R_SoundObject, from: Variant) -> SD_SoundInstance3D:
 	if from is Node:
 		from.add_child(sound)
 	else:
+		sound.tree_entered.connect(func(): sound.global_position = position)
 		add_child(sound)
-		sound.global_position = position
 	return sound

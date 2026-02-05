@@ -8,3 +8,6 @@ script = ExtResource("1_50iw3")
 metadata/_custom_type_script = "uid://d0q02rkjl2np2"
 
 [node name="model" parent="." unique_id=1674258476 instance=ExtResource("2_ado3h")]
+transform = Transform3D(-0.7384553, -0.659811, 0.13904396, 0, 0.20620413, 0.978509, -0.67430246, 0.72258514, -0.15227254, 0.245, -0.205, -0.3)
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1739146925]

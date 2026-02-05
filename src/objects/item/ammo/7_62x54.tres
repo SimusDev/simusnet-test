@@ -21,6 +21,7 @@ muzzle_velocity = 800.0
 air_friction = -0.00060000000000004
 mass = 0.01170000000000004
 penetration_power = 40.0
+ricochet_chance = 0.2
 dispersion_after_penetration = 2.5
 viewmodel = SubResource("Resource_lojrd")
 icon = ExtResource("1_4jwif")

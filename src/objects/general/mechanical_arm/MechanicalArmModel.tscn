@@ -1,9 +1,14 @@
 [gd_scene format=4 uid="uid://cdd0mg2pp6edg"]
 
 [ext_resource type="Texture2D" uid="uid://do2gu83iih5tk" path="res://src/textures/general/metal2.png" id="1_rt728"]
+[ext_resource type="Texture2D" uid="uid://dvngdwcw1ab2h" path="res://src/textures/general/metal/metal_0.jpeg" id="2_3hgph"]
+[ext_resource type="Texture2D" uid="uid://dtmwlx74fxbd7" path="res://src/textures/general/metal1.jpeg" id="3_erolg"]
+[ext_resource type="Texture2D" uid="uid://blbo4t0lqggep" path="res://src/textures/general/metal1_normalmap.jpg" id="4_1xu6m"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3hgph"]
 albedo_texture = ExtResource("1_rt728")
+metallic = 1.0
+roughness = 0.4
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jepjm"]
 uv1_scale = Vector3(0.015, 0.015, 0.015)
@@ -106,6 +111,12 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_a8uds")
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jppu7"]
+albedo_texture = ExtResource("2_3hgph")
+metallic = 1.0
+roughness = 0.85
+uv1_scale = Vector3(2.715, 1, 1)
+
 [sub_resource type="ArrayMesh" id="ArrayMesh_bh63h"]
 _surfaces = [{
 "aabb": AABB(-0.942537, -0.570855, -0.942557, 1.88507, 5.25731, 1.88507),
@@ -137,6 +148,15 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_bh63h")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8viwa"]
+albedo_texture = ExtResource("3_erolg")
+metallic = 1.0
+roughness = 0.85
+normal_enabled = true
+normal_scale = 0.52
+normal_texture = ExtResource("4_1xu6m")
+uv1_scale = Vector3(2.715, 1, 1)
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_qu8m1"]
 _surfaces = [{
@@ -349,7 +369,7 @@ bone_name = "Arm 2"
 bone_idx = 12
 
 [node name="Arm 2" type="MeshInstance3D" parent="root/Armature/Skeleton3D/Arm 2" unique_id=2027142534]
-material_override = SubResource("StandardMaterial3D_3hgph")
+material_override = SubResource("StandardMaterial3D_jppu7")
 mesh = SubResource("ArrayMesh_jppu7")
 
 [node name="Arm 1" type="BoneAttachment3D" parent="root/Armature/Skeleton3D" unique_id=1174011220]
@@ -358,7 +378,7 @@ bone_name = "Arm 1"
 bone_idx = 13
 
 [node name="Arm 1" type="MeshInstance3D" parent="root/Armature/Skeleton3D/Arm 1" unique_id=797836217]
-material_override = SubResource("StandardMaterial3D_3hgph")
+material_override = SubResource("StandardMaterial3D_8viwa")
 mesh = SubResource("ArrayMesh_erolg")
 
 [node name="Base" type="BoneAttachment3D" parent="root/Armature/Skeleton3D" unique_id=1651403414]

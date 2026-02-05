@@ -1,8 +1,9 @@
-@icon("./icons/health.png")
+@icon("res://component/icons/health.png")
 extends Node
 class_name CT_Health
 
 @export var root: Node
+
 
 signal on_value_changed()
 signal on_value_max_changed()
@@ -10,8 +11,17 @@ signal on_value_max_changed()
 @export var value: float = 100.0 : set = set_value
 @export var value_max: float = 100.0 : set = set_value_max
 
+@export_group("UI")
+@export var ui_prefab:PackedScene
+
 func _ready() -> void:
 	set_multiplayer_authority(SimusNet.SERVER_ID)
+	if root.is_multiplayer_authority() and ui_prefab:
+		if root is Entity:
+			var ui = ui_prefab.instantiate()
+			ui.set("entity", root)
+			ui.set("health", self)
+			add_child(ui)
 	
 	SD_ECS.append_to(root, self)
 	

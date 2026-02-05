@@ -8,6 +8,7 @@
 [ext_resource type="AudioStream" uid="uid://cbiulsltfs4fm" path="res://audio/hl2/physics/wood/wood_crate_break4.wav" id="4_cvj1g"]
 [ext_resource type="AudioStream" uid="uid://dimhrkui3yhbq" path="res://audio/hl2/physics/wood/wood_crate_break5.wav" id="5_qhn4e"]
 [ext_resource type="AudioStream" uid="uid://c4h4rg6u8uomn" path="res://audio/hl2/physics/wood/wood_box_impact_bullet1.wav" id="7_baywa"]
+[ext_resource type="PackedScene" uid="uid://fhbv1gj7e63b" path="res://src/prefabs/bullet_impact_vfx.tscn" id="7_kow7i"]
 [ext_resource type="AudioStream" uid="uid://ci1f1f4b5xgng" path="res://audio/hl2/physics/wood/wood_box_impact_bullet2.wav" id="8_qnmmc"]
 [ext_resource type="AudioStream" uid="uid://c2rvv48ddmvcr" path="res://audio/hl2/physics/wood/wood_box_impact_bullet3.wav" id="9_eb3ql"]
 [ext_resource type="AudioStream" uid="uid://dfqrrics5lflr" path="res://audio/hl2/physics/wood/wood_box_impact_bullet4.wav" id="10_uxw1f"]

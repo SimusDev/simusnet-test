@@ -23,9 +23,11 @@ static func is_instance_can_be_created_in_world(_package: SD_SoundPackage3D, glo
 	
 	var camera: Camera3D = _get_camera()
 	if !camera:
+		print("NBO")
 		return false
 	
 	var camera_distance: float = camera.global_position.distance_to(global_pos)
+	print(camera_distance)
 	
 	#print(camera_distance)
 	
@@ -140,6 +142,7 @@ func tick() -> void:
 		return
 	
 	var camera_distance: float = camera.global_position.distance_to(self.global_position)
+	#print(self, camera_distance)
 	
 	if !is_instance_valid(package):
 		return
@@ -247,9 +250,10 @@ func _read_states(data: SD_SoundData3D, player: AudioStreamPlayer3D) -> void:
 
 func _physics_process(delta: float) -> void:
 	_time += delta
-	if _time >= 1.0 / updaterate:
-		tick()
-		_time = 0
+	if is_inside_tree():
+		if _time >= 1.0 / updaterate:
+			tick()
+			_time = 0
 
 func _update_states() -> void:
 	for data in _data_and_player:

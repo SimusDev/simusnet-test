@@ -77,7 +77,7 @@ func _drive_hand(target_pos: Vector3, callback: Callable = Callable(_do_nothing)
 		_active_tween.kill()
 
 	if audio_player:
-		audio_player.pitch_scale = speed
+		audio_player.pitch_scale = speed * 1.2
 		audio_player.play()
 
 	_is_busy = true
