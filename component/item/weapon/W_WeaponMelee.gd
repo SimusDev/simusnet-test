@@ -20,10 +20,9 @@ func fire() -> void:
 		return
 		
 	cooldown_timer.start()
-	#
-	if object is R_WeaponMelee:
-		object.swing_sound.play(entity_head.get_entity(), entity_head.get_entity().global_position)
-	#
+	
+	s_Sounds.local_play(object.swing_sound, self.global_position)
+	
 	event_fire.emit()
 
 func impact() -> void:
@@ -42,7 +41,7 @@ func local_impact() -> void:
 	
 	if result:
 		var collider = result.collider
-		object.impact_sound.play(collider, result.position)
+		s_Sounds.local_play(object.impact_sound, result.position)
 		if collider is CT_Hitbox:
 			var dmg:R_Damage = R_Damage.new()
 			dmg.set_value(object.damage)

@@ -10,7 +10,13 @@ func _on_command_executed(command:SD_ConsoleCommand) -> void:
 			if command.get_arguments().size() < 1:
 				return
 			var user = CT_User.server_find_by_login(command.get_value_as_string())
+			if not user:
+				return
+			
 			var health:CT_Health = SD_ECS.find_first_component_by_script(user.get_player_node(), [CT_Health]) as CT_Health
 			if health:
 				health.kill()
+			else:
+				user.get_player_node().queue_free()
+			
 			return

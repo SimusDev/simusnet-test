@@ -1,0 +1,132 @@
+[gd_scene format=3 uid="uid://ctrgfosc0vsuv"]
+
+[ext_resource type="PackedScene" uid="uid://cy2pme50r1am4" path="res://scenes/prefabs/ui/character_portrait.tscn" id="1_p16j7"]
+[ext_resource type="Script" uid="uid://ck0n248prf5lp" path="res://scenes/prefabs/ui/spawn_character_menu.gd" id="1_pxrih"]
+[ext_resource type="PackedScene" uid="uid://mcul4p6cn4gn" path="res://scenes/prefabs/ui/character_select_button.tscn" id="2_iu6n2"]
+[ext_resource type="PackedScene" uid="uid://d3576pg2t7ndw" path="res://scenes/prefabs/ui/location_select_button.tscn" id="4_wlwaj"]
+
+[node name="SpawnCharacterMenu" type="Control" unique_id=600143115]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_pxrih")
+character_select_button = ExtResource("2_iu6n2")
+location_select_button = ExtResource("4_wlwaj")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1455876056]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.8156863)
+
+[node name="SpawnMenu" type="Control" parent="." unique_id=1938444394]
+layout_mode = 1
+anchor_left = 0.025
+anchor_right = 0.325
+anchor_bottom = 1.0
+metadata/_edit_use_anchors_ = true
+
+[node name="actions_container" type="VBoxContainer" parent="SpawnMenu" unique_id=1046277404]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.039
+anchor_top = 0.87100005
+anchor_right = 0.961
+anchor_bottom = 0.989
+offset_left = 0.024000168
+offset_top = -0.12005615
+offset_right = -0.024017334
+offset_bottom = -0.08001709
+
+[node name="spawn_button" type="Button" parent="SpawnMenu/actions_container" unique_id=483599595]
+unique_name_in_owner = true
+layout_mode = 2
+text = "spawn"
+
+[node name="character_portrait" parent="SpawnMenu" unique_id=1514080965 instance=ExtResource("1_p16j7")]
+unique_name_in_owner = true
+layout_mode = 1
+anchor_left = 0.020833334
+anchor_right = 0.96875
+
+[node name="location_portrait" parent="SpawnMenu" unique_id=1572099573 instance=ExtResource("4_wlwaj")]
+unique_name_in_owner = true
+layout_mode = 1
+anchor_left = 0.14322917
+anchor_top = 0.50972223
+anchor_right = 0.8098958
+anchor_bottom = 0.86527777
+grow_horizontal = 1
+grow_vertical = 1
+
+[node name="CharacterList" type="Control" parent="." unique_id=1981257846]
+layout_mode = 1
+anchor_left = 0.32500002
+anchor_right = 0.625
+anchor_bottom = 0.989
+offset_left = -3.0517578e-05
+offset_bottom = -0.08001709
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CharacterList" unique_id=2122850774]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="character_list_container" type="VBoxContainer" parent="CharacterList/ScrollContainer" unique_id=223588877]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="CharacterSelectButton" parent="CharacterList/ScrollContainer/character_list_container" unique_id=245169876 instance=ExtResource("2_iu6n2")]
+layout_mode = 2
+
+[node name="CharacterSelectButton2" parent="CharacterList/ScrollContainer/character_list_container" unique_id=2075988777 instance=ExtResource("2_iu6n2")]
+layout_mode = 2
+
+[node name="CharacterSelectButton3" parent="CharacterList/ScrollContainer/character_list_container" unique_id=1627431386 instance=ExtResource("2_iu6n2")]
+layout_mode = 2
+
+[node name="CharacterSelectButton4" parent="CharacterList/ScrollContainer/character_list_container" unique_id=1357261252 instance=ExtResource("2_iu6n2")]
+layout_mode = 2
+
+[node name="LocationList" type="Control" parent="." unique_id=787547223]
+layout_mode = 1
+anchor_left = 0.64400005
+anchor_right = 0.94400007
+anchor_bottom = 0.989
+offset_left = -0.32006836
+offset_right = -0.32006836
+offset_bottom = -0.08001709
+
+[node name="ScrollContainer" type="ScrollContainer" parent="LocationList" unique_id=502715245]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="location_list_container" type="VBoxContainer" parent="LocationList/ScrollContainer" unique_id=1637904696]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="LocationSelectButton" parent="LocationList/ScrollContainer/location_list_container" unique_id=407161161 instance=ExtResource("4_wlwaj")]
+layout_mode = 2
+
+[node name="LocationSelectButton2" parent="LocationList/ScrollContainer/location_list_container" unique_id=584631575 instance=ExtResource("4_wlwaj")]
+layout_mode = 2
+
+[node name="LocationSelectButton3" parent="LocationList/ScrollContainer/location_list_container" unique_id=1081988372 instance=ExtResource("4_wlwaj")]
+layout_mode = 2
+
+[node name="LocationSelectButton4" parent="LocationList/ScrollContainer/location_list_container" unique_id=1011030636 instance=ExtResource("4_wlwaj")]
+layout_mode = 2

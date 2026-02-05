@@ -11,7 +11,7 @@ func _ready() -> void:
 	s_Authentication.on_success.connect(_on_success)
 
 func _on_success() -> void:
-	var character_select: Control = load("uid://cwu02j8ltcpak").instantiate()
+	var character_select: Control = load("uid://ctrgfosc0vsuv").instantiate()
 	get_parent().add_child(character_select)
 	queue_free()
 
