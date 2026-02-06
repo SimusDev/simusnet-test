@@ -6,9 +6,9 @@ extends Control
 @onready var character_portrait: Control = %character_portrait
 @onready var location_portrait: Control = %location_portrait
 
-@onready var actions_container: VBoxContainer = %actions_container
-@onready var character_list_container: VBoxContainer = %character_list_container
-@onready var location_list_container: VBoxContainer = %location_list_container
+@onready var actions_container: Container = %actions_container
+@onready var character_list_container: Container = %character_list_container
+@onready var location_list_container: Container = %location_list_container
 
 @onready var spawn_button: Button = %spawn_button
 
@@ -20,7 +20,6 @@ var current_character:R_Player :
 var current_location:R_LocationPoint :
 	set(val):
 		current_location = val
-		_location_update()
 
 func _ready() -> void:
 	if CT_Playable.get_local():
@@ -52,6 +51,7 @@ func _on_player_despawned() -> void:
 	show()
 
 func _full_update() -> void:
+	
 	_update_actions_container()
 	_update_character_list_container()
 	_update_location_list_container()
@@ -61,16 +61,14 @@ func _character_update() -> void:
 		"Head/title"
 		).set(
 			"text",
-			current_character.resource_name
+			current_character.name
 			)
-
-func _location_update() -> void:
-	location_portrait.get_node(
-		"LocationName"
+	character_portrait.get_node(
+		"Window/Icon"
 		).set(
-			"text",
-			current_location.resource_name
-			)
+			"texture",
+			current_character.get_icon()
+		)
 
 func _update_actions_container() -> void:
 	pass#_clear_container(actions_container)
@@ -97,8 +95,8 @@ func _add_character_select_button(resource:R_Player) -> void:
 	if new_btn is Button:
 		character_list_container.add_child(new_btn)
 		
-		new_btn.get_node("Icon").set("texture", resource.get_icon())
-		new_btn.get_node("CharacterName").set("text", resource.resource_name)
+		new_btn.get_node("Icon").texture = resource.get_icon()
+		new_btn.get_node("CharacterName").text = resource.resource_name
 		new_btn.pressed.connect(func():
 			current_character = resource
 			for btn in character_list_container.get_children():
@@ -111,8 +109,8 @@ func _add_location_select_button(resource:R_LocationPoint) -> void:
 	if new_btn is Button:
 		location_list_container.add_child(new_btn)
 		
-		new_btn.get_node("Icon").set("texture", resource.level.icon)
-		new_btn.get_node("LocationName").set("text", resource.name)
+		new_btn.get_node("Icon").texture = resource.level.icon
+		new_btn.get_node("LocationName").text = resource.name
 		new_btn.pressed.connect(func():
 			current_location = resource
 			for btn in location_list_container.get_children():

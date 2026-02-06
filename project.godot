@@ -245,6 +245,7 @@ change_ammo_type={
 3d_physics/layer_1="World"
 3d_physics/layer_2="Interaction"
 3d_physics/layer_3="Hitbox"
+3d_physics/layer_4="Area"
 
 [physics]
 

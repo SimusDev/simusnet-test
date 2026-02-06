@@ -57,6 +57,11 @@ func _process(_delta: float) -> void:
 					_grab_item(provider)
 					_drive_hand_to_home()
 				)
+			elif not receiver:
+				_drive_hand(provider.node.global_position, func(): 
+					_grab_item(provider)
+					_drive_hand_to_home()
+				)
 		elif hand_node.global_position != home_node.global_position:
 			_drive_hand_to_home()
 
@@ -97,9 +102,17 @@ func _grab_item(from: CT_Inventory) -> void:
 	var stacks = from.get_item_stacks()
 	if stacks.is_empty(): return
 	
-	var item = stacks.front()
-	if inventory.try_add_item(item):
-		from.try_remove_item(item)
+	var chosen_stack = stacks.front()
+	
+	var item = CT_ItemStack.create_from_object(chosen_stack.object)
+	var grab_size:int = clamp(capacity, 0, chosen_stack.quantity)
+	item.quantity = grab_size
+	
+	var new_item = inventory.try_add_item(item)
+	if new_item:
+		chosen_stack.quantity -= grab_size
+		inventory.request_slot_select(new_item.get_slot())
+		print("item: %s, sexeted slot: %s, requested: %s" % [new_item, inventory.get_selected_slot(), new_item.get_slot()])
 		transfer_started.emit()
 
 func _drop_item(to: CT_Inventory) -> void:

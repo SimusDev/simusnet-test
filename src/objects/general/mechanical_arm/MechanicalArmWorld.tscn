@@ -6,13 +6,10 @@
 [ext_resource type="Script" uid="uid://dehqcsswxyu8a" path="res://component/inventory/CT_Inventory.gd" id="3_ihb0s"]
 [ext_resource type="Script" uid="uid://b0jl432eesuju" path="res://component/health/CT_DestroyOnDeath.gd" id="3_j2xet"]
 [ext_resource type="Script" uid="uid://dvlnhvdrc3dy6" path="res://component/hitbox/CT_Hitbox.gd" id="3_sptq7"]
-[ext_resource type="Script" uid="uid://dpblk4cnhdonv" path="res://component/viewmodel/ViewModelRoot3D.gd" id="6_dx3r4"]
 [ext_resource type="PackedScene" uid="uid://pa0ttv4j400k" path="res://src/ui/backpacks/chest.tscn" id="7_v2l1n"]
 [ext_resource type="Script" uid="uid://dmmtiqx85a6oj" path="res://src/objects/interact/CT_NodeInteractions.gd" id="8_5imdp"]
-[ext_resource type="Script" path="res://component/inventory/CT_InventorySlotHot.gd" id="9_4ebk4"]
 [ext_resource type="Script" uid="uid://ux3hdo53vt4p" path="res://component/interaction/R_InteractAction.gd" id="9_co6js"]
 [ext_resource type="Resource" uid="uid://xecviu4tcm2e" path="res://src/objects/interact/actions/open.tres" id="10_v2l1n"]
-[ext_resource type="Resource" uid="uid://cvbrrn0mme4i" path="res://src/objects/interact/actions/pickup.tres" id="12_v2l1n"]
 [ext_resource type="Script" uid="uid://d1jwapkumdp1u" path="res://addons/simusdev/SimusNet/SimusNetTransform.gd" id="13_7coma"]
 [ext_resource type="AudioStream" uid="uid://cb8s45h08ku4o" path="res://src/objects/general/mechanical_arm/moving.ogg" id="15_4ebk4"]
 
@@ -52,12 +49,6 @@ shape = SubResource("BoxShape3D_gkwvv")
 
 [node name="mechanical_arm_model" parent="." unique_id=1068801430 instance=ExtResource("2_ihb0s")]
 
-[node name="ViewModelRoot3D" type="Node3D" parent="mechanical_arm_model/root/Armature/Skeleton3D/Wrist" parent_id_path=PackedInt32Array(1068801430, 938706071) index="1" unique_id=183940436]
-transform = Transform3D(1.39, 0, 0, 0, 1.39, 0, 0, 0, 1.39, 0, 3.6465511, 0)
-script = ExtResource("6_dx3r4")
-type = 0
-metadata/_custom_type_script = "uid://dpblk4cnhdonv"
-
 [node name="JacobianIK3D" parent="mechanical_arm_model/root/Armature/Skeleton3D" parent_id_path=PackedInt32Array(1068801430, 478333752) index="6" unique_id=1316577865]
 settings/0/target_node = NodePath("../../../../../Target")
 
@@ -68,18 +59,14 @@ initial_slot_count = 1
 backpack_interface = ExtResource("7_v2l1n")
 metadata/_custom_type_script = "uid://dehqcsswxyu8a"
 
-[node name="0" type="Node" parent="CT_Inventory" unique_id=1464387627]
-script = ExtResource("9_4ebk4")
-tags = Dictionary[String, Variant]({
-"input": null
-})
-
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=168959221]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.9802322e-08, 0.5, -2.9802322e-08)
 shape = SubResource("BoxShape3D_gkwvv")
 
 [node name="input" type="Area3D" parent="." unique_id=953907746]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0.7)
+collision_layer = 0
+monitorable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="input" unique_id=837652264]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.22351074, 0)
@@ -87,6 +74,8 @@ shape = SubResource("BoxShape3D_sptq7")
 
 [node name="output" type="Area3D" parent="." unique_id=562155807]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -0.7)
+collision_layer = 0
+monitorable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="output" unique_id=1868030341]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.22351074, 0)
@@ -95,7 +84,7 @@ shape = SubResource("BoxShape3D_sptq7")
 [node name="CT_NodeInteractions" type="Node" parent="." unique_id=790104284 node_paths=PackedStringArray("target")]
 script = ExtResource("8_5imdp")
 target = NodePath("..")
-list = Array[ExtResource("9_co6js")]([ExtResource("10_v2l1n"), ExtResource("12_v2l1n")])
+list = Array[ExtResource("9_co6js")]([ExtResource("10_v2l1n")])
 metadata/_custom_type_script = "uid://dmmtiqx85a6oj"
 
 [node name="Target" type="Marker3D" parent="." unique_id=1857840759]
@@ -111,11 +100,10 @@ node = NodePath("..")
 metadata/_custom_type_script = "uid://d1jwapkumdp1u"
 
 [node name="HomeTarget" type="Marker3D" parent="." unique_id=2003775673]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.365, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0867205, 0)
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="." unique_id=1660647712]
 stream = ExtResource("15_4ebk4")
 volume_db = 10.0
-max_polyphony = 3
 
 [editable path="mechanical_arm_model"]

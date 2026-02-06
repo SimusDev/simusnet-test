@@ -22,6 +22,9 @@ signal object_changed
 
 @export var _object_instance:Node3D
 
+@export_group("Custom References")
+@export var custom_inventory:CT_Inventory
+
 var _inventory: CT_Inventory
 
 var _logger: SD_Logger = SD_Logger.new(self) 
@@ -30,14 +33,24 @@ func get_inventory() -> CT_Inventory:
 	return _inventory
 
 func _ready() -> void:
+	if custom_inventory:
+		_inventory = custom_inventory
+		_init_inventory()
+		return
+	
 	_find_inventory()
+	
 
 func _find_inventory() -> void:
 	if Engine.is_editor_hint():
 		return
 	
 	_inventory = SD_ECS.node_find_above_by_component(self, CT_Inventory)
-	
+	_init_inventory()
+
+func _init_inventory() -> void:
+	if not _inventory:
+		return
 	if type == R_ViewModel.TYPE.VIEW:
 		if !_inventory:
 			_logger.debug("cant find inventory for viemodel type 'VIEW'", SD_ConsoleCategories.ERROR)
@@ -49,6 +62,7 @@ func _find_inventory() -> void:
 	_inventory.on_item_added.connect(_inventory_on_item_added)
 	_inventory.on_item_removed.connect(_inventory_on_item_removed)
 	_on_slot_updated_for_viewmodel(_inventory.get_selected_slot())
+
 
 func _on_slot_updated_for_viewmodel(slot: CT_InventorySlot, delete: bool = false) -> void:
 	if is_instance_valid(slot):

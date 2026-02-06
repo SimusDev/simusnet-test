@@ -236,6 +236,7 @@ func request_slot_select(slot: CT_InventorySlot) -> void:
 	if slot is CT_InventorySlotHot:
 		SimusNetRPC.invoke_on_server(_request_slot_select_server, slot)
 
+
 func request_drop(item: CT_ItemStack) -> void:
 	if !is_instance_valid(item):
 		return
