@@ -17,6 +17,7 @@ size = Vector3(1, 0.6230469, 0.711853)
 [node name="main" type="Node3D" parent="." unique_id=436145629]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.9031692, 0)
 script = ExtResource("2_li76b")
+spawn_name = &"sex"
 metadata/_custom_type_script = "uid://fc6kpuv5syvv"
 
 [node name="player" type="Node3D" parent="." unique_id=937235654]
