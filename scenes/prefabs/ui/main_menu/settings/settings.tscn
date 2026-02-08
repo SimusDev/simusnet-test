@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://clinvld10jut"]
+
+[ext_resource type="PackedScene" uid="uid://t0lm0ldnpg0g" path="res://scenes/prefabs/ui/main_menu/settings/tab_keybindings.tscn" id="1_2unow"]
+
+[node name="Settings" type="Control" unique_id=1031249893]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 751.0
+offset_bottom = 556.0
+
+[node name="Panel" type="Panel" parent="." unique_id=1902896144]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TabContainer" type="TabContainer" parent="." unique_id=619374981]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+tab_alignment = 1
+current_tab = 0
+
+[node name="KeyBindings" parent="TabContainer" unique_id=1513839144 instance=ExtResource("1_2unow")]
+layout_mode = 2
+metadata/_tab_index = 0

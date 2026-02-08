@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://557aowua8vot"]
+
+[ext_resource type="Script" uid="uid://cyk4nsuvdcjnk" path="res://scenes/prefabs/ui/main_menu/settings/keybindings/action.gd" id="1_6kamm"]
+
+[node name="Action" type="Button" unique_id=743036358]
+custom_minimum_size = Vector2(0, 48)
+offset_right = 600.0
+offset_bottom = 52.0
+focus_mode = 0
+mouse_filter = 1
+autowrap_mode = 3
+script = ExtResource("1_6kamm")

@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://c7v76bt3h7aan"]
+
+[ext_resource type="Script" uid="uid://d4jvti143g0cc" path="res://scenes/prefabs/ui/main_menu/settings/tab_audio.gd" id="1_u2yfu"]
+
+[node name="TabAudio" type="Control" unique_id=843518312]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_u2yfu")

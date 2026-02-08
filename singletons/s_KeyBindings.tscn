@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://dnrhjqvixf13w"]
+
+[ext_resource type="Script" uid="uid://cntstmq51ofqd" path="res://singletons/s_KeyBindings.gd" id="1_gcjxe"]
+
+[node name="SKeyBindings" type="Node" unique_id=366572766]
+script = ExtResource("1_gcjxe")

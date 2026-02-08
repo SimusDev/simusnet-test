@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://gkpe7xci8on3" path="res://scenes/prefabs/ui/main_menu/main_menu.gd" id="1_026n6"]
 [ext_resource type="Script" uid="uid://dotjiengj0hqs" path="res://addons/simusdev/ui/SD_UINodeExitButton.gd" id="2_da2ht"]
+[ext_resource type="PackedScene" uid="uid://clinvld10jut" path="res://scenes/prefabs/ui/main_menu/settings/settings.tscn" id="3_5h2bh"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5h2bh"]
 content_margin_left = 0.0
@@ -63,7 +64,7 @@ outline_color = Color(0, 0, 0, 1)
 [sub_resource type="LabelSettings" id="LabelSettings_5h2bh"]
 font_color = Color(1, 1, 1, 0.5686275)
 
-[node name="main_menu" type="Control" unique_id=186549104 node_paths=PackedStringArray("_button_container", "_screens_container", "_hide_ingame", "_show_ingame")]
+[node name="main_menu" type="Control" unique_id=186549104 node_paths=PackedStringArray("_button_container", "_screens_container", "_popups_container", "_hide_ingame", "_show_ingame")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -71,8 +72,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_026n6")
-_button_container = [NodePath("Panel/MarginContainer/ScreenMain"), NodePath("Panel/MarginContainer/ScreenConnect"), NodePath("Panel/MarginContainer/ScreenSettings")]
+_button_container = [NodePath("Panel/MarginContainer/ScreenMain"), NodePath("Panel/MarginContainer/ScreenConnect")]
 _screens_container = NodePath("Panel/MarginContainer")
+_popups_container = NodePath("Popups")
 _hide_ingame = [NodePath("Panel/MarginContainer/ScreenMain/Play"), NodePath("Panel/MarginContainer/ScreenMain/Multiplayer"), NodePath("Panel/MarginContainer/ScreenMain/Quit")]
 _show_ingame = [NodePath("Panel/MarginContainer/ScreenMain/Disconnect")]
 
@@ -103,10 +105,12 @@ theme_override_constants/margin_bottom = 10
 [node name="ScreenMain" type="VBoxContainer" parent="Panel/MarginContainer" unique_id=2006840583]
 visible = false
 layout_mode = 2
+focus_behavior_recursive = 2
 alignment = 1
 
 [node name="Play" type="Button" parent="Panel/MarginContainer/ScreenMain" unique_id=585285750]
 layout_mode = 2
+focus_mode = 0
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 3
 theme_override_font_sizes/font_size = 24
@@ -116,6 +120,7 @@ alignment = 0
 
 [node name="Multiplayer" type="Button" parent="Panel/MarginContainer/ScreenMain" unique_id=2025523503]
 layout_mode = 2
+focus_mode = 0
 theme_override_constants/outline_size = 3
 theme_override_font_sizes/font_size = 24
 text = "Multiplayer"
@@ -124,6 +129,7 @@ alignment = 0
 
 [node name="Load Game" type="Button" parent="Panel/MarginContainer/ScreenMain" unique_id=1165464092]
 layout_mode = 2
+focus_mode = 0
 theme_override_constants/outline_size = 3
 theme_override_font_sizes/font_size = 24
 text = "Load Game"
@@ -132,6 +138,7 @@ alignment = 0
 
 [node name="Save Game" type="Button" parent="Panel/MarginContainer/ScreenMain" unique_id=441975929]
 layout_mode = 2
+focus_mode = 0
 theme_override_constants/outline_size = 3
 theme_override_font_sizes/font_size = 24
 disabled = true
@@ -141,6 +148,7 @@ alignment = 0
 
 [node name="Settings" type="Button" parent="Panel/MarginContainer/ScreenMain" unique_id=602292339]
 layout_mode = 2
+focus_mode = 0
 theme_override_constants/outline_size = 3
 theme_override_font_sizes/font_size = 24
 text = "Settings"
@@ -150,6 +158,7 @@ alignment = 0
 [node name="Disconnect" type="Button" parent="Panel/MarginContainer/ScreenMain" unique_id=1559847820]
 visible = false
 layout_mode = 2
+focus_mode = 0
 theme_override_constants/outline_size = 3
 theme_override_font_sizes/font_size = 32
 text = "Disconnect"
@@ -158,6 +167,7 @@ alignment = 0
 
 [node name="Quit" type="Button" parent="Panel/MarginContainer/ScreenMain" unique_id=1556660542]
 layout_mode = 2
+focus_mode = 0
 theme_override_constants/outline_size = 3
 theme_override_font_sizes/font_size = 24
 text = "Quit"
@@ -198,17 +208,29 @@ text = "Back"
 flat = true
 alignment = 0
 
-[node name="ScreenSettings" type="VBoxContainer" parent="Panel/MarginContainer" unique_id=295347634]
-visible = false
-layout_mode = 2
-alignment = 1
+[node name="Popups" type="Control" parent="." unique_id=1580373625]
+layout_mode = 1
+anchor_left = 0.24400002
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -0.32000732
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="BackToMain" type="Button" parent="Panel/MarginContainer/ScreenSettings" unique_id=1344768111]
-layout_mode = 2
-theme_override_font_sizes/font_size = 24
-text = "Back"
-flat = true
-alignment = 0
+[node name="Settings" parent="Popups" unique_id=1031249893 instance=ExtResource("3_5h2bh")]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.112
+anchor_top = 0.11400001
+anchor_right = 0.8880001
+anchor_bottom = 0.88600004
+offset_left = 0.083999634
+offset_top = -0.08000183
+offset_right = -0.08404541
+offset_bottom = 0.079956055
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="version" type="Label" parent="." unique_id=1409942562]
 layout_mode = 1

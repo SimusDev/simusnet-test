@@ -1,0 +1,121 @@
+[gd_scene format=3 uid="uid://t0lm0ldnpg0g"]
+
+[ext_resource type="Script" uid="uid://cbfu5ojwpdw0i" path="res://scenes/prefabs/ui/main_menu/settings/tab_keybindings.gd" id="1_amtsr"]
+[ext_resource type="PackedScene" uid="uid://557aowua8vot" path="res://scenes/prefabs/ui/main_menu/settings/keybindings/action.tscn" id="2_vkmkr"]
+[ext_resource type="Script" uid="uid://duex25jaq1mj4" path="res://addons/simusdev/ui/SD_UIControlSearch.gd" id="3_dpqly"]
+
+[node name="TabKeybindings" type="Control" unique_id=1513839144 node_paths=PackedStringArray("_container", "_buttons")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_amtsr")
+_action_scene = ExtResource("2_vkmkr")
+_container = NodePath("ScrollContainer/MarginContainer/VBoxContainer")
+_buttons = [NodePath("Fade/Buttons/ButtonReset"), NodePath("Fade/Buttons/ButtonOK"), NodePath("Fade/Buttons/ButtonCancel")]
+metadata/_edit_vertical_guides_ = [86.0, 1195.0]
+metadata/_edit_horizontal_guides_ = [659.0]
+
+[node name="SD_UIControlSearch" type="Node" parent="." unique_id=1107396648 node_paths=PackedStringArray("line_edit")]
+script = ExtResource("3_dpqly")
+line_edit = NodePath("../_Search")
+metadata/_custom_type_script = "uid://duex25jaq1mj4"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="." unique_id=756594406]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.067
+anchor_right = 0.933
+anchor_bottom = 0.915
+offset_left = -0.26000214
+offset_right = 0.26000977
+offset_bottom = 0.2000122
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="ScrollContainer" unique_id=537653285]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_right = 32
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer/MarginContainer" unique_id=1918927769]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 1
+
+[node name="_Search" type="LineEdit" parent="." unique_id=2047863474]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.067
+anchor_top = 0.915
+anchor_right = 0.934
+anchor_bottom = 1.0
+offset_left = 0.23999786
+offset_top = 0.2000122
+offset_right = -0.52001953
+placeholder_text = "SEARCH..."
+alignment = 1
+
+[node name="Fade" type="ColorRect" parent="." unique_id=853454910]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.88235295)
+
+[node name="Buttons" type="HBoxContainer" parent="Fade" unique_id=1746346797]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -156.5
+offset_top = 39.0
+offset_right = 156.5
+offset_bottom = 82.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="ButtonReset" type="Button" parent="Fade/Buttons" unique_id=1401489531]
+layout_mode = 2
+size_flags_horizontal = 15
+size_flags_vertical = 13
+focus_mode = 0
+text = "Reset"
+
+[node name="ButtonOK" type="Button" parent="Fade/Buttons" unique_id=1967665501]
+layout_mode = 2
+size_flags_horizontal = 15
+size_flags_vertical = 13
+focus_mode = 0
+text = "OK"
+
+[node name="ButtonCancel" type="Button" parent="Fade/Buttons" unique_id=1757848623]
+layout_mode = 2
+size_flags_horizontal = 15
+size_flags_vertical = 13
+focus_mode = 0
+text = "Cancel"
+
+[node name="PressAnyKeyLabel" type="Label" parent="Fade" unique_id=1415199977]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 32
+text = "Press any key..."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="hidden" from="." to="." method="_on_hidden"]

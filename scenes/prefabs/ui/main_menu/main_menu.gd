@@ -3,6 +3,7 @@ extends Control
 @export var ingame: bool = false
 @export var _button_container: Array[Control] = []
 @export var _screens_container: Control
+@export var _popups_container: Control
 
 @onready var _connect_to_server_: LineEdit = $Panel/MarginContainer/ScreenConnect/LineEdit
 
@@ -32,6 +33,9 @@ func _switch_buttons_screen(_name: String) -> void:
 	SD_Nodes.set_children_visibility(_screens_container, false)
 	_screens_container.get_node(_name).visible = true
 
+func _switch_popup(_name: String) -> void:
+	_popups_container.get_node(_name).visible = !_popups_container.get_node(_name).visible
+
 func _on_button_pressed(button: Button) -> void:
 	match button.name:
 		"Disconnect":
@@ -48,6 +52,6 @@ func _on_button_pressed(button: Button) -> void:
 		"Save Game":
 			pass
 		"Settings":
-			_switch_buttons_screen("ScreenSettings")
+			_switch_popup("Settings")
 		"BackToMain":
 			_switch_buttons_screen("ScreenMain")
