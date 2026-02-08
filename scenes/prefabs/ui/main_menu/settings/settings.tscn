@@ -1,6 +1,9 @@
 [gd_scene format=3 uid="uid://clinvld10jut"]
 
 [ext_resource type="PackedScene" uid="uid://t0lm0ldnpg0g" path="res://scenes/prefabs/ui/main_menu/settings/tab_keybindings.tscn" id="1_2unow"]
+[ext_resource type="PackedScene" uid="uid://c7v76bt3h7aan" path="res://scenes/prefabs/ui/main_menu/settings/tab_audio.tscn" id="1_rincc"]
+[ext_resource type="PackedScene" uid="uid://bpq5kltyf4qh3" path="res://scenes/prefabs/ui/main_menu/settings/tab_debug.tscn" id="3_utecb"]
+[ext_resource type="PackedScene" uid="uid://dw3as7m0ncbex" path="res://scenes/prefabs/ui/main_menu/settings/tab_other.tscn" id="4_wd4k1"]
 
 [node name="Settings" type="Control" unique_id=1031249893]
 layout_mode = 3
@@ -26,6 +29,21 @@ grow_vertical = 2
 tab_alignment = 1
 current_tab = 0
 
-[node name="KeyBindings" parent="TabContainer" unique_id=1513839144 instance=ExtResource("1_2unow")]
+[node name="Audio" parent="TabContainer" unique_id=843518312 instance=ExtResource("1_rincc")]
 layout_mode = 2
 metadata/_tab_index = 0
+
+[node name="KeyBindings" parent="TabContainer" unique_id=1513839144 instance=ExtResource("1_2unow")]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="Debug" parent="TabContainer" unique_id=652602909 instance=ExtResource("3_utecb")]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 2
+
+[node name="Other" parent="TabContainer" unique_id=1693060118 instance=ExtResource("4_wd4k1")]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 3
