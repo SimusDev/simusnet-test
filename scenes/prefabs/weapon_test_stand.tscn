@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://cc0cnju0at7p8"]
 
-[ext_resource type="Texture2D" uid="uid://dtmwlx74fxbd7" path="res://src/textures/general/metal1.jpeg" id="1_qs83d"]
+[ext_resource type="Texture2D" uid="uid://rk8tw72fe3dh" path="res://src/textures/general/metal/metall001-new-tileable.png" id="1_wdepi"]
+[ext_resource type="Texture2D" uid="uid://ui2uerljx6sh" path="res://src/textures/general/metal/metall001-new-nm.png" id="2_5qusa"]
 [ext_resource type="Script" uid="uid://dgp0pmmh5blth" path="res://component/object/CT_ObjectSpawn.gd" id="2_inqea"]
 [ext_resource type="Resource" uid="uid://b74p68w4oudik" path="res://src/objects/item/ammo/9x18.tres" id="3_31nm7"]
 [ext_resource type="Resource" uid="uid://blrx7kglr2oec" path="res://src/objects/item/weapon/sr_pb/sr_pb.tres" id="3_s48m2"]
@@ -14,7 +15,10 @@
 [ext_resource type="Resource" uid="uid://bt56qumboolp7" path="res://src/objects/item/ammo/7_62x54.tres" id="11_qsmbf"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lgt62"]
-albedo_texture = ExtResource("1_qs83d")
+albedo_texture = ExtResource("1_wdepi")
+normal_enabled = true
+normal_scale = 16.0
+normal_texture = ExtResource("2_5qusa")
 uv1_triplanar = true
 
 [sub_resource type="Resource" id="Resource_7xe81"]

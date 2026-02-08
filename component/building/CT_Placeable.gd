@@ -42,8 +42,11 @@ func _ready() -> void:
 func _place() -> void:
 	if not SimusNetConnection.is_server():
 		return
-		
-	if not is_inside_tree() or not is_instance_valid(item) or not is_instance_valid(current_ghost):
+	if not is_inside_tree():
+		return
+	if not is_instance_valid(item):
+		return
+	if not is_instance_valid(current_ghost):
 		return
 	
 	var transform:Transform3D = current_ghost.transform
@@ -52,8 +55,7 @@ func _place() -> void:
 							.get_instance()
 							)
 	new_object.transform = transform
-	print("SPAWN")
-	#item.stack.quantity -= 1
+	#item.stack.quantity -= 1 #if survival ))
 
 func _physics_process(_delta: float) -> void:
 	if not is_inside_tree() or not is_instance_valid(item) or not is_instance_valid(current_ghost):
@@ -73,20 +75,38 @@ func _physics_process(_delta: float) -> void:
 
 	if result:
 		var pos = result.position
-		
 		var normal = result.normal
 		
-		var offset_dist = 0.05
-		var mesh_node = current_ghost.find_children("*", "MeshInstance3D")[0]
-		if mesh_node:
-			var aabb = mesh_node.get_aabb()
-			pos += normal * (aabb.size.y * 0.5)
-		else:
-			pos += normal * offset_dist
-		current_ghost.global_position = pos
+		var geometries = current_ghost.find_children("*", "GeometryInstance3D")
 		
+		if not geometries.is_empty():
+			var total_aabb: AABB
+			var has_aabb = false
+			
+			for geo in geometries:
+				if geo is GeometryInstance3D:
+					var local_aabb = geo.get_aabb()
+					var rel_transform = current_ghost.global_transform.affine_inverse() * geo.global_transform
+					var transformed_aabb = rel_transform * local_aabb
+					
+					if not has_aabb:
+						total_aabb = transformed_aabb
+						has_aabb = true
+					else:
+						total_aabb = total_aabb.merge(transformed_aabb)
+			
+			if has_aabb:
+				var bottom_center = Vector3(total_aabb.get_center().x, total_aabb.position.y, total_aabb.get_center().z)
+				
+				current_ghost.global_position = pos - (current_ghost.global_transform.basis * bottom_center)
+				current_ghost.global_position += normal * 0.001
+		else:
+			current_ghost.global_position = pos
 	else:
 		current_ghost.global_position = target
+			
+
+
 
 func _delete_ghost() -> void:
 	if is_instance_valid(current_ghost):
@@ -107,13 +127,13 @@ func _spawn_ghost() -> void:
 		mesh_inst.mesh = model
 		
 		current_ghost.add_child(mesh_inst)
-		_apply_shader_to_meshes()
-		return
 	
 	elif model is PackedScene:
 		current_ghost = model.instantiate()
 		add_child(current_ghost)
-		_apply_shader_to_meshes()
+	
+	current_ghost.set("cast_shadow", false)
+	_apply_shader_to_meshes()
 	
 
 func _apply_shader_to_meshes() -> void:

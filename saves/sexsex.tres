@@ -1,37 +1,509 @@
 [gd_resource type="Resource" script_class="R_GameState" format=3]
 
-[ext_resource type="Script" path="res://component/gamestate/R_GameStateNodeInstance.gd" id="1_3mvjc"]
-[ext_resource type="Script" path="res://component/gamestate/R_GameState.gd" id="2_mmbdt"]
+[ext_resource type="Script" path="res://component/gamestate/R_GameStateNodeInstance.gd" id="1_5f1n5"]
+[ext_resource type="PackedScene" path="res://scenes/prefabs/object/item/weapon/crowbar/crowbar_world.tscn" id="2_3sp46"]
+[ext_resource type="PackedScene" path="res://src/objects/item/flashlight/FlashlightWorld.tscn" id="3_ds1lu"]
+[ext_resource type="PackedScene" path="res://src/objects/general/mechanical_arm/MechanicalArmWorld.tscn" id="4_q2dgi"]
+[ext_resource type="PackedScene" path="res://scenes/prefabs/object/military_box/military_box_world.tscn" id="5_0m7bq"]
+[ext_resource type="PackedScene" path="res://src/objects/general/craft/CraftingTable.tscn" id="6_dnhv3"]
+[ext_resource type="PackedScene" path="res://src/objects/general/furnace/tier1.tscn" id="7_svkvi"]
+[ext_resource type="PackedScene" path="res://component/object/world_default_prefab.tscn" id="8_xtj8f"]
+[ext_resource type="PackedScene" path="res://src/objects/item/ammo/9x18/world.tscn" id="9_rvm8a"]
+[ext_resource type="PackedScene" path="res://src/objects/item/ammo/5_45x39/world.tscn" id="10_megkr"]
+[ext_resource type="PackedScene" path="res://src/objects/item/ammo/5_56x45/world.tscn" id="11_qrm2m"]
+[ext_resource type="PackedScene" path="res://src/objects/item/ammo/9x39/world.tscn" id="12_cbam1"]
+[ext_resource type="PackedScene" path="res://src/objects/item/ammo/7_62x54/world.tscn" id="13_0vbg0"]
+[ext_resource type="PackedScene" path="res://src/objects/item/weapon/rv78/Rv78World.tscn" id="14_vm6ak"]
+[ext_resource type="PackedScene" path="res://src/objects/item/weapon/sr_pb/world.tscn" id="15_6ausn"]
+[ext_resource type="Script" path="res://component/gamestate/R_GameState.gd" id="16_jha4w"]
 
-[sub_resource type="Resource" id="Resource_2egqh"]
-script = ExtResource("1_3mvjc")
+[sub_resource type="Resource" id="Resource_ayl6v"]
+script = ExtResource("1_5f1n5")
 _data = {
 "objects": {
-&"InteractAction": {},
-&"Object": {},
+&"Ammo": {
+&"0": {
+0: ExtResource("9_rvm8a"),
+1: Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 27.44601, 0.9212706, -6.1745877),
+2: {
+0: &"ammo:9x18"
+}
+},
+&"1": {
+0: ExtResource("9_rvm8a"),
+1: Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 27.44601, 0.9212706, -6.373605),
+2: {
+0: &"ammo:9x18"
+}
+},
+&"10": {
+0: ExtResource("12_cbam1"),
+1: Transform3D(-5.00679e-06, -1.4556699e-06, -0.99999994, 1.9951989e-07, 1, -1.455671e-06, 0.99999994, -1.9952728e-07, -5.00679e-06, 26.329851, 0.9243793, -6.364775),
+2: {
+0: &"ammo:9x39"
+}
+},
+&"11": {
+0: ExtResource("12_cbam1"),
+1: Transform3D(-5.00679e-06, -1.4558073e-06, -0.99999994, 1.998057e-07, 1, -1.4558084e-06, 0.99999994, -1.9981309e-07, -5.00679e-06, 26.329851, 0.9243793, -6.174994),
+2: {
+0: &"ammo:9x39"
+}
+},
+&"12": {
+0: ExtResource("9_rvm8a"),
+1: Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 27.44601, 0.9212706, -6.5860577),
+2: {
+0: &"ammo:9x18"
+}
+},
+&"13": {
+0: ExtResource("13_0vbg0"),
+1: Transform3D(-9.059906e-06, -3.1391153e-06, -0.99999994, -6.1964124e-07, 1, -3.1391096e-06, 0.99999994, 6.196127e-07, -9.059906e-06, 25.984118, 0.9234025, -6.174997),
+2: {
+0: &"ammo:7_62x54"
+}
+},
+&"14": {
+0: ExtResource("13_0vbg0"),
+1: Transform3D(-9.059906e-06, -3.136531e-06, -0.99999994, -6.367493e-07, 1, -3.1365253e-06, 0.99999994, 6.3672076e-07, -9.059906e-06, 25.984118, 0.9234025, -6.360374),
+2: {
+0: &"ammo:7_62x54"
+}
+},
+&"15": {
+0: ExtResource("13_0vbg0"),
+1: Transform3D(-9.059906e-06, -3.1378802e-06, -0.99999994, -6.1262585e-07, 1, -3.1378745e-06, 0.99999994, 6.125973e-07, -9.059906e-06, 25.984118, 0.9234025, -6.563465),
+2: {
+0: &"ammo:7_62x54"
+}
+},
+&"16": {
+0: ExtResource("13_0vbg0"),
+1: Transform3D(-9.059906e-06, -3.015805e-06, -0.99999994, -1.1058103e-06, 1, -3.0157948e-06, 0.99999994, 1.1057828e-06, -9.059906e-06, 25.984118, 0.9234025, -6.7761874),
+2: {
+0: &"ammo:7_62x54"
+}
+},
+&"17": {
+0: ExtResource("13_0vbg0"),
+1: Transform3D(-9.059906e-06, -3.1391098e-06, -0.99999994, -6.183875e-07, 1, -3.1391041e-06, 0.99999994, 6.1835897e-07, -9.059906e-06, 25.984118, 0.9234025, -6.997813),
+2: {
+0: &"ammo:7_62x54"
+}
+},
+&"18": {
+0: ExtResource("9_rvm8a"),
+1: Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 27.44601, 0.9212706, -6.7855353),
+2: {
+0: &"ammo:9x18"
+}
+},
+&"19": {
+0: ExtResource("9_rvm8a"),
+1: Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 27.44601, 0.9212706, -6.998071),
+2: {
+0: &"ammo:9x18"
+}
+},
+&"2": {
+0: ExtResource("11_qrm2m"),
+1: Transform3D(-8.34465e-07, -2.2677648e-07, -0.99999994, 9.934596e-08, 1, -2.2677656e-07, 0.99999994, -9.934616e-08, -8.34465e-07, 26.695824, 0.92127067, -6.1726756),
+2: {
+0: &"ammo:5_56x45"
+}
+},
+&"20": {
+0: ExtResource("10_megkr"),
+1: Transform3D(-8.34465e-07, -2.2106967e-07, -0.99999994, 1.1129124e-07, 1, -2.2106977e-07, 0.99999994, -1.1129143e-07, -8.34465e-07, 27.08565, 0.92127067, -6.9980717),
+2: {
+0: &"ammo:5_45x39"
+}
+},
+&"21": {
+0: ExtResource("10_megkr"),
+1: Transform3D(-8.34465e-07, -2.2106967e-07, -0.99999994, 1.1129124e-07, 1, -2.2106977e-07, 0.99999994, -1.1129143e-07, -8.34465e-07, 27.08565, 0.92127067, -6.7680006),
+2: {
+0: &"ammo:5_45x39"
+}
+},
+&"22": {
+0: ExtResource("10_megkr"),
+1: Transform3D(-8.34465e-07, -2.2106967e-07, -0.99999994, 1.1129124e-07, 1, -2.2106977e-07, 0.99999994, -1.1129143e-07, -8.34465e-07, 27.08565, 0.92127067, -6.5652523),
+2: {
+0: &"ammo:5_45x39"
+}
+},
+&"23": {
+0: ExtResource("10_megkr"),
+1: Transform3D(-8.34465e-07, -2.2106967e-07, -0.99999994, 1.1129124e-07, 1, -2.2106977e-07, 0.99999994, -1.1129143e-07, -8.34465e-07, 27.08565, 0.92127067, -6.366165),
+2: {
+0: &"ammo:5_45x39"
+}
+},
+&"24": {
+0: ExtResource("10_megkr"),
+1: Transform3D(-8.34465e-07, -2.2106967e-07, -0.99999994, 1.1129124e-07, 1, -2.2106977e-07, 0.99999994, -1.1129143e-07, -8.34465e-07, 27.08565, 0.92127067, -6.172676),
+2: {
+0: &"ammo:5_45x39"
+}
+},
+&"3": {
+0: ExtResource("11_qrm2m"),
+1: Transform3D(-8.34465e-07, -2.2781848e-07, -0.99999994, 9.963538e-08, 1, -2.2781856e-07, 0.99999994, -9.963557e-08, -8.34465e-07, 26.695824, 0.92127067, -6.362232),
+2: {
+0: &"ammo:5_56x45"
+}
+},
+&"4": {
+0: ExtResource("11_qrm2m"),
+1: Transform3D(-8.34465e-07, -2.2677648e-07, -0.99999994, 9.934596e-08, 1, -2.2677656e-07, 0.99999994, -9.934616e-08, -8.34465e-07, 26.695824, 0.92127067, -6.5641456),
+2: {
+0: &"ammo:5_56x45"
+}
+},
+&"5": {
+0: ExtResource("11_qrm2m"),
+1: Transform3D(-8.34465e-07, -2.2698887e-07, -0.99999994, 9.9313674e-08, 1, -2.2698894e-07, 0.99999994, -9.931385e-08, -8.34465e-07, 26.695824, 0.92127067, -6.773858),
+2: {
+0: &"ammo:5_56x45"
+}
+},
+&"6": {
+0: ExtResource("11_qrm2m"),
+1: Transform3D(-8.34465e-07, -2.2698887e-07, -0.99999994, 9.9313674e-08, 1, -2.2698894e-07, 0.99999994, -9.931385e-08, -8.34465e-07, 26.695824, 0.92127067, -6.9951315),
+2: {
+0: &"ammo:5_56x45"
+}
+},
+&"7": {
+0: ExtResource("12_cbam1"),
+1: Transform3D(-5.00679e-06, -1.5948611e-06, -0.99999994, 6.025399e-07, 1, -1.5948642e-06, 0.99999994, -6.0254797e-07, -5.00679e-06, 26.329853, 0.9243793, -6.99763),
+2: {
+0: &"ammo:9x39"
+}
+},
+&"8": {
+0: ExtResource("12_cbam1"),
+1: Transform3D(-5.00679e-06, -1.4558073e-06, -0.99999994, 1.998057e-07, 1, -1.4558084e-06, 0.99999994, -1.9981309e-07, -5.00679e-06, 26.329851, 0.9243793, -6.773359),
+2: {
+0: &"ammo:9x39"
+}
+},
+&"9": {
+0: ExtResource("12_cbam1"),
+1: Transform3D(-5.00679e-06, -1.3180954e-06, -0.99999994, 6.032717e-07, 1, -1.3180984e-06, 0.99999994, -6.032783e-07, -5.00679e-06, 26.329851, 0.9243793, -6.5639524),
+2: {
+0: &"ammo:9x39"
+}
+}
+},
+&"Object": {
+&"0": {
+0: ExtResource("2_3sp46"),
+1: Transform3D(-7.390976e-06, -0.8171843, -0.57637644, -1, 2.0384789e-05, -1.6212463e-05, 2.503395e-05, 0.57637644, -0.8171843, 19.518555, 1.0336738, 7.453549),
+2: {
+0: &"object:crowbar"
+}
+},
+&"1": {
+0: ExtResource("2_3sp46"),
+1: Transform3D(8.106232e-06, -0.10114014, -0.9948722, -1, 1.2278557e-05, -9.328127e-06, 1.3202429e-05, 0.9948722, -0.10114002, 20.576368, 1.0336809, 7.453877),
+2: {
+0: &"object:crowbar"
+}
+},
+&"10": {
+0: ExtResource("8_xtj8f"),
+1: Transform3D(1.7881393e-07, 3.0058281e-06, -0.99999994, -2.3938424e-06, 1, 3.0058277e-06, 0.99999994, 2.393842e-06, 1.7881393e-07, 8.8746605, 1.2376399, 11.164198),
+2: {
+0: &"object:coal"
+}
+},
+&"11": {
+0: ExtResource("8_xtj8f"),
+1: Transform3D(1.7881393e-07, -3.0060905e-06, -0.99999994, 2.3935772e-06, 1, -3.00609e-06, 0.99999994, -2.3935768e-06, 1.7881393e-07, 8.278271, 1.2376399, 11.164207),
+2: {
+0: &"object:coal"
+}
+},
+&"12": {
+0: ExtResource("2_3sp46"),
+1: Transform3D(2.4199486e-05, 0.95490503, -0.29691142, -1, 2.2530556e-05, -8.881092e-06, -1.8030405e-06, 0.29691142, 0.95490503, 21.753466, 1.0336732, 7.450049),
+2: {
+0: &"object:crowbar"
+}
+},
+&"13": {
+0: ExtResource("5_0m7bq"),
+1: Transform3D(1, 5.3253746e-07, -8.021687e-07, -5.325377e-07, 1, -2.855105e-07, 8.021686e-07, 2.8551096e-07, 1, 28, 0.2820952, 6.0967503),
+2: {
+0: &"object:military_box"
+}
+},
+&"14": {
+0: ExtResource("7_svkvi"),
+1: Transform3D(0.035772264, -3.8809787e-05, 0.99935997, -2.5402896e-05, 1, 3.9743943e-05, -0.99935997, -2.6808368e-05, 0.035772264, 27.999989, -0.024148881, 4.115499),
+2: {
+0: &"object:furnace_tier1"
+}
+},
+&"15": {
+0: ExtResource("4_q2dgi"),
+1: Transform3D(1.0000001, 0, 0, 0, 1, 0, 0, 0, 1.0000002, 28.115303, 0, 5.0729795),
+2: {
+0: &"object:mechanical_arm"
+}
+},
+&"16": {
+0: ExtResource("3_ds1lu"),
+1: Transform3D(-0.035449266, -0.81827664, -0.5737306, -0.999063, 0.043278873, 3.4570694e-06, 0.02482757, 0.57319313, -0.8190441, 19.519567, 1.0869133, -2.5492373),
+2: {
+0: &"object:flashlight"
+}
+},
+&"17": {
+0: ExtResource("3_ds1lu"),
+1: Transform3D(-0.0045428276, -0.10413432, -0.9945529, -0.9990498, 0.043584406, -1.7881393e-07, 0.04334706, 0.9936078, -0.104233384, 20.57502, 1.0869141, -2.5492535),
+2: {
+0: &"object:flashlight"
+}
+},
+&"18": {
+0: ExtResource("3_ds1lu"),
+1: Transform3D(0.041378856, 0.95307595, -0.29989016, -0.9990589, 0.043375015, -7.4505806e-07, 0.01300703, 0.29960793, 0.95397377, 21.75066, 1.086914, -2.0369475),
+2: {
+0: &"object:flashlight"
+}
+},
+&"19": {
+0: ExtResource("4_q2dgi"),
+1: Transform3D(-0.035697583, -0.8182637, -0.57373375, -0.99904984, 0.043584563, 0, 0.025005937, 0.5731886, -0.81904215, 26.519579, 1.1160201, -2.5492535),
+2: {
+0: &"object:mechanical_arm"
+}
+},
+&"2": {
+0: ExtResource("5_0m7bq"),
+1: Transform3D(0.9993284, 0, 0.036643643, 0, 1, 0, -0.036643643, 0, 0.9993284, 22.928127, 1.2856561, 11.747625),
+2: {
+0: &"object:military_box"
+}
+},
+&"20": {
+0: ExtResource("4_q2dgi"),
+1: Transform3D(-0.0045429566, -0.10413425, -0.9945532, -0.99904984, 0.043584563, -1.5255847e-09, 0.043347154, 0.99360794, -0.10423349, 27.57502, 1.1160201, -2.5492535),
+2: {
+0: &"object:mechanical_arm"
+}
+},
+&"21": {
+0: ExtResource("4_q2dgi"),
+1: Transform3D(0.041578535, 0.9530674, -0.29989025, -0.9990498, 0.04358456, -2.1249196e-09, 0.013070566, 0.29960507, 0.95397407, 28.750648, 1.1160201, -2.036953),
+2: {
+0: &"object:mechanical_arm"
+}
+},
+&"22": {
+0: ExtResource("5_0m7bq"),
+1: Transform3D(0.9993284, 0, 0.036643643, 0, 1, 0, -0.036643643, 0, 0.9993284, 17.928127, 1.2856561, 11.747625),
+2: {
+0: &"object:military_box"
+}
+},
+&"3": {
+0: ExtResource("5_0m7bq"),
+1: Transform3D(0.9993284, 0, 0.036643643, 0, 1, 0, -0.036643643, 0, 0.9993284, 27.928127, 1.2856561, 11.747625),
+2: {
+0: &"object:military_box"
+}
+},
+&"4": {
+0: ExtResource("6_dnhv3"),
+1: Transform3D(1.7881393e-07, -1.0190004e-06, -0.99999994, -5.1393442e-08, 1, -1.0190003e-06, 0.99999994, 5.1393613e-08, 1.7881393e-07, 14.807675, 1.4999993, 11.747625),
+2: {
+0: &"object:crafting_table"
+}
+},
+&"5": {
+0: ExtResource("7_svkvi"),
+1: Transform3D(3.0398369e-06, 3.5122082e-06, -0.99999994, 3.3199328e-06, 1, 3.5122184e-06, 0.99999994, -3.3199435e-06, 3.0398369e-06, 13.197597, 0.9822393, 11.74765),
+2: {
+0: &"object:furnace_tier1"
+}
+},
+&"6": {
+0: ExtResource("8_xtj8f"),
+1: Transform3D(1.7881393e-07, 3.0058281e-06, -0.99999994, -2.3938424e-06, 1, 3.0058277e-06, 0.99999994, 2.393842e-06, 1.7881393e-07, 11.134605, 1.2376399, 11.164198),
+2: {
+0: &"object:coal"
+}
+},
+&"7": {
+0: ExtResource("8_xtj8f"),
+1: Transform3D(1.7881393e-07, 3.005756e-06, -0.99999994, -2.393719e-06, 1, 3.0057556e-06, 0.99999994, 2.3937184e-06, 1.7881393e-07, 10.565698, 1.2376399, 11.164198),
+2: {
+0: &"object:coal"
+}
+},
+&"8": {
+0: ExtResource("8_xtj8f"),
+1: Transform3D(1.7881393e-07, 3.0058281e-06, -0.99999994, -2.3938424e-06, 1, 3.0058277e-06, 0.99999994, 2.393842e-06, 1.7881393e-07, 9.9633465, 1.2376399, 11.164198),
+2: {
+0: &"object:coal"
+}
+},
+&"9": {
+0: ExtResource("8_xtj8f"),
+1: Transform3D(1.7881393e-07, 3.005756e-06, -0.99999994, -2.393719e-06, 1, 3.0057556e-06, 0.99999994, 2.3937184e-06, 1.7881393e-07, 9.397716, 1.2376399, 11.164198),
+2: {
+0: &"object:coal"
+}
+}
+},
 &"Player": {},
-&"Ui": {}
+&"Recipe": {},
+&"Weapon": {
+&"0": {
+0: ExtResource("14_vm6ak"),
+1: Transform3D(1.8239021e-05, -0.81892073, -0.57390666, -1, -2.193451e-05, -5.066395e-07, -1.218915e-05, 0.57390666, -0.81892073, 19.517368, 1.0571258, 2.4523144),
+2: {
+0: &"weapon:rv78"
+}
+},
+&"1": {
+0: ExtResource("14_vm6ak"),
+1: Transform3D(-3.5762787e-07, -0.104287565, -0.99454725, -1, 1.013279e-06, 1.4901161e-07, 1.0728836e-06, 0.99454725, -0.104287624, 20.574734, 1.0571287, 2.4534636),
+2: {
+0: &"weapon:rv78"
+}
+},
+&"2": {
+0: ExtResource("14_vm6ak"),
+1: Transform3D(-7.1525574e-06, 0.9540315, -0.29970652, -1.0000001, -7.390976e-06, 1.3411045e-07, -2.0712614e-06, 0.29970652, 0.95403147, 21.753231, 1.0571278, 2.9638705),
+2: {
+0: &"weapon:rv78"
+}
+},
+&"3": {
+0: ExtResource("15_6ausn"),
+1: Transform3D(0.00022292137, -0.00045531342, -0.99999994, 0.0006342065, 0.9999997, -0.00045517192, 0.9999998, -0.00063410494, 0.0002232194, 8.294146, 1.0970742, 16.588253),
+2: {
+0: &"weapon:sr_pb"
+}
+},
+&"4": {
+0: ExtResource("15_6ausn"),
+1: Transform3D(0.01071769, -0.017041236, -0.99979734, -0.9956695, -0.09251785, -0.009096503, -0.092344046, 0.9955652, -0.017959118, 17.878094, 0.018182606, -6.497624),
+2: {
+0: &"weapon:sr_pb"
+}
+},
+&"5": {
+0: ExtResource("15_6ausn"),
+1: Transform3D(-0.0005245209, -0.048296154, -0.99883294, -0.9999847, -0.0054752827, 0.00078988075, -0.005507022, 0.99881804, -0.048292518, 17.896532, 0.025515568, -6.872143),
+2: {
+0: &"weapon:sr_pb"
+}
+},
+&"6": {
+0: ExtResource("15_6ausn"),
+1: Transform3D(-0.014676452, -0.021409601, -0.9996631, -0.9990823, -0.039919376, 0.015522927, -0.04023829, 0.9989735, -0.020804048, 17.909382, 0.028927315, -7.1455727),
+2: {
+0: &"weapon:sr_pb"
+}
+},
+&"7": {
+0: ExtResource("15_6ausn"),
+1: Transform3D(-0.00079524517, -0.016570956, -0.9998623, -0.9986901, 0.05116713, -5.364418e-05, 0.0511609, 0.9985526, -0.01658988, 17.909988, 0.011106582, -7.3924494),
+2: {
+0: &"weapon:sr_pb"
+}
+},
+&"8": {
+0: ExtResource("15_6ausn"),
+1: Transform3D(5.9604645e-08, -0.0022722483, -0.9999974, -1, 0, -5.9604645e-08, -5.9604645e-08, 0.9999974, -0.0022722483, 17.909609, 0.026153494, -7.6713347),
+2: {
+0: &"weapon:sr_pb"
+}
+},
+&"9": {
+0: ExtResource("15_6ausn"),
+1: Transform3D(-0.00039970875, -0.0032225717, -0.99999475, -0.041153245, 0.9991477, -0.0032033958, 0.9991528, 0.041151743, -0.00053203106, 17.90869, 0.09154193, -7.8038325),
+2: {
+0: &"weapon:sr_pb"
+}
+}
+}
 }
 }
 
-[sub_resource type="Resource" id="Resource_6lh4s"]
-script = ExtResource("1_3mvjc")
+[sub_resource type="Resource" id="Resource_ujhin"]
+script = ExtResource("1_5f1n5")
 _data = {
 0: 100.0,
 1: 100.0
 }
 
-[sub_resource type="Resource" id="Resource_16q7k"]
-script = ExtResource("1_3mvjc")
+[sub_resource type="Resource" id="Resource_mnq0k"]
+script = ExtResource("1_5f1n5")
+_data = {
+0: 100.0,
+1: 100.0
+}
+
+[sub_resource type="Resource" id="Resource_hn2on"]
+script = ExtResource("1_5f1n5")
+_data = {
+0: 100.0,
+1: 100.0
+}
+
+[sub_resource type="Resource" id="Resource_t0exc"]
+script = ExtResource("1_5f1n5")
+_data = {
+0: 100.0,
+1: 100.0
+}
+
+[sub_resource type="Resource" id="Resource_5f1n5"]
+script = ExtResource("1_5f1n5")
+_data = {
+0: 100.0,
+1: 100.0
+}
+
+[sub_resource type="Resource" id="Resource_3sp46"]
+script = ExtResource("1_5f1n5")
+_data = {
+0: 100.0,
+1: 100.0
+}
+
+[sub_resource type="Resource" id="Resource_ds1lu"]
+script = ExtResource("1_5f1n5")
+_data = {
+0: 100.0,
+1: 100.0
+}
+
+[sub_resource type="Resource" id="Resource_q2dgi"]
+script = ExtResource("1_5f1n5")
 _data = {
 0: 100.0,
 1: 100.0
 }
 
 [resource]
-script = ExtResource("2_mmbdt")
-_instances = Dictionary[String, ExtResource("1_3mvjc")]({
-"/root/Game/LevelHolder/main_level": SubResource("Resource_2egqh"),
-"/root/Game/LevelHolder/main_level/GroupsNetworked/Player/0/CT_Health": SubResource("Resource_6lh4s"),
-"/root/Game/LevelHolder/main_level/GroupsNetworked/Player/1/CT_Health": SubResource("Resource_16q7k")
+script = ExtResource("16_jha4w")
+_instances = Dictionary[String, ExtResource("1_5f1n5")]({
+"/root/Game/LevelHolder/drifting": SubResource("Resource_ayl6v"),
+"/root/Game/LevelHolder/drifting/GroupsNetworked/Object/15/CT_Health": SubResource("Resource_5f1n5"),
+"/root/Game/LevelHolder/drifting/GroupsNetworked/Object/19/CT_Health": SubResource("Resource_3sp46"),
+"/root/Game/LevelHolder/drifting/GroupsNetworked/Object/20/CT_Health": SubResource("Resource_ds1lu"),
+"/root/Game/LevelHolder/drifting/GroupsNetworked/Object/21/CT_Health": SubResource("Resource_q2dgi"),
+"/root/Game/LevelHolder/drifting/GroupsNetworked/Object/6/CT_Health": SubResource("Resource_ujhin"),
+"/root/Game/LevelHolder/drifting/GroupsNetworked/Object/7/CT_Health": SubResource("Resource_mnq0k"),
+"/root/Game/LevelHolder/drifting/GroupsNetworked/Object/8/CT_Health": SubResource("Resource_hn2on"),
+"/root/Game/LevelHolder/drifting/GroupsNetworked/Player/0/CT_Health": SubResource("Resource_t0exc")
 })

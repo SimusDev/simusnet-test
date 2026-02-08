@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://d4gk04x3kcedm"]
+
+[ext_resource type="Script" uid="uid://bwwpj2rkss4cf" path="res://component/health/CT_Health.gd" id="1_tdrik"]
+[ext_resource type="PackedScene" uid="uid://cv4ck2wbf677e" path="res://scenes/prefabs/player_ui/health_panel.tscn" id="2_nags2"]
+
+[node name="CT_Health" type="Node" unique_id=527568948]
+script = ExtResource("1_tdrik")
+ui_prefab = ExtResource("2_nags2")
+metadata/_custom_type_script = "uid://bwwpj2rkss4cf"

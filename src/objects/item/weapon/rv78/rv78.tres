@@ -1,12 +1,13 @@
 [gd_resource type="Resource" script_class="R_WeaponFirearm" format=3 uid="uid://dp5m3auwen4jw"]
 
+[ext_resource type="Resource" uid="uid://b74p68w4oudik" path="res://src/objects/item/ammo/9x18.tres" id="1_3s3su"]
 [ext_resource type="Texture2D" uid="uid://c862dxexcegeg" path="res://src/objects/item/weapon/rv78/icon.png" id="1_mniba"]
 [ext_resource type="Resource" uid="uid://d2iehfatimmyt" path="res://src/objects/item/ammo_packs/special_9x39.tres" id="1_tr5kv"]
 [ext_resource type="Script" uid="uid://bkandi6sbfmht" path="res://component/object/item/weapon/R_WeaponFirearm.gd" id="1_xsn38"]
 [ext_resource type="Script" uid="uid://comfyg2dac6fj" path="res://component/object/sound/R_SoundObject.gd" id="2_gkmg4"]
 [ext_resource type="Script" uid="uid://cpwjwfhig01jj" path="res://addons/simusdev/audio/SD_SoundData3D.gd" id="3_bnenu"]
 [ext_resource type="AudioStream" uid="uid://di4mij02f8nxq" path="res://src/objects/item/weapon/rv78/shot.mp3" id="4_tr5kv"]
-[ext_resource type="Script" uid="uid://b7fflt0r416ip" path="res://addons/simusdev/audio/SD_SoundPackage3D.gd" id="5_3s3su"]
+[ext_resource type="Script" path="res://addons/simusdev/audio/SD_SoundPackage3D.gd" id="5_3s3su"]
 [ext_resource type="Script" uid="uid://cqdfkwb1galvp" path="res://component/viewmodel/R_ViewModel.gd" id="5_bnenu"]
 [ext_resource type="PackedScene" uid="uid://ccllc8l5eim8a" path="res://src/objects/item/weapon/rv78/Rv78Player.tscn" id="6_gkmg4"]
 [ext_resource type="PackedScene" uid="uid://s1u8rslgdufh" path="res://src/objects/item/weapon/rv78/Rv78World.tscn" id="7_mniba"]
@@ -35,6 +36,7 @@ metadata/_custom_type_script = "uid://cqdfkwb1galvp"
 
 [resource]
 script = ExtResource("1_xsn38")
+ammo = ExtResource("1_3s3su")
 ammo_pack = ExtResource("1_tr5kv")
 shot_sound = SubResource("Resource_jpkrp")
 use_cooldown = 0.15

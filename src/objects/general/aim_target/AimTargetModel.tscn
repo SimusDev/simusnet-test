@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://dc3gt6h7sxj3w"]
+
+[ext_resource type="PackedScene" uid="uid://bfts6t4kaa7q4" path="res://src/objects/general/aim_target/model/aim_target_model.glb" id="1_kgvj7"]
+
+[node name="AimTargetModel" type="Node3D" unique_id=1335153890]
+
+[node name="Sketchfab_Scene" parent="." unique_id=1786601588 instance=ExtResource("1_kgvj7")]
+transform = Transform3D(0.023, 0, 0, 0, 0.023, 0, 0, 0, 0.023, 0, 0, 0)

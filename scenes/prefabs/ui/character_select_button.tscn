@@ -1,0 +1,70 @@
+[gd_scene format=3 uid="uid://mcul4p6cn4gn"]
+
+[ext_resource type="Script" uid="uid://lvqkt5pnxuop" path="res://scenes/prefabs/ui/select_button.gd" id="1_k55rs"]
+[ext_resource type="Texture2D" uid="uid://jqsxep3h4fus" path="res://icon.svg" id="1_saiwh"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k55rs"]
+bg_color = Color(0, 0, 0, 0.62352943)
+
+[node name="CharacterSelectButton" type="Button" unique_id=1572099573]
+custom_minimum_size = Vector2(256, 256)
+anchors_preset = -1
+anchor_right = 0.2
+anchor_bottom = 0.35555556
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(128, 128)
+flat = true
+script = ExtResource("1_k55rs")
+metadata/_edit_use_anchors_ = true
+
+[node name="Panel" type="Panel" parent="." unique_id=1795385802]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Icon" type="TextureRect" parent="." unique_id=1449379849]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 32.0
+offset_right = -8.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_saiwh")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="CharacterName" type="Label" parent="." unique_id=212120944]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.094000004
+offset_bottom = -0.06400108
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_k55rs")
+text = "character_name"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ReferenceRect" type="ReferenceRect" parent="." unique_id=1637864886]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+border_color = Color(0.9374406, 0.9392425, 0.9356581, 1)
+border_width = 2.0
+editor_only = false
+
+[connection signal="button_down" from="." to="." method="_on_button_down"]
+[connection signal="button_up" from="." to="." method="_on_button_up"]

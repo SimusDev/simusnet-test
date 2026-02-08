@@ -17,6 +17,7 @@ size = Vector3(1, 0.6230469, 0.711853)
 [node name="main" type="Node3D" parent="." unique_id=436145629]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.9031692, 0)
 script = ExtResource("2_li76b")
+spawn_name = &"sex"
 metadata/_custom_type_script = "uid://fc6kpuv5syvv"
 
 [node name="player" type="Node3D" parent="." unique_id=937235654]
@@ -44,3 +45,6 @@ metadata/_custom_type_script = "uid://hmy2t684xhdx"
 
 [node name="WeaponTestStand" parent="." unique_id=1902507942 instance=ExtResource("6_vjnfq")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 22.644875, 0.0041746497, -8.0837555)
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1261630321]
+transform = Transform3D(0.7162971, 0.2557438, -0.6492408, 0, 0.93041706, 0.36650255, 0.69779545, -0.26252472, 0.66645503, 17.771193, 4.4640026, 9.702403)

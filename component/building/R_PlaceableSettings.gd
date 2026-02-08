@@ -41,4 +41,5 @@ func get_model() -> Variant:
 		return model_mesh
 	if model_prefab:
 		return model_prefab
+		
 	return null

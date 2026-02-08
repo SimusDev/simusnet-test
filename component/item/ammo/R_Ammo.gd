@@ -5,7 +5,7 @@ class_name R_Ammo
 
 @export_group("Ballistics")
 @export var muzzle_velocity: float = 850.0 
-@export_range(-1.0, 1.0, 0.00001) var air_friction: float = -0.0005 
+@export_range(0.0, 1.0, 0.00001) var air_friction: float = 0.0005 
 @export_range(0.00001, 1.0, 0.00001) var mass: float = 0.008 
 
 @export_group("Penetration")

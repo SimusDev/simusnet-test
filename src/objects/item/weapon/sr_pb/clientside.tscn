@@ -206,7 +206,7 @@ bind/45/pose = Transform3D(0.0090423925, 0.07879103, 0.9968503, 0.999959, -0.000
 [node name="Clientside" type="Node3D" unique_id=167970683]
 
 [node name="root" type="Node3D" parent="." unique_id=71728825]
-transform = Transform3D(0.008113039, -0.00013030875, -0.99996656, 0.016059574, 0.999871, 0, -0.9998381, 0.016059045, -0.008114081, 0.3263092, -0.01093655, 0.6874709)
+transform = Transform3D(0.008108012, -0.00013151, -0.99996656, 0.016217623, 0.99986845, 0, -0.99983555, 0.01621709, -0.008109075, 0.33, -0.012, 0.685)
 
 [node name="untitled" type="Node3D" parent="root" unique_id=1464867256]
 

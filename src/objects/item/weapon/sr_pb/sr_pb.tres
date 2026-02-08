@@ -22,6 +22,7 @@ metadata/_custom_type_script = "uid://cqdfkwb1galvp"
 
 [resource]
 script = ExtResource("4_0ct1j")
+base_dispersion = 0.2
 ammo = ExtResource("1_0ct1j")
 ammo_pack = ExtResource("2_01pb1")
 ammo_max = 12

@@ -1,9 +1,14 @@
 [gd_scene format=4 uid="uid://cdd0mg2pp6edg"]
 
 [ext_resource type="Texture2D" uid="uid://do2gu83iih5tk" path="res://src/textures/general/metal2.png" id="1_rt728"]
+[ext_resource type="Texture2D" uid="uid://dvngdwcw1ab2h" path="res://src/textures/general/metal/metal_0.jpeg" id="2_3hgph"]
+[ext_resource type="Texture2D" uid="uid://dtmwlx74fxbd7" path="res://src/textures/general/metal1.jpeg" id="3_erolg"]
+[ext_resource type="Texture2D" uid="uid://blbo4t0lqggep" path="res://src/textures/general/metal1_normalmap.jpg" id="4_1xu6m"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3hgph"]
 albedo_texture = ExtResource("1_rt728")
+metallic = 1.0
+roughness = 0.4
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jepjm"]
 uv1_scale = Vector3(0.015, 0.015, 0.015)
@@ -106,6 +111,12 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_a8uds")
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jppu7"]
+albedo_texture = ExtResource("2_3hgph")
+metallic = 1.0
+roughness = 0.85
+uv1_scale = Vector3(2.715, 1, 1)
+
 [sub_resource type="ArrayMesh" id="ArrayMesh_bh63h"]
 _surfaces = [{
 "aabb": AABB(-0.942537, -0.570855, -0.942557, 1.88507, 5.25731, 1.88507),
@@ -137,6 +148,15 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_bh63h")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8viwa"]
+albedo_texture = ExtResource("3_erolg")
+metallic = 1.0
+roughness = 0.85
+normal_enabled = true
+normal_scale = 0.52
+normal_texture = ExtResource("4_1xu6m")
+uv1_scale = Vector3(2.715, 1, 1)
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_qu8m1"]
 _surfaces = [{
@@ -201,6 +221,9 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_eno0d")
+
+[sub_resource type="JointLimitationCone3D" id="JointLimitationCone3D_erolg"]
+angle = 0.7853982
 
 [node name="mechanical_arm_model" type="Node3D" unique_id=1068801430]
 
@@ -291,7 +314,7 @@ bones/11/name = "Wrist"
 bones/11/parent = 4
 bones/11/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.26197e-08, 0.733705, 3.25963e-08)
 bones/11/enabled = true
-bones/11/position = Vector3(5.26197e-08, 0.733705, 3.25963e-08)
+bones/11/position = Vector3(0, 0.0789862, 0)
 bones/11/rotation = Quaternion(0, 0, 0, 1)
 bones/11/scale = Vector3(1, 1, 1)
 bones/12/name = "Arm 2"
@@ -317,7 +340,7 @@ bones/14/rotation = Quaternion(0, 0, 0, 1)
 bones/14/scale = Vector3(1, 1, 1)
 
 [node name="Claw 2" type="BoneAttachment3D" parent="root/Armature/Skeleton3D" unique_id=1457431961]
-transform = Transform3D(0.9999997, -8.046627e-07, 6.3948846e-14, 8.046627e-07, 0.9999997, 9.2370556e-14, -2.842171e-14, -7.1054274e-14, 1, 1.2933257, 16.143747, 3.4458974e-08)
+transform = Transform3D(0.9999997, -8.046627e-07, 6.3948846e-14, 8.046627e-07, 0.9999997, 9.2370556e-14, -2.842171e-14, -7.1054274e-14, 1, 1.2933257, 15.489029, 1.8626733e-09)
 bone_name = "Claw 2"
 bone_idx = 7
 
@@ -326,7 +349,7 @@ material_override = SubResource("StandardMaterial3D_3hgph")
 mesh = SubResource("ArrayMesh_1twvc")
 
 [node name="Claw 1" type="BoneAttachment3D" parent="root/Armature/Skeleton3D" unique_id=1897079300]
-transform = Transform3D(0.9999997, 8.046627e-07, 2.842171e-13, -8.046627e-07, 0.9999997, 2.842171e-13, -2.2737368e-13, -3.4816594e-13, 1, -1.2933261, 16.143747, 3.678732e-08)
+transform = Transform3D(0.9999997, 8.046627e-07, 2.842171e-13, -8.046627e-07, 0.9999997, 2.842171e-13, -2.2737368e-13, -3.4816594e-13, 1, -1.2933261, 15.489029, 4.1910195e-09)
 bone_name = "Claw 1"
 bone_idx = 10
 
@@ -335,7 +358,7 @@ material_override = SubResource("StandardMaterial3D_3hgph")
 mesh = SubResource("ArrayMesh_rt728")
 
 [node name="Wrist" type="BoneAttachment3D" parent="root/Armature/Skeleton3D" unique_id=938706071]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.26197e-08, 14.272691, 3.25963e-08)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 13.617972, 0)
 bone_name = "Wrist"
 bone_idx = 11
 
@@ -349,7 +372,7 @@ bone_name = "Arm 2"
 bone_idx = 12
 
 [node name="Arm 2" type="MeshInstance3D" parent="root/Armature/Skeleton3D/Arm 2" unique_id=2027142534]
-material_override = SubResource("StandardMaterial3D_3hgph")
+material_override = SubResource("StandardMaterial3D_jppu7")
 mesh = SubResource("ArrayMesh_jppu7")
 
 [node name="Arm 1" type="BoneAttachment3D" parent="root/Armature/Skeleton3D" unique_id=1174011220]
@@ -358,7 +381,7 @@ bone_name = "Arm 1"
 bone_idx = 13
 
 [node name="Arm 1" type="MeshInstance3D" parent="root/Armature/Skeleton3D/Arm 1" unique_id=797836217]
-material_override = SubResource("StandardMaterial3D_3hgph")
+material_override = SubResource("StandardMaterial3D_8viwa")
 mesh = SubResource("ArrayMesh_erolg")
 
 [node name="Base" type="BoneAttachment3D" parent="root/Armature/Skeleton3D" unique_id=1651403414]
@@ -370,23 +393,28 @@ material_override = SubResource("StandardMaterial3D_3hgph")
 mesh = SubResource("ArrayMesh_1xu6m")
 
 [node name="JacobianIK3D" type="JacobianIK3D" parent="root/Armature/Skeleton3D" unique_id=1316577865]
+transform = Transform3D(0.15196809, 0.9883849, 0, -0.9883849, 0.15196809, 0, 0, 0, 0.99999976, -0.3409608, 11.51888, 1.404937)
 setting_count = 1
 settings/0/target_node = NodePath("")
 settings/0/root_bone_name = "Bone.001"
 settings/0/root_bone = 1
 settings/0/end_bone_name = "Bone.006"
 settings/0/end_bone = 8
-settings/0/extend_end_bone = false
+settings/0/extend_end_bone = true
+settings/0/end_bone/direction = 6
+settings/0/end_bone/length = 0.0
 settings/0/joint_count = 6
 settings/0/joints/0/rotation_axis = 3
-settings/0/joints/0/limitation = null
-settings/0/joints/1/rotation_axis = 3
+settings/0/joints/0/limitation = SubResource("JointLimitationCone3D_erolg")
+settings/0/joints/0/limitation/right_axis = 0
+settings/0/joints/0/limitation/rotation_offset = Quaternion(0, 0, 0, 1)
+settings/0/joints/1/rotation_axis = 2
 settings/0/joints/1/limitation = null
 settings/0/joints/2/rotation_axis = 3
 settings/0/joints/2/limitation = null
 settings/0/joints/3/rotation_axis = 3
 settings/0/joints/3/limitation = null
-settings/0/joints/4/rotation_axis = 3
+settings/0/joints/4/rotation_axis = 1
 settings/0/joints/4/limitation = null
 settings/0/joints/5/rotation_axis = 3
 settings/0/joints/5/limitation = null

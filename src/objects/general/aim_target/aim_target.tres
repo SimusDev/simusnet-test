@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="R_WorldObject" format=3 uid="uid://cmkf0rl5g7gg4"]
+
+[ext_resource type="Texture2D" uid="uid://dwuhj1q86jx0l" path="res://src/objects/general/aim_target/icon.png" id="1_b2oo6"]
+[ext_resource type="Script" uid="uid://cxyhi06aga6j1" path="res://component/object/R_WorldObject.gd" id="1_s674y"]
+[ext_resource type="PackedScene" uid="uid://55p4f0vv3xwh" path="res://src/objects/general/aim_target/AimTargetPlayer.tscn" id="3_5ac6l"]
+[ext_resource type="Script" uid="uid://cqdfkwb1galvp" path="res://component/viewmodel/R_ViewModel.gd" id="4_6o2nc"]
+[ext_resource type="PackedScene" uid="uid://cgxa7txeoew0y" path="res://src/objects/general/aim_target/AimTargetWorld.tscn" id="5_pohle"]
+
+[sub_resource type="Resource" id="Resource_mycn5"]
+script = ExtResource("4_6o2nc")
+world = ExtResource("5_pohle")
+player = ExtResource("3_5ac6l")
+metadata/_custom_type_script = "uid://cqdfkwb1galvp"
+
+[resource]
+script = ExtResource("1_s674y")
+viewmodel = SubResource("Resource_mycn5")
+icon = ExtResource("1_b2oo6")
+metadata/_custom_type_script = "uid://cxyhi06aga6j1"

@@ -2,6 +2,8 @@
 
 [ext_resource type="PackedScene" uid="uid://beiyexjc68s1a" path="res://3d/menu_lake/lake_menu.tscn" id="1_pqkb6"]
 [ext_resource type="Shader" uid="uid://cvd0x7lon1ur6" path="res://addons/sky_3d/shaders/SkyMaterial.gdshader" id="2_hlyoq"]
+[ext_resource type="Script" uid="uid://cntf64oap5uqy" path="res://addons/QuakeLamp/LampComponent.gd" id="2_oojhj"]
+[ext_resource type="Script" uid="uid://6pevvh4ucdx" path="res://addons/QuakeLamp/FlickerComponent.gd" id="3_5stf8"]
 [ext_resource type="Texture2D" uid="uid://cfqk60lpl5ljv" path="res://addons/sky_3d/assets/resources/SNoise.tres" id="3_oojhj"]
 [ext_resource type="Texture2D" uid="uid://cecwdqjol0ckd" path="res://addons/sky_3d/assets/textures/noiseClouds.png" id="4_5stf8"]
 [ext_resource type="Texture2D" uid="uid://2r8ylu6rg5dp" path="res://addons/sky_3d/assets/thirdparty/textures/moon/MoonMap.png" id="5_1wo0j"]
@@ -15,7 +17,7 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_i1dx6"]
 shader = ExtResource("2_hlyoq")
 shader_parameter/sky_visible = true
-shader_parameter/color_correction = Vector2(0, 1)
+shader_parameter/color_correction = Vector2(0, 0.4)
 shader_parameter/ground_color = Color(0.3, 0.3, 0.3, 1)
 shader_parameter/horizon_offset = 0.0
 shader_parameter/atm_darkness = 0.5
@@ -48,7 +50,7 @@ shader_parameter/starmap_flip_u = false
 shader_parameter/starmap_flip_v = false
 shader_parameter/starmap_alignment = Vector3(2.68288, -0.25891, 0.40101)
 shader_parameter/star_rotation_offset = 9.38899
-shader_parameter/star_rotation = -13.73858073111418
+shader_parameter/star_rotation = -13.581071028645788
 shader_parameter/star_tilt = -1.2915436464758039
 shader_parameter/star_field_color = Color(1, 1, 1, 1)
 shader_parameter/star_field_texture = ExtResource("7_1sgm5")
@@ -63,13 +65,13 @@ shader_parameter/cirrus_sky_tint_fade = 0.5
 shader_parameter/cirrus_intensity = 10.0
 shader_parameter/cirrus_size = 1.0
 shader_parameter/cirrus_uv = Vector2(0.16, 0.11)
-shader_parameter/cirrus_position1 = Vector2(0.015438416, 0.015438416)
-shader_parameter/cirrus_position2 = Vector2(0.015438416, 0.015438416)
+shader_parameter/cirrus_position1 = Vector2(0.22785302, 0.22785302)
+shader_parameter/cirrus_position2 = Vector2(0.22785302, 0.22785302)
 shader_parameter/cirrus_day_color = Color(0.824, 0.875, 1, 1)
 shader_parameter/cirrus_horizon_light_color = Color(0.98, 0.43, 0.15, 1)
 shader_parameter/cirrus_night_color = Color(0.09, 0.094, 0.129, 1)
 shader_parameter/cirrus_texture = ExtResource("3_oojhj")
-shader_parameter/cumulus_visible = false
+shader_parameter/cumulus_visible = true
 shader_parameter/cumulus_coverage = 0.55
 shader_parameter/cumulus_thickness = 0.0243
 shader_parameter/cumulus_absorption = 2.0
@@ -77,7 +79,7 @@ shader_parameter/cumulus_noise_freq = 2.7
 shader_parameter/cumulus_sky_tint_fade = 0.0
 shader_parameter/cumulus_intensity = 0.6
 shader_parameter/cumulus_size = 0.5
-shader_parameter/cumulus_position = Vector2(0.065996334, 0.065996334)
+shader_parameter/cumulus_position = Vector2(1.1391263, 1.1391263)
 shader_parameter/cumulus_texture = ExtResource("4_5stf8")
 shader_parameter/cumulus_day_color = Color(0.823529, 0.87451, 1, 1)
 shader_parameter/cumulus_horizon_light_color = Color(0.98, 0.43, 0.15, 1)
@@ -90,12 +92,12 @@ shader_parameter/azimuthal_grid_rotation_offset = 0.03
 shader_parameter/show_equatorial_grid = false
 shader_parameter/equatorial_grid_color = Color(0, 0.75, 1, 1)
 shader_parameter/equatorial_grid_rotation_offset = 0.03
-shader_parameter/moon_matrix = Basis(-1.4901161e-08, -0.3324561, -0.94311875, -0.7807391, 0.5893146, -0.20773761, 0.6248572, 0.7363296, -0.25956145)
+shader_parameter/moon_matrix = Basis(0, -0.41497737, -0.9098318, -0.6960426, 0.6532597, -0.29795396, 0.71800053, 0.63328165, -0.2888419)
 
 [sub_resource type="Sky" id="Sky_pkj2l"]
 sky_material = SubResource("ShaderMaterial_i1dx6")
 
-[sub_resource type="Environment" id="Environment_y3445"]
+[sub_resource type="Environment" id="Environment_pqkb6"]
 background_mode = 2
 sky = SubResource("Sky_pkj2l")
 ambient_light_source = 3
@@ -104,6 +106,9 @@ ambient_light_sky_contribution = 0.7
 reflected_light_source = 2
 tonemap_mode = 3
 tonemap_white = 6.0
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.0714
+volumetric_fog_ambient_inject = 1.0
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_6nnok"]
 
@@ -115,46 +120,59 @@ transform = Transform3D(0.9963184, 0, 0.08572993, 0, 1, 0, -0.08572993, 0, 0.996
 [node name="OmniLight3D2" type="OmniLight3D" parent="GLTF_SceneRootNode/Sketchfab_Scene" parent_id_path=PackedInt32Array(441902115, 1313162987) index="2" unique_id=126282441]
 transform = Transform3D(20.000004, -2.7120113e-06, -1.1920929e-07, 2.3171306e-06, 20.000002, -9.536743e-07, 2.3841858e-07, 9.536743e-07, 20.000002, -0.2074697, 0.8439646, -0.09410095)
 light_color = Color(1, 0.8039216, 0, 1)
-light_energy = 0.21
+light_energy = 0.9603076
+light_indirect_energy = 0.9603076
 light_size = 0.269
 shadow_enabled = true
+
+[node name="cLampComponent" type="Node" parent="GLTF_SceneRootNode/Sketchfab_Scene/OmniLight3D2" unique_id=807719358 node_paths=PackedStringArray("LightInstances", "FlickerComponent")]
+script = ExtResource("2_oojhj")
+LightInstances = [NodePath("..")]
+FlickerComponent = NodePath("cFlickerComponent")
+metadata/_custom_type_script = "uid://cntf64oap5uqy"
+
+[node name="cFlickerComponent" type="Node" parent="GLTF_SceneRootNode/Sketchfab_Scene/OmniLight3D2/cLampComponent" unique_id=1024924346]
+script = ExtResource("3_5stf8")
+AnimationTable = 0
+Fade = true
+metadata/_custom_type_script = "uid://6pevvh4ucdx"
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=2122947985]
 transform = Transform3D(0.6170652, 0.0014024915, 0.78691083, 0, 0.99999845, -0.0017822722, -0.7869121, 0.0010997781, 0.6170642, 3.8543472, 0.45225963, 3.4623241)
 fov = 42.563095
 
 [node name="Sky3D" type="WorldEnvironment" parent="." unique_id=245786527]
-environment = SubResource("Environment_y3445")
+environment = SubResource("Environment_pqkb6")
 camera_attributes = SubResource("CameraAttributesPractical_6nnok")
 script = ExtResource("9_qxqca")
-clouds_enabled = false
 editor_time_enabled = false
 game_time_enabled = false
-current_time = 21.6
+current_time = 21.0
 minutes_per_day = 1.0
+skydome_energy = 0.4
 moon_energy = 0.3
 wind_direction = 2.35619451204804
 metadata/_custom_type_script = "uid://deo0gxkmk2ahd"
 
 [node name="SunLight" type="DirectionalLight3D" parent="Sky3D" unique_id=691706047]
-transform = Transform3D(0, -0.859278, -0.5115091, 0.19276977, 0.5019153, -0.84316134, 0.9812441, -0.098603494, 0.1656428, -0.51150906, -0.8431613, 0.16564278)
+transform = Transform3D(0, -0.78077275, -0.62481517, 0.24375543, 0.6059687, -0.7572221, 0.9698367, -0.15230209, 0.19031762, -0.6248151, -0.75722206, 0.1903176)
 light_color = Color(0.98, 0.523, 0.294, 1)
 light_energy = 0.0
 
 [node name="MoonLight" type="DirectionalLight3D" parent="Sky3D" unique_id=200628296]
-transform = Transform3D(0, -0.7807391, 0.62485725, -0.3324561, 0.5893146, 0.7363297, -0.94311875, -0.20773761, -0.25956148, 0.6248572, 0.7363296, -0.25956145)
+transform = Transform3D(0, -0.6960426, 0.71800053, -0.41497734, 0.6532597, 0.63328165, -0.90983176, -0.29795396, -0.2888419, 0.71800053, 0.63328165, -0.2888419)
 light_color = Color(0.572549, 0.776471, 0.956863, 1)
-light_energy = 0.22089888
+light_energy = 0.1899845
 shadow_enabled = true
 
 [node name="SkyDome" type="Node" parent="Sky3D" unique_id=1901641130]
 script = ExtResource("10_lwccb")
-sun_azimuth = -4.3992143
-sun_altitude = -2.5739324
-moon_azimuth = -1.1770908
-moon_altitude = -0.7431666
+exposure = 0.4
+sun_azimuth = -4.416719
+sun_altitude = -2.4298458
+moon_azimuth = -1.1883204
+moon_altitude = -0.8850102
 wind_direction = 2.35619451204804
-cumulus_visible = false
 
 [node name="TimeOfDay" type="Node" parent="Sky3D" unique_id=1538080067]
 script = ExtResource("11_odjgd")
@@ -162,7 +180,7 @@ editor_time_enabled = false
 game_time_enabled = false
 dome_path = NodePath("../SkyDome")
 minutes_per_day = 1.0
-current_time = 21.6
+current_time = 21.0
 
 [node name="amb" type="AudioStreamPlayer" parent="." unique_id=1828020031]
 

@@ -1,0 +1,99 @@
+[gd_scene format=3 uid="uid://cy2pme50r1am4"]
+
+[ext_resource type="Texture2D" uid="uid://jqsxep3h4fus" path="res://icon.svg" id="1_kyw84"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hmxlb"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.14044744, 0.14044744, 0.14044744, 0.6)
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kyw84"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.00069389754, 0.00069389766, 0.0006938976, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_detail = 5
+
+[sub_resource type="LabelSettings" id="LabelSettings_hmxlb"]
+font_size = 14
+
+[node name="CharacterPortrait" type="Control" unique_id=1514080965]
+custom_minimum_size = Vector2(364, 364)
+layout_mode = 3
+anchor_right = 0.284375
+anchor_bottom = 0.50555557
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Window" type="Panel" parent="." unique_id=1478393265]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 24.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_hmxlb")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="Window" unique_id=607122588]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = -5.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="Window/SubViewportContainer" unique_id=1430715226]
+handle_input_locally = false
+size = Vector2i(354, 330)
+render_target_update_mode = 0
+
+[node name="Icon" type="TextureRect" parent="Window" unique_id=1710619791]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 12.0
+offset_top = 7.999998
+offset_right = -12.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_kyw84")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Head" type="Panel" parent="." unique_id=1243007932]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 24.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_kyw84")
+
+[node name="title" type="Label" parent="Head" unique_id=1977439508]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "username [character_name]"
+label_settings = SubResource("LabelSettings_hmxlb")
+horizontal_alignment = 1
+vertical_alignment = 1

@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://55p4f0vv3xwh"]
+
+[ext_resource type="Script" uid="uid://d0q02rkjl2np2" path="res://component/item/W_Item.gd" id="1_55xit"]
+[ext_resource type="PackedScene" uid="uid://dc3gt6h7sxj3w" path="res://src/objects/general/aim_target/AimTargetModel.tscn" id="2_f1pgp"]
+[ext_resource type="Script" uid="uid://b7il0848tlrkq" path="res://component/building/CT_Placeable.gd" id="3_3v6ch"]
+[ext_resource type="Script" uid="uid://b446loaai0cao" path="res://component/building/R_PlaceableSettings.gd" id="4_gkfcx"]
+
+[sub_resource type="Resource" id="Resource_3veti"]
+script = ExtResource("4_gkfcx")
+model_prefab = ExtResource("2_f1pgp")
+metadata/_custom_type_script = "uid://b446loaai0cao"
+
+[node name="AimTargetPlayer" type="Node3D" unique_id=96720328]
+script = ExtResource("1_55xit")
+metadata/_custom_type_script = "uid://d0q02rkjl2np2"
+
+[node name="AimTargetModel" parent="." unique_id=1335153890 instance=ExtResource("2_f1pgp")]
+transform = Transform3D(0.14968735, 0.009231834, 0.0029107863, 0, 0.045105875, -0.14305754, -0.009679846, 0.14275937, 0.04501186, -0.01, 0.01, -0.255)
+
+[node name="CT_Placeable" type="Node" parent="." unique_id=1690729310]
+script = ExtResource("3_3v6ch")
+placeable = SubResource("Resource_3veti")
+metadata/_custom_type_script = "uid://b7il0848tlrkq"

@@ -10,7 +10,7 @@ script = ExtResource("4_6rxgn")
 model_prefab = ExtResource("2_6uwj1")
 metadata/_custom_type_script = "uid://b446loaai0cao"
 
-[node name="CraftingTableView" type="Node3D" unique_id=314847915]
+[node name="CraftingTablePlayer" type="Node3D" unique_id=314847915]
 script = ExtResource("1_umsf8")
 metadata/_custom_type_script = "uid://d0q02rkjl2np2"
 

@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://dbxq4udu4u41q" path="res://scenes/prefabs/level_handler.tscn" id="7_0tnpc"]
 [ext_resource type="PackedScene" uid="uid://bqx58y6sxcy1v" path="res://scenes/prefabs/ui/main_menu/main_menu.tscn" id="9_0tnpc"]
 [ext_resource type="Script" uid="uid://d1l1jkmj6s53f" path="res://addons/simusdev/ui/SD_UIInterfaceMenu.gd" id="10_vtaks"]
+[ext_resource type="PackedScene" uid="uid://cw7rjiwvg4pda" path="res://src/prefabs/water.tscn" id="12_dinhu"]
 
 [node name="Game" type="Node3D" unique_id=1979558274]
 script = ExtResource("1_yqjtg")
@@ -62,5 +63,8 @@ script = ExtResource("10_vtaks")
 target = NodePath("..")
 input_action = "game.main_menu"
 metadata/_custom_type_script = "uid://d1l1jkmj6s53f"
+
+[node name="Water" parent="." unique_id=443045665 instance=ExtResource("12_dinhu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.58, 0)
 
 [editable path="Sky3D"]

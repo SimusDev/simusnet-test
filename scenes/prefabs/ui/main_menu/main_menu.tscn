@@ -3,11 +3,65 @@
 [ext_resource type="Script" uid="uid://gkpe7xci8on3" path="res://scenes/prefabs/ui/main_menu/main_menu.gd" id="1_026n6"]
 [ext_resource type="Script" uid="uid://dotjiengj0hqs" path="res://addons/simusdev/ui/SD_UINodeExitButton.gd" id="2_da2ht"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_5h2bh"]
-font_color = Color(1, 1, 1, 0.5686275)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5h2bh"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.101960786, 0.101960786, 0.101960786, 0.14509805)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4hkdk"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f41q6"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.1, 0.1, 0.1, 0.3)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w676r"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(1, 1, 1, 0.75)
+draw_center = false
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wmaw6"]
-bg_color = Color(0.5858467, 1.8049031e-06, 4.3317675e-07, 1)
+bg_color = Color(0.5267931, 1.6544946e-06, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_wmaw6"]
+outline_size = 3
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_5h2bh"]
+font_color = Color(1, 1, 1, 0.5686275)
 
 [node name="main_menu" type="Control" unique_id=186549104 node_paths=PackedStringArray("_button_container", "_screens_container", "_hide_ingame", "_show_ingame")]
 layout_mode = 3
@@ -22,29 +76,16 @@ _screens_container = NodePath("Panel/MarginContainer")
 _hide_ingame = [NodePath("Panel/MarginContainer/ScreenMain/Play"), NodePath("Panel/MarginContainer/ScreenMain/Multiplayer"), NodePath("Panel/MarginContainer/ScreenMain/Quit")]
 _show_ingame = [NodePath("Panel/MarginContainer/ScreenMain/Disconnect")]
 
-[node name="Devs" type="Label" parent="." unique_id=2008836150]
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 8.0
-offset_top = -29.0
-offset_right = 708.0
-offset_bottom = -8.0
-grow_vertical = 0
-theme_override_font_sizes/font_size = 32
-text = "by: zxcvlxd and simusdev"
-label_settings = SubResource("LabelSettings_5h2bh")
-
 [node name="Panel" type="Panel" parent="." unique_id=690560241]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.76100004
-anchor_right = 1.0
+anchor_right = 0.23900001
 anchor_bottom = 1.0
-offset_left = -0.080078125
+offset_right = 0.07998657
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_5h2bh")
+metadata/_edit_use_anchors_ = true
 
 [node name="MarginContainer" type="MarginContainer" parent="Panel" unique_id=1512978073]
 layout_mode = 1
@@ -60,45 +101,68 @@ theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
 [node name="ScreenMain" type="VBoxContainer" parent="Panel/MarginContainer" unique_id=2006840583]
+visible = false
 layout_mode = 2
 alignment = 1
 
 [node name="Play" type="Button" parent="Panel/MarginContainer/ScreenMain" unique_id=585285750]
 layout_mode = 2
-theme_override_font_sizes/font_size = 32
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 24
 text = "Play"
+flat = true
+alignment = 0
 
 [node name="Multiplayer" type="Button" parent="Panel/MarginContainer/ScreenMain" unique_id=2025523503]
 layout_mode = 2
-theme_override_font_sizes/font_size = 32
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 24
 text = "Multiplayer"
+flat = true
+alignment = 0
 
 [node name="Load Game" type="Button" parent="Panel/MarginContainer/ScreenMain" unique_id=1165464092]
 layout_mode = 2
-theme_override_font_sizes/font_size = 32
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 24
 text = "Load Game"
+flat = true
+alignment = 0
 
 [node name="Save Game" type="Button" parent="Panel/MarginContainer/ScreenMain" unique_id=441975929]
 layout_mode = 2
-theme_override_font_sizes/font_size = 32
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 24
 disabled = true
 text = "Save Game"
+flat = true
+alignment = 0
 
 [node name="Settings" type="Button" parent="Panel/MarginContainer/ScreenMain" unique_id=602292339]
 layout_mode = 2
-theme_override_font_sizes/font_size = 32
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 24
 text = "Settings"
+flat = true
+alignment = 0
 
 [node name="Disconnect" type="Button" parent="Panel/MarginContainer/ScreenMain" unique_id=1559847820]
 visible = false
 layout_mode = 2
+theme_override_constants/outline_size = 3
 theme_override_font_sizes/font_size = 32
 text = "Disconnect"
+flat = true
+alignment = 0
 
 [node name="Quit" type="Button" parent="Panel/MarginContainer/ScreenMain" unique_id=1556660542]
 layout_mode = 2
-theme_override_font_sizes/font_size = 32
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 24
 text = "Quit"
+flat = true
+alignment = 0
 
 [node name="SD_UINodeExitButton" type="Node" parent="Panel/MarginContainer/ScreenMain/Quit" unique_id=120094287 node_paths=PackedStringArray("button")]
 script = ExtResource("2_da2ht")
@@ -113,19 +177,26 @@ alignment = 1
 [node name="LineEdit" type="LineEdit" parent="Panel/MarginContainer/ScreenConnect" unique_id=656455464]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_4hkdk")
+theme_override_styles/read_only = SubResource("StyleBoxFlat_f41q6")
+theme_override_styles/focus = SubResource("StyleBoxFlat_w676r")
 text = "localhost:8080"
 placeholder_text = "Address"
 alignment = 1
 
 [node name="ConnectToServer" type="Button" parent="Panel/MarginContainer/ScreenConnect" unique_id=836580550]
 layout_mode = 2
-theme_override_font_sizes/font_size = 32
+theme_override_font_sizes/font_size = 24
 text = "Connect"
+flat = true
+alignment = 0
 
 [node name="BackToMain" type="Button" parent="Panel/MarginContainer/ScreenConnect" unique_id=319050546]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "Back"
+flat = true
+alignment = 0
 
 [node name="ScreenSettings" type="VBoxContainer" parent="Panel/MarginContainer" unique_id=295347634]
 visible = false
@@ -134,16 +205,37 @@ alignment = 1
 
 [node name="BackToMain" type="Button" parent="Panel/MarginContainer/ScreenSettings" unique_id=1344768111]
 layout_mode = 2
-theme_override_font_sizes/font_size = 32
+theme_override_font_sizes/font_size = 24
 text = "Back"
+flat = true
+alignment = 0
 
 [node name="version" type="Label" parent="." unique_id=1409942562]
 layout_mode = 1
-offset_left = -39.429756
-offset_top = 268.42975
-offset_right = 400.2787
-offset_bottom = 289.42975
-rotation = -0.7853982
+anchors_preset = -1
+anchor_left = 0.9990001
+anchor_right = 0.9990001
+offset_left = -119.40967
+offset_top = -24.689512
+offset_right = 85.79553
+offset_bottom = 9.083132
+rotation = 0.7853982
 theme_override_styles/normal = SubResource("StyleBoxFlat_wmaw6")
-text = "v0.00000000001-alpha"
+text = "v0.01-alpha"
+label_settings = SubResource("LabelSettings_wmaw6")
 horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Devs" type="Label" parent="." unique_id=2008836150]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = -29.0
+offset_right = 708.0
+offset_bottom = -8.0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 32
+text = "by zxcvlxd and simusdev"
+label_settings = SubResource("LabelSettings_5h2bh")

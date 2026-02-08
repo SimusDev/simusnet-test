@@ -40,6 +40,7 @@ Shortcuts/density_decrement=Object(Shortcut,"resource_local_to_scene":false,"res
 [application]
 
 config/name="simusnet-test"
+config/version="v0-01a"
 run/main_scene="uid://bqy2338pry4q6"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
@@ -244,6 +245,7 @@ change_ammo_type={
 3d_physics/layer_1="World"
 3d_physics/layer_2="Interaction"
 3d_physics/layer_3="Hitbox"
+3d_physics/layer_4="Area"
 
 [physics]
 

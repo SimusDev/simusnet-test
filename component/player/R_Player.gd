@@ -1,6 +1,8 @@
 extends R_Entity
 class_name R_Player
 
+@export var name:StringName = ""
+
 static var _players: Dictionary[String, R_Player]
 
 func _get_group() -> String:

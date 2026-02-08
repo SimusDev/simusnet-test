@@ -1,0 +1,175 @@
+[gd_scene format=3 uid="uid://ctrgfosc0vsuv"]
+
+[ext_resource type="PackedScene" uid="uid://cy2pme50r1am4" path="res://scenes/prefabs/ui/character_portrait.tscn" id="1_p16j7"]
+[ext_resource type="Script" uid="uid://ck0n248prf5lp" path="res://scenes/prefabs/ui/spawn_character_menu.gd" id="1_pxrih"]
+[ext_resource type="PackedScene" uid="uid://mcul4p6cn4gn" path="res://scenes/prefabs/ui/character_select_button.tscn" id="2_iu6n2"]
+[ext_resource type="Script" uid="uid://buo415nhjgsrx" path="res://addons/simusdev/localization/SD_NodeLocalizatorProperty.gd" id="4_oiqmm"]
+[ext_resource type="PackedScene" uid="uid://d3576pg2t7ndw" path="res://scenes/prefabs/ui/location_select_button.tscn" id="4_wlwaj"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pxrih"]
+bg_color = Color(0, 0, 0, 0.627451)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wlwaj"]
+bg_color = Color(0, 0, 0, 0.62352943)
+
+[node name="SpawnCharacterMenu" type="Control" unique_id=600143115]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_pxrih")
+character_select_button = ExtResource("2_iu6n2")
+location_select_button = ExtResource("4_wlwaj")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1455876056]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.80784315)
+
+[node name="SpawnMenu" type="Control" parent="." unique_id=1938444394]
+layout_mode = 1
+anchor_left = 0.025
+anchor_right = 0.325
+anchor_bottom = 1.0
+metadata/_edit_use_anchors_ = true
+
+[node name="actions_container" type="VBoxContainer" parent="SpawnMenu" unique_id=1046277404]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.020833334
+anchor_top = 0.54444444
+anchor_right = 0.96875
+anchor_bottom = 0.98888886
+metadata/_edit_use_anchors_ = true
+
+[node name="spawn_button" type="Button" parent="SpawnMenu/actions_container" unique_id=483599595]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 6.41)
+layout_mode = 2
+text = "Spawn"
+
+[node name="SD_NodeLocalizatorProperty" type="Node" parent="SpawnMenu/actions_container/spawn_button" unique_id=677773465 node_paths=PackedStringArray("node")]
+process_mode = 4
+script = ExtResource("4_oiqmm")
+node = NodePath("..")
+key = &"G_SPAWN"
+metadata/_custom_type_script = "uid://buo415nhjgsrx"
+
+[node name="character_portrait" parent="SpawnMenu" unique_id=1514080965 instance=ExtResource("1_p16j7")]
+unique_name_in_owner = true
+layout_mode = 1
+anchor_left = 0.020833334
+anchor_top = 0.022222223
+anchor_right = 0.96875
+anchor_bottom = 0.5277778
+
+[node name="CharacterList" type="Control" parent="." unique_id=1981257846]
+layout_mode = 1
+anchor_left = 0.37500003
+anchor_right = 0.675
+anchor_bottom = 1.0
+offset_left = -3.0517578e-05
+offset_top = 40.0
+offset_bottom = -16.0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CharacterList" unique_id=2122850774]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_pxrih")
+
+[node name="character_list_container" type="FlowContainer" parent="CharacterList/ScrollContainer" unique_id=1870234009]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="CharacterSelectButton" parent="CharacterList/ScrollContainer/character_list_container" unique_id=245169876 instance=ExtResource("2_iu6n2")]
+layout_mode = 2
+
+[node name="CharacterSelectButton2" parent="CharacterList/ScrollContainer/character_list_container" unique_id=2075988777 instance=ExtResource("2_iu6n2")]
+layout_mode = 2
+
+[node name="CharacterSelectButton3" parent="CharacterList/ScrollContainer/character_list_container" unique_id=1627431386 instance=ExtResource("2_iu6n2")]
+layout_mode = 2
+
+[node name="CharacterSelectButton4" parent="CharacterList/ScrollContainer/character_list_container" unique_id=1357261252 instance=ExtResource("2_iu6n2")]
+layout_mode = 2
+
+[node name="LocationList" type="Control" parent="." unique_id=787547223]
+layout_mode = 1
+anchor_left = 0.68700004
+anchor_right = 0.98700005
+anchor_bottom = 1.0
+offset_left = 0.6399536
+offset_top = 40.0
+offset_right = 0.6398926
+offset_bottom = -16.0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="LocationList" unique_id=502715245]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_pxrih")
+
+[node name="location_list_container" type="FlowContainer" parent="LocationList/ScrollContainer" unique_id=1840969496]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="LocationSelectButton2" parent="LocationList/ScrollContainer/location_list_container" unique_id=584631575 instance=ExtResource("4_wlwaj")]
+layout_mode = 2
+
+[node name="LocationSelectButton4" parent="LocationList/ScrollContainer/location_list_container" unique_id=1011030636 instance=ExtResource("4_wlwaj")]
+layout_mode = 2
+
+[node name="LocationSelectButton3" parent="LocationList/ScrollContainer/location_list_container" unique_id=1081988372 instance=ExtResource("4_wlwaj")]
+layout_mode = 2
+
+[node name="LocationSelectButton" parent="LocationList/ScrollContainer/location_list_container" unique_id=407161161 instance=ExtResource("4_wlwaj")]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="." unique_id=1521820985]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.68700004
+anchor_top = 0.011000001
+anchor_right = 0.98700005
+anchor_bottom = 0.040000003
+offset_left = 0.6399536
+offset_top = 0.07999945
+offset_right = 0.6398926
+offset_bottom = 0.19999886
+theme_override_styles/normal = SubResource("StyleBoxFlat_wlwaj")
+text = "Select location"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="." unique_id=1130467681]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.375
+anchor_top = 0.011111111
+anchor_right = 0.675
+anchor_bottom = 0.04027778
+theme_override_styles/normal = SubResource("StyleBoxFlat_wlwaj")
+text = "Select character"
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
