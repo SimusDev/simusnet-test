@@ -15,7 +15,4 @@
 [resource]
 script = ExtResource("1_5vu20")
 resistance = 0.2
-impact_sounds = Array[AudioStream]([ExtResource("3_8qynb"), ExtResource("4_u0laj"), ExtResource("5_s4f43"), ExtResource("6_bc8l2")])
-bullet_impact_sounds = Array[AudioStream]([ExtResource("3_8qynb"), ExtResource("4_u0laj"), ExtResource("5_s4f43"), ExtResource("6_bc8l2")])
-footstep_sounds = Array[AudioStream]([ExtResource("1_4hifs"), ExtResource("2_kh0ur"), ExtResource("3_ysdbo"), ExtResource("4_l4gkc")])
 metadata/_custom_type_script = "uid://c7jvuxu4hsmtm"

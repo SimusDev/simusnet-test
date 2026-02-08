@@ -7,7 +7,7 @@
 [ext_resource type="Script" uid="uid://bkhjaq3ccadol" path="res://component/object/spawn/R_SpawnTag.gd" id="4_31nm7"]
 [ext_resource type="Script" uid="uid://cvh6l86iib7cw" path="res://component/object/spawn/R_SpawnTagStackSize.gd" id="5_31nm7"]
 [ext_resource type="Script" uid="uid://cgxdi4cljlv7m" path="res://component/object/spawn/R_SpawnTagFreeze.gd" id="5_snhrs"]
-[ext_resource type="Resource" uid="uid://uey8a88a0p4j" path="res://src/metadata_material/Metal.tres" id="6_ln63a"]
+[ext_resource type="Resource" path="res://src/metadata_material/Metal.tres" id="6_ln63a"]
 [ext_resource type="Resource" uid="uid://dt2tx25ql5rtp" path="res://src/objects/item/ammo/5_45x39.tres" id="6_snhrs"]
 [ext_resource type="Resource" uid="uid://cd6q0ankueu8w" path="res://src/objects/item/ammo/5_56x45.tres" id="7_7xe81"]
 [ext_resource type="Resource" uid="uid://r7fprqqkevp8" path="res://src/objects/item/ammo/9x39.tres" id="10_fsq02"]

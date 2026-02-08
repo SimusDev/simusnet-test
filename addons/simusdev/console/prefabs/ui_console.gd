@@ -11,6 +11,8 @@ extends CanvasLayer
 
 @export var can_open_or_close: bool = true
 
+@onready var _engine_settings: SD_EngineSettings = SD_EngineSettings.create_or_get()
+
 func _enter_tree() -> void:
 	hide()
 
@@ -43,11 +45,18 @@ func _on_update() -> void:
 
 func _input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("console.open_close") and can_open_or_close:
-		if console.disable_console_on_release and SD_Platforms.is_release_build():
+		if _engine_settings.console.get("disable_on_release", true) and SD_Platforms.is_release_build():
 			return
 			
 		if SD_Platforms.is_debug_build() or SD_Platforms.is_pc():
 			visible = !visible
+			
+			if visible:
+				SimusDev.ui.open_interface(self)
+			else:
+				SimusDev.ui.close_interface(self)
+			
+
 			
 	if Input.is_action_just_pressed("console.enter"):
 		if visible:

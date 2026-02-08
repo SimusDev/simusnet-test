@@ -33,7 +33,7 @@ static var _instance: SD_EngineSettings
 	"disable_on_release": true,
 	"gd_print": true,
 	"hide_private_commands": true,
-	"size": Vector2(768, 512),
+	"size": Vector2(832, 512),
 }
 @export var commands: SD_ConsoleNodeCommandObjectStorage
 

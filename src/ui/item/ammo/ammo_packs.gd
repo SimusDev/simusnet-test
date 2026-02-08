@@ -10,6 +10,9 @@ extends Panel
 var _item: W_WeaponFirearm
 
 func set_item(item: W_WeaponFirearm) -> void:
+	if item == _item:
+		return
+	
 	if is_instance_valid(_item):
 		_item._get_stack().on_ammo_changed.disconnect(_update_itemstack)
 		_item._get_stack().on_bullets_changed.disconnect(_update_itemstack)

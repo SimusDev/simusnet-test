@@ -76,7 +76,7 @@ static func find_base_script(script: Script, recursive: bool = true) -> Script:
 	return base
 
 static func is_script_extends(script: Script, _extends: Script) -> bool:
-	return find_base_script(script) == script or script == _extends
+	return find_base_script(script) == _extends or script == _extends
 
 static func queue_free_components(from: Object) -> void:
 	var components: Array = get_components_from(from)
@@ -98,7 +98,6 @@ static func find_components_by_script(from: Object, by: Array[Script], pick: PIC
 	)
 	
 	return _return_filtered(filtered, pick)
-	
 
 static func find_components_by_class(from: Object, by: Array[StringName], pick: PICK_RETURN = PICK_RETURN.ARRAY) -> Variant:
 	var components: Array = get_components_from(from)
@@ -159,3 +158,39 @@ static func node_find_above_by_component(from: Node, component: Script) -> Node:
 		return null
 	
 	return node_find_above_by_component(from.get_parent(), component)
+
+static func find_children_by_script(node: Node, script: Script, recursive: bool = true) -> Array[Node]:
+	var result: Array[Node] = []
+	_find_children_by_script_internal(result, node, script, recursive)
+	return result
+
+static func find_children_by_scripts(node: Node, scripts: Array[Script], recursive: bool = true) -> Array[Node]:
+	var result: Array[Node] = []
+	for script in scripts:
+		_find_children_by_script_internal(result, node, script, recursive)
+	return result
+
+static func _find_children_by_script_internal(array: Array[Node], node: Node, script: Script, recursive: bool = true) -> void:
+	for child in node.get_children():
+		if is_script_extends(child.get_script(), script):
+			array.append(child)
+		
+		_find_children_by_script_internal(array, child, script, recursive)
+
+static func find_children_by_class(node: Node, name: String, recursive: bool = true) -> Array[Node]:
+	var result: Array[Node] = []
+	_find_children_by_class_internal(result, node, name, recursive)
+	return result
+
+static func find_children_by_classes(node: Node, names: Array[String], recursive: bool = true) -> Array[Node]:
+	var result: Array[Node] = []
+	for name in names:
+		_find_children_by_class_internal(result, node, name, recursive)
+	return result
+
+static func _find_children_by_class_internal(array: Array[Node], node: Node, name: String, recursive: bool = true) -> void:
+	for child in node.get_children():
+		if child.get_class() == name:
+			array.append(child)
+		
+		_find_children_by_class_internal(array, child, name, recursive)
