@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bfw7xge8dgn1u"]
 
 [ext_resource type="Script" uid="uid://dgpefoiodenan" path="res://src/objects/general/mechanical_arm/mechanical_arm.gd" id="1_c7nmx"]
+[ext_resource type="Resource" uid="uid://uey8a88a0p4j" path="res://src/metadata_material/Metal.tres" id="2_7coma"]
 [ext_resource type="PackedScene" uid="uid://cdd0mg2pp6edg" path="res://src/objects/general/mechanical_arm/MechanicalArmModel.tscn" id="2_ihb0s"]
 [ext_resource type="Script" uid="uid://bwwpj2rkss4cf" path="res://component/health/CT_Health.gd" id="2_spbmj"]
 [ext_resource type="Script" uid="uid://dehqcsswxyu8a" path="res://component/inventory/CT_Inventory.gd" id="3_ihb0s"]
@@ -27,6 +28,7 @@ output_area = NodePath("output")
 hand_node = NodePath("Target")
 home_node = NodePath("HomeTarget")
 audio_player = NodePath("AudioStreamPlayer3D")
+metadata/MetadataMaterial = ExtResource("2_7coma")
 
 [node name="CT_Health" type="Node" parent="." unique_id=170554197 node_paths=PackedStringArray("root")]
 script = ExtResource("2_spbmj")

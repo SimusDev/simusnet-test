@@ -4,6 +4,8 @@
 [ext_resource type="PackedScene" uid="uid://tyrhcomsutsi" path="res://src/objects/general/furnace/models/base/sketchfab.tscn" id="2_umk4i"]
 [ext_resource type="Script" uid="uid://ffif2k6n51yv" path="res://src/objects/general/furnace/tier_1.gd" id="2_xnar8"]
 [ext_resource type="Resource" uid="uid://uey8a88a0p4j" path="res://src/metadata_material/Metal.tres" id="3_grlpn"]
+[ext_resource type="Script" uid="uid://cntf64oap5uqy" path="res://addons/QuakeLamp/LampComponent.gd" id="5_3glx7"]
+[ext_resource type="Script" uid="uid://6pevvh4ucdx" path="res://addons/QuakeLamp/FlickerComponent.gd" id="6_e2em3"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_grlpn"]
 transparency = 1
@@ -12,23 +14,6 @@ albedo_color = Color(0, 0, 0, 0.36078432)
 [sub_resource type="BoxMesh" id="BoxMesh_y5kmg"]
 material = SubResource("StandardMaterial3D_grlpn")
 size = Vector3(0.25, 0.25, 0.25)
-
-[sub_resource type="GDScript" id="GDScript_grlpn"]
-resource_name = "light_script"
-script/source = "extends OmniLight3D
-
-func _ready() -> void:
-	while true:
-		var tween = get_tree().create_tween()
-		tween.tween_property(
-			self,
-			\"light_energy\",
-			randf_range(0.8, 2.5),
-			.4
-		)
-		
-		await get_tree().create_timer(0.5).timeout
-"
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_grlpn"]
 points = PackedVector3Array(-0.125, 0, -0.1875, 0.125, 0, -0.1875, -0.125, 0, 0.1875, -0.125, 0.3125, -0.1875, 0.125, 0.3125, -0.1875, 0.125, 0, 0.1875, -0.125, 0.3125, 0.1875, 0.125, 0.3125, 0.1875)
@@ -88,9 +73,22 @@ initial_velocity_max = 0.6
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.37437928, 0.4062606, 0)
 visible = false
 light_color = Color(1, 0.78431374, 0, 1)
+light_energy = 0.9993753
+light_indirect_energy = 0.9993753
 light_size = 0.416
 shadow_enabled = true
-script = SubResource("GDScript_grlpn")
+
+[node name="cLampComponent" type="Node" parent="OmniLight3D" index="0" unique_id=292373071 node_paths=PackedStringArray("LightInstances", "FlickerComponent")]
+script = ExtResource("5_3glx7")
+LightInstances = [NodePath("..")]
+FlickerComponent = NodePath("cFlickerComponent")
+metadata/_custom_type_script = "uid://cntf64oap5uqy"
+
+[node name="cFlickerComponent" type="Node" parent="OmniLight3D/cLampComponent" index="0" unique_id=633300887]
+script = ExtResource("6_e2em3")
+AnimationTable = 0
+Fade = true
+metadata/_custom_type_script = "uid://6pevvh4ucdx"
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="." index="6" unique_id=1066191232]
 transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 0, 0.17400804, 0)

@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://grmgonahmjxs" path="res://3d/menu_lake/low_poly_tree_scene_free_1.png" id="2_1ltif"]
 [ext_resource type="Texture2D" uid="uid://4cwfr8kxv4bc" path="res://3d/menu_lake/low_poly_tree_scene_free_2.png" id="3_lwhhk"]
 [ext_resource type="Texture2D" uid="uid://ddcfxb6wk1uu6" path="res://3d/menu_lake/low_poly_tree_scene_free_5.png" id="6_1p4i7"]
-[ext_resource type="Shader" uid="uid://beff5dyd88hei" path="res://shaders/water.gdshader" id="7_ew38f"]
+[ext_resource type="Material" uid="uid://dlenac6eui05q" path="res://src/materials/water_material.tres" id="7_ew38f"]
 [ext_resource type="Texture2D" uid="uid://cfbd2ik6f5lio" path="res://3d/menu_lake/low_poly_tree_scene_free_6.png" id="7_x0ekp"]
 [ext_resource type="Texture2D" uid="uid://c2gie0jd6g25g" path="res://3d/menu_lake/low_poly_tree_scene_free_7.png" id="8_lxn23"]
 [ext_resource type="Texture2D" uid="uid://bnmivou61cr02" path="res://3d/menu_lake/low_poly_tree_scene_free_9.png" id="10_fjs5r"]
@@ -100,17 +100,6 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_s0kof")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_1ltif"]
-render_priority = 0
-shader = ExtResource("7_ew38f")
-shader_parameter/water_color = Color(0.01, 0.1, 0.2, 1)
-shader_parameter/shallow_color = Color(0.1, 0.4, 0.4, 1)
-shader_parameter/depth_distance = 2.0
-shader_parameter/wave_1 = Vector4(1.095, 0, -0.245, 0.25)
-shader_parameter/wave_2 = Vector4(0.7, 0.1, 0.05, 0.305)
-shader_parameter/wave_speed = 0.105
-shader_parameter/foam_multiplier = 0.09
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_lwhhk"]
 size = Vector2(6.835, 5.975)
@@ -1493,7 +1482,7 @@ mesh = SubResource("ArrayMesh_620jt")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.30106825, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Water_2667" unique_id=1156837457]
-material_override = SubResource("ShaderMaterial_1ltif")
+material_override = ExtResource("7_ew38f")
 mesh = SubResource("PlaneMesh_lwhhk")
 
 [node name="Bark_001_2669" type="Node3D" parent="." unique_id=1965703973]

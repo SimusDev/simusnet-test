@@ -6,6 +6,7 @@ render_mode depth_draw_always, diffuse_lambert, specular_schlick_ggx;
 group_uniforms Base_Water;
 uniform vec3 water_color : source_color = vec3(0.01, 0.1, 0.2);
 uniform vec3 shallow_color : source_color = vec3(0.1, 0.4, 0.4);
+uniform float alpha = 1.0;
 uniform float depth_distance : hint_range(0.1, 10.0) = 2.0;
 
 group_uniforms Waves_Physical;
@@ -91,7 +92,9 @@ void fragment() {
 	float fresnel = pow(1.0 - dot(NORMAL, VIEW), 4.0);
 	vec3 base_color = mix(water_color, shallow_color, shore_mask);
 	
-	ALBEDO = mix(base_color, vec3(0.9), foam_final);
+	vec3 final_color = mix(base_color, vec3(0.9), foam_final);
+	
+	ALBEDO = final_color;
 	
 	// Эффект небольшого просвечивания (SSS) на гребнях
 	if (NORMAL.y > 0.0) {
@@ -104,5 +107,5 @@ void fragment() {
 	NORMAL = normalize(mix(NORMAL, normal_mix, 0.3));
 	
 	// Прозрачность: мелководье прозрачное, глубина и углы (Френель) — нет
-	ALPHA = clamp(1.0 - depth_factor + fresnel + foam_final, 0.0, 1.0);
+	ALPHA = clamp(1.0 - depth_factor + fresnel + foam_final, 0.0, alpha);
 }

@@ -3,3 +3,4 @@
 /android/
 .settings/
 .builds/
+local_data/

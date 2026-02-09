@@ -112,7 +112,6 @@ func _grab_item(from: CT_Inventory) -> void:
 	if new_item:
 		chosen_stack.quantity -= grab_size
 		inventory.request_slot_select(new_item.get_slot())
-		print("item: %s, sexeted slot: %s, requested: %s" % [new_item, inventory.get_selected_slot(), new_item.get_slot()])
 		transfer_started.emit()
 
 func _drop_item(to: CT_Inventory) -> void:
