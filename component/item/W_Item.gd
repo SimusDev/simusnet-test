@@ -32,6 +32,8 @@ var state_machine: CT_StateMachineSimple
 
 var _sounds: Dictionary[String, AudioStreamPlayer3D]
 
+@onready var _character_animations: CT_AnimationEventsCharacter = await CT_AnimationEventsCharacter.async_find_above(self)
+
 func _get_stack() -> CT_ItemStack:
 	return stack
 

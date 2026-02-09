@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://c0f8kiwsqu61s" path="res://addons/simusdev/Game/build/SD_GameBuildSettings.gd" id="2"]
 [ext_resource type="Script" uid="uid://ta36ebtpvxq7" path="res://addons/simusdev/localization/SD_LocalizationResource.gd" id="3"]
 [ext_resource type="Script" uid="uid://b6d1d4yh6pph6" path="res://addons/simusdev/multiplayer/SD_MultiplayerSettings.gd" id="4"]
+[ext_resource type="Resource" uid="uid://o7m7glohvi" path="res://localization/main.tres" id="4_aioq7"]
 [ext_resource type="Script" uid="uid://chrfdjatuxh2l" path="res://addons/simusdev/network/SD_NetworkCacheSettings.gd" id="5"]
 [ext_resource type="Script" uid="uid://bsn5pysgtogq7" path="res://addons/simusdev/network/SD_NetworkSettings.gd" id="6"]
 [ext_resource type="Script" uid="uid://bpr665ltjd8ed" path="res://addons/simusdev/popups/SD_PopupAnimationResource.gd" id="7"]
@@ -47,6 +48,7 @@ console = Dictionary[String, Variant]({
 "size": Vector2(768, 512)
 })
 localization_resources = Array[ExtResource("3")]([SubResource("Resource_ojtp8")])
+localization_resources = Array[ExtResource("3")]([SubResource("Resource_ojtp8"), ExtResource("4_aioq7")])
 tools = Array[PackedScene]([ExtResource("9_tfge0")])
 network = SubResource("Resource_3krnf")
 multiplayer = SubResource("Resource_aioq7")

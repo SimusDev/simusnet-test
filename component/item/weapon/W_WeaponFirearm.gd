@@ -66,7 +66,8 @@ func _state_machine_transitioned(from: String, to: String) -> void:
 			_get_or_create_sound("reload").stream = firearm_object.reload_sound
 			_get_or_create_sound("reload").play()
 			event_reload.emit()
-		
+			if _character_animations:
+				_character_animations.get_or_create("firearm_reload").publish(self)
 
 func _local_input(event: InputEvent) -> void:
 	super(event)
@@ -143,6 +144,9 @@ func fire() -> void:
 	event_fire.emit()
 	
 	s_Sounds.local_play(firearm_object.shot_sound, self.global_position)
+	if _character_animations:
+		_character_animations.get_or_create("firearm_shoot").publish(self)
+	
 
 
 func _spawn_bullet() -> void:
