@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://dhutkg2k4fhr1"]
+
+[ext_resource type="Script" uid="uid://pf622qfdiljm" path="res://addons/simusdev/components/animated_model/W_AnimatedModel3D.gd" id="1_cgsmf"]
+[ext_resource type="PackedScene" uid="uid://bgb5py1jpd054" path="res://scenes/prefabs/characters/godette/mixamo.scn" id="2_x01oe"]
+[ext_resource type="AnimationLibrary" uid="uid://dotsrsdm6bx5w" path="res://animations/mixamo/character/human_library.tres" id="3_fnym5"]
+[ext_resource type="AnimationNodeBlendTree" uid="uid://b221jh448khfi" path="res://animations/mixamo/character/human_blend_tree.tres" id="4_ux6tx"]
+[ext_resource type="Script" uid="uid://1bnhxrflnm8i" path="res://component/animation/CT_MixamoHumanAnimation.gd" id="5_ux6tx"]
+
+[node name="Character" type="Node3D" unique_id=772143695 node_paths=PackedStringArray("root", "model", "tree", "player", "skeleton")]
+script = ExtResource("1_cgsmf")
+root = NodePath("..")
+model_scene = ExtResource("2_x01oe")
+library = ExtResource("3_fnym5")
+blend_tree = ExtResource("4_ux6tx")
+model = NodePath("model3d")
+tree = NodePath("AnimationTree")
+player = NodePath("AnimationPlayer")
+skeleton = NodePath("model3d/Skeleton3D")
+metadata/_custom_type_script = "uid://pf622qfdiljm"
+
+[node name="model3d" type="Node3D" parent="." unique_id=103228816 instance=ExtResource("2_x01oe")]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2071802704]
+root_node = NodePath("../model3d")
+libraries/human_library = ExtResource("3_fnym5")
+
+[node name="AnimationTree" type="AnimationTree" parent="." unique_id=821651783]
+root_node = NodePath("../model3d")
+tree_root = ExtResource("4_ux6tx")
+anim_player = NodePath("../AnimationPlayer")
+
+[node name="CT_MixamoHumanAnimation" type="Node" parent="." unique_id=672604221 node_paths=PackedStringArray("model")]
+script = ExtResource("5_ux6tx")
+model = NodePath("..")
+metadata/_custom_type_script = "uid://1bnhxrflnm8i"

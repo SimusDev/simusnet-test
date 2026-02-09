@@ -23,6 +23,9 @@ func fire() -> void:
 	
 	s_Sounds.local_play(object.swing_sound, self.global_position)
 	
+	if _character_animations:
+		_character_animations.get_or_create("weapon_melee_swing").publish(self)
+	
 	event_fire.emit()
 
 func impact() -> void:

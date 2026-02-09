@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="SD_LocalizationResource" format=3 uid="uid://o7m7glohvi"]
+
+[ext_resource type="Script" uid="uid://ta36ebtpvxq7" path="res://addons/simusdev/localization/SD_LocalizationResource.gd" id="1_xo5mr"]
+
+[resource]
+script = ExtResource("1_xo5mr")
+metadata/_custom_type_script = "uid://ta36ebtpvxq7"

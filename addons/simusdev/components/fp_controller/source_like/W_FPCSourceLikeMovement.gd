@@ -254,7 +254,6 @@ func _handle_ground_physics(delta: float) -> void:
 		accel_speed = min(accel_speed, add_speed_til_cap)
 		actor.velocity += accel_speed * wish_direction
 	
-	
 	var control: float = max(actor.velocity.length(), ground_decel)
 	var drop: float = control * ground_friction * delta
 	var new_speed: float = max(actor.velocity.length() - drop, 0.0)
@@ -281,7 +280,7 @@ func _handle_ground_physics(delta: float) -> void:
 			state = "crouched"
 	
 	state_machine.switch_by_name(state)
-	
+
 func _handle_air_physics(delta: float) -> void:
 	var state: String = _parse_state_crouch_sprint("air", "air_crouch", "air_sprint", "air_crouch_sprint")
 	state_machine.switch_by_name(state)

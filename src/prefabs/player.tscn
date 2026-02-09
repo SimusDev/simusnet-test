@@ -3,21 +3,23 @@
 [ext_resource type="Script" uid="uid://dglbpte5k6gtx" path="res://src/prefabs/player.gd" id="1_e4ep1"]
 [ext_resource type="PackedScene" uid="uid://d4gk04x3kcedm" path="res://src/prefabs/ct_health.tscn" id="2_2uglv"]
 [ext_resource type="Script" uid="uid://d1jwapkumdp1u" path="res://addons/simusdev/SimusNet/SimusNetTransform.gd" id="2_744qn"]
+[ext_resource type="Script" uid="uid://bbfomib82eucq" path="res://component/animation/CT_AnimationEventsCharacter.gd" id="2_cy1pa"]
 [ext_resource type="PackedScene" uid="uid://bb30gdt6q8ij" path="res://addons/simusdev/components/fp_controller/source_like/W_FPCSourceLikeCamera.tscn" id="3_j7lg1"]
 [ext_resource type="Script" uid="uid://dfok55wn4kqd2" path="res://component/player/CT_Playable.gd" id="3_rlttd"]
-[ext_resource type="Script" uid="uid://b0jl432eesuju" path="res://component/health/CT_DestroyOnDeath.gd" id="4_10txx"]
+[ext_resource type="Script" path="res://component/health/CT_DestroyOnDeath.gd" id="4_10txx"]
 [ext_resource type="PackedScene" uid="uid://be7h2lkvpihn3" path="res://addons/simusdev/components/fp_controller/source_like/W_FPCSourceLikeMovement.tscn" id="4_d5u4l"]
 [ext_resource type="Script" uid="uid://dpblk4cnhdonv" path="res://component/viewmodel/ViewModelRoot3D.gd" id="4_heeeb"]
 [ext_resource type="PackedScene" uid="uid://cmmrufl5ygbop" path="res://component/inventory/prefabs/inventory.tscn" id="4_wdfrp"]
 [ext_resource type="Script" uid="uid://dvlnhvdrc3dy6" path="res://component/hitbox/CT_Hitbox.gd" id="5_yyb7l"]
-[ext_resource type="Script" uid="uid://c1pmyb3w7dbto" path="res://component/CameraShake.gd" id="8_k5oc5"]
+[ext_resource type="Script" path="res://component/CameraShake.gd" id="8_k5oc5"]
 [ext_resource type="Script" uid="uid://bfvmikvjmhnii" path="res://component/entity/CT_EntityHead.gd" id="9_k5oc5"]
-[ext_resource type="Script" uid="uid://cth053db6jxla" path="res://component/ViewModelSway.gd" id="9_xiv16"]
+[ext_resource type="Script" path="res://component/ViewModelSway.gd" id="9_xiv16"]
 [ext_resource type="Script" uid="uid://diojix86rolea" path="res://component/interaction/CT_InteractionRay.gd" id="9_y56kl"]
 [ext_resource type="Script" uid="uid://cgpsyyx2x8kki" path="res://component/ui/MP_CanvasLayer.gd" id="10_wdfrp"]
 [ext_resource type="Script" uid="uid://dfsnjhyc2ld3c" path="res://addons/simusdev/components/fp_controller/source_like/W_FPCSourceLikeCrouch.gd" id="10_y56kl"]
 [ext_resource type="PackedScene" uid="uid://b36ise4k4tg7d" path="res://scenes/prefabs/player_ui/player_ui.tscn" id="11_y56kl"]
 [ext_resource type="PackedScene" uid="uid://b73wn5ongbuen" path="res://src/prefabs/entity_footsteps.tscn" id="18_2uglv"]
+[ext_resource type="PackedScene" uid="uid://dhutkg2k4fhr1" path="res://scenes/prefabs/characters/godette/character.tscn" id="19_10txx"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_yyb7l"]
 size = Vector3(1, 0.5, 1)
@@ -27,8 +29,6 @@ size = Vector3(1, 0.90000004, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_k5oc5"]
 size = Vector3(1, 0.6, 1)
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_d5u4l"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_d5u4l"]
 size = Vector3(1, 1.9963379, 1)
@@ -40,12 +40,16 @@ size = Vector3(1, 1.2, 1)
 collision_layer = 0
 script = ExtResource("1_e4ep1")
 
+[node name="CT_AnimationEventsCharacter" type="Node" parent="." unique_id=791475164 node_paths=PackedStringArray("target")]
+script = ExtResource("2_cy1pa")
+target = NodePath("..")
+metadata/_custom_type_script = "uid://bbfomib82eucq"
+
 [node name="CT_Health" parent="." unique_id=527568948 node_paths=PackedStringArray("root") instance=ExtResource("2_2uglv")]
 root = NodePath("..")
 
 [node name="CT_DestroyOnDeath" type="Node" parent="CT_Health" unique_id=132424885]
 script = ExtResource("4_10txx")
-metadata/_custom_type_script = "uid://b0jl432eesuju"
 
 [node name="CT_Playable" type="Node" parent="." unique_id=768027577 node_paths=PackedStringArray("node")]
 script = ExtResource("3_rlttd")
@@ -152,9 +156,6 @@ collision_crouch = NodePath("../../CollisionCrouch")
 crouch_camera_position = NodePath("../../Marker3D")
 metadata/_custom_type_script = "uid://dfsnjhyc2ld3c"
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=56016437]
-mesh = SubResource("CapsuleMesh_d5u4l")
-
 [node name="CollisionNormal" type="CollisionShape3D" parent="." unique_id=248427722]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.014526367, 0)
 shape = SubResource("BoxShape3D_d5u4l")
@@ -173,5 +174,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
 
 [node name="EntityFootsteps" parent="." unique_id=51040922 instance=ExtResource("18_2uglv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.9, 0)
+
+[node name="Character" parent="." unique_id=772143695 instance=ExtResource("19_10txx")]
+transform = Transform3D(1.09, 0, 0, 0, 1.09, 0, 0, 0, 1.09, 0, -1.0005379, 0)
 
 [editable path="Camera"]

@@ -5,7 +5,6 @@ class_name W_FPCSourceMovement
 
 func _ready() -> void:
 	super()
-	
 
 func _active_status_changed() -> void:
 	if enabled:
