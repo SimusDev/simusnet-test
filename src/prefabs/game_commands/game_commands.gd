@@ -2,6 +2,15 @@ extends SD_NodeConsoleCommands
 
 func _ready() -> void:
 	super()
+	
+	SimusNetRPC.register(
+		[
+			_player_kill
+		],
+		SimusNetRPCConfig.new()
+			.flag_mode_any_peer()
+	)
+	
 	on_executed.connect(_on_command_executed)
 
 func _on_command_executed(command:SD_ConsoleCommand) -> void:
