@@ -203,9 +203,10 @@ func _update_finished_streams() -> void:
 	if !package:
 		return
 	
-	for i in package.data:
-		if !i.looping:
-			count += 1 
+	for d in _data_and_player:
+		var player: AudioStreamPlayer3D = _data_and_player[d]
+		if is_instance_valid(player) and !d.looping:
+			count += 1
 	
 	#print(_finished_streams)
 	
@@ -214,7 +215,8 @@ func _update_finished_streams() -> void:
 	if _finished_streams >= count:
 		_finish()
 	
-	#print(_finished_streams)
+	#print("finished: ", _finished_streams)
+	#print("count: ", count)
 
 func _finish_stream(data: SD_SoundData3D, player: AudioStreamPlayer3D) -> void:
 	if is_instance_valid(player):
@@ -256,7 +258,8 @@ func _read_states(data: SD_SoundData3D, player: AudioStreamPlayer3D) -> void:
 		await player.tree_entered
 	
 	var dict: Dictionary = _states.get_or_add(data, {})
-	var _is_playing: bool = dict.get("playing", false) and !dict.get("finished")
+	var _is_playing: bool = dict.get("playing", false) and !dict.get("finished", false)
+	#print(data, ": ", dict.get("finished"))
 	
 	var playbacks: Dictionary = dict.get_or_add("playbacks", {})
 	var pos: float = playbacks.get(player.stream, 0.0)
@@ -295,10 +298,10 @@ func _perform(status: bool) -> void:
 		_write_state(data, "finished", false)
 		_write_state(data, "playing", status)
 		
-		if !data.looping:
-			var player: Variant = _data_and_player.get(data)
-			if !is_instance_valid(player):
-				_finish_stream(data, player)
+		#if !data.looping:
+			#var player: Variant = _data_and_player.get(data)
+			#if !is_instance_valid(player):
+				#_finish_stream(data, player)
 	
 	for data in _states:
 		if !data in package.data:

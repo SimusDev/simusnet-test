@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="R_Ammo" format=3 uid="uid://cqqevnorstrvr"]
+
+[ext_resource type="Script" uid="uid://bxy1kdk7uqaew" path="res://component/item/ammo/R_Ammo.gd" id="1_s83v7"]
+
+[resource]
+script = ExtResource("1_s83v7")
+base_damage = 0.0
+ricochet_chance = 0.0
+explosive = true
+metadata/_custom_type_script = "uid://bxy1kdk7uqaew"

@@ -30,6 +30,8 @@ var stack: CT_ItemStack : get = _get_stack
 var playable: CT_Playable
 var state_machine: CT_StateMachineSimple
 
+var level: LevelInstance
+
 var _sounds: Dictionary[String, AudioStreamPlayer3D]
 
 @onready var _character_animations: CT_AnimationEventsCharacter = await CT_AnimationEventsCharacter.async_find_above(self)
@@ -38,6 +40,7 @@ func _get_stack() -> CT_ItemStack:
 	return stack
 
 func _ready() -> void:
+	level = LevelInstance.find_above(self)
 	SimusNetIdentity.register(self)
 	
 	stack = SD_ECS.find_first_component_by_script(self, [CT_ItemStack])

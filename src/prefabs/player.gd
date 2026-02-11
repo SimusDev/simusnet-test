@@ -15,6 +15,8 @@ func set_debug_queue_free(val: bool) -> void:
 	queue_free()
 
 func _ready() -> void:
+	super()
+	
 	if SimusNet.is_network_authority(self):
 		_local = self
 	_level = LevelInstance.find_above(self)

@@ -159,6 +159,21 @@ static func node_find_above_by_component(from: Node, component: Script) -> Node:
 	
 	return node_find_above_by_component(from.get_parent(), component)
 
+static func node_find_above_by_class(from: Node, classname: String) -> Node:
+	if from.get_script():
+		if from.get_script() is Script:
+			if from.get_script().get_global_name() == classname:
+				return from
+	
+	if from.get_class() == classname:
+		return from
+	
+	if from == SimusDev.get_tree().root:
+		return null
+	
+	return node_find_above_by_class(from.get_parent(), classname)
+
+
 static func find_children_by_script(node: Node, script: Script, recursive: bool = true) -> Array[Node]:
 	var result: Array[Node] = []
 	_find_children_by_script_internal(result, node, script, recursive)

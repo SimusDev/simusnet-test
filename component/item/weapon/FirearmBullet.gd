@@ -21,10 +21,17 @@ var _initial_speed: float = 0.0
 
 var is_setup:bool = false
 
+func _destroy() -> void:
+	queue_free()
+	
+	if SimusNetConnection.is_server():
+		if ammo.explosive:
+			Explosion.new(LevelInstance.find_above(self), self).set_scale(ammo.explosive_scale).set_strength(ammo.explosive_strength).explode()
+
 func _ready() -> void:
 	if not is_setup:
 		await setup
-	get_tree().create_timer(life_time).timeout.connect(queue_free)
+	get_tree().create_timer(life_time).timeout.connect(_destroy)
 
 func setup_bullet(ammo_res: R_Ammo) -> void:
 	ammo = ammo_res
@@ -59,7 +66,7 @@ func _physics_process(delta: float) -> void:
 	
 	var step = velocity * delta
 	if step.length_squared() < 0.000001:
-		queue_free()
+		_destroy()
 		return
 	
 	if velocity.length_squared() > 0.1:
@@ -128,7 +135,7 @@ func _on_hit(result: Dictionary) -> void:
 	else:
 		_apply_physics_impulse(collider, velocity_before, Vector3.ZERO, result.position)
 		_apply_damage(collider, velocity_before.length())
-		queue_free()
+		_destroy()
 
 func _apply_physics_impulse(collider: Node, v_before: Vector3, v_after: Vector3, hit_pos: Vector3) -> void:
 	if collider is RigidBody3D:

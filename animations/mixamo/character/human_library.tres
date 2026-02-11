@@ -1,10 +1,34 @@
 [gd_resource type="AnimationLibrary" format=3 uid="uid://dotsrsdm6bx5w"]
 
+[ext_resource type="Animation" uid="uid://vtjo404ov12v" path="res://animations/mixamo/character/human/crouch_idle.res" id="1_6pn6r"]
 [ext_resource type="Animation" uid="uid://dgocjq2aqox74" path="res://animations/mixamo/character/human/standard_walk.res" id="1_6ucq2"]
+[ext_resource type="Animation" uid="uid://00lfgivxweu0" path="res://animations/mixamo/character/human/jog_strafe_left.res" id="1_6vuxv"]
 [ext_resource type="Animation" uid="uid://c8q0qwvf60on0" path="res://animations/mixamo/character/human/neutral_idle.res" id="1_c167p"]
+[ext_resource type="Animation" uid="uid://dp7wwin4sv2q8" path="res://animations/mixamo/character/human/jog_strafe_right.res" id="2_mcyjg"]
+[ext_resource type="Animation" uid="uid://bfcnddh8j8an" path="res://animations/mixamo/character/human/crouch_walk_back.res" id="2_rxh3u"]
+[ext_resource type="Animation" uid="uid://cpflbw63pwco1" path="res://animations/mixamo/character/human/crouch_walk_forward.res" id="3_3auyr"]
+[ext_resource type="Animation" uid="uid://d3ioxjbv632f8" path="res://animations/mixamo/character/human/left_strafe_run.res" id="3_8kjjj"]
+[ext_resource type="Animation" uid="uid://bgb4hv72j7m02" path="res://animations/mixamo/character/human/crouch_walk_left.res" id="4_p0pk1"]
+[ext_resource type="Animation" uid="uid://bs4ohyn4dvfku" path="res://animations/mixamo/character/human/right_strafe_run.res" id="5_2g8va"]
+[ext_resource type="Animation" uid="uid://c4w4c3vr28sig" path="res://animations/mixamo/character/human/walk_backward.res" id="5_mcyjg"]
+[ext_resource type="Animation" uid="uid://j220jtlqmspx" path="res://animations/mixamo/character/human/crouch_walk_right.res" id="5_xx7hv"]
+[ext_resource type="Animation" uid="uid://ks755my1ii1c" path="res://animations/mixamo/character/human/running.res" id="6_g6moq"]
+[ext_resource type="Animation" uid="uid://ckfj4u8vwdsby" path="res://animations/mixamo/character/human/running_backward.res" id="7_2g8va"]
 
 [resource]
 _data = {
+&"crouch_idle": ExtResource("1_6pn6r"),
+&"crouch_walk_back": ExtResource("2_rxh3u"),
+&"crouch_walk_forward": ExtResource("3_3auyr"),
+&"crouch_walk_left": ExtResource("4_p0pk1"),
+&"crouch_walk_right": ExtResource("5_xx7hv"),
+&"jog_strafe_left": ExtResource("1_6vuxv"),
+&"jog_strafe_right": ExtResource("2_mcyjg"),
+&"left_strafe_run": ExtResource("3_8kjjj"),
 &"neutral_idle": ExtResource("1_c167p"),
-&"standard_walk": ExtResource("1_6ucq2")
+&"right_strafe_run": ExtResource("5_2g8va"),
+&"running": ExtResource("6_g6moq"),
+&"running_backward": ExtResource("7_2g8va"),
+&"standard_walk": ExtResource("1_6ucq2"),
+&"walk_backward": ExtResource("5_mcyjg")
 }

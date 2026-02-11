@@ -5,7 +5,10 @@ func _ready() -> void:
 	[
 		"velocity",
 		
-	], SimusNetVarConfig.new().flag_mode_authority()
+	], SimusNetVarConfig.new().
+	flag_mode_authority().
+	flag_reliable(Network.CHANNEL_STATES).
+	flag_replication()
 	)
 
 func find_collisions_above() -> Array[CollisionObject3D]:

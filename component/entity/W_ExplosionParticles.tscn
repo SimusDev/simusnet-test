@@ -80,6 +80,8 @@ autoplay = &"idle"
 [node name="SD_SoundInstance3D" type="AudioStreamPlayer3D" parent="." unique_id=825897703]
 unit_size = 30.0
 bus = &"Game"
+attenuation_filter_cutoff_hz = 20500.0
+attenuation_filter_db = 0.0
 script = ExtResource("2_0delj")
 package = ExtResource("3_2wait")
 metadata/_custom_type_script = "uid://c0pedqo2h5vch"

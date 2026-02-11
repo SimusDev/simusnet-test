@@ -150,12 +150,13 @@ func fire() -> void:
 
 
 func _spawn_bullet() -> void:
-	var bullet = BULLET_SCENE.instantiate()
+	var bullet = _get_stack().ammo
+	
 	if bullet is FirearmBullet:
 		bullet.weapon = firearm_object 
 		bullet.exclude_rids = exclude_rids
 		
-		get_tree().root.add_child(bullet)
+		level.add_child(bullet)
 		
 		var base_direction = -entity_eyes.global_transform.basis.z
 		var dispersion_radians = deg_to_rad(firearm_object.base_dispersion)

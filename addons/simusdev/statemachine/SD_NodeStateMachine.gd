@@ -21,11 +21,13 @@ func get_current_state() -> SD_State:
 	return _current_state
 
 func _ready() -> void:
-	SD_Network.register_object(self)
-	SD_Network.register_functions([
-		_send,
-		_recieve,
-	])
+	SimusNetRPC.register(
+		[
+			_send,
+			_recieve,
+			_switch_net
+		], SimusNetRPCConfig.new().flag_set_channel(network_channel)
+	)
 	
 	for child in get_children():
 		if child is SD_State:
@@ -37,14 +39,14 @@ func _ready() -> void:
 		_current_state = initial_state
 		_current_state._enter()
 	
-	if not SD_Network.is_server():
-		SD_Network.call_func_on_server(_send)
+	if not SimusNetConnection.is_server():
+		SimusNetRPC.invoke_on_server(_send)
 		return
 	
 
 func _send() -> void:
 	if is_instance_valid(_current_state):
-		SD_Network.call_func_on(SD_Network.get_remote_sender_id(), _recieve, [_current_state.get_index()], SD_Network.CALLMODE.RELIABLE, network_channel)
+		SimusNetRPC.invoke_on_sender(_recieve, [_current_state.get_index()])
 
 func _recieve(id: int) -> void:
 	(get_child(id) as SD_State)._switch_synchronized()
@@ -68,14 +70,19 @@ func _on_child_state_transitioned(to_state: SD_State) -> void:
 
 
 func switch(to_state: SD_State) -> void:
+	if !SimusNet.is_network_authority(self):
+		return
+	
 	if !to_state:
 		return
 	
 	if _current_state == to_state:
 		return
 	
-	if to_state:
-		to_state.switch()
+	SimusNetRPC.invoke_all(_switch_net, to_state.get_index())
+
+func _switch_net(state_id: int) -> void:
+	(get_child(state_id) as SD_State)._switch_synchronized()
 
 func switch_by_name(state_name: String) -> SD_State: 
 	var state: SD_State = get_state_by_name(state_name)
@@ -84,7 +91,7 @@ func switch_by_name(state_name: String) -> SD_State:
 
 func get_state_by_name(state_name: String) -> SD_State:
 	return _states.get(state_name, null)
-	
+
 func _process(delta: float) -> void:
 	if _current_state:
 		_current_state._update(delta)

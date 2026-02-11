@@ -29,9 +29,17 @@ libraries/human_library = ExtResource("3_fnym5")
 root_node = NodePath("../model3d")
 tree_root = ExtResource("4_ux6tx")
 anim_player = NodePath("../AnimationPlayer")
+parameters/Legs/crouch/Blend/blend_position = Vector2(0, 0)
+parameters/Legs/crouch/TimeScale/scale = 1.0
+parameters/Legs/run/Blend/blend_position = Vector2(0, 0)
+parameters/Legs/run/TimeScale/scale = 0.6000000000000014
 parameters/Legs/walk/Blend/blend_position = Vector2(0, 0)
+parameters/Legs/walk/TimeScale/scale = 1.0
+parameters/LegsTimeScale/scale = 1.0
 
 [node name="CT_MixamoHumanAnimation" type="Node" parent="." unique_id=672604221 node_paths=PackedStringArray("model")]
 script = ExtResource("5_ux6tx")
 model = NodePath("..")
 metadata/_custom_type_script = "uid://1bnhxrflnm8i"
+
+[node name="LookAtModifier3D" type="LookAtModifier3D" parent="." unique_id=1911950939]
