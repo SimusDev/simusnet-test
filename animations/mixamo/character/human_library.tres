@@ -1,8 +1,10 @@
 [gd_resource type="AnimationLibrary" format=3 uid="uid://dotsrsdm6bx5w"]
 
 [ext_resource type="Animation" uid="uid://dgocjq2aqox74" path="res://animations/mixamo/character/human/standard_walk.res" id="1_6ucq2"]
+[ext_resource type="Animation" uid="uid://c8q0qwvf60on0" path="res://animations/mixamo/character/human/neutral_idle.res" id="1_c167p"]
 
 [resource]
 _data = {
+&"neutral_idle": ExtResource("1_c167p"),
 &"standard_walk": ExtResource("1_6ucq2")
 }

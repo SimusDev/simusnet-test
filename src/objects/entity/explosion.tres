@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="R_Entity" format=3 uid="uid://de87eb0w7rfbj"]
+
+[ext_resource type="Script" uid="uid://xyrhpbr2knft" path="res://component/object/R_Entity.gd" id="1_hiquv"]
+[ext_resource type="Script" uid="uid://cqdfkwb1galvp" path="res://component/viewmodel/R_ViewModel.gd" id="2_x5s3u"]
+[ext_resource type="PackedScene" uid="uid://b1ocv6ao6qds4" path="res://component/entity/W_Explosion.tscn" id="3_0b0uf"]
+
+[sub_resource type="Resource" id="Resource_ey4my"]
+script = ExtResource("2_x5s3u")
+world = ExtResource("3_0b0uf")
+metadata/_custom_type_script = "uid://cqdfkwb1galvp"
+
+[resource]
+script = ExtResource("1_hiquv")
+viewmodel = SubResource("Resource_ey4my")
+metadata/_custom_type_script = "uid://xyrhpbr2knft"

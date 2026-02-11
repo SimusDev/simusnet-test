@@ -1,6 +1,6 @@
-[gd_resource type="Resource" script_class="R_LocalData" format=3 uid="uid://ddoiypd3g5ov2"]
+[gd_resource type="Resource" script_class="R_LocalData" format=3]
 
-[ext_resource type="Script" uid="uid://ck4dwmi3s2xig" path="res://component/data/R_LocalData.gd" id="1_kxbtg"]
+[ext_resource type="Script" path="res://component/data/R_LocalData.gd" id="1_kxbtg"]
 
 [sub_resource type="InputEventKey" id="InputEventKey_djml8"]
 device = -1

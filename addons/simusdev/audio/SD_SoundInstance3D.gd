@@ -101,10 +101,10 @@ static func _get_camera() -> Camera3D:
 		return viewport.get_camera_3d()
 	return SimusDev.get_viewport().get_camera_3d()
 
-@export_group("Private")
-@export var _data_and_player: Dictionary[SD_SoundData3D, AudioStreamPlayer3D] = {}
-@export var _states: Dictionary[SD_SoundData3D, Dictionary]
-@export var _finished_streams: int = 0
+#@export_group("Private")
+var _data_and_player: Dictionary[SD_SoundData3D, AudioStreamPlayer3D] = {}
+var _states: Dictionary[SD_SoundData3D, Dictionary]
+var _finished_streams: int = 0
 
 func _finish() -> void:
 	#_logger.debug("on_play_finish()")
@@ -118,7 +118,7 @@ func _create_player(data: SD_SoundData3D) -> AudioStreamPlayer3D:
 	player.set("parameters/looping", data.looping)
 	player.max_distance = data.max_distance
 	if !data.looping:
-		player.finished.connect(_finish_stream.bind(data))
+		player.finished.connect(_finish_stream.bind(data, player))
 	return player
 
 func instance_reload() -> void:
@@ -177,8 +177,10 @@ func tick() -> void:
 			_read_states(data, player)
 			_write_states_tick(data, player)
 			_data_and_player.set(data, player)
-			if Engine.is_editor_hint():
-				player.owner = get_tree().edited_scene_root
+			
+			
+			#if Engine.is_editor_hint():
+				#player.owner = get_tree().edited_scene_root
 		else:
 			#_read_states(data, player)
 			
@@ -202,13 +204,26 @@ func _update_finished_streams() -> void:
 		return
 	
 	for i in package.data:
-		if i.looping:
+		if !i.looping:
 			count += 1 
+	
+	#print(_finished_streams)
+	
+	#print(count)
 	
 	if _finished_streams >= count:
 		_finish()
+	
+	#print(_finished_streams)
 
-func _finish_stream(data: SD_SoundData3D) -> void:
+func _finish_stream(data: SD_SoundData3D, player: AudioStreamPlayer3D) -> void:
+	if is_instance_valid(player):
+		if !data.looping:
+			if player.stream:
+				var dict: Dictionary = _states.get_or_add(data, {})
+				var playbacks: Dictionary = dict.get_or_add("playbacks", {})
+				playbacks[player.stream] = 0.0
+	
 	if data.looping:
 		return
 	
@@ -226,7 +241,7 @@ func _write_states_tick(data: SD_SoundData3D, player: AudioStreamPlayer3D) -> vo
 		playbacks[player.stream] = player.get_playback_position()
 
 func _write_states_queue_free(data: SD_SoundData3D, player: AudioStreamPlayer3D) -> void:
-	_finish_stream(data)
+	_finish_stream(data, player)
 
 func _write_state(data: SD_SoundData3D, key: Variant, value: Variant) -> void:
 	var dict: Dictionary = _states.get_or_add(data, {})
@@ -283,7 +298,7 @@ func _perform(status: bool) -> void:
 		if !data.looping:
 			var player: Variant = _data_and_player.get(data)
 			if !is_instance_valid(player):
-				_finish_stream(data)
+				_finish_stream(data, player)
 	
 	for data in _states:
 		if !data in package.data:

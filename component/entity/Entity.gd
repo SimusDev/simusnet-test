@@ -1,5 +1,13 @@
 class_name Entity extends CharacterBody3D
 
+func _ready() -> void:
+	SimusNetVars.register(self,
+	[
+		"velocity",
+		
+	], SimusNetVarConfig.new().flag_mode_authority()
+	)
+
 func find_collisions_above() -> Array[CollisionObject3D]:
 	var bodies: Array[CollisionObject3D] = []
 	

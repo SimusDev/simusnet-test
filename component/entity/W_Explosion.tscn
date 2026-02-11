@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://b1ocv6ao6qds4"]
+
+[ext_resource type="Script" uid="uid://dxwpsfaephvt5" path="res://component/entity/W_Explosion.gd" id="1_mnb0h"]
+
+[node name="W_Explosion" type="Node3D" unique_id=1866591474]
+script = ExtResource("1_mnb0h")
