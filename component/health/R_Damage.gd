@@ -19,5 +19,6 @@ func get_value() -> float:
 	return _value
 
 func apply(health: CT_Health) -> R_Damage:
-	health.value -= _value
+	if is_instance_valid(health):
+		health.value -= _value
 	return self
