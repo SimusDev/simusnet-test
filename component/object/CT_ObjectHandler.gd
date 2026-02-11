@@ -43,17 +43,14 @@ func async_load_directory(path: String) -> void:
 	for file in SD_FileSystem.get_all_files_with_extension_from_directory(path, SD_FileExtensions.EC_RESOURCE):
 		var resource: Resource = load(file)
 		if resource is R_Object:
-			var id: String = resource.id
-			if id.is_empty():
-				id = resource.resource_path.get_file().get_basename()
+			if resource.id.is_empty():
+				var group: String = resource.get_group()
+				if !resource.group.is_empty():
+					group = resource.group
+				
+				resource.id = group + ":" + resource.resource_path.get_file().get_basename()
+				register(resource.id, resource)
+			else:
+				register(resource.id, resource)
 			
-			var group: String = resource.get_group()
-			if !resource.group.is_empty():
-				group = resource.group
-			
-			id = group + ":" + id
-			
-			resource.id = id
-			register(id, resource)
-	
-	await get_tree().physics_frame
+	await get_tree().process_frame
