@@ -22,6 +22,8 @@ const DEFAULT_SENSITIVITY: float = 1.0
 @export var freecam_slowdown_scale: float = 0.3
 @export var key_forward: String = "ui_up"
 @export var key_backward: String = "ui_down"
+@export var key_up: String = "move_up"
+@export var key_down: String = "move_down"
 @export var key_left: String = "ui_left"
 @export var key_right: String = "ui_right"
 @export var key_boost: String = "boost"
@@ -53,8 +55,7 @@ func _exit_tree() -> void:
 		var camera: W_FPCSourceLikeCamera = _active_camera_list[_active_camera_list.size() - 1]
 		if is_instance_valid(camera):
 			camera.make_current()
-	
-	
+
 
 func _enter_tree() -> void:
 	super()
@@ -144,7 +145,13 @@ func _handle_free_camera(delta: float) -> void:
 		return
 	
 	var input_dir: Vector2 = Input.get_vector(key_left, key_right, key_forward, key_backward)
-	var direction: Vector3 = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	var input_dir_y: int = 0
+	if Input.is_action_pressed(key_up):
+		input_dir_y = 1
+	elif Input.is_action_pressed(key_down):
+		input_dir_y = -1
+	var direction: Vector3 = (transform.basis * Vector3(input_dir.x, input_dir_y, input_dir.y)).normalized()
+	
 	
 	var velocity: Vector3 = direction
 	velocity *= freecam_speed

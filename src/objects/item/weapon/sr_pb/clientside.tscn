@@ -206,7 +206,7 @@ bind/45/pose = Transform3D(0.0090423925, 0.07879103, 0.9968503, 0.999959, -0.000
 [node name="Clientside" type="Node3D" unique_id=167970683]
 
 [node name="root" type="Node3D" parent="." unique_id=71728825]
-transform = Transform3D(-0.9999998, 0, 0, 0, -0.9999999, 0, 0, 0, -0.99999934, -8.0643446e-07, 1.1200474e-07, 0)
+transform = Transform3D(-0.9999998, 0, 0, 0, -0.9999999, 0, 0, 0, -0.99999934, -0.252, 0.035, 0)
 
 [node name="untitled" type="Node3D" parent="root" unique_id=1464867256]
 transform = Transform3D(4.371138e-08, -3.82137e-15, 0.9999998, -8.742278e-08, -1, 0, 0.9999999, -8.742276e-08, -4.3711378e-08, 0, -0.105, -1)
@@ -568,5 +568,7 @@ anim_idle = Array[StringName]([&"_idle"])
 anim_shoot = Array[StringName]([&"_shoot1"])
 anim_reload = Array[StringName]([&"_reload"])
 muzzleflash_particles = [NodePath("../root/untitled/muzzle/Muzzleflash")]
+editor_process = true
+is_aiming = true
 root = NodePath("../root")
 aim_position = Vector3(-0.252, 0.035, 0)

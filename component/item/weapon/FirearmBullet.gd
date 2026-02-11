@@ -131,11 +131,13 @@ func _on_hit(result: Dictionary) -> void:
 		queue_free()
 
 func _apply_physics_impulse(collider: Node, v_before: Vector3, v_after: Vector3, hit_pos: Vector3) -> void:
+	if not SimusNetConnection.is_server(): return
 	if collider is RigidBody3D:
 		var impulse = (v_before - v_after) * ammo.mass
 		collider.apply_impulse(impulse, hit_pos - collider.global_position)
 
 func _apply_damage(collider: Node, speed_at_impact: float) -> void:
+	if not SimusNetConnection.is_server(): return
 	if collider is CT_Hitbox:
 		var speed_ratio = speed_at_impact / _initial_speed
 		var final_damage = ammo.base_damage * collider.damage_multiplier * speed_ratio

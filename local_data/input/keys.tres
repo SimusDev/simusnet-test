@@ -163,6 +163,16 @@ device = -1
 physical_keycode = 82
 unicode = 114
 
+[sub_resource type="InputEventKey" id="InputEventKey_3r4jt"]
+device = -1
+physical_keycode = 69
+unicode = 101
+
+[sub_resource type="InputEventKey" id="InputEventKey_osnmt"]
+device = -1
+physical_keycode = 81
+unicode = 113
+
 [resource]
 script = ExtResource("1_kxbtg")
 _storage = {
@@ -192,9 +202,11 @@ _storage = {
 &"item.use": Array[InputEvent]([SubResource("InputEventMouseButton_gu1sv")]),
 &"jump": Array[InputEvent]([SubResource("InputEventKey_hxi6x"), SubResource("InputEventMouseButton_cggji")]),
 &"move_backward": Array[InputEvent]([SubResource("InputEventKey_7dwuu")]),
+&"move_down": Array[InputEvent]([SubResource("InputEventKey_osnmt")]),
 &"move_forward": Array[InputEvent]([SubResource("InputEventKey_kxbtg")]),
 &"move_left": Array[InputEvent]([SubResource("InputEventKey_wwgnj")]),
 &"move_right": Array[InputEvent]([SubResource("InputEventKey_kyjxf")]),
+&"move_up": Array[InputEvent]([SubResource("InputEventKey_3r4jt")]),
 &"scroll_down": Array[InputEvent]([SubResource("InputEventMouseButton_tw8te")]),
 &"scroll_up": Array[InputEvent]([SubResource("InputEventMouseButton_x6j1f")]),
 &"sd_ui_close_menu": Array[InputEvent]([SubResource("InputEventKey_o318r")]),
