@@ -34,7 +34,7 @@ var level: LevelInstance
 
 var _sounds: Dictionary[String, AudioStreamPlayer3D]
 
-@onready var _character_animations: CT_AnimationEventsCharacter = await CT_AnimationEventsCharacter.async_find_above(self)
+var _character_animations: CT_AnimationEventsCharacter
 
 func _get_stack() -> CT_ItemStack:
 	return stack
@@ -104,6 +104,9 @@ func _ready() -> void:
 	
 	event_pick.emit()
 	
+	_character_animations = await CT_AnimationEventsCharacter.async_find_above(self)
+	_character_animations.get_or_create("item_pickup").publish(self)
+	
 	if object is R_Item:
 		if !object.pickup_sound.is_empty():
 			_get_or_create_sound("pickup").stream = object.pickup_sound.pick_random()
@@ -114,6 +117,8 @@ func _ready() -> void:
 	set_process_unhandled_input(is_local())
 	set_process_shortcut_input(is_local())
 	set_process_unhandled_key_input(is_local())
+	
+	
 
 func _get_or_create_sound(key: String) -> AudioStreamPlayer3D:
 	if key in _sounds:

@@ -46,6 +46,10 @@ func _find_inventory() -> void:
 		return
 	
 	_inventory = SD_ECS.node_find_above_by_component(self, CT_Inventory)
+	if !_inventory:
+		await get_tree().process_frame
+		_inventory = SD_ECS.node_find_above_by_component(self, CT_Inventory)
+	
 	_init_inventory()
 
 func _init_inventory() -> void:

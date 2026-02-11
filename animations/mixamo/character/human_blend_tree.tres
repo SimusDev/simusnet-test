@@ -1,5 +1,31 @@
 [gd_resource type="AnimationNodeBlendTree" format=3 uid="uid://b221jh448khfi"]
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_npd8b"]
+animation = &"human_library/neutral_idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_p4101"]
+animation = &"human_library/pistol_idle"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_7w0gy"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ti0vq"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_obb46"]
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_72abb"]
+states/Start/position = Vector2(242.22223, 105.55556)
+states/idle/node = SubResource("AnimationNodeAnimation_npd8b")
+states/idle/position = Vector2(416.83334, 113.18038)
+states/pistol/node = SubResource("AnimationNodeAnimation_p4101")
+states/pistol/position = Vector2(594.61115, 142.85803)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_7w0gy"), "idle", "pistol", SubResource("AnimationNodeStateMachineTransition_ti0vq"), "pistol", "idle", SubResource("AnimationNodeStateMachineTransition_obb46")]
+graph_offset = Vector2(-52, -17)
+
+[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_mk8kk"]
+filter_enabled = true
+filters = ["Skeleton3D:mixamorig_Head", "Skeleton3D:mixamorig_LeftArm", "Skeleton3D:mixamorig_LeftForeArm", "Skeleton3D:mixamorig_LeftHand", "Skeleton3D:mixamorig_LeftHandIndex1", "Skeleton3D:mixamorig_LeftHandIndex2", "Skeleton3D:mixamorig_LeftHandIndex3", "Skeleton3D:mixamorig_LeftHandMiddle1", "Skeleton3D:mixamorig_LeftHandMiddle2", "Skeleton3D:mixamorig_LeftHandMiddle3", "Skeleton3D:mixamorig_LeftHandPinky1", "Skeleton3D:mixamorig_LeftHandPinky2", "Skeleton3D:mixamorig_LeftHandPinky3", "Skeleton3D:mixamorig_LeftHandRing1", "Skeleton3D:mixamorig_LeftHandRing2", "Skeleton3D:mixamorig_LeftHandRing3", "Skeleton3D:mixamorig_LeftHandThumb1", "Skeleton3D:mixamorig_LeftHandThumb2", "Skeleton3D:mixamorig_LeftHandThumb3", "Skeleton3D:mixamorig_LeftShoulder", "Skeleton3D:mixamorig_Neck", "Skeleton3D:mixamorig_RightArm", "Skeleton3D:mixamorig_RightForeArm", "Skeleton3D:mixamorig_RightHand", "Skeleton3D:mixamorig_RightHandIndex1", "Skeleton3D:mixamorig_RightHandIndex2", "Skeleton3D:mixamorig_RightHandIndex3", "Skeleton3D:mixamorig_RightHandMiddle1", "Skeleton3D:mixamorig_RightHandMiddle2", "Skeleton3D:mixamorig_RightHandMiddle3", "Skeleton3D:mixamorig_RightHandPinky1", "Skeleton3D:mixamorig_RightHandPinky2", "Skeleton3D:mixamorig_RightHandPinky3", "Skeleton3D:mixamorig_RightHandRing1", "Skeleton3D:mixamorig_RightHandRing2", "Skeleton3D:mixamorig_RightHandRing3", "Skeleton3D:mixamorig_RightHandThumb1", "Skeleton3D:mixamorig_RightHandThumb2", "Skeleton3D:mixamorig_RightHandThumb3", "Skeleton3D:mixamorig_RightShoulder", "Skeleton3D:mixamorig_Spine", "Skeleton3D:mixamorig_Spine1", "Skeleton3D:mixamorig_Spine2"]
+
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_5dhyo"]
 animation = &"human_library/crouch_idle"
 
@@ -169,7 +195,7 @@ states/crouch/position = Vector2(308.40967, -91.70031)
 states/idle/node = SubResource("AnimationNodeAnimation_7iyng")
 states/idle/position = Vector2(144.2778, 57.687263)
 states/run/node = SubResource("AnimationNodeBlendTree_0t2tw")
-states/run/position = Vector2(515.59875, 32.75789)
+states/run/position = Vector2(516.70984, 32.75789)
 states/walk/node = SubResource("AnimationNodeBlendTree_7iyng")
 states/walk/position = Vector2(372.38776, 182.25273)
 transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_0t2tw"), "idle", "walk", SubResource("AnimationNodeStateMachineTransition_mk8kk"), "walk", "idle", SubResource("AnimationNodeStateMachineTransition_7iyng"), "walk", "run", SubResource("AnimationNodeStateMachineTransition_ddf7f"), "run", "walk", SubResource("AnimationNodeStateMachineTransition_vvvhp"), "run", "crouch", SubResource("AnimationNodeStateMachineTransition_4kn5r"), "crouch", "run", SubResource("AnimationNodeStateMachineTransition_f041p"), "idle", "crouch", SubResource("AnimationNodeStateMachineTransition_w67tk"), "crouch", "idle", SubResource("AnimationNodeStateMachineTransition_x3ihb"), "walk", "crouch", SubResource("AnimationNodeStateMachineTransition_45m8u"), "crouch", "walk", SubResource("AnimationNodeStateMachineTransition_hyjx4"), "run", "idle", SubResource("AnimationNodeStateMachineTransition_5dhyo"), "idle", "run", SubResource("AnimationNodeStateMachineTransition_68qoe")]
@@ -178,9 +204,14 @@ graph_offset = Vector2(-290, -130)
 [sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_mk8kk"]
 
 [resource]
-graph_offset = Vector2(-502.22223, -88.88889)
+graph_offset = Vector2(-469.14935, -21.420763)
+nodes/output/position = Vector2(684.44446, 32.22222)
 nodes/Legs/node = SubResource("AnimationNodeStateMachine_7iyng")
-nodes/Legs/position = Vector2(-311.1111, 88.88889)
+nodes/Legs/position = Vector2(-511.1111, 88.88889)
 nodes/LegsTimeScale/node = SubResource("AnimationNodeTimeScale_mk8kk")
-nodes/LegsTimeScale/position = Vector2(-44.444447, 66.66667)
-node_connections = [&"output", 0, &"LegsTimeScale", &"LegsTimeScale", 0, &"Legs"]
+nodes/LegsTimeScale/position = Vector2(-250, 61.111115)
+nodes/BodyBlend/node = SubResource("AnimationNodeBlend2_mk8kk")
+nodes/BodyBlend/position = Vector2(80.51944, 25.294659)
+nodes/Body/node = SubResource("AnimationNodeStateMachine_72abb")
+nodes/Body/position = Vector2(-321.0909, 317.99545)
+node_connections = [&"output", 0, &"BodyBlend", &"LegsTimeScale", 0, &"Legs", &"BodyBlend", 0, &"LegsTimeScale", &"BodyBlend", 1, &"Body"]

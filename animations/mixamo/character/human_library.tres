@@ -14,6 +14,7 @@
 [ext_resource type="Animation" uid="uid://j220jtlqmspx" path="res://animations/mixamo/character/human/crouch_walk_right.res" id="5_xx7hv"]
 [ext_resource type="Animation" uid="uid://ks755my1ii1c" path="res://animations/mixamo/character/human/running.res" id="6_g6moq"]
 [ext_resource type="Animation" uid="uid://ckfj4u8vwdsby" path="res://animations/mixamo/character/human/running_backward.res" id="7_2g8va"]
+[ext_resource type="Animation" uid="uid://bfbdwq5l4s5sn" path="res://animations/mixamo/character/human/pistol_idle.res" id="10_rxh3u"]
 
 [resource]
 _data = {
@@ -26,6 +27,7 @@ _data = {
 &"jog_strafe_right": ExtResource("2_mcyjg"),
 &"left_strafe_run": ExtResource("3_8kjjj"),
 &"neutral_idle": ExtResource("1_c167p"),
+&"pistol_idle": ExtResource("10_rxh3u"),
 &"right_strafe_run": ExtResource("5_2g8va"),
 &"running": ExtResource("6_g6moq"),
 &"running_backward": ExtResource("7_2g8va"),
