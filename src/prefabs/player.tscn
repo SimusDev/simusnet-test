@@ -6,20 +6,21 @@
 [ext_resource type="Script" uid="uid://bbfomib82eucq" path="res://component/animation/CT_AnimationEventsCharacter.gd" id="2_cy1pa"]
 [ext_resource type="PackedScene" uid="uid://bb30gdt6q8ij" path="res://addons/simusdev/components/fp_controller/source_like/W_FPCSourceLikeCamera.tscn" id="3_j7lg1"]
 [ext_resource type="Script" uid="uid://dfok55wn4kqd2" path="res://component/player/CT_Playable.gd" id="3_rlttd"]
-[ext_resource type="Script" uid="uid://b0jl432eesuju" path="res://component/health/CT_DestroyOnDeath.gd" id="4_10txx"]
+[ext_resource type="Script" path="res://component/health/CT_DestroyOnDeath.gd" id="4_10txx"]
 [ext_resource type="PackedScene" uid="uid://be7h2lkvpihn3" path="res://addons/simusdev/components/fp_controller/source_like/W_FPCSourceLikeMovement.tscn" id="4_d5u4l"]
 [ext_resource type="Script" uid="uid://dpblk4cnhdonv" path="res://component/viewmodel/ViewModelRoot3D.gd" id="4_heeeb"]
 [ext_resource type="PackedScene" uid="uid://cmmrufl5ygbop" path="res://component/inventory/prefabs/inventory.tscn" id="4_wdfrp"]
 [ext_resource type="Script" uid="uid://dvlnhvdrc3dy6" path="res://component/hitbox/CT_Hitbox.gd" id="5_yyb7l"]
-[ext_resource type="Script" uid="uid://c1pmyb3w7dbto" path="res://component/CameraShake.gd" id="8_k5oc5"]
+[ext_resource type="Script" path="res://component/CameraShake.gd" id="8_k5oc5"]
 [ext_resource type="Script" uid="uid://bfvmikvjmhnii" path="res://component/entity/CT_EntityHead.gd" id="9_k5oc5"]
-[ext_resource type="Script" uid="uid://cth053db6jxla" path="res://component/ViewModelSway.gd" id="9_xiv16"]
+[ext_resource type="Script" path="res://component/ViewModelSway.gd" id="9_xiv16"]
 [ext_resource type="Script" uid="uid://diojix86rolea" path="res://component/interaction/CT_InteractionRay.gd" id="9_y56kl"]
 [ext_resource type="Script" uid="uid://cgpsyyx2x8kki" path="res://component/ui/MP_CanvasLayer.gd" id="10_wdfrp"]
 [ext_resource type="Script" uid="uid://dfsnjhyc2ld3c" path="res://addons/simusdev/components/fp_controller/source_like/W_FPCSourceLikeCrouch.gd" id="10_y56kl"]
 [ext_resource type="PackedScene" uid="uid://b36ise4k4tg7d" path="res://scenes/prefabs/player_ui/player_ui.tscn" id="11_y56kl"]
 [ext_resource type="PackedScene" uid="uid://b73wn5ongbuen" path="res://src/prefabs/entity_footsteps.tscn" id="18_2uglv"]
 [ext_resource type="PackedScene" uid="uid://dhutkg2k4fhr1" path="res://scenes/prefabs/characters/godette/character.tscn" id="19_10txx"]
+[ext_resource type="Script" uid="uid://bhjo2567050lh" path="res://component/player/CT_PlayerNickname3D.gd" id="21_2kspa"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_yyb7l"]
 size = Vector3(1, 0.5, 1)
@@ -177,5 +178,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.9, 0)
 
 [node name="Character" parent="." unique_id=772143695 instance=ExtResource("19_10txx")]
 transform = Transform3D(1.09, 0, 0, 0, 1.09, 0, 0, 0, 1.09, 0, -1.0005379, 0)
+
+[node name="CT_PlayerNickname3D" type="Node3D" parent="." unique_id=320955068]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0182766, 0)
+script = ExtResource("21_2kspa")
+metadata/_custom_type_script = "uid://bhjo2567050lh"
 
 [editable path="Camera"]

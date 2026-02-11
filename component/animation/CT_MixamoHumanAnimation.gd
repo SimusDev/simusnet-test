@@ -4,6 +4,7 @@ class_name CT_MixamoHumanAnimation
 
 @export var model: W_AnimatedModel3D
 @export var look_at_position: Vector3 = Vector3.ZERO
+@export var look_at_range: float = 5.0
 
 var _logger: SD_Logger = SD_Logger.new(self)
 
@@ -12,8 +13,8 @@ var _actor: CharacterBody3D
 var _legs_playback: AnimationNodeStateMachinePlayback
 
 var _look_at_modifier: LookAtModifier3D
-var _look_at_node: Node3D
 
+var _entity_head: CT_EntityHead
 
 func _ready() -> void:
 	_init_look_at_modifier()
@@ -39,8 +40,6 @@ func _ready() -> void:
 	_find_actor()
 
 func _init_look_at_modifier() -> void:
-	return
-	
 	if !model:
 		_logger.debug("init_look_at_modifier(): model reference is null!, set the reference and restart scene.", SD_ConsoleCategories.ERROR)
 		return
@@ -48,13 +47,28 @@ func _init_look_at_modifier() -> void:
 	if !model.is_node_ready():
 		await model.ready
 	
+	await get_tree().process_frame
+	
 	_look_at_modifier = LookAtModifier3D.new()
-	_look_at_node = Node3D.new()
-	
 	model.skeleton.add_child(_look_at_modifier)
-	add_child(_look_at_node)
-	#_look_at_modifier.target_node = _look_at_node
+	_look_at_modifier.target_node = _look_at_modifier.get_path_to(_look_at_modifier)
+	_look_at_modifier.bone_name = "mixamorig_Spine"
+	_entity_head = CT_EntityHead.find_above(self)
+
+func _process_look_at(delta: float) -> void:
+	if !is_instance_valid(_look_at_modifier):
+		return
 	
+	if Engine.is_editor_hint():
+		_look_at_modifier.position = look_at_position
+		
+	
+	if is_instance_valid(_entity_head):
+		_look_at_modifier.position.y = _entity_head.get_eyes().rotation_degrees.x * 300
+		#print(_look_at_modifier.position)
+		
+	
+	_look_at_modifier.position.z += look_at_range
 
 func _find_actor() -> void:
 	_actor = SD_ECS.node_find_above_by_class(self, "CharacterBody3D")
@@ -62,6 +76,8 @@ func _find_actor() -> void:
 var _lerp_blend_pos: Vector2 = Vector2.ZERO
 
 func _physics_process(delta: float) -> void:
+	_process_look_at(delta)
+	
 	if !is_instance_valid(_actor):
 		return
 	
@@ -122,6 +138,3 @@ func _on_firearm_reload(event: EVENT) -> void:
 
 func _on_weapon_melee_swing(event: EVENT) -> void:
 	var item: W_WeaponMelee = event.get_arguments()
-
-
-	
