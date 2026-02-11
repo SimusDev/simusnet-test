@@ -5,7 +5,7 @@ class_name CT_PlayerNickname3D
 const SCENE: PackedScene = preload("res://component/player/player_nickname.tscn")
 
 func _ready() -> void:
-	if SimusNet.is_network_authority(self):
+	if SimusNet.is_network_authority(self) and !Engine.is_editor_hint():
 		queue_free()
 		return
 	

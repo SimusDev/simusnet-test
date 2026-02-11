@@ -4,7 +4,7 @@ class_name CT_MixamoHumanAnimation
 
 @export var model: W_AnimatedModel3D
 @export var look_at_position: Vector3 = Vector3.ZERO
-@export var look_at_range: float = 3.5
+@export var look_at_range: float = 5.0
 
 var _logger: SD_Logger = SD_Logger.new(self)
 
@@ -61,7 +61,14 @@ func _process_look_at(delta: float) -> void:
 	
 	if Engine.is_editor_hint():
 		_look_at_modifier.position = look_at_position
+		
 	
+	if is_instance_valid(_entity_head):
+		_look_at_modifier.position.y = _entity_head.get_eyes().rotation_degrees.x * 300
+		#print(_look_at_modifier.position)
+		
+	
+	_look_at_modifier.position.z += look_at_range
 
 func _find_actor() -> void:
 	_actor = SD_ECS.node_find_above_by_class(self, "CharacterBody3D")

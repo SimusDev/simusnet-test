@@ -12,7 +12,7 @@ func _ready() -> void:
 		_request_undo_rpc,
 	],
 	SimusNetRPCConfig.new().flag_mode_any_peer().
-	flag_set_channel(Network.CHANNEL_INVENTORY)
+	flag_set_channel(Network.CHANNEL_INVENTORY).flag_serialization()
 	)
 
 func _input(event: InputEvent) -> void:
@@ -41,6 +41,7 @@ static func request_spawn_from_camera(object: R_WorldObject, quantity: int = 1, 
 	var camera: Camera3D = _instance.get_tree().root.get_camera_3d()
 	if !camera:
 		return
+	
 	
 	var result: Dictionary = SD_Raycasting3D.intersect_ray_from_node(camera, CAMERA_RAYCAST_RANGE)
 	if result:

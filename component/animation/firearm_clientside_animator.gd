@@ -30,6 +30,8 @@ var _logger: SD_Logger = SD_Logger.new(self)
 func _ready() -> void:
 	if Engine.is_editor_hint():
 		return
+	else:
+		is_aiming = false
 	
 	_item = W_WeaponFirearm.find_above(self)
 	
