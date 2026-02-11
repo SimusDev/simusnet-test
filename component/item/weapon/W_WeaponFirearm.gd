@@ -150,7 +150,7 @@ func fire() -> void:
 
 
 func _spawn_bullet() -> void:
-	var bullet = _get_stack().ammo
+	var bullet: Node = _get_stack().ammo.get_prefab().instantiate()
 	
 	if bullet is FirearmBullet:
 		bullet.weapon = firearm_object 

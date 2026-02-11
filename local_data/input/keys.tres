@@ -119,6 +119,11 @@ device = -1
 physical_keycode = 83
 unicode = 115
 
+[sub_resource type="InputEventKey" id="InputEventKey_osnmt"]
+device = -1
+physical_keycode = 81
+unicode = 113
+
 [sub_resource type="InputEventKey" id="InputEventKey_kxbtg"]
 device = -1
 physical_keycode = 87
@@ -133,6 +138,11 @@ unicode = 97
 device = -1
 physical_keycode = 68
 unicode = 100
+
+[sub_resource type="InputEventKey" id="InputEventKey_3r4jt"]
+device = -1
+physical_keycode = 69
+unicode = 101
 
 [sub_resource type="InputEventMouseButton" id="InputEventMouseButton_tw8te"]
 device = -1
@@ -162,16 +172,6 @@ physical_keycode = 4194325
 device = -1
 physical_keycode = 82
 unicode = 114
-
-[sub_resource type="InputEventKey" id="InputEventKey_3r4jt"]
-device = -1
-physical_keycode = 69
-unicode = 101
-
-[sub_resource type="InputEventKey" id="InputEventKey_osnmt"]
-device = -1
-physical_keycode = 81
-unicode = 113
 
 [resource]
 script = ExtResource("1_kxbtg")

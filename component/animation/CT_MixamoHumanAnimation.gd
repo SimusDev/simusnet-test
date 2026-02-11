@@ -77,6 +77,7 @@ func _physics_process(delta: float) -> void:
 	if legs_timescale < 1.0:
 		legs_timescale = 1
 	model.set_tree_parameter("parameters/LegsTimeScale/scale", legs_timescale)
+	
 
 func _on_movement_state_transitioned(from: SD_State, to: SD_State) -> void:
 	if !is_instance_valid(to):
