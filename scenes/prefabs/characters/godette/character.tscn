@@ -29,6 +29,7 @@ libraries/human_library = ExtResource("3_fnym5")
 root_node = NodePath("../model3d")
 tree_root = ExtResource("4_ux6tx")
 anim_player = NodePath("../AnimationPlayer")
+parameters/Legs/walk/Blend/blend_position = Vector2(0, 0)
 
 [node name="CT_MixamoHumanAnimation" type="Node" parent="." unique_id=672604221 node_paths=PackedStringArray("model")]
 script = ExtResource("5_ux6tx")

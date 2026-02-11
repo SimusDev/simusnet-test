@@ -1,4 +1,30 @@
 [gd_resource type="AnimationNodeBlendTree" format=3 uid="uid://b221jh448khfi"]
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_7iyng"]
+animation = &"human_library/neutral_idle"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_mk8kk"]
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_7iyng"]
+graph_offset = Vector2(-235.55556, -30)
+nodes/Blend/node = SubResource("AnimationNodeBlendSpace2D_mk8kk")
+nodes/Blend/position = Vector2(44.444447, 111.111115)
+node_connections = [&"output", 0, &"Blend"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_0t2tw"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_7iyng"]
+states/Start/position = Vector2(3.3333435, 57.687263)
+states/idle/node = SubResource("AnimationNodeAnimation_7iyng")
+states/idle/position = Vector2(144.2778, 57.687824)
+states/walk/node = SubResource("AnimationNodeBlendTree_7iyng")
+states/walk/position = Vector2(264.27777, 58.226585)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_0t2tw")]
+graph_offset = Vector2(-179, -24)
+
 [resource]
-graph_offset = Vector2(-584.2162, -20.579119)
+graph_offset = Vector2(-565.3638, 11.344419)
+nodes/Legs/node = SubResource("AnimationNodeStateMachine_7iyng")
+nodes/Legs/position = Vector2(-333.33334, 111.111115)
+node_connections = [&"output", 0, &"Legs"]

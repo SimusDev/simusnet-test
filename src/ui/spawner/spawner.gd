@@ -10,6 +10,9 @@ extends Control
 var _objects: Dictionary[String, Array] = {}
 
 func _ready() -> void:
+	tree.create_item().set_text(0, "root")
+	
+	
 	await SD_Nodes.async_clear_all_children(_object_container)
 	for object in R_WorldObject.get_world_object_list():
 		_cache_object(object)

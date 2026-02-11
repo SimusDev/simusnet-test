@@ -1,0 +1,38 @@
+[gd_resource type="Resource" script_class="SD_SoundPackage3D" format=3 uid="uid://d01ccyvwmokpx"]
+
+[ext_resource type="Script" uid="uid://cpwjwfhig01jj" path="res://addons/simusdev/audio/SD_SoundData3D.gd" id="1_xerm6"]
+[ext_resource type="AudioStream" uid="uid://b0r8sn3rgt8gt" path="res://audio/hl2/explosion/explode_close_power_1_1.ogg" id="2_8dnnx"]
+[ext_resource type="Script" uid="uid://b7fflt0r416ip" path="res://addons/simusdev/audio/SD_SoundPackage3D.gd" id="2_sfkfy"]
+[ext_resource type="AudioStream" uid="uid://c6ppa3k0267ld" path="res://audio/hl2/explosion/explode_close_power_1_2.ogg" id="3_ign28"]
+[ext_resource type="AudioStream" uid="uid://bb5tttjicqry3" path="res://audio/hl2/explosion/explode_close_power_1_3.ogg" id="4_0yysk"]
+[ext_resource type="AudioStream" uid="uid://bv6d3xv2dqp2t" path="res://audio/hl2/explosion/explode_medium_power_1_1.ogg" id="5_6jthp"]
+[ext_resource type="AudioStream" uid="uid://b0idy64fjwnvh" path="res://audio/hl2/explosion/explode_medium_power_1_2.ogg" id="6_pij6d"]
+[ext_resource type="AudioStream" uid="uid://vdotwjb1m1mn" path="res://audio/hl2/explosion/explode_medium_power_1_3.ogg" id="7_4k0yy"]
+[ext_resource type="AudioStream" uid="uid://dgxg04jyihps2" path="res://audio/hl2/explosion/explode_far_power_1_1.ogg" id="8_07mng"]
+[ext_resource type="AudioStream" uid="uid://dfohl7y7fthhi" path="res://audio/hl2/explosion/explode_far_power_1_2.ogg" id="9_yl0dt"]
+[ext_resource type="AudioStream" uid="uid://c2xc1s86fc5s7" path="res://audio/hl2/explosion/explode_far_power_1_3.ogg" id="10_rvxox"]
+
+[sub_resource type="Resource" id="Resource_2k484"]
+script = ExtResource("1_xerm6")
+streams = Array[AudioStream]([ExtResource("2_8dnnx"), ExtResource("3_ign28"), ExtResource("4_0yysk")])
+max_distance = 100.0
+metadata/_custom_type_script = "uid://cpwjwfhig01jj"
+
+[sub_resource type="Resource" id="Resource_gpvqp"]
+script = ExtResource("1_xerm6")
+streams = Array[AudioStream]([ExtResource("5_6jthp"), ExtResource("6_pij6d"), ExtResource("7_4k0yy")])
+min_distance = 100.0
+max_distance = 250.0
+metadata/_custom_type_script = "uid://cpwjwfhig01jj"
+
+[sub_resource type="Resource" id="Resource_6xxvy"]
+script = ExtResource("1_xerm6")
+streams = Array[AudioStream]([ExtResource("8_07mng"), ExtResource("9_yl0dt"), ExtResource("10_rvxox")])
+min_distance = 250.0
+max_distance = 500.0
+metadata/_custom_type_script = "uid://cpwjwfhig01jj"
+
+[resource]
+script = ExtResource("2_sfkfy")
+data = Array[ExtResource("1_xerm6")]([SubResource("Resource_2k484"), SubResource("Resource_gpvqp"), SubResource("Resource_6xxvy")])
+metadata/_custom_type_script = "uid://b7fflt0r416ip"

@@ -1,0 +1,88 @@
+[gd_scene format=3 uid="uid://cr22jafyio3wp"]
+
+[ext_resource type="Script" uid="uid://htg1krk4pbq1" path="res://component/entity/W_ExplosionParticles.gd" id="1_uq66t"]
+[ext_resource type="Script" uid="uid://c0pedqo2h5vch" path="res://addons/simusdev/audio/SD_SoundInstance3D.gd" id="2_0delj"]
+[ext_resource type="Resource" uid="uid://d01ccyvwmokpx" path="res://src/objects/sound/explosion/small_package.tres" id="3_2wait"]
+[ext_resource type="Texture2D" uid="uid://c8ar3u7877pt6" path="res://scenes/prefabs/object/explosion/placeholder.png" id="3_qjdpy"]
+
+[sub_resource type="Animation" id="Animation_qjdpy"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite3D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.3, 0.3, 0.3)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite3D:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_8x1ar"]
+resource_name = "idle"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite3D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(-2, -2),
+"update": 0,
+"values": [Vector3(0.3, 0.3, 0.3), Vector3(0.2, 0.2, 0.2)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite3D:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.8666667),
+"transitions": PackedFloat32Array(1, 0.9659363),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_j3cik"]
+_data = {
+&"RESET": SubResource("Animation_qjdpy"),
+&"idle": SubResource("Animation_8x1ar")
+}
+
+[node name="WExplosionParticles" type="Node3D" unique_id=330499407]
+script = ExtResource("1_uq66t")
+
+[node name="Sprite3D" type="Sprite3D" parent="." unique_id=363909835]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
+billboard = 1
+texture = ExtResource("3_qjdpy")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=799056682]
+libraries/ = SubResource("AnimationLibrary_j3cik")
+autoplay = &"idle"
+
+[node name="SD_SoundInstance3D" type="AudioStreamPlayer3D" parent="." unique_id=825897703]
+unit_size = 30.0
+bus = &"Game"
+script = ExtResource("2_0delj")
+package = ExtResource("3_2wait")
+metadata/_custom_type_script = "uid://c0pedqo2h5vch"
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+[connection signal="on_play_finish" from="SD_SoundInstance3D" to="." method="_on_sd_sound_instance_3d_on_play_finish"]

@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="SD_SoundPackage3D" format=3 uid="uid://c1j2x0m3ueuma"]
+
+[ext_resource type="Script" uid="uid://cpwjwfhig01jj" path="res://addons/simusdev/audio/SD_SoundData3D.gd" id="1_bddj1"]
+[ext_resource type="Script" uid="uid://b7fflt0r416ip" path="res://addons/simusdev/audio/SD_SoundPackage3D.gd" id="2_oih8m"]
+
+[resource]
+script = ExtResource("2_oih8m")
+metadata/_custom_type_script = "uid://b7fflt0r416ip"
