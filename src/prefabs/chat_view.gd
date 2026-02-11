@@ -42,7 +42,10 @@ func _add_message(text:String):
 	tween.tween_property(self, "modulate:a", 0.0, hide_duration)
 
 func _get_message_text(msg: SimusNetChatMessage) -> String:
+	var user:CT_User = CT_User.find_by_peer(msg.get_peer_id())
+	if not user:
+		return ""
 	return "%s: %s\n" % [
-		CT_User.find_by_peer(msg.get_peer_id()).get_nickname(),
+		user.get_nickname(),
 		msg.get_text()
 		]

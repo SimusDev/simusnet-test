@@ -7,7 +7,7 @@
 [ext_resource type="Script" uid="uid://comfyg2dac6fj" path="res://component/object/sound/R_SoundObject.gd" id="2_gkmg4"]
 [ext_resource type="Script" uid="uid://cpwjwfhig01jj" path="res://addons/simusdev/audio/SD_SoundData3D.gd" id="3_bnenu"]
 [ext_resource type="AudioStream" uid="uid://di4mij02f8nxq" path="res://src/objects/item/weapon/rv78/shot.mp3" id="4_tr5kv"]
-[ext_resource type="Script" uid="uid://b7fflt0r416ip" path="res://addons/simusdev/audio/SD_SoundPackage3D.gd" id="5_3s3su"]
+[ext_resource type="Script" path="res://addons/simusdev/audio/SD_SoundPackage3D.gd" id="5_3s3su"]
 [ext_resource type="Script" uid="uid://cqdfkwb1galvp" path="res://component/viewmodel/R_ViewModel.gd" id="5_bnenu"]
 [ext_resource type="PackedScene" uid="uid://ccllc8l5eim8a" path="res://src/objects/item/weapon/rv78/Rv78Player.tscn" id="6_gkmg4"]
 [ext_resource type="PackedScene" uid="uid://s1u8rslgdufh" path="res://src/objects/item/weapon/rv78/Rv78World.tscn" id="7_mniba"]
