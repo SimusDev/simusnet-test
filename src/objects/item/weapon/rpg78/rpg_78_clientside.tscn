@@ -6,17 +6,19 @@
 [node name="rpg78Clientside" type="Node3D" unique_id=1220721481]
 
 [node name="rpg78Model" parent="." unique_id=1478454903 instance=ExtResource("1_g01kx")]
-transform = Transform3D(0.9999999, -0.00024298513, 0, 0.00024298513, 0.9999999, 0, 0, 0, 1, 0.12598626, -0.09199719, -0.17497186)
+transform = Transform3D(0.9998432, -0.017701922, 0, 0.017699365, 0.9996987, -0.01699918, 0.00030091815, 0.016996514, 0.9998555, 0.0030000003, -0.11299999, -0.17999999)
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1140419613]
 
 [node name="FirearmClientSideAnimator" type="Node" parent="." unique_id=811473098 node_paths=PackedStringArray("animation_player", "root")]
 script = ExtResource("2_sid50")
 animation_player = NodePath("AnimationPlayer")
+editor_process = true
+is_aiming = true
 root = NodePath("../rpg78Model")
 default_position = Vector3(0.126, -0.092, -0.175)
-aim_position = Vector3(0.082, -0.083, -0.085)
-aim_rotation = Vector3(0, 0, 44.76)
+aim_position = Vector3(0.003, -0.113, -0.18)
+aim_rotation = Vector3(0.017, 0, 44)
 metadata/_custom_type_script = "uid://dre0iiwrqbrvg"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="FirearmClientSideAnimator" unique_id=967049026]

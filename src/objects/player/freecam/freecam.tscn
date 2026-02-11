@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://0trxxmmjcswk"]
+
+[ext_resource type="Script" uid="uid://ct47lcyahk7tn" path="res://addons/simusdev/components/fp_controller/source_like/W_FPCSourceLikeCamera.gd" id="1_pqd20"]
+[ext_resource type="Script" uid="uid://dfok55wn4kqd2" path="res://component/player/CT_Playable.gd" id="2_f7y36"]
+[ext_resource type="PackedScene" uid="uid://bnxbgsea816pv" path="res://component/player/player_nickname.tscn" id="3_f7y36"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qewxx"]
+transparency = 1
+albedo_color = Color(0, 0, 0, 0.34509805)
+
+[sub_resource type="Curve" id="Curve_g5yuj"]
+_data = [Vector2(0, 0.23623013), 0.0, 0.0, 0, 0, Vector2(0.15064102, 0.36352515), 0.0, 0.0, 0, 0, Vector2(0.42628205, 0.43806452), 0.0, 0.0, 0, 0, Vector2(1, 0.6419829), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="TubeTrailMesh" id="TubeTrailMesh_lu47e"]
+radius = 0.15
+section_length = 0.1
+curve = SubResource("Curve_g5yuj")
+
+[node name="Freecam" type="Node3D" unique_id=971678009 node_paths=PackedStringArray("camera")]
+script = ExtResource("1_pqd20")
+camera = NodePath("Camera3D")
+key_forward = "move_forward"
+key_backward = "move_backward"
+key_left = "move_left"
+key_right = "move_right"
+key_boost = "sprint"
+key_slowdown = "crouch"
+metadata/_custom_type_script = "uid://ct47lcyahk7tn"
+
+[node name="CT_Playable" type="Node" parent="." unique_id=685880430 node_paths=PackedStringArray("node")]
+script = ExtResource("2_f7y36")
+node = NodePath("..")
+metadata/_custom_type_script = "uid://dfok55wn4kqd2"
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1764139555]
+
+[node name="PlayerNickname" parent="." unique_id=1249404441 instance=ExtResource("3_f7y36")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=2130584073]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_qewxx")
+mesh = SubResource("TubeTrailMesh_lu47e")
