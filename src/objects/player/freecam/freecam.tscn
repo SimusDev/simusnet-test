@@ -6,7 +6,7 @@
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qewxx"]
 transparency = 1
-albedo_color = Color(0, 0, 0, 0.34509805)
+albedo_color = Color(0, 0, 0, 0.5686275)
 
 [sub_resource type="Curve" id="Curve_g5yuj"]
 _data = [Vector2(0, 0.23623013), 0.0, 0.0, 0, 0, Vector2(0.15064102, 0.36352515), 0.0, 0.0, 0, 0, Vector2(0.42628205, 0.43806452), 0.0, 0.0, 0, 0, Vector2(1, 0.6419829), 0.0, 0.0, 0, 0]

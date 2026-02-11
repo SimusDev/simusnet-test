@@ -209,6 +209,7 @@ flat = true
 alignment = 0
 
 [node name="Popups" type="Control" parent="." unique_id=1580373625]
+visible = false
 layout_mode = 1
 anchor_left = 0.24400002
 anchor_right = 1.0

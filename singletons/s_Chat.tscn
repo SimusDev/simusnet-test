@@ -2,13 +2,34 @@
 
 [ext_resource type="Script" uid="uid://d2nxnr5qjwbjc" path="res://singletons/s_Chat.gd" id="1_vat8t"]
 [ext_resource type="PackedScene" uid="uid://di4fbcxq7cang" path="res://src/ui/chat/panel.tscn" id="2_3t00n"]
+[ext_resource type="PackedScene" uid="uid://cxiuf3rnmdvt4" path="res://src/prefabs/chat_view.tscn" id="3_a6lvt"]
 
-[node name="SChat" type="Node" unique_id=1670464083]
+[node name="SChat" type="Node" unique_id=1670464083 node_paths=PackedStringArray("active_chat", "chat_view")]
 script = ExtResource("1_vat8t")
-metadata/_custom_type_script = "uid://b4ihcnwrred2a"
+active_chat = NodePath("UI/Active")
+chat_view = NodePath("UI/View")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=823539882]
+[node name="UI" type="CanvasLayer" parent="." unique_id=823539882]
 layer = 2
 
-[node name="Panel" parent="CanvasLayer" unique_id=1462611172 node_paths=PackedStringArray("chat") instance=ExtResource("2_3t00n")]
+[node name="Active" parent="UI" unique_id=1462611172 node_paths=PackedStringArray("chat") instance=ExtResource("2_3t00n")]
+anchors_preset = -1
+anchor_top = 0.62
+anchor_bottom = 0.62
+offset_left = 16.0
+offset_top = -14.399994
+offset_right = 512.0
+offset_bottom = 14.100006
+chat = NodePath("../..")
+
+[node name="View" parent="UI" unique_id=1550646447 node_paths=PackedStringArray("chat") instance=ExtResource("3_a6lvt")]
+anchors_preset = -1
+anchor_top = 0.31100002
+anchor_bottom = 0.31100002
+offset_left = 16.0
+offset_top = -207.92001
+offset_right = 512.0
+offset_bottom = 208.07999
+grow_horizontal = 2
+mouse_filter = 2
 chat = NodePath("../..")
