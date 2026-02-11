@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://d1wq1o5w2ioo2"]
+
+[ext_resource type="PackedScene" uid="uid://c31wg6peg0j4y" path="res://scenes/prefabs/object/fp_arms/fp_arms.scn" id="1_ahddd"]
+[ext_resource type="PackedScene" uid="uid://ci7purl748cfo" path="res://src/objects/item/weapon/sr_pb/model.tscn" id="1_f63d7"]
+[ext_resource type="Script" uid="uid://dre0iiwrqbrvg" path="res://component/animation/firearm_clientside_animator.gd" id="3_oc5q3"]
+
+[sub_resource type="Animation" id="Animation_f4han"]
+resource_name = "pickup"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5oiaa"]
+_data = {
+&"pickup": SubResource("Animation_f4han")
+}
+
+[node name="ClientsideFp" type="Node3D" unique_id=1042724932]
+
+[node name="pistol" parent="." unique_id=748167079 instance=ExtResource("1_f63d7")]
+
+[node name="fp_arms" parent="." unique_id=1826313092 instance=ExtResource("1_ahddd")]
+
+[node name="FirearmClientSideAnimator" type="Node" parent="." unique_id=1600194228]
+script = ExtResource("3_oc5q3")
+metadata/_custom_type_script = "uid://dre0iiwrqbrvg"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=560876246]
+libraries/ = SubResource("AnimationLibrary_5oiaa")
+
+[editable path="fp_arms"]
