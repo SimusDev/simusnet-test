@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://cxiuf3rnmdvt4"]
+
+[ext_resource type="Script" uid="uid://beiom1wts6hbc" path="res://src/prefabs/chat_view.gd" id="1_a26my"]
+[ext_resource type="Script" uid="uid://851bhpxqx0n8" path="res://addons/simusdev/localization/SD_RichTextLabelSimple.gd" id="2_0yi7y"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0yi7y"]
+bg_color = Color(0, 0, 0, 0.16470589)
+
+[node name="Panel" type="Panel" unique_id=1550646447 node_paths=PackedStringArray("text_label")]
+offset_right = 384.0
+offset_bottom = 384.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_0yi7y")
+script = ExtResource("1_a26my")
+text_label = NodePath("RichTextLabel")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=227337293]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_font_sizes/normal_font_size = 16
+bbcode_enabled = true
+scroll_active = false
+scroll_following = true
+shortcut_keys_enabled = false
+vertical_alignment = 2
+script = ExtResource("2_0yi7y")
+metadata/_custom_type_script = "uid://851bhpxqx0n8"
