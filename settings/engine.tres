@@ -47,7 +47,6 @@ console = Dictionary[String, Variant]({
 "hide_private_commands": true,
 "size": Vector2(768, 512)
 })
-localization_resources = Array[ExtResource("3")]([SubResource("Resource_ojtp8")])
 localization_resources = Array[ExtResource("3")]([SubResource("Resource_ojtp8"), ExtResource("4_aioq7")])
 tools = Array[PackedScene]([ExtResource("9_tfge0")])
 network = SubResource("Resource_3krnf")

@@ -15,7 +15,7 @@ var wind_direction: Vector3 = Vector3.ZERO
 var life_time: float = 15.0
 
 const RICOCHET_SOUND = preload("res://src/objects/sound/ricochet_sound.tres")
-var bounces_left: int = 1
+var bounces_left: int = 78
 
 var _initial_speed: float = 0.0
 

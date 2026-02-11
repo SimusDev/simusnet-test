@@ -1,0 +1,41 @@
+[gd_resource type="Resource" script_class="R_WeaponFirearm" format=3 uid="uid://qkb15w603oit"]
+
+[ext_resource type="PackedScene" uid="uid://beu6ag5iqt40b" path="res://src/objects/item/weapon/rpg78/rpg_78_clientside.tscn" id="1_65hpo"]
+[ext_resource type="Script" uid="uid://bkandi6sbfmht" path="res://component/object/item/weapon/R_WeaponFirearm.gd" id="1_y4jgm"]
+[ext_resource type="Script" uid="uid://cpwjwfhig01jj" path="res://addons/simusdev/audio/SD_SoundData3D.gd" id="2_vggtq"]
+[ext_resource type="AudioStream" uid="uid://dg501saol5cbn" path="res://src/objects/item/weapon/rpg78/sound/rpg78_fire_0.mp3" id="3_vggtq"]
+[ext_resource type="Script" path="res://addons/simusdev/audio/SD_SoundPackage3D.gd" id="4_a1xax"]
+[ext_resource type="Script" uid="uid://comfyg2dac6fj" path="res://component/object/sound/R_SoundObject.gd" id="5_wteoc"]
+[ext_resource type="PackedScene" uid="uid://dqptttspvb136" path="res://src/objects/item/weapon/rpg78/rpg_78_player.tscn" id="7_rfvbe"]
+[ext_resource type="Script" uid="uid://cqdfkwb1galvp" path="res://component/viewmodel/R_ViewModel.gd" id="8_avg6s"]
+[ext_resource type="PackedScene" uid="uid://bjmjplnwg57bk" path="res://src/objects/item/weapon/rpg78/rpg_78_model.tscn" id="9_674ob"]
+[ext_resource type="PackedScene" uid="uid://7qc3n6g6uei1" path="res://src/objects/item/weapon/rpg78/rpg_78_world.tscn" id="10_ugv35"]
+
+[sub_resource type="Resource" id="Resource_s50gh"]
+script = ExtResource("2_vggtq")
+streams = Array[AudioStream]([ExtResource("3_vggtq")])
+metadata/_custom_type_script = "uid://cpwjwfhig01jj"
+
+[sub_resource type="Resource" id="Resource_rfvbe"]
+script = ExtResource("4_a1xax")
+data = Array[ExtResource("2_vggtq")]([SubResource("Resource_s50gh")])
+
+[sub_resource type="Resource" id="Resource_avg6s"]
+script = ExtResource("5_wteoc")
+package = SubResource("Resource_rfvbe")
+metadata/_custom_type_script = "uid://comfyg2dac6fj"
+
+[sub_resource type="Resource" id="Resource_ldpog"]
+script = ExtResource("8_avg6s")
+world = ExtResource("10_ugv35")
+view = ExtResource("9_674ob")
+player = ExtResource("7_rfvbe")
+metadata/_custom_type_script = "uid://cqdfkwb1galvp"
+
+[resource]
+script = ExtResource("1_y4jgm")
+range = 100.0
+shot_sound = SubResource("Resource_avg6s")
+clientside_prefabs = Array[PackedScene]([ExtResource("1_65hpo")])
+viewmodel = SubResource("Resource_ldpog")
+metadata/_custom_type_script = "uid://bkandi6sbfmht"

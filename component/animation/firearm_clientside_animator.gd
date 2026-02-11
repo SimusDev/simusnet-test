@@ -49,6 +49,9 @@ func _play_particles(particles: Array[GPUParticles3D]) -> void:
 		i.emitting = true
 
 func _play_animation(anims: Array[StringName]) -> void:
+	if anims.is_empty():
+		_logger.debug("animations is empty!, failed play animations %s" % anims)
+		return
 	if !animation_player:
 		_logger.debug("animation player is null!, failed play animations %s" % anims)
 		return
@@ -60,16 +63,19 @@ func _set_aim(value: bool) -> void:
 	is_aiming = value
 
 func _process(delta: float) -> void:
-	if !is_instance_valid(root) or !editor_process:
+	if !is_instance_valid(root) or (Engine.is_editor_hint() and !editor_process):
 		return
 	
 	var target_position: Vector3 = default_position
 	var target_rotation: Vector3 = default_rotation
+	
 	if is_aiming:
 		target_position = aim_position
 		target_rotation = aim_rotation
 	
+	
 	root.position = lerp(root.position, target_position, delta * interp_speed)
-	root.rotation_degrees.x = lerp_angle(root.rotation_degrees.x, target_rotation.x, delta * interp_speed)
-	root.rotation_degrees.y = lerp_angle(root.rotation_degrees.y, target_rotation.y, delta * interp_speed)
-	root.rotation_degrees.z = lerp_angle(root.rotation_degrees.z, target_rotation.z, delta * interp_speed)
+	
+	root.rotation.x = lerp_angle(root.rotation.x, target_rotation.x, delta * interp_speed)
+	root.rotation.y = lerp_angle(root.rotation.y, target_rotation.y, delta * interp_speed)
+	root.rotation.z = lerp_angle(root.rotation.z, target_rotation.z, delta * interp_speed)

@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://dqptttspvb136"]
+
+[ext_resource type="Script" uid="uid://c0sj4ct7dllx5" path="res://component/item/weapon/W_WeaponFirearm.gd" id="1_j5gm8"]
+
+[node name="rpg78Player" type="Node3D" unique_id=2075520502]
+script = ExtResource("1_j5gm8")
+metadata/_custom_type_script = "uid://c0sj4ct7dllx5"

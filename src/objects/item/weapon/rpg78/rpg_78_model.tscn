@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://bjmjplnwg57bk"]
+
+[ext_resource type="PackedScene" uid="uid://b7sumk35dx0kh" path="res://src/objects/item/weapon/rpg78/model/rpg78_model.glb" id="1_2fhsk"]
+
+[node name="rpg78Model" type="Node3D" unique_id=1478454903]
+
+[node name="Sketchfab_Scene" parent="." unique_id=116862612 instance=ExtResource("1_2fhsk")]
+
+[node name="Sketchfab_model" parent="Sketchfab_Scene" index="0" unique_id=1013839505]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.220446e-16, 4.9303807e-32)
+
+[node name="89dbd16d71a648c7ad033c816a204d1e_fbx" parent="Sketchfab_Scene/Sketchfab_model" index="0" unique_id=1705887515]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="4d2d6410_obj" parent="Sketchfab_Scene/Sketchfab_model/89dbd16d71a648c7ad033c816a204d1e_fbx/RootNode" parent_id_path=PackedInt32Array(116862612, 1988357021) index="0" unique_id=611127877]
+transform = Transform3D(-6.4736565e-07, -3.5828636, 14.37008, 0, 14.37008, 3.5828636, -14.81, 1.5661193e-07, -6.2813615e-07, 0, 0, 0)
+
+[node name="4d2d6410_obj_Material #339_0" parent="Sketchfab_Scene/Sketchfab_model/89dbd16d71a648c7ad033c816a204d1e_fbx/RootNode/4d2d6410_obj" index="0" unique_id=1604114747]
+transform = Transform3D(0.99999976, -8.881784e-16, 3.5527137e-15, -8.881784e-16, 0.9999998, 1.490116e-08, -3.5527137e-15, -1.4901161e-08, 0.9999998, -0.04051317, 0.01983463, 0.04220553)
+
+[editable path="Sketchfab_Scene"]
