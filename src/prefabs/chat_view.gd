@@ -45,7 +45,7 @@ func _get_message_text(msg: SimusNetChatMessage) -> String:
 	var user:CT_User = CT_User.find_by_peer(msg.get_peer_id())
 	if not user:
 		return ""
-	return "%s: %s\n" % [
+	return "%s: %s" % [
 		user.get_nickname(),
 		msg.get_text()
 		]
