@@ -15,16 +15,32 @@ func _ready() -> void:
 
 func _on_command_executed(command:SD_ConsoleCommand) -> void:
 	match command.get_code():
-		"player.kill":
+		"suicide":
+			if command.get_arguments().size() > 0:
+				return
+			var user = CT_User.get_local()
+			if not user:
+				return
 			SimusNetRPC.invoke_on_server(
 				_player_kill,
-				command.get_value_as_string()
+				user
+			)
+			return
+		
+		"player.kill":
+			if !(command.get_arguments().size() == 1):
+				return
+			SimusNetRPC.invoke_on_server(
+				_player_kill,
+				_player_find_by_login(command.get_value_as_string())
 			)
 			
 			return
 
-func _player_kill(login:String) -> void:
-	var user = CT_User.server_find_by_login(login)
+func _player_find_by_login(login:String) -> CT_User:
+	return CT_User.server_find_by_login(login)
+
+func _player_kill(user:CT_User) -> void:
 	if not user:
 		return
 	

@@ -43,6 +43,6 @@ func _add_message(text:String):
 
 func _get_message_text(msg: SimusNetChatMessage) -> String:
 	return "%s: %s\n" % [
-		CT_User.find_by_peer(msg.get_peer_id()),
+		CT_User.find_by_peer(msg.get_peer_id()).get_nickname(),
 		msg.get_text()
 		]

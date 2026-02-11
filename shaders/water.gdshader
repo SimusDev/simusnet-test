@@ -1,111 +1,116 @@
 shader_type spatial;
 
-// Настройки отрисовки: прозрачность и корректное освещение
-render_mode depth_draw_always, diffuse_lambert, specular_schlick_ggx;
+// Настройки отрисовки
+render_mode cull_disabled, depth_draw_always, diffuse_lambert, specular_schlick_ggx;
 
 group_uniforms Base_Water;
 uniform vec3 water_color : source_color = vec3(0.01, 0.1, 0.2);
 uniform vec3 shallow_color : source_color = vec3(0.1, 0.4, 0.4);
-uniform float alpha = 1.0;
+uniform float alpha : hint_range(0.0, 1.0) = 0.75;
+uniform float refraction_strength : hint_range(0.0, 1.0) = 0.05;
 uniform float depth_distance : hint_range(0.1, 10.0) = 2.0;
 
 group_uniforms Waves_Physical;
-uniform vec4 wave_1 = vec4(1.0, 0.0, 0.1, 5.0); // x,z - направление, y - крутизна, w - длина
+uniform vec4 wave_1 = vec4(1.0, 0.0, 0.1, 5.0); 
 uniform vec4 wave_2 = vec4(0.7, 0.7, 0.05, 2.5);
 uniform float wave_speed = 1.0;
-uniform float foam_multiplier = 1.0;
 
 group_uniforms Textures_and_Effects;
 uniform sampler2D normal_map : hint_normal, repeat_enable;
 uniform sampler2D foam_noise : hint_default_white, repeat_enable;
-uniform sampler2D ripple_texture : hint_default_black; // Для SubViewport ряби
+uniform sampler2D screen_tex : hint_screen_texture, filter_linear_mipmap;
 uniform sampler2D depth_tex : hint_depth_texture;
 
-// Математика волн Герстнера
+varying float v_depth_offset; // Передаем высоту волны для корректной глубины
+
 vec3 calculate_gerstner(vec4 wave, vec3 p, inout vec3 tangent, inout vec3 binormal, float time) {
 	float k = 2.0 * PI / wave.w;
 	float f = k * (dot(normalize(wave.xz), p.xz) - (sqrt(9.8 / k) * time * wave_speed));
 	float a = wave.y / k;
 	vec2 d = normalize(wave.xz);
 
-	float cos_f = cos(f);
-	float sin_f = sin(f);
+	tangent += vec3(-d.x * d.x * (wave.y * sin(f)), d.x * (wave.y * cos(f)), -d.x * d.y * (wave.y * sin(f)));
+	binormal += vec3(-d.x * d.y * (wave.y * sin(f)), d.y * (wave.y * cos(f)), -d.y * d.y * (wave.y * sin(f)));
 
-	tangent += vec3(-d.x * d.x * (wave.y * sin_f), d.x * (wave.y * cos_f), -d.x * d.y * (wave.y * sin_f));
-	binormal += vec3(-d.x * d.y * (wave.y * sin_f), d.y * (wave.y * cos_f), -d.y * d.y * (wave.y * sin_f));
-
-	return vec3(d.x * (a * cos_f), a * sin_f, d.y * (a * cos_f));
+	return vec3(d.x * (a * cos(f)), a * sin(f), d.y * (a * cos(f)));
 }
 
 void vertex() {
-	// Получаем мировые координаты для честных волн
 	vec3 world_pos = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz;
-	
 	vec3 tangent = vec3(1.0, 0.0, 0.0);
 	vec3 binormal = vec3(0.0, 0.0, 1.0);
+	
 	vec3 p = world_pos;
-
 	p += calculate_gerstner(wave_1, world_pos, tangent, binormal, TIME);
 	p += calculate_gerstner(wave_2, world_pos, tangent, binormal, TIME);
 	
-	// Смещение от динамической ряби (опционально)
-	vec2 ripple_uv = world_pos.xz / 50.0 + 0.5;
-	float ripple = texture(ripple_texture, ripple_uv).r;
-	p.y += ripple * 0.5;
-
-	// Возвращаем в локальные координаты и передаем нормаль
+	v_depth_offset = p.y - world_pos.y; // Запоминаем смещение волны
 	VERTEX = (inverse(MODEL_MATRIX) * vec4(p, 1.0)).xyz;
 	NORMAL = normalize(cross(binormal, tangent));
 }
 
 void fragment() {
-	// 1. ПРАВИЛЬНЫЙ WORLD-SPACE UV (Текстура больше не следует за камерой)
+	// 1. Координаты и нормали (базис TBN)
 	vec3 world_pos = (INV_VIEW_MATRIX * vec4(VERTEX, 1.0)).xyz;
-	vec2 world_uv = world_pos.xz * 0.2; 
+	vec2 world_uv = world_pos.xz * 0.1; 
 	vec2 motion = vec2(TIME * 0.02, TIME * 0.01);
 
-	// 2. ГЛУБИНА (Depth Fade и Beer's Law)
-	float depth_raw = texture(depth_tex, SCREEN_UV).r;
-	// Исправление артефактов на горизонте (небо)
-	if (depth_raw >= 1.0) depth_raw = 1000.0;
-	
-	vec3 ndc = vec3(SCREEN_UV * 2.0 - 1.0, depth_raw);
-	vec4 view = INV_PROJECTION_MATRIX * vec4(ndc, 1.0);
-	view.xyz /= view.w;
-	float linear_depth = -view.z;
-	float water_depth = clamp(linear_depth + VERTEX.z, 0.0, 100.0);
-	
-	float depth_factor = exp(-water_depth * 1.2);
-	float shore_mask = smoothstep(depth_distance, 0.0, water_depth);
-
-	// 3. НОРМАЛИ (Смешивание слоев для детализации)
 	vec3 n1 = texture(normal_map, world_uv + motion).rgb * 2.0 - 1.0;
-	vec3 n2 = texture(normal_map, world_uv * 0.6 - motion * 0.4).rgb * 2.0 - 1.0;
-	vec3 normal_mix = normalize(n1 + n2);
+	vec3 n2 = texture(normal_map, world_uv * 0.5 - motion * 0.2).rgb * 2.0 - 1.0;
+	vec3 local_normal = normalize(n1 + n2);
+	vec3 world_normal = normalize(local_normal.x * TANGENT + local_normal.y * BINORMAL + local_normal.z * NORMAL);
 
-	// 4. ПЕНА (Foam)
-	float noise = texture(foam_noise, world_uv + motion * 1.5).r;
-	float foam_mask = smoothstep(0.2, 0.0, water_depth); // Порог у берега
-	float foam_final = smoothstep(0.45, 0.55, foam_mask * noise) * foam_multiplier;
+	// 2. Глубина
+	float depth_raw = texture(depth_tex, SCREEN_UV).r;
+	vec3 ndc = vec3(SCREEN_UV * 2.0 - 1.0, depth_raw);
+	vec4 view_coords = INV_PROJECTION_MATRIX * vec4(ndc, 1.0);
+	view_coords.xyz /= view_coords.w;
+	float water_depth = -view_coords.z + VERTEX.z;
+	water_depth = max(water_depth, 0.0);
 
-	// 5. ФИНАЛЬНЫЙ ЦВЕТ И ПРОЗРАЧНОСТЬ
-	float fresnel = pow(1.0 - dot(NORMAL, VIEW), 4.0);
-	vec3 base_color = mix(water_color, shallow_color, shore_mask);
+	// 3. Преломление (Refraction)
+	vec2 ref_uv = SCREEN_UV + (world_normal.xz * refraction_strength) / (1.0 + water_depth);
+	float depth_check = texture(depth_tex, ref_uv).r;
+	if (depth_check < depth_raw) ref_uv = SCREEN_UV;
+	vec3 screen_color = texture(screen_tex, ref_uv).rgb;
+
+	// 4. Цветовая модель (Улучшенная яркость)
+	float depth_factor = exp(-water_depth / depth_distance);
 	
-	vec3 final_color = mix(base_color, vec3(0.9), foam_final);
+	// Смешиваем цвета воды
+	vec3 water_tint = mix(water_color, shallow_color, depth_factor);
 	
+	// Имитация рассеивания света (чтобы вода не была черной дырой)
+	// Добавляем немного shallow_color в глубокие места как "внутренний свет"
+	vec3 sss_effect = shallow_color * (1.0 - depth_factor) * 0.2;
+	
+	// Смешивание с дном: используем SCREEN как базу, но не гасим её слишком сильно
+	vec3 color_with_depth = mix(water_tint, screen_color * (water_tint + 0.5), depth_factor);
+	vec3 final_color = color_with_depth + sss_effect;
+
+	// 5. Френель (отражение неба)
+	// Поскольку GI нет, френель должен имитировать отражение купола неба
+	float fresnel = pow(1.0 - clamp(dot(world_normal, VIEW), 0.0, 1.0), 4.0);
+	vec3 sky_reflection = shallow_color * 0.5; // Имитируем голубое отражение
+	final_color = mix(final_color, sky_reflection, fresnel * 0.6);
+
+	// 6. Финальные параметры
 	ALBEDO = final_color;
 	
-	// Эффект небольшого просвечивания (SSS) на гребнях
-	if (NORMAL.y > 0.0) {
-		ALBEDO += shallow_color * (1.0 - depth_factor) * 0.15;
-	}
-
-	METALLIC = 0.2;
-	ROUGHNESS = 0.04;
-	SPECULAR = 0.6;
-	NORMAL = normalize(mix(NORMAL, normal_mix, 0.3));
+	// Блики (Specular) — единственный источник "яркости" без GI
+	METALLIC = 0.1;
+	ROUGHNESS = 0.08; 
+	SPECULAR = 1.0; // Максимальный блик от солнца
+	NORMAL = world_normal;
 	
-	// Прозрачность: мелководье прозрачное, глубина и углы (Френель) — нет
-	ALPHA = clamp(1.0 - depth_factor + fresnel + foam_final, 0.0, alpha);
+	// Пена
+	float foam_noise_val = texture(foam_noise, world_uv + motion * 1.5).r;
+	float foam_mask = smoothstep(0.15, 0.0, water_depth);
+	float foam = smoothstep(0.4, 0.6, foam_mask + foam_noise_val * 0.4);
+	ALBEDO = mix(ALBEDO, vec3(0.9), foam);
+
+	// Плавный край у берега
+	float edge_fade = smoothstep(0.0, 0.05, water_depth);
+	ALPHA = clamp(edge_fade, 0.0, alpha);
 }
+
