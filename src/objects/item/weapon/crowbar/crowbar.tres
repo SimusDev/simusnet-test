@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://cpwjwfhig01jj" path="res://addons/simusdev/audio/SD_SoundData3D.gd" id="2_dtlsj"]
 [ext_resource type="Script" uid="uid://comfyg2dac6fj" path="res://component/object/sound/R_SoundObject.gd" id="2_vbp0f"]
 [ext_resource type="AudioStream" uid="uid://c1cwen707d0e1" path="res://audio/hl1/crowbar/half-life-crowbar-impact.mp3" id="3_vbp0f"]
-[ext_resource type="Script" uid="uid://b7fflt0r416ip" path="res://addons/simusdev/audio/SD_SoundPackage3D.gd" id="4_ecl1x"]
+[ext_resource type="Script" path="res://addons/simusdev/audio/SD_SoundPackage3D.gd" id="4_ecl1x"]
 [ext_resource type="Script" uid="uid://brr64v6n8sy30" path="res://component/object/item/weapon/R_WeaponMelee.gd" id="5_jmp7t"]
 [ext_resource type="PackedScene" uid="uid://dy5pg5df2wsi2" path="res://3d/crowbar/crowbar_model.tscn" id="7_5dj1s"]
 [ext_resource type="AudioStream" uid="uid://dennpauvioqw5" path="res://audio/hl1/crowbar/half-life-crowbar-swing.mp3" id="7_vbp0f"]

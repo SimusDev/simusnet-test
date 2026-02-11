@@ -39,6 +39,15 @@ cache = SubResource("Resource_cxv7n")
 script = ExtResource("8")
 developer = "zxcvlxd and simusdev"
 gamebuild = SubResource("Resource_tfge0")
+console = Dictionary[String, Variant]({
+"disable_on_release": true,
+"enabled": true,
+"enabled_desktop_override": true,
+"gd_print": true,
+"hide_private_commands": true,
+"size": Vector2(768, 512)
+})
+localization_resources = Array[ExtResource("3")]([SubResource("Resource_ojtp8")])
 localization_resources = Array[ExtResource("3")]([SubResource("Resource_ojtp8"), ExtResource("4_aioq7")])
 tools = Array[PackedScene]([ExtResource("9_tfge0")])
 network = SubResource("Resource_3krnf")
