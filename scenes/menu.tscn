@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://bj73hk8gh3dai" path="res://scenes/menu.gd" id="1_yqeox"]
 [ext_resource type="PackedScene" uid="uid://n4pif4vew3or" path="res://3d/menu/base_menu.tscn" id="2_vjb58"]
 [ext_resource type="PackedScene" uid="uid://bqx58y6sxcy1v" path="res://scenes/prefabs/ui/main_menu/main_menu.tscn" id="3_con2f"]
-[ext_resource type="Script" uid="uid://26fa6d1glrwj" path="res://component/MainMenuMusic.gd" id="4_4ytvr"]
+[ext_resource type="Script" path="res://component/MainMenuMusic.gd" id="4_4ytvr"]
 [ext_resource type="AudioStream" uid="uid://df1pkkoqyf3qr" path="res://audio/Rust theme-2015.mp3" id="4_mhnvy"]
 
 [node name="Menu" type="Control" unique_id=1319707875]
@@ -25,4 +25,3 @@ stream = ExtResource("4_mhnvy")
 bus = &"MainMenuMusic"
 script = ExtResource("4_4ytvr")
 streams = Array[AudioStream]([ExtResource("4_mhnvy")])
-metadata/_custom_type_script = "uid://26fa6d1glrwj"

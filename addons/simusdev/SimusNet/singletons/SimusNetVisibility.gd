@@ -146,14 +146,16 @@ func _owner_recursive_receive(peer: int, identity_id: Variant, creation: bool, a
 	
 
 static func _local_identity_create(identity: SimusNetIdentity) -> void:
-	if !singleton.settings.visibility_auto_handling or SimusNetConnection.is_server():
+	if singleton.settings.visibility_auto_handling:
+		SimusNetVisibility.set_public_visibility(identity.owner, false)
+	
+	if SimusNetConnection.is_server():
 		return
 	
-	SimusNetVisibility.set_public_visibility(identity.owner, false)
 	_queue_create.append(identity)
 
 static func _local_identity_delete(identity: SimusNetIdentity) -> void:
-	if !singleton.settings.visibility_auto_handling or SimusNetConnection.is_server():
+	if SimusNetConnection.is_server():
 		return
 	
 	_queue_delete.append(identity)

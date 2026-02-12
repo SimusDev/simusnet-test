@@ -25,4 +25,5 @@ func _client_recieve(bytes: PackedByteArray) -> void:
 	var data: Dictionary = SimusNetDecompressor.parse_gzip(bytes)
 	SimusNetCache._set_data(data.cache)
 	
+	SimusNetConnection._instance._is_connected = true
 	SimusNetEvents.event_connected.publish()

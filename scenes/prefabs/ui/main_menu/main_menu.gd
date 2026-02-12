@@ -36,6 +36,7 @@ func _switch_buttons_screen(_name: String) -> void:
 
 func _switch_popup(_name: String) -> void:
 	_popups_container.get_node(_name).visible = !_popups_container.get_node(_name).visible
+	SD_Nodes.set_children_visibility(_popups_container, false)
 
 func _on_button_pressed(button: Button) -> void:
 	match button.name:

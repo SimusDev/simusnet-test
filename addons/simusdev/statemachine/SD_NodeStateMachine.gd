@@ -23,10 +23,15 @@ func get_current_state() -> SD_State:
 func _ready() -> void:
 	SimusNetRPC.register(
 		[
-			_send,
 			_recieve,
 			_switch_net
 		], SimusNetRPCConfig.new().flag_set_channel(network_channel)
+	)
+	
+	SimusNetRPC.register(
+		[
+			_send,
+		], SimusNetRPCConfig.new().flag_set_channel(network_channel).flag_mode_to_server()
 	)
 	
 	for child in get_children():

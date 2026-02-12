@@ -1,5 +1,6 @@
-[gd_scene format=3 uid="uid://oihhxqmawk6l"]
+[gd_scene format=3 uid="uid://prodeloqtcwu"]
 
+[ext_resource type="Script" uid="uid://xnthsvgfsy3d" path="res://scenes/prefabs/ui/server_info.gd" id="1_c3u0x"]
 [ext_resource type="Texture2D" uid="uid://dya0lilhdw3n2" path="res://addons/boujie_water_shader/icons/water_shader_avatar.png" id="1_pueei"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0704q"]
@@ -30,6 +31,18 @@ corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_34k2o"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.101960786, 0.101960786, 0.101960786, 0.85882354)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
 [node name="ServerInfo" type="Control" unique_id=614010673]
 custom_minimum_size = Vector2(512, 512)
 layout_mode = 3
@@ -38,6 +51,7 @@ anchor_bottom = 0.711
 offset_bottom = 0.07998657
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_c3u0x")
 
 [node name="Panel" type="Panel" parent="." unique_id=512922731]
 layout_mode = 1
@@ -112,15 +126,39 @@ size_flags_horizontal = 3
 [node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer" unique_id=1029208536]
 layout_mode = 2
 
-[node name="Connect" type="Button" parent="CenterContainer/HBoxContainer" unique_id=1021391879]
+[node name="Join" type="Button" parent="CenterContainer/HBoxContainer" unique_id=1021391879]
 layout_mode = 2
-text = "Connect"
+text = "Join"
 
-[node name="Disconnect" type="Button" parent="CenterContainer/HBoxContainer" unique_id=362949622]
+[node name="Quit" type="Button" parent="CenterContainer/HBoxContainer" unique_id=362949622]
 layout_mode = 2
-text = "Disconnect"
+text = "Quit"
 
 [node name="Web" type="Button" parent="CenterContainer/HBoxContainer" unique_id=1834533651]
 layout_mode = 2
 text = "Web"
 expand_icon = true
+
+[node name="_DisableInputUI" type="Panel" parent="." unique_id=1479402176]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_34k2o")
+
+[node name="_DisabledLabel" type="Label" parent="_DisableInputUI" unique_id=848621311]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 32
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="CenterContainer/HBoxContainer/Join" to="." method="_on_join_pressed"]
+[connection signal="pressed" from="CenterContainer/HBoxContainer/Quit" to="." method="_on_quit_pressed"]

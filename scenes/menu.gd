@@ -2,6 +2,7 @@ extends Control
 
 func _ready() -> void:
 	s_GameObjects.clear_registry()
+	s_SceneChanger.states.set("ingame", false)
 	
 	#var packet1: Dictionary = {
 		#1001: {1: Vector3.ZERO, 2: Vector3.ZERO},

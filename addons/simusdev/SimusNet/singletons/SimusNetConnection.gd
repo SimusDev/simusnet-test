@@ -13,6 +13,8 @@ var _is_was_server: bool = true
 
 var _connecting_check: bool = false
 
+var _is_connected: bool = false
+
 func initialize() -> void:
 	_instance = self
 	
@@ -50,6 +52,7 @@ func _process(delta: float) -> void:
 			_is_was_server = true
 			
 			if is_server():
+				_is_connected = true
 				SimusNetEvents.event_connected.publish()
 			
 			
@@ -79,9 +82,10 @@ func _set_active(value: bool, server: bool) -> void:
 	if not _active:
 		SimusNetCache.clear()
 		_connecting_check = false
+		_is_connected = false
 
 static func is_active() -> bool:
-	return _active
+	return _active and _instance._is_connected
 
 static func is_server() -> bool:
 	if get_peer() and is_active():
