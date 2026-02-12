@@ -9,8 +9,6 @@ extends Control
 @onready var _disable_input_ui: Panel = $_DisableInputUI
 @onready var _disabled_label: Label = $_DisableInputUI/_DisabledLabel
 
-var _received_info: R_ServerInfo
-
 func _ready() -> void:
 	_description.text = ""
 	_name.text = ""
@@ -26,10 +24,13 @@ func _ready() -> void:
 	else:
 		_disconnected()
 	
-	join.visible = s_SceneChanger.is_ingame_state()
+	
 
-func _on_update_received(info: R_ServerInfo) -> void:
-	_received_info = info
+func _on_update_received() -> void:
+	var info: R_ServerInfo = Network.server_info.get_last()
+	if !is_instance_valid(info):
+		return
+	
 	_description.text = info.get_description()
 	_name.text = info.get_name()
 
@@ -43,8 +44,13 @@ func _connecting() -> void:
 	_disabled_label.text = "Connecting..."
 
 func _connected() -> void:
+	join.visible = !s_SceneChanger.is_ingame_state()
 	_disable_input_ui.hide()
-	Network.server_info.request_update()
+	
+	if !s_SceneChanger.is_ingame_state() or SimusNetConnection.is_server():
+		Network.server_info.request_update()
+	
+	_on_update_received()
 
 func _on_join_pressed() -> void:
 	if s_SceneChanger.is_ingame_state():
