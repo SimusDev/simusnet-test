@@ -143,7 +143,9 @@ func fire() -> void:
 	
 	event_fire.emit()
 	
-	s_Sounds.local_play(firearm_object.shot_sound, self.global_position)
+	if firearm_object.shot_sound:
+		s_Sounds.local_play(firearm_object.shot_sound, self.global_position)
+	
 	if _character_animations:
 		_character_animations.get_or_create("firearm_shoot").publish(self)
 	
@@ -154,6 +156,7 @@ func _spawn_bullet() -> void:
 	
 	if bullet is FirearmBullet:
 		bullet.weapon = firearm_object 
+		
 		bullet.exclude_rids = exclude_rids
 		
 		level.add_child(bullet)
@@ -174,7 +177,7 @@ func _spawn_bullet() -> void:
 		if final_direction.length() > 0.001:
 			bullet.look_at(bullet.global_position + final_direction)
 		
-		bullet.setup_bullet( firearm_object.ammo  )
+		bullet.setup_bullet(_get_stack().ammo)
 
 func _spawn_fake_bullet() -> void:
 	pass

@@ -2,20 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cxqusoningw72"
-path.s3tc="res://.godot/imported/untitled_act_arm_perchatka_1.png-a5cc9d2aae894ed4484518a2179f8226.s3tc.ctex"
+uid="uid://dr62vl36c5aak"
+path.s3tc="res://.godot/imported/untitled_wpn_upgrade.png-a40eadeb64e026806f249a219a709737.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
-"md5": "4abadaa1013ec51c02870d466f056f00"
+"md5": "8a55f0a1ef66489d796518c53fe749a0"
 }
 
 [deps]
 
-source_file="res://src/objects/item/weapon/sr_pb/untitled_act_arm_perchatka_1.png"
-dest_files=["res://.godot/imported/untitled_act_arm_perchatka_1.png-a5cc9d2aae894ed4484518a2179f8226.s3tc.ctex"]
+source_file="res://src/objects/item/weapon/sr_ak74/untitled_wpn_upgrade.png"
+dest_files=["res://.godot/imported/untitled_wpn_upgrade.png-a40eadeb64e026806f249a219a709737.s3tc.ctex"]
 
 [params]
 

@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="R_SoundObject" format=3 uid="uid://bws4fgnp2cktt"]
+
+[ext_resource type="Script" uid="uid://cpwjwfhig01jj" path="res://addons/simusdev/audio/SD_SoundData3D.gd" id="1_3njrt"]
+[ext_resource type="Script" uid="uid://comfyg2dac6fj" path="res://component/object/sound/R_SoundObject.gd" id="1_60y7e"]
+[ext_resource type="AudioStream" uid="uid://bh0ucvqjkvrfq" path="res://src/objects/sound/item/weapons/sr_ak74/ak74_shot_0.wav" id="2_4n7f2"]
+[ext_resource type="AudioStream" uid="uid://bdmw3fnhd0l77" path="res://src/objects/sound/item/weapons/sr_ak74/ak74_shot_1.wav" id="3_uf6l0"]
+[ext_resource type="AudioStream" uid="uid://ch0076ptl3mdx" path="res://src/objects/sound/item/weapons/sr_ak74/ak74_shot_2.wav" id="4_hrl7u"]
+[ext_resource type="AudioStream" uid="uid://cn33tk0myfnam" path="res://src/objects/sound/item/weapons/sr_ak74/ak74_shot_3.wav" id="5_xwu8i"]
+[ext_resource type="Script" uid="uid://b7fflt0r416ip" path="res://addons/simusdev/audio/SD_SoundPackage3D.gd" id="6_a46sg"]
+
+[sub_resource type="Resource" id="Resource_1mvoy"]
+script = ExtResource("1_3njrt")
+streams = Array[AudioStream]([ExtResource("2_4n7f2"), ExtResource("3_uf6l0"), ExtResource("4_hrl7u"), ExtResource("5_xwu8i")])
+max_distance = 200.0
+metadata/_custom_type_script = "uid://cpwjwfhig01jj"
+
+[sub_resource type="Resource" id="Resource_hen2n"]
+script = ExtResource("6_a46sg")
+data = Array[ExtResource("1_3njrt")]([SubResource("Resource_1mvoy")])
+metadata/_custom_type_script = "uid://b7fflt0r416ip"
+
+[resource]
+script = ExtResource("1_60y7e")
+package = SubResource("Resource_hen2n")
+metadata/_custom_type_script = "uid://comfyg2dac6fj"

@@ -14,6 +14,7 @@ static var _stream_peer: StreamPeerBuffer = StreamPeerBuffer.new()
 @export var _processor: SimusNetRPCProccessor
 
 const RPC_BYTE_SIZE: int = 2
+const RPC_VISIBILITY_TIMEOUT: float = 15.0
 
 func _setup_remote_sender(id: int, channel: int) -> void:
 	SimusNetRemote.sender_id = id
@@ -67,15 +68,25 @@ func _invoke(callable: Callable, args: Array) -> void:
 	if !config:
 		return
 	
-	for id in SimusNetConnection.get_connected_peers():
-		if SimusNetVisibility.is_visible_for(id, callable.get_object()) or SimusNetVisibility.is_method_always_visible(callable):
-			_invoke_on_without_validating(id, callable, args, config)
+	var object: Object = callable.get_object()
 	
+	var visibility: SimusNetVisible = SimusNetVisible.get_or_create(object)
+	
+	for id in SimusNetConnection.get_connected_peers():
+		if visibility.is_method_always_visible(callable):
+			_invoke_on_without_validating(id, callable, args, config)
+		else:
+			_try_invoke_by_visibility(id, visibility, callable, args, config)
+
+func _try_invoke_by_visibility(peer: int, visible: SimusNetVisible, callable: Callable, args: Array, config: SimusNetRPCConfig) -> void:
+	if visible.is_visible_for(peer):
+		_invoke_on_without_validating(peer, callable, args, config)
+		return
 
 func _invoke_on_without_validating(peer: int, callable: Callable, args: Array, config: SimusNetRPCConfig) -> void:
 	var object: Object = callable.get_object()
 	
-	if is_cooldown_active(callable):
+	if is_cooldown_active(callable) or !is_instance_valid(object):
 		return
 	
 	var identity: SimusNetIdentity = SimusNetIdentity.try_find_in(object)
@@ -88,11 +99,11 @@ func _invoke_on_without_validating(peer: int, callable: Callable, args: Array, c
 	var function: StringName = _processor._parse_and_get_function(config.flag_get_channel_id(), config.flag_get_transfer_mode())
 	var p_callable: Callable = Callable(_processor, function)
 	
-	var serialized_args: Variant = SimusNetSerializer.parse(args, config._serialization)
+	var serialized_args: PackedByteArray = SimusNetCompressor.parse(SimusNetSerializer.parse(args, config._serialization))
 	var traffic_size: int = var_to_bytes(serialized_method_id).size() + var_to_bytes(serialized_unique_id).size()
 	
 	if !args.is_empty():
-		traffic_size += var_to_bytes(serialized_args).size()
+		traffic_size += serialized_args.size()
 	
 	if args.is_empty():
 		p_callable.rpc_id(peer, serialized_unique_id, serialized_method_id)
@@ -116,7 +127,10 @@ func _processor_recieve_rpc_from_peer(peer: int, channel: int, serialized_identi
 	
 	var args_profiler_size: int = 0
 	if serialized_args != null:
-		args_profiler_size += var_to_bytes(serialized_args).size()
+		if serialized_args is PackedByteArray:
+			args_profiler_size += serialized_args.size()
+		else:
+			args_profiler_size += var_to_bytes(serialized_args).size()
 	
 	var profiler_bytes_size: int = var_to_bytes(serialized_identity).size() + var_to_bytes(serialized_method).size() + args_profiler_size
 	SimusNetProfiler.get_instance()._put_down_traffic(profiler_bytes_size)
@@ -151,7 +165,8 @@ func _processor_recieve_rpc_from_peer(peer: int, channel: int, serialized_identi
 	var args: Array = []
 	
 	if serialized_args != null:
-		var deserialized: Variant = SimusNetDeserializer.parse(serialized_args, config._serialization)
+		var deserialized: Variant = SimusNetDecompressor.parse(serialized_args)
+		deserialized = SimusNetDeserializer.parse(deserialized, config._serialization)
 		if deserialized is Array:
 			args.append_array(deserialized)
 		else:

@@ -17,7 +17,8 @@ metadata/_custom_type_script = "uid://cqdfkwb1galvp"
 [resource]
 script = ExtResource("2_ylltn")
 base_damage = 30.0
-muzzle_velocity = 95.0
+muzzle_velocity = 350.0
+air_friction = 4.999999999999997e-05
 mass = 0.00390000000000001
 penetration_power = 25.0
 ricochet_chance = 0.17

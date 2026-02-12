@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://cq66etnoxe2xt"]
+
+[ext_resource type="Script" uid="uid://6g0yxbc5ahmm" path="res://addons/simusdev/SimusNet/tests/gd_multiplayer_sync_bandwith_test.gd" id="1_6gsde"]
+[ext_resource type="PackedScene" uid="uid://bb44bkuua3nng" path="res://addons/simusdev/SimusNet/tests/gd_multiplayer_sync_bandwith_test_object.tscn" id="2_5nflf"]
+
+[node name="Test" type="Node3D" unique_id=1021445612]
+script = ExtResource("1_6gsde")
+_scene = ExtResource("2_5nflf")

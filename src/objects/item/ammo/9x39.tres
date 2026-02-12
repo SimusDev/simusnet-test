@@ -12,8 +12,6 @@ script = ExtResource("4_4tntw")
 world = ExtResource("6_4tntw")
 view = ExtResource("5_tgx3e")
 player = ExtResource("3_yr2dm")
-view_is_clientside = false
-player_is_clientside = false
 metadata/_custom_type_script = "uid://cqdfkwb1galvp"
 
 [resource]

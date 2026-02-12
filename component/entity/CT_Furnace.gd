@@ -60,6 +60,10 @@ func _network_setup() -> void:
 	.flag_replication()
 	)
 	
+	SimusNetRPC.register(
+		[
+		]
+	)
 	
 	
 
@@ -90,7 +94,6 @@ func _ready() -> void:
 		_timer.autostart = true
 		_timer.timeout.connect(_on_server_tick)
 		add_child(_timer)
-
 
 func _on_server_tick() -> void:
 	

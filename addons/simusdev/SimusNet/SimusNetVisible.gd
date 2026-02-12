@@ -10,6 +10,8 @@ var _public_visible: bool = true
 
 var _server_only: bool = false
 
+signal on_visible_set_for(peer: int, visible: bool)
+
 func is_server_only() -> bool:
 	return _server_only
 
@@ -40,8 +42,10 @@ func set_visible_for(peer: int, visible: bool) -> SimusNetVisible:
 	if visible:
 		if !_peers.has(peer):
 			_peers.append(peer)
+			on_visible_set_for.emit(peer, visible)
 		return
 	_peers.erase(peer)
+	on_visible_set_for.emit(peer, visible)
 	return self
 
 func is_visible_for(peer: int) -> bool:

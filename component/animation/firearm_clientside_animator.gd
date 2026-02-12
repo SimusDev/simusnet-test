@@ -52,10 +52,10 @@ func _play_particles(particles: Array[GPUParticles3D]) -> void:
 
 func _play_animation(anims: Array[StringName]) -> void:
 	if anims.is_empty():
-		_logger.debug("animations is empty!, failed play animations %s" % anims)
+		_logger.debug("animations is empty!, failed play animations %s" % str(anims))
 		return
 	if !animation_player:
-		_logger.debug("animation player is null!, failed play animations %s" % anims)
+		_logger.debug("animation player is null!, failed play animations %s" % str(anims))
 		return
 	
 	animation_player.stop()

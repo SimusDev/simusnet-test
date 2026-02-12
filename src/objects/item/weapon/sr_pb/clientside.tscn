@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://bam6ecdwru5e3" path="res://src/objects/item/weapon/sr_pb/untitled_wpn_pb.png" id="1_gggkx"]
 [ext_resource type="AnimationLibrary" uid="uid://b1080jbpsf0hv" path="res://src/objects/item/weapon/sr_pb/animation.res" id="2_fqyir"]
 [ext_resource type="PackedScene" uid="uid://c57abkcqpltxr" path="res://src/objects/item/weapon/muzzleflash.tscn" id="2_kq3i5"]
-[ext_resource type="Texture2D" uid="uid://cxqusoningw72" path="res://src/objects/item/weapon/sr_pb/untitled_act_arm_perchatka_1.png" id="2_n16ap"]
+[ext_resource type="Texture2D" uid="uid://cxqusoningw72" path="res://src/textures/stalker/fp_hands/untitled_act_arm_perchatka_1.png" id="2_n16ap"]
 [ext_resource type="Script" uid="uid://dre0iiwrqbrvg" path="res://component/animation/firearm_clientside_animator.gd" id="6_n7c3x"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dsptq"]
