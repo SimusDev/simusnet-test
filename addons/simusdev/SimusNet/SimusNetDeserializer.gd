@@ -8,9 +8,9 @@ func _init() -> void:
 	_settings = SimusNetSettings.get_or_create()
 
 static var __type_and_method: Dictionary[SimusNetSerializer.TYPE, Callable] = {
+	SimusNetSerializer.TYPE.IMAGE: parse_image,
 	SimusNetSerializer.TYPE.OBJECT: parse_object,
 	SimusNetSerializer.TYPE.RESOURCE: parse_resource,
-	SimusNetSerializer.TYPE.IMAGE: parse_image,
 	SimusNetSerializer.TYPE.IDENTITY: parse_identity,
 	SimusNetSerializer.TYPE.NODE: parse_node,
 	SimusNetSerializer.TYPE.ARRAY: parse_array,

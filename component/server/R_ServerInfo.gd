@@ -6,6 +6,11 @@ var _cfg_data: Dictionary = {}
 var _players: Array[String]
 var _ping: int = 0
 
+var _image: ImageTexture
+
+func get_image() -> ImageTexture:
+	return _image
+
 func get_ping() -> int:
 	return _ping
 

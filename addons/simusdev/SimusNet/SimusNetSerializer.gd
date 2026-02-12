@@ -30,7 +30,10 @@ static var __class_and_method: Dictionary[StringName, Callable] = {
 	"Object": parse_object,
 	"Array": parse_array,
 	"Dictionary": parse_dictionary,
-	"Image" : parse_image
+}
+
+static var _resource_class_and_method: Dictionary[StringName, Callable] = {
+	"Image": parse_image
 }
 
 static func _create_parsed(type: TYPE, value: Variant = null) -> Array:
@@ -44,11 +47,16 @@ static func parse(variant: Variant, try: bool = true) -> Variant:
 	
 	var parsed: Array = []
 	
+	var cls: String
+	
+	if variant is Object:
+		cls = variant.get_class()
+	
 	var type_string: String = type_string(typeof(variant))
 	
 	var parsable: bool = false
 	for c in __class_and_method:
-		if c == type_string:
+		if c == cls or c == type_string:
 			parsable = true
 			parsed = __class_and_method[c].call(variant)
 	
@@ -73,6 +81,10 @@ static func parse_object(variant: Object) -> Variant:
 	return _create_parsed(TYPE.OBJECT)
 
 static func parse_resource(variant: Resource) -> Variant:
+	var cls: String = variant.get_class()
+	if cls in _resource_class_and_method:
+		return _resource_class_and_method[cls].call(variant)
+	
 	var id: int = SimusNetResources.get_unique_id(variant)
 	if id > -1:
 		return _create_parsed(TYPE.RESOURCE, id)

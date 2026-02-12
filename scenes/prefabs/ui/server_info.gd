@@ -33,6 +33,10 @@ func _on_update_received() -> void:
 	
 	_description.text = info.get_description()
 	_name.text = info.get_name()
+	
+	var image: ImageTexture = info.get_image()
+	if image:
+		_icon.texture = image
 
 func _disconnected() -> void:
 	_disable_input_ui.show()
