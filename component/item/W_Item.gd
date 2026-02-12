@@ -102,6 +102,7 @@ func _ready() -> void:
 	
 	_character_animations = await CT_AnimationEventsCharacter.async_find_above(self)
 	_character_animations.get_or_create("item_pickup").publish(self)
+	_character_animations.get_or_create_parameter("hand_item", self)
 	
 	if object is R_Item:
 		if !object.pickup_sound.is_empty():
@@ -115,6 +116,9 @@ func _ready() -> void:
 	set_process_unhandled_key_input(is_local())
 	
 	
+
+func _exit_tree() -> void:
+	_character_animations.get_or_create("item_drop").publish(self)
 
 func _get_or_create_sound(key: String) -> AudioStreamPlayer3D:
 	if key in _sounds:

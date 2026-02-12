@@ -40,4 +40,7 @@ shot_sound = SubResource("Resource_jpkrp")
 use_cooldown = 0.15
 viewmodel = SubResource("Resource_tshyd")
 icon = ExtResource("1_mniba")
+tags = Dictionary[String, Variant]({
+"pistol": false
+})
 metadata/_custom_type_script = "uid://bkandi6sbfmht"

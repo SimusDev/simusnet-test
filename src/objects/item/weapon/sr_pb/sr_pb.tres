@@ -32,4 +32,7 @@ clientside_prefabs = Array[PackedScene]([ExtResource("2_hk3es")])
 pickup_sound = Array[AudioStream]([ExtResource("4_01pb1")])
 viewmodel = SubResource("Resource_eg5bf")
 icon = ExtResource("3_5x3bh")
+tags = Dictionary[String, Variant]({
+"pistol": true
+})
 metadata/_custom_type_script = "uid://bkandi6sbfmht"
