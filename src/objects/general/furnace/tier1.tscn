@@ -73,8 +73,8 @@ initial_velocity_max = 0.6
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.37437928, 0.4062606, 0)
 visible = false
 light_color = Color(1, 0.78431374, 0, 1)
-light_energy = 0.9993753
-light_indirect_energy = 0.9993753
+light_energy = 0.96015865
+light_indirect_energy = 0.96015865
 light_size = 0.416
 shadow_enabled = true
 

@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://26csqo0qfkd3"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yvl5j"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_yvl5j"]
+
+[node name="AssemblyMachineModel" type="Node3D" unique_id=804875341]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=2083359912]
+material_override = SubResource("StandardMaterial3D_yvl5j")
+mesh = SubResource("BoxMesh_yvl5j")

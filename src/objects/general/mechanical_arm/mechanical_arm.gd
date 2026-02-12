@@ -102,6 +102,7 @@ func _grab_item(from: CT_Inventory) -> void:
 	var stacks = from.get_item_stacks()
 	if stacks.is_empty(): return
 	
+	
 	var chosen_stack = stacks.front()
 	
 	var item = CT_ItemStack.create_from_object(chosen_stack.object)
@@ -119,6 +120,7 @@ func _drop_item(to: CT_Inventory) -> void:
 	if stacks.is_empty(): return
 	
 	var item = stacks.front()
+	
 	if to.try_add_item(item):
 		inventory.try_remove_item(item)
 		transfer_finished.emit()

@@ -2,8 +2,13 @@
 
 [ext_resource type="Texture2D" uid="uid://dam85vs7un4yo" path="res://src/objects/item/coal/coal.png" id="1_bmcnd"]
 [ext_resource type="Script" uid="uid://cxyhi06aga6j1" path="res://component/object/R_WorldObject.gd" id="2_awi3c"]
+[ext_resource type="Script" uid="uid://bnfodg2hs53qo" path="res://component/inventory/R_ItemStackConfig.gd" id="2_irqve"]
 [ext_resource type="Script" uid="uid://cqdfkwb1galvp" path="res://component/viewmodel/R_ViewModel.gd" id="3_irqve"]
 [ext_resource type="PackedScene" uid="uid://bnao0ejkdk8a5" path="res://component/object/world_default_prefab.tscn" id="4_q2dl4"]
+
+[sub_resource type="Resource" id="Resource_q2dl4"]
+script = ExtResource("2_irqve")
+metadata/_custom_type_script = "uid://bnfodg2hs53qo"
 
 [sub_resource type="Resource" id="Resource_6836b"]
 script = ExtResource("3_irqve")
@@ -13,6 +18,7 @@ metadata/_custom_type_script = "uid://cqdfkwb1galvp"
 [resource]
 script = ExtResource("2_awi3c")
 viewmodel = SubResource("Resource_6836b")
+itemstack_config = SubResource("Resource_q2dl4")
 icon = ExtResource("1_bmcnd")
 tags = Dictionary[String, Variant]({
 "fuel": {

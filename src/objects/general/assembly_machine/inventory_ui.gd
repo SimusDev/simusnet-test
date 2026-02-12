@@ -1,0 +1,13 @@
+extends Control
+
+@onready var _custom: UI_BackpackCustom = UI_BackpackCustom.find_above(self)
+
+@onready var _crafting: CraftingTable
+
+func _ready() -> void:
+	$Input/GridContainer.columns = CraftingTable.COLUMNS
+	$Output/GridContainer.columns = CraftingTable.COLUMNS
+	
+	_crafting = _custom.get_inventory().node
+	$input.set_inventory(_custom.get_inventory())
+	$output.set_inventory(_custom.get_inventory())

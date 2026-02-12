@@ -69,11 +69,29 @@ func get_slot_by_name(slot_name: String) -> CT_InventorySlot:
 			return i
 	return null
 
-func get_slot_by_tag(tag: String) -> CT_InventorySlot:
+func get_slots_by_tag(tag: String) -> Array[CT_InventorySlot]:
+	var result:Array[CT_InventorySlot]
 	for i in get_slots():
 		if i.tags.has(tag):
-			return i
-	return null
+			result.append(i)
+	return result
+
+func get_slot_by_tag(tag: String) -> CT_InventorySlot:
+	if get_slots_by_tag(tag).is_empty():
+		return null
+	return get_slots_by_tag(tag).front()
+
+func get_slots_by_tags(tags: Array[String]) -> Array[CT_InventorySlot]:
+	var result:Array[CT_InventorySlot]
+	for tag:String in tags:
+		for slot:CT_InventorySlot in get_slots_by_tag(tag):
+			result.append(slot)
+	return result
+
+func get_slot_by_tags(tags: Array[String]) -> CT_InventorySlot:
+	if get_slots_by_tags(tags).is_empty():
+		return null
+	return get_slots_by_tags(tags).front()
 
 func stack_item(item: CT_ItemStack) -> void:
 	if !SimusNetConnection.is_server():
@@ -340,6 +358,7 @@ func get_free_slot_for(item: CT_ItemStack) -> CT_InventorySlot:
 		if i.is_free() and i.can_handle_item(item):
 			return i
 	return null
+
 
 func try_add_item(item: CT_ItemStack) -> CT_ItemStack:
 	if !item.get_inventory():
