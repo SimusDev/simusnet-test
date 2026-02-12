@@ -11,25 +11,25 @@
 
 [node name="AssemblyMachineModel" parent="." unique_id=804875341 instance=ExtResource("1_pt7a8")]
 
+[node name="CT_AssemblyMachine" type="Node" parent="." unique_id=2078168640 node_paths=PackedStringArray("root", "ct_tick", "_inventory")]
+script = ExtResource("3_8kk6a")
+root = NodePath("..")
+ct_tick = NodePath("CT_Tick")
+_inventory = NodePath("../CT_Inventory")
+metadata/_custom_type_script = "uid://yisxfeg6bplo"
+
+[node name="CT_Tick" type="Node" parent="CT_AssemblyMachine" unique_id=889748152]
+script = ExtResource("4_ro123")
+tickrate = 20.0
+metadata/_custom_type_script = "uid://5iiffw6ilrpy"
+
 [node name="CT_Inventory" type="Node" parent="." unique_id=1324041468 node_paths=PackedStringArray("node")]
 script = ExtResource("2_thbeh")
 node = NodePath("..")
 initial_slot_count = 8
 metadata/_custom_type_script = "uid://dehqcsswxyu8a"
 
-[node name="CT_AssemblyMachine" type="Node" parent="." unique_id=2078168640 node_paths=PackedStringArray("root", "ct_tick", "_inventory")]
-script = ExtResource("3_8kk6a")
-root = NodePath("..")
-ct_tick = NodePath("../CT_Tick")
-_inventory = NodePath("../CT_Inventory")
-metadata/_custom_type_script = "uid://yisxfeg6bplo"
-
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=472407715]
 shape = SubResource("BoxShape3D_pt7a8")
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="." unique_id=1255873185]
-
-[node name="CT_Tick" type="Node" parent="." unique_id=889748152]
-script = ExtResource("4_ro123")
-tickrate = 20.0
-metadata/_custom_type_script = "uid://5iiffw6ilrpy"

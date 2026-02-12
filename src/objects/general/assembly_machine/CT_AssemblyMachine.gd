@@ -27,4 +27,7 @@ func _ready() -> void:
 	ct_tick.tick.connect(_on_tick)
 
 func _on_tick() -> void:
-	pass
+	if not recipe:
+		return
+	
+	recipe.can_cra

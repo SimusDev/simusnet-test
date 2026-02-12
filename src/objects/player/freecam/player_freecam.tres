@@ -1,5 +1,6 @@
 [gd_resource type="Resource" script_class="R_Player" format=3 uid="uid://cmppfs4g3mumt"]
 
+[ext_resource type="Texture2D" uid="uid://bhpgqe0fxlswn" path="res://src/objects/player/freecam/icon.png" id="1_681ou"]
 [ext_resource type="Script" uid="uid://krog7c2ovqsb" path="res://component/player/R_Player.gd" id="1_g8xp5"]
 [ext_resource type="Script" uid="uid://cqdfkwb1galvp" path="res://component/viewmodel/R_ViewModel.gd" id="2_uyx6v"]
 [ext_resource type="PackedScene" uid="uid://0trxxmmjcswk" path="res://src/objects/player/freecam/freecam.tscn" id="3_681ou"]
@@ -12,4 +13,5 @@ metadata/_custom_type_script = "uid://cqdfkwb1galvp"
 [resource]
 script = ExtResource("1_g8xp5")
 viewmodel = SubResource("Resource_0daqd")
+icon = ExtResource("1_681ou")
 metadata/_custom_type_script = "uid://krog7c2ovqsb"
