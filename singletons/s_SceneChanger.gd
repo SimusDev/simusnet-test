@@ -5,6 +5,9 @@ var states: Dictionary = {}
 func is_ingame_state() -> bool:
 	return states.get("ingame", false) == true
 
+func set_ingame_state(value: bool) -> void:
+	return states.set("ingame", value)
+
 func _ready() -> void:
 	SimusNetEvents.event_connected.listen(_on_network_connected)
 	SimusNetEvents.event_disconnected.listen(_on_network_disconnected)

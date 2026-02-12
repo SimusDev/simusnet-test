@@ -12,7 +12,12 @@ const INFO_KEYS: Dictionary = {
 	"web_site": "",
 }
 
-signal on_update_received(info: R_ServerInfo)
+signal on_update_received()
+
+var _last: R_ServerInfo
+
+func get_last() -> R_ServerInfo:
+	return _last
 
 func _ready() -> void:
 	SimusNetIdentity.register(self)
@@ -63,4 +68,6 @@ func _request_update_rpc() -> void:
 func _receive_update_rpc(data: Dictionary) -> void:
 	var info: R_ServerInfo = R_ServerInfo.new()
 	info._cfg_data = data
-	on_update_received.emit(info)
+	_last = info
+	on_update_received.emit()
+	

@@ -6,4 +6,5 @@ func _ready() -> void:
 	start()
 
 func start() -> void:
+	s_SceneChanger.set_ingame_state(true)
 	get_tree().change_scene_to_file.call_deferred("res://scenes/game.tscn")
