@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://prodeloqtcwu"]
 
-[ext_resource type="Script" uid="uid://xnthsvgfsy3d" path="res://scenes/prefabs/ui/server_info.gd" id="1_c3u0x"]
+[ext_resource type="Script" uid="uid://c1f1gknbfnpyb" path="res://scenes/prefabs/ui/server_info.gd" id="1_c3u0x"]
 [ext_resource type="Texture2D" uid="uid://dya0lilhdw3n2" path="res://addons/boujie_water_shader/icons/water_shader_avatar.png" id="1_pueei"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0704q"]
