@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="R_WorldObject" format=3 uid="uid://b62sp3gxace5f"]
+
+[ext_resource type="Script" uid="uid://cxyhi06aga6j1" path="res://component/object/R_WorldObject.gd" id="1_fj70y"]
+[ext_resource type="Script" uid="uid://cqdfkwb1galvp" path="res://component/viewmodel/R_ViewModel.gd" id="3_q3tq0"]
+[ext_resource type="PackedScene" uid="uid://da55pndbj18ty" path="res://src/objects/general/assembly_machine/assembly_machine_world.tscn" id="5_q0y6l"]
+
+[sub_resource type="Resource" id="Resource_wxocj"]
+script = ExtResource("3_q3tq0")
+world = ExtResource("5_q0y6l")
+metadata/_custom_type_script = "uid://cqdfkwb1galvp"
+
+[resource]
+script = ExtResource("1_fj70y")
+viewmodel = SubResource("Resource_wxocj")
+metadata/_custom_type_script = "uid://cxyhi06aga6j1"

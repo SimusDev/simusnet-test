@@ -7,6 +7,7 @@
 bg_color = Color(0, 0, 0, 0.16470589)
 
 [node name="Panel" type="Panel" unique_id=1550646447 node_paths=PackedStringArray("text_label")]
+modulate = Color(1, 1, 1, 0)
 offset_right = 384.0
 offset_bottom = 384.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_0yi7y")
