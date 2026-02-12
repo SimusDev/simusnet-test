@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://cypr77acfwo4c"]
+
+[ext_resource type="PackedScene" uid="uid://crr8ts3ltljx7" path="res://src/objects/item/weapon/sr_ak74/model.scn" id="1_ibkma"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_pg2g2"]
+size = Vector3(0.061660767, 0.3305664, 1.1246262)
+
+[node name="World" type="RigidBody3D" unique_id=271464899]
+
+[node name="model" parent="." unique_id=1663272941 instance=ExtResource("1_ibkma")]
+transform = Transform3D(1.4, 0, 0, 0, 1.4, 0, 0, 0, 1.4, 0, 0.038410366, -0.12013483)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1991066647]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0005722046, 0.005859375, 0.010349274)
+shape = SubResource("BoxShape3D_pg2g2")

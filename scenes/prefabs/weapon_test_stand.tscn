@@ -8,9 +8,10 @@
 [ext_resource type="Script" uid="uid://bkhjaq3ccadol" path="res://component/object/spawn/R_SpawnTag.gd" id="4_31nm7"]
 [ext_resource type="Script" uid="uid://cvh6l86iib7cw" path="res://component/object/spawn/R_SpawnTagStackSize.gd" id="5_31nm7"]
 [ext_resource type="Script" uid="uid://cgxdi4cljlv7m" path="res://component/object/spawn/R_SpawnTagFreeze.gd" id="5_snhrs"]
-[ext_resource type="Resource" uid="uid://uey8a88a0p4j" path="res://src/metadata_material/Metal.tres" id="6_ln63a"]
+[ext_resource type="Resource" path="res://src/metadata_material/Metal.tres" id="6_ln63a"]
 [ext_resource type="Resource" uid="uid://dt2tx25ql5rtp" path="res://src/objects/item/ammo/5_45x39.tres" id="6_snhrs"]
 [ext_resource type="Resource" uid="uid://cd6q0ankueu8w" path="res://src/objects/item/ammo/5_56x45.tres" id="7_7xe81"]
+[ext_resource type="Resource" uid="uid://cot7al6h7h866" path="res://src/objects/item/weapon/sr_ak74/sr_ak74.tres" id="8_5qusa"]
 [ext_resource type="Resource" uid="uid://r7fprqqkevp8" path="res://src/objects/item/ammo/9x39.tres" id="10_fsq02"]
 [ext_resource type="Resource" uid="uid://bt56qumboolp7" path="res://src/objects/item/ammo/7_62x54.tres" id="11_qsmbf"]
 
@@ -128,45 +129,31 @@ object = ExtResource("3_s48m2")
 tags = Array[ExtResource("4_31nm7")]([SubResource("Resource_7xe81")])
 metadata/_custom_type_script = "uid://dgp0pmmh5blth"
 
-[node name="wpn_pb13" type="Node3D" parent="weapons" unique_id=1924212878]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.27718982, 0.9102881, 0.63593405)
+[node name="wpn_ak47" type="Node3D" parent="weapons" unique_id=1924212878]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2653921, 0.8035834, 0.76122373)
 script = ExtResource("2_inqea")
-object = ExtResource("3_s48m2")
+object = ExtResource("8_5qusa")
 tags = Array[ExtResource("4_31nm7")]([SubResource("Resource_7xe81")])
 metadata/_custom_type_script = "uid://dgp0pmmh5blth"
 
-[node name="wpn_pb14" type="Node3D" parent="weapons" unique_id=1814613633]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.27718982, 0.61028814, 0.63593405)
+[node name="wpn_ak48" type="Node3D" parent="weapons" unique_id=2014410574]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2653921, 0.4224602, 0.76122373)
 script = ExtResource("2_inqea")
-object = ExtResource("3_s48m2")
+object = ExtResource("8_5qusa")
 tags = Array[ExtResource("4_31nm7")]([SubResource("Resource_7xe81")])
 metadata/_custom_type_script = "uid://dgp0pmmh5blth"
 
-[node name="wpn_pb15" type="Node3D" parent="weapons" unique_id=465880341]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.27718982, 0.3102882, 0.63593405)
+[node name="wpn_ak49" type="Node3D" parent="weapons" unique_id=210167867]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2653921, 0.017718911, 0.76122373)
 script = ExtResource("2_inqea")
-object = ExtResource("3_s48m2")
+object = ExtResource("8_5qusa")
 tags = Array[ExtResource("4_31nm7")]([SubResource("Resource_7xe81")])
 metadata/_custom_type_script = "uid://dgp0pmmh5blth"
 
-[node name="wpn_pb16" type="Node3D" parent="weapons" unique_id=815806900]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.27718982, 0.0102882385, 0.63593405)
+[node name="wpn_ak50" type="Node3D" parent="weapons" unique_id=432820349]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2653921, -0.43068695, 0.76122373)
 script = ExtResource("2_inqea")
-object = ExtResource("3_s48m2")
-tags = Array[ExtResource("4_31nm7")]([SubResource("Resource_7xe81")])
-metadata/_custom_type_script = "uid://dgp0pmmh5blth"
-
-[node name="wpn_pb17" type="Node3D" parent="weapons" unique_id=1605731335]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.27718982, -0.28971177, 0.63593405)
-script = ExtResource("2_inqea")
-object = ExtResource("3_s48m2")
-tags = Array[ExtResource("4_31nm7")]([SubResource("Resource_7xe81")])
-metadata/_custom_type_script = "uid://dgp0pmmh5blth"
-
-[node name="wpn_pb18" type="Node3D" parent="weapons" unique_id=1563606844]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.27718982, -0.5897118, 0.63593405)
-script = ExtResource("2_inqea")
-object = ExtResource("3_s48m2")
+object = ExtResource("8_5qusa")
 tags = Array[ExtResource("4_31nm7")]([SubResource("Resource_7xe81")])
 metadata/_custom_type_script = "uid://dgp0pmmh5blth"
 

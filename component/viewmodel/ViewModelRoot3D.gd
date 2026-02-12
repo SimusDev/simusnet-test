@@ -45,6 +45,7 @@ func _find_inventory() -> void:
 	if Engine.is_editor_hint():
 		return
 	
+	object = null
 	_inventory = SD_ECS.node_find_above_by_component(self, CT_Inventory)
 	if !_inventory:
 		await get_tree().process_frame

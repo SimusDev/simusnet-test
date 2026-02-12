@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://btxe1neljf5lc"]
+
+[ext_resource type="PackedScene" uid="uid://crr8ts3ltljx7" path="res://src/objects/item/weapon/sr_ak74/model.scn" id="1_4bkqv"]
+
+[node name="View" type="Node3D" unique_id=375240287]
+
+[node name="model" parent="." unique_id=1663272941 instance=ExtResource("1_4bkqv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0016991943, -0.25685745)
