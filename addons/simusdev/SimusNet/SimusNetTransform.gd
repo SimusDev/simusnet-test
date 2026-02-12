@@ -9,6 +9,11 @@ class_name SimusNetTransform
 
 const _META: StringName = &"SimusNetTransform"
 
+const _TP: StringName = &"transform"
+const _PP: StringName = &"position"
+const _RP: StringName = &"rotation"
+const _SP: StringName = &"scale"
+
 func is_interpolated() -> bool:
 	return interpolate
 
@@ -21,20 +26,14 @@ func _ready() -> void:
 	if !node:
 		node = get_parent()
 	
-	if Engine.is_editor_hint():
+	if Engine.is_editor_hint() or not _TP in node:
 		return
-	
-	if not "transform" in node:
-		return
-	
-	#SimusNetVisibility.set_public_visibility(self, true)
 	
 	node.set_meta(_META, self)
 	
 	SimusNetIdentity.register(self)
 	
-	if !node.is_node_ready():
-		await node.ready
+	set_process(is_instance_valid(node))
 
 static func find_transform(target: Node) -> SimusNetTransform:
 	if target.has_meta(_META):
@@ -45,46 +44,39 @@ func _process(delta: float) -> void:
 	if Engine.is_editor_hint():
 		return
 	
-	if !node:
-		return
-	
 	if SimusNet.is_network_authority(self):
 		return
 	
 	var data: Dictionary[StringName, Variant] = SimusNetSynchronization.get_synced_properties(self)
 	
-	var position: Variant = data.get("position", node.position)
-	var rotation: Variant = data.get("rotation", node.rotation)
-	var scale: Variant = data.get("scale", node.scale)
+	var p: Variant = data.get(_PP, node.position)
+	var r: Variant = data.get(_RP, node.rotation)
+	var s: Variant = data.get(_SP, node.scale)
 	
-	node.position = lerp(node.position, position, interpolate_speed * delta)
-	node.rotation.x = lerp_angle(node.rotation.x, rotation.x, interpolate_speed * delta)
-	node.rotation.y = lerp_angle(node.rotation.y, rotation.y, interpolate_speed * delta)
+	var i: float = interpolate_speed * delta
+	
+	node.position = lerp(node.position, p, i)
+	node.rotation.x = lerp_angle(node.rotation.x, r.x, i)
+	node.rotation.y = lerp_angle(node.rotation.y, r.y, i)
+	
 	if node.rotation is Vector3:
-		node.rotation.z = lerp_angle(node.rotation.z, rotation.z, interpolate_speed * delta)
-	node.scale = lerp(node.scale, scale, interpolate_speed * delta)
+		node.rotation.z = lerp_angle(node.rotation.z, r.z, i)
+	
+	node.scale = lerp(node.scale, s, i)
 
 func _enter_tree() -> void:
-	
-	if Engine.is_editor_hint():
-		return
-	
-	if !node:
+	if Engine.is_editor_hint() or !node:
 		return
 	
 	if !is_node_ready():
 		await ready 
 	
-	if "transform" in node:
+	if _TP in node:
 		SimusNetSynchronization._instance._transform_enter_tree(self)
 
 func _exit_tree() -> void:
-	
-	if Engine.is_editor_hint():
+	if Engine.is_editor_hint() or !node:
 		return
 	
-	if !node:
-		return
-	
-	if "transform" in node:
+	if _TP in node:
 		SimusNetSynchronization._instance._transform_exit_tree(self)

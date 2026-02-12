@@ -122,5 +122,7 @@ func _network_disconnect(handler: SimusNetVarConfigHandler) -> void:
 static func get_configs(object: Object) -> Dictionary[StringName, SimusNetVarConfig]:
 	return SimusNetVarConfigHandler.get_or_create(object)._list
 
-static func get_config(object: Object, property: StringName) -> SimusNetVarConfig:
-	return get_configs(object).get(property)
+static func get_config(object: Variant, property: StringName) -> SimusNetVarConfig:
+	if is_instance_valid(object):
+		return get_configs(object).get(property)
+	return null
