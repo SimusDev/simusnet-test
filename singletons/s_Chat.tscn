@@ -24,12 +24,12 @@ chat = NodePath("../..")
 
 [node name="View" parent="UI" unique_id=1550646447 node_paths=PackedStringArray("chat") instance=ExtResource("3_a6lvt")]
 anchors_preset = -1
-anchor_top = 0.31100002
-anchor_bottom = 0.31100002
+anchor_top = 0.38900003
+anchor_bottom = 0.38900003
 offset_left = 16.0
-offset_top = -207.92001
+offset_top = -152.08002
 offset_right = 512.0
-offset_bottom = 208.07999
+offset_bottom = 151.91998
 grow_horizontal = 2
 mouse_filter = 2
 chat = NodePath("../..")

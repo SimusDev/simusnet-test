@@ -18,6 +18,14 @@ func _ready() -> void:
 	
 	chat.on_message_received.connect(_on_message_received)
 	s_Users.on_connected.connect(_on_user_connected)
+	
+	s_Chat.active_chat.visibility_changed.connect(_on_active_chat_visiblility_changed)
+
+func _on_active_chat_visiblility_changed() -> void:
+	if s_Chat.active_chat.visible:
+		show_chat()
+	else:
+		hide_chat()
 
 func _on_user_connected(user:CT_User) -> void:
 	_add_message("[color=orange]%s connected[/color]" % [user.get_nickname()])
@@ -29,17 +37,30 @@ func _on_message_received(msg: SimusNetChatMessage) -> void:
 	_add_message(_get_message_text(msg))
 
 func _add_message(text:String):
+	show_chat()
 	text_label.text += text + "\n"
 	
+	if s_Chat.active_chat.visible:
+		await s_Chat.active_chat.visibility_changed
+		hide_chat()
+
+
+func hide_chat() -> void:
 	if tween:
 		tween.kill() 
 	
-	modulate.a = 1.0
+	#modulate.a = 1.0
 	
 	tween = create_tween()
 	
 	tween.tween_interval(hide_delay)
 	tween.tween_property(self, "modulate:a", 0.0, hide_duration)
+
+func show_chat() -> void:
+	if tween:
+		tween.kill()
+	
+	modulate.a = 1.0
 
 func _get_message_text(msg: SimusNetChatMessage) -> String:
 	var user:CT_User = CT_User.find_by_peer(msg.get_peer_id())
