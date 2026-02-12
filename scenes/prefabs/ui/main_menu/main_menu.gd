@@ -6,7 +6,6 @@ extends Control
 @export var _popups_container: Control
 
 @onready var _connect_to_server_: LineEdit = $Panel/MarginContainer/ScreenConnect/LineEdit
-@onready var _connecting_popup: Control = $Popups/Connecting
 
 @export var _hide_ingame: Array[CanvasItem]
 @export var _show_ingame: Array[CanvasItem]
@@ -29,6 +28,8 @@ func _ready() -> void:
 			i.hide()
 		for i in _show_ingame:
 			i.show()
+		
+		_switch_popup("ServerInfo")
 
 func _switch_buttons_screen(_name: String) -> void:
 	SD_Nodes.set_children_visibility(_screens_container, false)

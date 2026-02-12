@@ -262,8 +262,7 @@ offset_top = -21.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_jm523")
-text = "Connecting to the server
-%s"
+text = "Connecting to the server"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -275,7 +274,6 @@ key = &"G_CONNECTING"
 metadata/_custom_type_script = "uid://buo415nhjgsrx"
 
 [node name="ServerInfo" parent="Popups" unique_id=614010673 instance=ExtResource("5_f41q6")]
-visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5

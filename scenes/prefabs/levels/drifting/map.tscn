@@ -6,7 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://h5f2r6nnwmsn" path="res://scenes/prefabs/seats/car/model.scn" id="4_uqwa7"]
 [ext_resource type="Script" uid="uid://hmy2t684xhdx" path="res://component/entity/CT_Seat.gd" id="5_0tcb7"]
 [ext_resource type="PackedScene" uid="uid://cc0cnju0at7p8" path="res://scenes/prefabs/weapon_test_stand.tscn" id="6_vjnfq"]
-[ext_resource type="PackedScene" uid="uid://b6tt85i8gnsq3" path="res://scenes/prefabs/characters/godette/physics_model.tscn" id="7_mh64b"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_0tcb7"]
 size = Vector3(1, 0.6230469, 0.711853)
@@ -50,6 +49,3 @@ transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 22.6
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1261630321]
 transform = Transform3D(-0.7313426, 0.5976745, -0.3285164, 0, 0.48168838, 0.87634254, 0.6820101, 0.64090663, -0.35227928, -12.539652, 36.69347, -12.985576)
-
-[node name="PhysicsModel" parent="." unique_id=1287620863 instance=ExtResource("7_mh64b")]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0.8126919, 2.6170073)
