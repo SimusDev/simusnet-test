@@ -24,7 +24,6 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_font_sizes/normal_font_size = 16
 bbcode_enabled = true
-scroll_active = false
 scroll_following = true
 shortcut_keys_enabled = false
 vertical_alignment = 2
