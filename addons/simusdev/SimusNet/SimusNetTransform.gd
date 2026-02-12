@@ -14,6 +14,8 @@ const _PP: StringName = &"position"
 const _RP: StringName = &"rotation"
 const _SP: StringName = &"scale"
 
+var _data: Dictionary[StringName, Variant] = {}
+
 func is_interpolated() -> bool:
 	return interpolate
 
@@ -33,6 +35,8 @@ func _ready() -> void:
 	
 	SimusNetIdentity.register(self)
 	
+	_data = SimusNetSynchronization.get_synced_properties(self)
+	
 	set_process(is_instance_valid(node))
 
 static func find_transform(target: Node) -> SimusNetTransform:
@@ -47,11 +51,9 @@ func _process(delta: float) -> void:
 	if SimusNet.is_network_authority(self):
 		return
 	
-	var data: Dictionary[StringName, Variant] = SimusNetSynchronization.get_synced_properties(self)
-	
-	var p: Variant = data.get(_PP, node.position)
-	var r: Variant = data.get(_RP, node.rotation)
-	var s: Variant = data.get(_SP, node.scale)
+	var p: Variant = _data.get(_PP, node.position)
+	var r: Variant = _data.get(_RP, node.rotation)
+	var s: Variant = _data.get(_SP, node.scale)
 	
 	var i: float = interpolate_speed * delta
 	
