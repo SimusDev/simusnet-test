@@ -87,7 +87,7 @@ _button_container = [NodePath("Panel/MarginContainer/ScreenMain"), NodePath("Pan
 _screens_container = NodePath("Panel/MarginContainer")
 _popups_container = NodePath("Popups")
 _hide_ingame = [NodePath("Panel/MarginContainer/ScreenMain/Play"), NodePath("Panel/MarginContainer/ScreenMain/Multiplayer"), NodePath("Panel/MarginContainer/ScreenMain/Quit")]
-_show_ingame = [NodePath("Panel/MarginContainer/ScreenMain/Disconnect")]
+_show_ingame = [NodePath("Panel/MarginContainer/ScreenMain/Server")]
 
 [node name="Panel" type="Panel" parent="." unique_id=690560241]
 layout_mode = 1
@@ -129,6 +129,16 @@ text = "Play"
 flat = true
 alignment = 0
 
+[node name="Server" type="Button" parent="Panel/MarginContainer/ScreenMain" unique_id=310913220]
+visible = false
+layout_mode = 2
+focus_mode = 0
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 24
+text = "Server"
+flat = true
+alignment = 0
+
 [node name="Multiplayer" type="Button" parent="Panel/MarginContainer/ScreenMain" unique_id=2025523503]
 layout_mode = 2
 focus_mode = 0
@@ -163,16 +173,6 @@ focus_mode = 0
 theme_override_constants/outline_size = 3
 theme_override_font_sizes/font_size = 24
 text = "Settings"
-flat = true
-alignment = 0
-
-[node name="Disconnect" type="Button" parent="Panel/MarginContainer/ScreenMain" unique_id=1559847820]
-visible = false
-layout_mode = 2
-focus_mode = 0
-theme_override_constants/outline_size = 3
-theme_override_font_sizes/font_size = 32
-text = "Disconnect"
 flat = true
 alignment = 0
 
@@ -262,7 +262,8 @@ offset_top = -21.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_jm523")
-text = "Connecting to the server"
+text = "Connecting to the server
+%s"
 horizontal_alignment = 1
 vertical_alignment = 1
 

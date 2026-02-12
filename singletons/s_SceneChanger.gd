@@ -2,6 +2,9 @@ extends SD_GameSceneChanger
 
 var states: Dictionary = {}
 
+func is_ingame_state() -> bool:
+	return states.get("ingame", false) == true
+
 func _ready() -> void:
 	SimusNetEvents.event_connected.listen(_on_network_connected)
 	SimusNetEvents.event_disconnected.listen(_on_network_disconnected)
