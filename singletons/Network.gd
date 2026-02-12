@@ -9,7 +9,13 @@ extends Node
 const MAX_PLAYERS: int = 1000
 const DEFAULT_PORT: int = 8080
 
+var server_info: CT_ServerInfo
+
 func _ready() -> void:
+	server_info = CT_ServerInfo.new()
+	server_info.name = "server_info"
+	add_child(server_info)
+	
 	SimusNetEvents.event_connected.listen(_on_connected)
 	SimusNetEvents.event_disconnected.listen(_on_disconnected)
 	var commands_exec: Array[SD_ConsoleCommand] = [
