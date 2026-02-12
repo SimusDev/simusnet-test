@@ -116,6 +116,9 @@ static func replicate(object: Object, properties: PackedStringArray, reliable: b
 	if SimusNetConnection.is_server():
 		return
 	
+	if !is_instance_valid(object):
+		return
+	
 	var handler: SimusNetVarConfigHandler = SimusNetVarConfigHandler.get_or_create(object)
 	
 	for p_name in properties:
