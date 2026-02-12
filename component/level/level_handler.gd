@@ -16,7 +16,7 @@ func _ready() -> void:
 			_send,
 			_request_clear_level_rpc,
 		],
-		SimusNetRPCConfig.new().flag_mode_any_peer()
+		SimusNetRPCConfig.new().flag_mode_to_server()
 	)
 	SimusNetRPC.register(
 		[_receive],
