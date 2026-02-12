@@ -26,7 +26,7 @@ static func register(callables: Array[Callable], config := SimusNetRPCConfig.new
 	return true
 
 func initialize() -> void:
-	pass
+	_instance = self
 
 func _validate_callable(callable: Callable, on_recieve: bool = false, peer: int = -1) -> SimusNetRPCConfig:
 	var object: Object = callable.get_object()
