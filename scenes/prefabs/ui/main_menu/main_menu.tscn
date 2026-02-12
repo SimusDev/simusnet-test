@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://dotjiengj0hqs" path="res://addons/simusdev/ui/SD_UINodeExitButton.gd" id="2_da2ht"]
 [ext_resource type="PackedScene" uid="uid://clinvld10jut" path="res://scenes/prefabs/ui/main_menu/settings/settings.tscn" id="3_5h2bh"]
 [ext_resource type="Script" uid="uid://buo415nhjgsrx" path="res://addons/simusdev/localization/SD_NodeLocalizatorProperty.gd" id="4_4hkdk"]
-[ext_resource type="PackedScene" uid="uid://oihhxqmawk6l" path="res://scenes/prefabs/ui/server_info.tscn" id="5_f41q6"]
+[ext_resource type="PackedScene" uid="uid://prodeloqtcwu" path="res://scenes/prefabs/ui/server_info.tscn" id="5_f41q6"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5h2bh"]
 content_margin_left = 0.0
@@ -59,6 +59,10 @@ expand_margin_bottom = 2.0
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jm523"]
 content_margin_bottom = 4.0
 bg_color = Color(0.1015625, 0.1015625, 0.1015625, 0.6431373)
+corner_radius_top_left = 5
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
 expand_margin_top = 4.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wmaw6"]
@@ -258,7 +262,8 @@ offset_top = -21.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_jm523")
-text = "Connecting to the server"
+text = "Connecting to the server
+%s"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -270,6 +275,7 @@ key = &"G_CONNECTING"
 metadata/_custom_type_script = "uid://buo415nhjgsrx"
 
 [node name="ServerInfo" parent="Popups" unique_id=614010673 instance=ExtResource("5_f41q6")]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
