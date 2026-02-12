@@ -257,46 +257,45 @@ func _replicate_rpc_unreliable(packet: Variant) -> void:
 		_replicate_rpc_server(packet, multiplayer.get_remote_sender_id(), false)
 
 static func send(object: Object, properties: PackedStringArray, reliable: bool = true, log_error: bool = true) -> void:
-	if SimusNet.is_network_authority(object) or SimusNetConnection.is_server():
-		var handler: SimusNetVarConfigHandler = SimusNetVarConfigHandler.get_or_create(object)
-		var changed_properties: Dictionary[StringName, Variant] = SimusNetSynchronization.get_changed_properties(object)
-		for property in properties:
-			if changed_properties.get_or_add(property, object.get(property)) == object.get(property):
-				continue
-			
-			var config: SimusNetVarConfig = SimusNetVarConfig.get_config(object, property)
-			if !config:
-				_instance.logger.debug_error("send(), cant find config for %s, property: %s" % [object, property])
-				continue
-			
-			var validate: bool = await config._validate_send(handler)
-			if !validate:
-				continue
-			
-			var identity: SimusNetIdentity = handler.get_identity()
-			
-			for p_id in SimusNetConnection.get_connected_peers():
-				if SimusNetVisibility.is_visible_for(p_id, identity.owner):
-					
-					var for_peer: Dictionary = _instance._queue_send.get_or_add(p_id, {})
-					var channel: Dictionary = for_peer.get_or_add(config._channel, {})
-					var transfer: Dictionary = channel.get_or_add(reliable, {})
-					
-					var identity_data: Dictionary = transfer.get_or_add(identity.try_serialize_into_variant(), {})
-					
-					var p: Variant = try_serialize_into_variant(property)
-					var v: Variant = SimusNetSerializer.parse(identity.owner.get(property), config._serialize)
-					
-					var size: int = var_to_bytes(p).size() + var_to_bytes(v).size()
-					SimusNetProfiler._instance._put_var_traffic(size, identity, property, false)
-					
-					identity_data.set(p, v)
-					#_instance._queue_send_peers.append(p_id)
-			
-			changed_properties.set(property, identity.owner.get(property))
-			
-	else:
-		_instance.logger.debug_error("only network authority can send variables. %s, %s" % [object, properties])
+	var handler: SimusNetVarConfigHandler = SimusNetVarConfigHandler.get_or_create(object)
+	var changed_properties: Dictionary[StringName, Variant] = SimusNetSynchronization.get_changed_properties(object)
+	for property in properties:
+		
+		if changed_properties.get_or_add(property, object.get(property)) == object.get(property):
+			continue
+		
+		var config: SimusNetVarConfig = SimusNetVarConfig.get_config(object, property)
+		if !config:
+			_instance.logger.debug_error("send(), cant find config for %s, property: %s" % [object, property])
+			continue
+		
+
+		
+		var identity: SimusNetIdentity = handler.get_identity()
+		
+		for p_id in SimusNetConnection.get_connected_peers():
+			if SimusNetVisibility.is_visible_for(p_id, identity.owner):
+				var validate: bool = await config._validate_send(handler, p_id)
+				if !validate:
+					continue
+				
+				var for_peer: Dictionary = _instance._queue_send.get_or_add(p_id, {})
+				var channel: Dictionary = for_peer.get_or_add(config._channel, {})
+				var transfer: Dictionary = channel.get_or_add(reliable, {})
+				
+				var identity_data: Dictionary = transfer.get_or_add(identity.try_serialize_into_variant(), {})
+				
+				var p: Variant = try_serialize_into_variant(property)
+				var v: Variant = SimusNetSerializer.parse(identity.owner.get(property), config._serialize)
+				
+				var size: int = var_to_bytes(p).size() + var_to_bytes(v).size()
+				SimusNetProfiler._instance._put_var_traffic(size, identity, property, false)
+				
+				identity_data.set(p, v)
+				#_instance._queue_send_peers.append(p_id)
+		
+		changed_properties.set(property, identity.owner.get(property))
+		
 
 func _handle_send(_queue: Dictionary) -> void:
 	for peer: int in _queue:

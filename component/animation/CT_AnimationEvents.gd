@@ -4,12 +4,19 @@ class_name CT_AnimationEvents
 @export var target: Node
 
 var _events: Dictionary[String, EVENT] = {}
+var _parameters: Dictionary[String, Variant] = {}
 
 func _ready() -> void:
 	if !target:
 		target = get_parent()
 	
 	SD_ECS.append_to(target, self)
+
+func get_or_create_parameter(p_name: String, default: Variant = null) -> Variant:
+	return _parameters.get_or_add(p_name, default)
+
+func set_parameter(p_name: String, value: Variant) -> Variant:
+	return _parameters.set(p_name, value)
 
 static func async_find_above(from: Node, attempts: int = 1) -> CT_AnimationEvents:
 	return await _async_find_above_internal(from, 0, attempts, CT_AnimationEvents)

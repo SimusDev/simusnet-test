@@ -9,12 +9,9 @@ enum TRANSFER_MODE {
 
 static var _instance: SimusNetRPC
 
-static var _stream_peer: StreamPeerBuffer = StreamPeerBuffer.new()
-
 @export var _processor: SimusNetRPCProccessor
 
 const RPC_BYTE_SIZE: int = 2
-const RPC_VISIBILITY_TIMEOUT: float = 15.0
 
 func _setup_remote_sender(id: int, channel: int) -> void:
 	SimusNetRemote.sender_id = id
@@ -29,11 +26,9 @@ static func register(callables: Array[Callable], config := SimusNetRPCConfig.new
 	return true
 
 func initialize() -> void:
-	_stream_peer.big_endian = true
-	_instance = self
+	pass
 
-
-func _validate_callable(callable: Callable, on_recieve: bool = false) -> SimusNetRPCConfig:
+func _validate_callable(callable: Callable, on_recieve: bool = false, peer: int = -1) -> SimusNetRPCConfig:
 	var object: Object = callable.get_object()
 	var config: SimusNetRPCConfig = SimusNetRPCConfig.try_find_in(callable)
 	if !config:
@@ -43,9 +38,9 @@ func _validate_callable(callable: Callable, on_recieve: bool = false) -> SimusNe
 	var rpc_valide: bool = false
 	
 	if on_recieve:
-		rpc_valide = await config._validate_on_recieve(callable)
+		rpc_valide = await config._validate_on_recieve(callable, peer)
 	else:
-		rpc_valide = await config._validate(callable)
+		rpc_valide = await config._validate(callable, peer)
 	
 	if rpc_valide:
 		return config
@@ -215,7 +210,7 @@ static func invoke_on_sender(callable: Callable, ...args: Array) -> void:
 	_instance._invoke_on(SimusNetRemote.sender_id, callable, args)
 
 func _invoke_on(peer: int, callable: Callable, args: Array) -> void:
-	var config: SimusNetRPCConfig = await _validate_callable(callable)
+	var config: SimusNetRPCConfig = await _validate_callable(callable, false, peer)
 	if !config:
 		return
 	

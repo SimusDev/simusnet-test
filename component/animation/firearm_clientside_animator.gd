@@ -39,8 +39,6 @@ func _ready() -> void:
 		_logger.debug("cant find item above", SD_ConsoleCategories.ERROR)
 		return
 	
-	_item.event_aim_enter.connect(_set_aim.bind(true))
-	_item.event_aim_exit.connect(_set_aim.bind(false))
 	_item.event_fire.connect(_play_animation.bind(anim_shoot))
 	_item.event_fire.connect(_play_particles.bind(muzzleflash_particles))
 	_item.event_reload.connect(_play_animation.bind(anim_reload))
@@ -67,6 +65,10 @@ func _set_aim(value: bool) -> void:
 func _process(delta: float) -> void:
 	if !is_instance_valid(root) or (Engine.is_editor_hint() and !editor_process):
 		return
+	
+	if !Engine.is_editor_hint():
+		if is_instance_valid(_item):
+			is_aiming = _item.is_using_alt
 	
 	var target_position: Vector3 = default_position
 	var target_rotation: Vector3 = default_rotation

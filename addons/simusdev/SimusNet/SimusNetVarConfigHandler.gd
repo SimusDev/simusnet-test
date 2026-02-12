@@ -9,6 +9,8 @@ var _identity: SimusNetIdentity
 var _list: Dictionary[StringName, SimusNetVarConfig] = {}
 var _properties_for: Dictionary[SimusNetVarConfig, PackedStringArray]
 
+var _properties_time: Dictionary[int, float] = {}
+
 func get_properties_for(cfg: SimusNetVarConfig) -> PackedStringArray:
 	return _properties_for.get(cfg, PackedStringArray())
 
@@ -46,7 +48,17 @@ func _initialize_dynamic() -> void:
 
 func _tick(delta: float) -> void:
 	for config in _properties_for:
-		config._on_tick(self, delta)
+		if config._tickrate <= 0:
+			config._process_sync(self)
+			continue
+		
+		var cfg_id: int = _properties_for.keys().find(config)
+		var time: float = _properties_time.get_or_add(cfg_id, 0.0)
+		time = move_toward(time, 1.0 / config._tickrate, delta)
+		_properties_time.set(cfg_id, time)
+		if time >= 1.0 / config._tickrate:
+			config._process_sync(self)
+		
 
 func _network_ready() -> void:
 	for cfg in _properties_for:

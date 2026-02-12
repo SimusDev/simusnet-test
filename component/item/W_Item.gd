@@ -69,15 +69,11 @@ func _ready() -> void:
 		.flag_mode_any_peer()
 		)
 	
-	SimusNetRPC.register(
-		[
-			__pressed_net,
-			__released_net,
-			__pressed_alt_net,
-			__released_alt_net,
-		],
-		net_config
-	)
+	SimusNetVars.register(self,
+	[
+		"is_using",
+		"is_using_alt"
+	], SimusNetVarConfig.new().flag_replication())
 	
 	if not object:
 		object = R_WorldObject.find_in(self)
@@ -171,16 +167,16 @@ func _local_input_no_interface_check(event: InputEvent) -> void:
 	pass
 
 func request_press() -> void:
-	SimusNetRPC.invoke_all(__pressed_net)
+	__pressed_net()
 
 func request_release() -> void:
-	SimusNetRPC.invoke_all(__released_net)
+	__released_net()
 
 func request_press_alt() -> void:
-	SimusNetRPC.invoke_all(__pressed_alt_net)
+	__pressed_alt_net()
 
 func request_release_alt() -> void:
-	SimusNetRPC.invoke_all(__released_alt_net)
+	__released_alt_net()
 
 func __pressed_net() -> void:
 	is_using = true

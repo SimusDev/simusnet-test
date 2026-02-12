@@ -83,7 +83,7 @@ func flag_set_reliable() -> SimusNetRPCConfig:
 
 enum MODE {
 	SERVER_ONLY,
-	#COMMAND,
+	TO_SERVER,
 	AUTHORITY,
 	ANY_PEER,
 }
@@ -101,6 +101,10 @@ func flag_mode_server_only() -> SimusNetRPCConfig:
 	_mode = MODE.SERVER_ONLY
 	return self
 
+func flag_mode_to_server() -> SimusNetRPCConfig:
+	_mode = MODE.TO_SERVER
+	return self
+
 func flag_mode_authority() -> SimusNetRPCConfig:
 	_mode = MODE.AUTHORITY
 	return self
@@ -109,10 +113,6 @@ func flag_mode_any_peer() -> SimusNetRPCConfig:
 	_mode = MODE.ANY_PEER
 	return self
 
-#func flag_mode_command() -> SimusNetRPCConfig:
-	#_mode = MODE.COMMAND
-	#return self
-
 var _serialization: bool = false
 func flag_serialization(value: bool = true) -> SimusNetRPCConfig:
 	_serialization = value
@@ -120,39 +120,50 @@ func flag_serialization(value: bool = true) -> SimusNetRPCConfig:
 
 #//////////////////////////////////////////////////////////////
 
-func _validate(callable: Callable) -> bool:
+func _validate(callable: Callable, to_peer: int = -1) -> bool:
 	if !is_ready:
 		await on_ready
-	
-	if _mode == MODE.SERVER_ONLY:
-		if (!SimusNetConnection.is_server()):
-			SimusNetRPC._instance.logger.debug_error("failed to validate server only rpc: %s" % callable)
-			return false
 	
 	if _mode == MODE.AUTHORITY:
 		var a: bool = SimusNet.is_network_authority(object)
 		
 		if !a:
-			SimusNetRPC._instance.logger.debug_error("failed to validate authority rpc: %s" % callable)
+			SimusNetRPC._instance.logger.debug_error("failed to validate AUTHORITY rpc: %s" % callable)
 		return a
+	
+	if _mode == MODE.SERVER_ONLY:
+		if (!SimusNetConnection.is_server()):
+			SimusNetRPC._instance.logger.debug_error("failed to validate SERVER_ONLY rpc: %s" % callable)
+			return false
+	
+	if _mode == MODE.TO_SERVER:
+		if to_peer != SimusNet.SERVER_ID:
+			SimusNetRPC._instance.logger.debug_error("failed to validate TO_SERVER rpc: %s" % callable)
+			return false
 	
 	return true
 
-func _validate_on_recieve(callable: Callable) -> bool:
+func _validate_on_recieve(callable: Callable, from_peer: int = -1) -> bool:
 	if !is_ready:
 		await on_ready
 	
 	if _mode == MODE.SERVER_ONLY:
 		if SimusNetConnection.is_server():
 			if SimusNetRemote.sender_id != SimusNetConnection.SERVER_ID:
-				SimusNetRPC._instance.logger.debug_error("failed to recieve server only rpc from peer: %s, %s" % [SimusNetRemote.sender_id, callable])
+				SimusNetRPC._instance.logger.debug_error("failed to recieve SERVER_ONLY rpc from peer: %s, %s" % [SimusNetRemote.sender_id, callable])
 				return false
 	
 	if _mode == MODE.AUTHORITY:
 		var a: bool = SimusNet.get_network_authority(object) == SimusNetRemote.sender_id
 		if !a:
-			SimusNetRPC._instance.logger.debug_error("failed to recieve authority rpc from peer: %s, %s" % [SimusNetRemote.sender_id, callable])
+			SimusNetRPC._instance.logger.debug_error("failed to recieve AUTHORITY rpc from peer: %s, %s" % [SimusNetRemote.sender_id, callable])
 		return a
+	
+	if _mode == MODE.TO_SERVER:
+		var s: bool = SimusNetConnection.is_server()
+		if !s:
+			SimusNetRPC._instance.logger.debug_error("failed to recieve TO_SERVER rpc from peer: %s, %s" % [SimusNetRemote.sender_id, callable])
+		return s
 	
 	
 	return true

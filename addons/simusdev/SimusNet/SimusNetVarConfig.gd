@@ -11,12 +11,12 @@ var _serialize: bool = false
 enum MODE {
 	AUTHORITY,
 	SERVER_ONLY,
+	TO_SERVER,
 }
 
 var _mode: MODE = MODE.AUTHORITY
 
 var _tickrate: float = 0.0
-var _tickrate_time: float = 0.0
 
 func flag_replication(on_spawn: bool = true, value: bool = true) -> SimusNetVarConfig:
 	_replicate_on_spawn = on_spawn
@@ -61,6 +61,10 @@ func flag_mode_server_only() -> SimusNetVarConfig:
 	_mode = MODE.SERVER_ONLY
 	return self
 
+func flag_mode_to_server() -> SimusNetVarConfig:
+	_mode = MODE.TO_SERVER
+	return self
+
 func _is_network_authority(handler: SimusNetVarConfigHandler) -> bool:
 	if _mode == MODE.SERVER_ONLY:
 		return SimusNetConnection.is_server()
@@ -70,10 +74,16 @@ func _is_network_authority(handler: SimusNetVarConfigHandler) -> bool:
 func _get_network_authority(handler: SimusNetVarConfigHandler) -> int:
 	return SimusNet.get_network_authority(handler.get_identity().owner)
 
-func _validate_send(handler: SimusNetVarConfigHandler) -> bool:
+func _validate_send(handler: SimusNetVarConfigHandler, to_peer: int) -> bool:
+	if _mode == MODE.TO_SERVER:
+		return to_peer == SimusNet.SERVER_ID
+	
 	return _is_network_authority(handler)
 
 func _validate_send_receive(handler: SimusNetVarConfigHandler, from_peer: int) -> bool:
+	if _mode == MODE.TO_SERVER:
+		return SimusNetConnection.is_server()
+	
 	return _get_network_authority(handler) == from_peer
 
 func _validate_replicate(handler: SimusNetVarConfigHandler) -> bool:
@@ -82,24 +92,18 @@ func _validate_replicate(handler: SimusNetVarConfigHandler) -> bool:
 func _validate_replicate_receive(handler: SimusNetVarConfigHandler, from_peer: int) -> bool:
 	return true
 
-func _on_tick(handler: SimusNetVarConfigHandler, delta: float) -> void:
+func _process_sync(handler: SimusNetVarConfigHandler) -> void:
 	if !_replication:
 		return
 	
-	if _tickrate <= 0.0:
-		_process_sync(handler)
+	if _mode == MODE.TO_SERVER:
+		if SimusNetConnection.is_server():
+			return
+	
+	if _mode == MODE.AUTHORITY and !_is_network_authority(handler):
 		return
 	
-	_tickrate_time = move_toward(_tickrate_time, 1.0 / _tickrate, delta)
-	if _tickrate_time >= 1.0 / _tickrate:
-		_process_sync(handler)
-		_tickrate_time = 0
-
-func _process_sync(handler: SimusNetVarConfigHandler) -> void:
-	if !_is_network_authority(handler) and _mode == MODE.AUTHORITY:
-		return
-	
-	if !SimusNetConnection.is_server() and _mode == MODE.SERVER_ONLY:
+	if _mode == MODE.SERVER_ONLY and !SimusNetConnection.is_server():
 		return
 	
 	if handler.get_object():
@@ -109,7 +113,7 @@ func _network_ready(handler: SimusNetVarConfigHandler) -> void:
 	if !handler.get_object():
 		return
 	
-	if _replication and _replicate_on_spawn:
+	if _replication and _replicate_on_spawn and !_mode == MODE.TO_SERVER:
 		SimusNetVars.replicate(handler.get_object(), handler.get_properties_for(self), _reliable)
 
 func _network_disconnect(handler: SimusNetVarConfigHandler) -> void:

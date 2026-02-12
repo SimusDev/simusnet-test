@@ -4,9 +4,6 @@ signal event_reload
 signal event_fire
 signal event_fire_empty
 
-signal event_aim_enter
-signal event_aim_exit
-
 @export var muzzle_flash:GPUParticles3D
 
 @export var shell_point:Node3D
@@ -102,12 +99,6 @@ func _request_reload_server() -> void:
 
 func _request_reload_receive() -> void:
 	state_machine.try_switch("reload").make_cooldown_and_switch_to(firearm_object.reload_time, "idle")
-
-func __pressed_alt_net() -> void:
-	event_aim_enter.emit()
-
-func __released_alt_net() -> void:
-	event_aim_exit.emit()
 
 func request_press() -> void:
 	super()
