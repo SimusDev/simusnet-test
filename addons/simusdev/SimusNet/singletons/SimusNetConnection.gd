@@ -11,6 +11,8 @@ static var _instance: SimusNetConnection
 
 var _is_was_server: bool = true
 
+var _connecting_check: bool = false
+
 func initialize() -> void:
 	_instance = self
 	
@@ -35,6 +37,11 @@ func _process(delta: float) -> void:
 	if get_peer() is OfflineMultiplayerPeer:
 		return
 	
+	if _connecting_check == false:
+		if get_peer().get_connection_status() == MultiplayerPeer.ConnectionStatus.CONNECTION_CONNECTING:
+			_connecting_check = true
+			SimusNetEvents.event_connecting.publish()
+		
 	if get_peer().get_connection_status() == MultiplayerPeer.ConnectionStatus.CONNECTION_CONNECTED:
 		if !_active:
 			_set_active(true, is_server())
@@ -71,6 +78,7 @@ func _set_active(value: bool, server: bool) -> void:
 	
 	if not _active:
 		SimusNetCache.clear()
+		_connecting_check = false
 
 static func is_active() -> bool:
 	return _active

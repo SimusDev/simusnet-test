@@ -5,6 +5,7 @@ class_name SimusNetEvents
 static var event_singleton_initialized := SimusNetEvent.new()
 static var event_active_status_changed := SimusNetEvent.new()
 static var event_connected := SimusNetEvent.new()
+static var event_connecting := SimusNetEvent.new()
 static var event_disconnected := SimusNetEvent.new()
 static var event_peer_connected := SimusNetEvent.new()
 static var event_peer_disconnected := SimusNetEvent.new()

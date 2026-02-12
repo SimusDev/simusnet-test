@@ -81,6 +81,8 @@ func _local_input_no_interface_check(event: InputEvent) -> void:
 		ui.visible = !ui.visible
 
 func _exit_tree() -> void:
+	super()
+	
 	if is_local():
 		var ui: Control = await _ammo_packs_ui.async_get_instance()
 		ui.hide()
