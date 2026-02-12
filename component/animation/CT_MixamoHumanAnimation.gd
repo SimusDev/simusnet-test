@@ -11,6 +11,7 @@ var _logger: SD_Logger = SD_Logger.new(self)
 var _actor: CharacterBody3D
 
 var _legs_playback: AnimationNodeStateMachinePlayback
+var _body_playback: AnimationNodeStateMachinePlayback
 
 var _look_at_modifier: LookAtModifier3D
 
@@ -34,6 +35,7 @@ func _ready() -> void:
 	model.visible = !SimusNet.is_network_authority(model)
 	
 	_legs_playback = model.get_tree_parameter("parameters/Legs/playback")
+	_body_playback = model.get_tree_parameter("parameters/Body/playback")
 	
 	_find_movement()
 	_find_animation_events()
@@ -65,7 +67,7 @@ func _process_look_at(delta: float) -> void:
 	
 	if is_instance_valid(_entity_head):
 		_look_at_modifier.position = _entity_head.get_eyes().position
-		_look_at_modifier.position.y = _entity_head.get_eyes().rotation_degrees.x 
+		_look_at_modifier.position.y = _entity_head.get_eyes().rotation_degrees.x * 0.2
 		#print(_look_at_modifier.position)
 		
 	
@@ -127,9 +129,30 @@ func _find_animation_events() -> void:
 	if !events:
 		return
 	
+	_on_item_pickup(events.get_or_create_parameter("hand_item"))
+	events.get_or_create("item_pickup").listen(_on_item_pickup_event, true)
+	events.get_or_create("item_drop").listen(_on_item_drop_event, true)
 	events.get_or_create("firearm_shoot").listen(_on_firearm_shoot, true)
 	events.get_or_create("firearm_reload").listen(_on_firearm_reload, true)
 	events.get_or_create("weapon_melee_swing").listen(_on_weapon_melee_swing, true)
+
+func _on_item_pickup_event(event: EVENT) -> void:
+	var item: W_Item = event.get_arguments()
+	_on_item_pickup(item)
+
+func _on_item_drop_event(event: EVENT) -> void:
+	_body_playback.travel("idle")
+
+func _on_item_pickup(item: W_Item) -> void:
+	_body_playback.travel("idle")
+	
+	if !is_instance_valid(item):
+		return
+	
+	if item is W_WeaponFirearm:
+		_body_playback.travel("rifle")
+		if item.object.tags.has("pistol"):
+			_body_playback.travel("pistol")
 
 func _on_firearm_shoot(event: EVENT) -> void:
 	var item: W_WeaponFirearm = event.get_arguments()
