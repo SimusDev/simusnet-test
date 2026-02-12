@@ -17,7 +17,10 @@ func _ready() -> void:
 	SimusNetEvents.event_connecting.listen(_connecting)
 	SimusNetEvents.event_connected.listen(_connected)
 	
-	_disconnected()
+	if SimusNetConnection.is_active():
+		_connected()
+	else:
+		_disconnected()
 	
 	Network.server_info.on_update_received.connect(_on_update_received)
 
