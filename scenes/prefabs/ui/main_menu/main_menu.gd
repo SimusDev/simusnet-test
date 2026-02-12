@@ -6,6 +6,7 @@ extends Control
 @export var _popups_container: Control
 
 @onready var _connect_to_server_: LineEdit = $Panel/MarginContainer/ScreenConnect/LineEdit
+@onready var _connecting_popup: Control = $Popups/Connecting
 
 @export var _hide_ingame: Array[CanvasItem]
 @export var _show_ingame: Array[CanvasItem]
@@ -47,6 +48,8 @@ func _on_button_pressed(button: Button) -> void:
 		"ConnectToServer":
 			Network.connect_to_server_by_address(_connect_to_server_.text)
 			SD_ConsoleCommand.get_or_create("last_address").set_value(_connect_to_server_.text)
+			#Simus
+			
 		"Load Game":
 			pass
 		"Save Game":

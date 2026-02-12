@@ -22,8 +22,6 @@ size = Vector3(1, 1.4470215, 0.8525696)
 
 [node name="MechanicalArmWorld" type="StaticBody3D" unique_id=1574390254 node_paths=PackedStringArray("inventory", "input_area", "output_area", "hand_node", "home_node", "audio_player")]
 script = ExtResource("1_c7nmx")
-speed = null
-capacity = null
 inventory = NodePath("CT_Inventory")
 input_area = NodePath("input")
 output_area = NodePath("output")

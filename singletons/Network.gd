@@ -58,6 +58,7 @@ func connect_to_server_by_address(address: String) -> void:
 	var parsed: PackedStringArray = address.split(":")
 	if parsed.size() == 2:
 		connect_to_server(parsed[0], int(parsed[1]))
+	return
 
 func create_server(port: int = DEFAULT_PORT, dedicated: bool = false) -> void:
 	SimusNetConnection.set_dedicated_server(dedicated)

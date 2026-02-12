@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://gkpe7xci8on3" path="res://scenes/prefabs/ui/main_menu/main_menu.gd" id="1_026n6"]
 [ext_resource type="Script" uid="uid://dotjiengj0hqs" path="res://addons/simusdev/ui/SD_UINodeExitButton.gd" id="2_da2ht"]
 [ext_resource type="PackedScene" uid="uid://clinvld10jut" path="res://scenes/prefabs/ui/main_menu/settings/settings.tscn" id="3_5h2bh"]
+[ext_resource type="Script" uid="uid://buo415nhjgsrx" path="res://addons/simusdev/localization/SD_NodeLocalizatorProperty.gd" id="4_4hkdk"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5h2bh"]
 content_margin_left = 0.0
@@ -53,6 +54,13 @@ expand_margin_left = 2.0
 expand_margin_top = 2.0
 expand_margin_right = 2.0
 expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jm523"]
+bg_color = Color(0.1015625, 0.1015625, 0.1015625, 0.6431373)
+corner_radius_top_left = 5
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wmaw6"]
 bg_color = Color(0.5267931, 1.6544946e-06, 0, 1)
@@ -231,6 +239,41 @@ offset_right = -0.08404541
 offset_bottom = 0.079956055
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Connecting" type="Control" parent="Popups" unique_id=42367407]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Popups/Connecting" unique_id=1312538253]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.901
+anchor_right = 0.5
+anchor_bottom = 0.901
+offset_left = -66.5
+offset_top = -10.720032
+offset_right = 66.5
+offset_bottom = 10.279968
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_jm523")
+text = "Connecting to the server
+193.233.107.37 ета мой апи )))))"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Localizator" type="Node" parent="Popups/Connecting/Label" unique_id=1462898981 node_paths=PackedStringArray("node")]
+process_mode = 4
+script = ExtResource("4_4hkdk")
+node = NodePath("..")
+key = &"G_CONNECTING"
+format = ["193.233.107.37 ета мой апи )))))"]
+metadata/_custom_type_script = "uid://buo415nhjgsrx"
 
 [node name="version" type="Label" parent="." unique_id=1409942562]
 layout_mode = 1
