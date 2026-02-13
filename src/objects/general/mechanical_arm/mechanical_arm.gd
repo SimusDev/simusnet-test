@@ -21,10 +21,20 @@ var _at_home: bool = false
 var _active_tween: Tween
 
 func _ready() -> void:
+	var rpc_cfg:SimusNetRPCConfig = SimusNetRPCConfig.new()
+	rpc_cfg.flag_mode_any_peer()
+	
+	SimusNetRPC.register(
+		[
+			_play_audio
+		],
+		rpc_cfg
+	)
+	
 	if not inventory or not input_area or not output_area or not hand_node or not home_node:
 		set_process(false)
 		return
-
+	
 	if not SimusNetConnection.is_server():
 		set_process(false)
 		return
@@ -81,9 +91,10 @@ func _drive_hand(target_pos: Vector3, callback: Callable = Callable(_do_nothing)
 	if _active_tween and is_instance_valid(_active_tween):
 		_active_tween.kill()
 
-	if audio_player:
-		audio_player.pitch_scale = speed * 1.2
-		audio_player.play()
+	SimusNetRPC.invoke_all(
+		_play_audio,
+		speed
+	)
 
 	_is_busy = true
 	_active_tween = create_tween().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
@@ -94,6 +105,11 @@ func _drive_hand(target_pos: Vector3, callback: Callable = Callable(_do_nothing)
 		_is_busy = false
 		call_deferred("_process", 0.0) 
 	)
+
+func _play_audio(server_speed:float) -> void:
+	if audio_player:
+		audio_player.pitch_scale = server_speed * 1.2
+		audio_player.play()
 
 func _do_nothing() -> void:
 	pass
