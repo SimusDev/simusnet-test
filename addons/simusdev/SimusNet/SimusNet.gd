@@ -5,7 +5,7 @@ class_name SimusNet
 const SERVER_ID: int = 1
 
 static func is_network_authority(object: Object) -> bool:
-	return get_network_authority(object)  == SimusNetConnection.get_unique_id()
+	return get_network_authority(object) == SimusNetConnection.get_unique_id()
 
 static func get_network_authority(object: Object) -> int:
 	if is_instance_valid(object):

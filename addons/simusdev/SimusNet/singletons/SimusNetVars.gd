@@ -272,8 +272,6 @@ static func send(object: Object, properties: PackedStringArray, reliable: bool =
 			_instance.logger.debug_error("send(), cant find config for %s, property: %s" % [object, property])
 			continue
 		
-
-		
 		var identity: SimusNetIdentity = handler.get_identity()
 		
 		for p_id in SimusNetConnection.get_connected_peers():
@@ -343,7 +341,6 @@ func _recieve_send_packet_local(packet: PackedByteArray, from_peer: int) -> void
 				var config: SimusNetVarConfig = SimusNetVarConfig.get_config(identity.owner, property)
 				if !config:
 					continue
-				
 				
 				var value: Variant = SimusNetDeserializer.parse(data[id][s_p], config._serialize)
 				SimusNetProfiler._instance._put_var_traffic(var_to_bytes(s_p).size() + var_to_bytes(data[id][s_p]).size(), identity, property, true)
