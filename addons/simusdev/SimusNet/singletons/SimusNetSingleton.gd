@@ -22,7 +22,7 @@ var info: Node
 
 var api: SceneMultiplayer
 
-static var __static_class_list: Array[Object] = [
+var __static_class_list: Array[Object] = [
 	SimusNet.new(),
 	SimusNetSerializer.new(),
 	SimusNetDeserializer.new(),

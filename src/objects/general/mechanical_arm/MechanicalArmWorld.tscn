@@ -1,11 +1,11 @@
 [gd_scene format=3 uid="uid://bfw7xge8dgn1u"]
 
 [ext_resource type="Script" uid="uid://dgpefoiodenan" path="res://src/objects/general/mechanical_arm/mechanical_arm.gd" id="1_c7nmx"]
-[ext_resource type="Resource" uid="uid://uey8a88a0p4j" path="res://src/metadata_material/Metal.tres" id="2_7coma"]
+[ext_resource type="Resource" path="res://src/metadata_material/Metal.tres" id="2_7coma"]
 [ext_resource type="PackedScene" uid="uid://cdd0mg2pp6edg" path="res://src/objects/general/mechanical_arm/MechanicalArmModel.tscn" id="2_ihb0s"]
 [ext_resource type="Script" uid="uid://bwwpj2rkss4cf" path="res://component/health/CT_Health.gd" id="2_spbmj"]
 [ext_resource type="Script" uid="uid://dehqcsswxyu8a" path="res://component/inventory/CT_Inventory.gd" id="3_ihb0s"]
-[ext_resource type="Script" uid="uid://b0jl432eesuju" path="res://component/health/CT_DestroyOnDeath.gd" id="3_j2xet"]
+[ext_resource type="Script" path="res://component/health/CT_DestroyOnDeath.gd" id="3_j2xet"]
 [ext_resource type="Script" uid="uid://dvlnhvdrc3dy6" path="res://component/hitbox/CT_Hitbox.gd" id="3_sptq7"]
 [ext_resource type="PackedScene" uid="uid://pa0ttv4j400k" path="res://src/ui/backpacks/chest.tscn" id="7_v2l1n"]
 [ext_resource type="Script" uid="uid://dmmtiqx85a6oj" path="res://src/objects/interact/CT_NodeInteractions.gd" id="8_5imdp"]
@@ -37,7 +37,6 @@ metadata/_custom_type_script = "uid://bwwpj2rkss4cf"
 
 [node name="CT_DestroyOnDeath" type="Node" parent="CT_Health" unique_id=1081164555]
 script = ExtResource("3_j2xet")
-metadata/_custom_type_script = "uid://b0jl432eesuju"
 
 [node name="CT_Hitbox" type="Area3D" parent="." unique_id=763988953 node_paths=PackedStringArray("health")]
 transform = Transform3D(1.01, 0, 0, 0, 1.01, 0, 0, 0, 1.01, 0, 0, 0)
