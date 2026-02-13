@@ -36,7 +36,7 @@ radius = 0.325
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5kqjh"]
 radius = 0.325
-height = 1.0
+height = 1.7192383
 
 [node name="Player" type="CharacterBody3D" unique_id=1316103980]
 collision_layer = 0
@@ -163,6 +163,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.014526367, 0)
 shape = SubResource("CapsuleShape3D_2kspa")
 
 [node name="CollisionCrouch" type="CollisionShape3D" parent="." unique_id=199348812]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35961914, 0)
 shape = SubResource("CapsuleShape3D_5kqjh")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1375642308 node_paths=PackedStringArray("player")]

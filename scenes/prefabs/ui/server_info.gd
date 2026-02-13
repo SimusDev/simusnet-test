@@ -3,11 +3,15 @@ extends Control
 @onready var _icon: TextureRect = $Icon
 @onready var _description: RichTextLabel = $Description
 @onready var _name: Label = $Name
+@onready var _user_count: RichTextLabel = $UserCount
+@onready var _ping: RichTextLabel = $Ping
 
 @onready var join: Button = $CenterContainer/HBoxContainer/Join
 
 @onready var _disable_input_ui: Panel = $_DisableInputUI
 @onready var _disabled_label: Label = $_DisableInputUI/_DisabledLabel
+
+var server_uri:String 
 
 func _ready() -> void:
 	_description.text = ""
@@ -33,7 +37,10 @@ func _on_update_received() -> void:
 	
 	_description.text = info.get_description()
 	_name.text = info.get_name()
+	_user_count.text = "%sms" % info.get_ping()
+	_user_count.text = "%s/%s" % [ info.get_players().size(), info.get_max_players() ]
 	
+	server_uri = info.get_website()
 	var image: ImageTexture = info.get_image()
 	if image:
 		_icon.texture = image
@@ -64,3 +71,7 @@ func _on_join_pressed() -> void:
 
 func _on_quit_pressed() -> void:
 	SimusNetConnection.try_close_peer()
+
+
+func _on_web_pressed() -> void:
+	OS.shell_open(server_uri)

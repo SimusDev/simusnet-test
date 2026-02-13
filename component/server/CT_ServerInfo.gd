@@ -9,7 +9,7 @@ const INFO_KEYS: Dictionary = {
 	"name": "My Server",
 	"description": "My Description.",
 	"image": "icon.svg",
-	"web_site": "",
+	"web_site": "https://contract.gosuslugi.ru/",
 }
 
 signal on_update_received()

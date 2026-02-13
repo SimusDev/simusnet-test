@@ -5,6 +5,7 @@ var _cfg_data: Dictionary = {}
 
 var _players: Array[String]
 var _ping: int = 0
+var _max_players: int = 78
 
 var _image: ImageTexture
 
@@ -16,6 +17,9 @@ func get_ping() -> int:
 
 func get_players() -> Array[String]:
 	return _players
+
+func get_max_players() -> int:
+	return _max_players
 
 func get_name() -> String:
 	return _cfg_data.get("name", "")

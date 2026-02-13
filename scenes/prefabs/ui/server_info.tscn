@@ -8,7 +8,7 @@ content_margin_left = 0.0
 content_margin_top = 0.0
 content_margin_right = 0.0
 content_margin_bottom = 0.0
-bg_color = Color(0.101960786, 0.101960786, 0.101960786, 0.42352942)
+bg_color = Color(0, 0, 0, 0.7529412)
 corner_radius_top_left = 3
 corner_radius_top_right = 3
 corner_radius_bottom_right = 3
@@ -16,7 +16,7 @@ corner_radius_bottom_left = 3
 corner_detail = 5
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pueei"]
-bg_color = Color(0.08235294, 0.08235294, 0.08235294, 0.5647059)
+bg_color = Color(0.08235294, 0.08235294, 0.08235294, 0.78431374)
 corner_radius_top_left = 4
 corner_radius_top_right = 4
 
@@ -25,7 +25,7 @@ outline_size = 3
 outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c3u0x"]
-bg_color = Color(0.0627451, 0.0627451, 0.0627451, 0.3254902)
+bg_color = Color(0.15625, 0.15625, 0.15625, 0.3254902)
 corner_radius_top_left = 4
 corner_radius_top_right = 4
 corner_radius_bottom_right = 4
@@ -94,13 +94,13 @@ vertical_alignment = 1
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.508
-anchor_top = 0.64100003
+anchor_top = 0.703
 anchor_right = 0.508
-anchor_bottom = 0.64100003
+anchor_bottom = 0.703
 offset_left = -244.09601
-offset_top = -0.1920166
+offset_top = 0.06399536
 offset_right = 243.90399
-offset_bottom = 127.80798
+offset_bottom = 96.063995
 mouse_filter = 2
 theme_override_font_sizes/normal_font_size = 16
 theme_override_styles/normal = SubResource("StyleBoxFlat_c3u0x")
@@ -109,6 +109,33 @@ text = "sami topovi servar"
 scroll_active = false
 shortcut_keys_enabled = false
 horizontal_alignment = 1
+
+[node name="UserCount" type="RichTextLabel" parent="." unique_id=567560224]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.67200005
+anchor_bottom = 0.67200005
+offset_left = 16.0
+offset_top = -8.064026
+offset_right = 128.0
+offset_bottom = 12.935974
+bbcode_enabled = true
+text = "10/[color=gray]100"
+scroll_active = false
+scroll_following = true
+
+[node name="Ping" type="RichTextLabel" parent="." unique_id=585492012]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.25
+anchor_top = 0.68
+anchor_right = 0.25
+anchor_bottom = 0.68
+offset_top = -12.160004
+offset_right = 128.0
+offset_bottom = 11.839996
+text = "78ms"
+metadata/_edit_use_anchors_ = true
 
 [node name="CenterContainer" type="CenterContainer" parent="." unique_id=1806719708]
 layout_mode = 1
@@ -162,3 +189,4 @@ vertical_alignment = 1
 
 [connection signal="pressed" from="CenterContainer/HBoxContainer/Join" to="." method="_on_join_pressed"]
 [connection signal="pressed" from="CenterContainer/HBoxContainer/Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="CenterContainer/HBoxContainer/Web" to="." method="_on_web_pressed"]
