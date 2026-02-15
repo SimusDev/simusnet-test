@@ -25,6 +25,7 @@ color = Color(0, 0, 0, 0.85)
 [node name="SD_UIInterfaceMenu" type="Node" parent="." unique_id=427051184 node_paths=PackedStringArray("target")]
 script = ExtResource("2_pocwr")
 target = NodePath("../ui_console_interface")
+when_last_interface = false
 metadata/_custom_type_script = "uid://d1l1jkmj6s53f"
 
 [node name="ui_console_interface" parent="." unique_id=1631748417 instance=ExtResource("3_aifyg")]
