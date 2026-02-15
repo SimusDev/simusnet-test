@@ -13,6 +13,7 @@ extends Control
 func _ready() -> void:
 	_connect_to_server_.text = SD_ConsoleCommand.get_or_create("last_address", "localhost:8080").get_value_as_string()
 	
+	
 	$Devs.text = "by %s" % SD_EngineSettings.create_or_get().developer
 	$version.text = ProjectSettings.get_setting("application/config/version")
 	

@@ -84,12 +84,12 @@ func create_server(port: int = -1, dedicated: bool = false) -> void:
 	SimusNetConnection.set_dedicated_server(dedicated)
 	SimusNetConnectionENet.create_server(port, MAX_PLAYERS)
 	
-	#server_info._request_update_rpc()
+	server_info._request_update_rpc()
 	
-	#if is_instance_valid(server_broadcaster):
-		#if not server_info._config:
-			#return
-	#if !server_broadcaster:
-		#server_broadcaster = SimusNetServerBroadcaster.new()
-		#add_child(server_broadcaster)
-	#server_broadcaster.serverInfo = server_info.get_last().get_data()
+	if is_instance_valid(server_broadcaster):
+		if not server_info._config:
+			return
+	if !server_broadcaster:
+		server_broadcaster = SimusNetServerBroadcaster.new()
+		add_child(server_broadcaster)
+	server_broadcaster.serverInfo = server_info.get_last().get_data()
