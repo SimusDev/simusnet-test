@@ -43,6 +43,7 @@ func _add_message(text:String):
 	
 	if s_Chat.active_chat.visible:
 		await s_Chat.active_chat.visibility_changed
+	else:
 		hide_chat()
 
 func hide_chat() -> void:

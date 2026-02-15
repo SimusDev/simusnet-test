@@ -11,11 +11,13 @@ func _ready():
 		view_model = get_parent()
 
 func _unhandled_input(event):
+	if SimusDev.ui.has_active_interface():
+		return
 	if event is InputEventMouseMotion:
 		mouse_input += event.relative * 0.00075
 
 func _physics_process(delta: float) -> void:
-	if not view_model or SimusDev.ui.has_active_interface():
+	if not view_model:
 		return
 	
 	var target_pos = Vector3(mouse_input.x, -mouse_input.y, 0)

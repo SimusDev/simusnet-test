@@ -63,9 +63,12 @@ func _unique_id_request_rpc(serialized: Variant) -> void:
 		var identity: SimusNetIdentity = SimusNetIdentity._list_by_generated_id.get(id)
 		if identity:
 			packet[id] = identity.get_unique_id()
+		else:
+			print(id)
 	
 	if !packet.is_empty():
 		_unique_id_request_receive.rpc_id(multiplayer.get_remote_sender_id(), SimusNetCompressor.parse(packet))
+	
 
 @rpc("authority", "call_remote", "reliable", SimusNetChannels.BUILTIN.IDENTITY)
 func _unique_id_request_receive(serialized: Variant) -> void:
