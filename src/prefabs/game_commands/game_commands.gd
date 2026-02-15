@@ -37,6 +37,9 @@ func _on_command_executed(command:SD_ConsoleCommand) -> void:
 			)
 			
 			return
+		
+		"os.get_unique_id":
+			SimusDev.console.write_info("OS Unique id: %s" % OS.get_unique_id())
 	
 	if command.get_code().begins_with("player.rights."):
 			var founded_user: CT_User = _player_find_by_nick(command.get_argument(0))
@@ -52,8 +55,7 @@ func _on_command_executed(command:SD_ConsoleCommand) -> void:
 					else:
 						SD_Console.i().write_warning("can't remove rights from %s" % [founded_user.get_nickname()])
 		
-		"os.get_unique_id":
-			SimusDev.console.write_info("OS Unique id: %s" % OS.get_unique_id())
+
 
 func _player_find_by_login(login:String) -> CT_User:
 	var user: CT_User = CT_User.server_find_by_login(login)
