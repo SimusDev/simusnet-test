@@ -3,7 +3,6 @@ extends SimusNetChat
 @export var active_chat:Control
 @export var chat_view:Control
 
-
 func _ready() -> void:
 	super()
 	if is_multiplayer_authority():

@@ -14,6 +14,7 @@ var _is_was_server: bool = true
 var _connecting_check: bool = false
 
 var _is_connected: bool = false
+var _is_connection_canceled: bool = false
 
 func initialize() -> void:
 	_instance = self
@@ -83,6 +84,7 @@ func _set_active(value: bool, server: bool) -> void:
 		SimusNetCache.clear()
 		_connecting_check = false
 		_is_connected = false
+		_is_connection_canceled = false
 
 static func is_active() -> bool:
 	return _active and _instance._is_connected
@@ -116,6 +118,12 @@ static func set_peer(peer: MultiplayerPeer) -> SimusNetConnection:
 static func try_close_peer() -> SimusNetConnection:
 	if get_peer():
 		get_peer().close()
+	return singleton.connection
+
+static func cancel_connection() -> SimusNetConnection:
+	if is_active():
+		_instance._is_connection_canceled = true
+		try_close_peer()
 	return singleton.connection
 
 static func get_connected_peers() -> PackedInt32Array:

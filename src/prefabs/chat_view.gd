@@ -11,6 +11,7 @@ func _ready() -> void:
 	if not is_multiplayer_authority():
 		process_mode = Node.PROCESS_MODE_DISABLED
 		return
+	
 	if not chat:
 		return
 	
@@ -44,7 +45,6 @@ func _add_message(text:String):
 		await s_Chat.active_chat.visibility_changed
 		hide_chat()
 
-
 func hide_chat() -> void:
 	if tween:
 		tween.kill() 
@@ -66,6 +66,7 @@ func _get_message_text(msg: SimusNetChatMessage) -> String:
 	var user:CT_User = CT_User.find_by_peer(msg.get_peer_id())
 	if not user:
 		return ""
+	
 	return "%s: %s" % [
 		user.get_nickname(),
 		msg.get_text()

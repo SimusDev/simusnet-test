@@ -79,6 +79,9 @@ func _try_invoke_by_visibility(peer: int, visible: SimusNetVisible, callable: Ca
 		return
 
 func _invoke_on_without_validating(peer: int, callable: Callable, args: Array, config: SimusNetRPCConfig) -> void:
+	if !SimusNetConnection.is_active():
+		return
+	
 	var object: Object = callable.get_object()
 	
 	if is_cooldown_active(callable) or !is_instance_valid(object):

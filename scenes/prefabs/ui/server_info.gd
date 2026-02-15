@@ -72,6 +72,5 @@ func _on_join_pressed() -> void:
 func _on_quit_pressed() -> void:
 	SimusNetConnection.try_close_peer()
 
-
 func _on_web_pressed() -> void:
 	OS.shell_open(server_uri)

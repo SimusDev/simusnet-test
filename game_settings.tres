@@ -4,5 +4,13 @@
 
 [resource]
 script = ExtResource("1_pynj7")
+VIP = {
+"simusdev": {
+"os_id": "{0cf30166-12eb-11ef-e1b6-606e6b6e6161}"
+},
+"zxcvlxd": {
+"os_id": "777"
+}
+}
 objects_path = "res://src/objects"
 metadata/_custom_type_script = "uid://7opx5t4ruh1u"

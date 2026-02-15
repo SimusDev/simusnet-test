@@ -60,4 +60,3 @@ func connect_events(save: Callable, load: Callable) -> R_GameStateNodeReference:
 func _init(node: Node) -> void:
 	instance = node
 	_references.append(self)
-	

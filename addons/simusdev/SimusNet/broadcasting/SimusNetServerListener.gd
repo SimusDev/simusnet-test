@@ -1,58 +1,114 @@
 class_name SimusNetServerListener extends Node
 
-signal new_server(info, ip_addr)
-signal remove_server(ip_addr)
+# Signals emitted when a server is discovered or removed.
+# The dictionary passed contains: "ip", "port", "name", "player_count", "max_players", "last_seen"
+signal server_discovered(server_info: Dictionary)
+signal server_removed(ip: String)
 
-var cleanUpTimer := Timer.new()
-var socketUDP := PacketPeerUDP.new()
-@export var listenPort := 4241
-var knownServers = {}
+@export var listen_port: int = 4241
+@export var cleanup_interval: float = 3.0
+@export var server_timeout: float = 5.0
 
-@export var server_cleanup_threshold: int = 3
-
-func _init():
-	cleanUpTimer.wait_time = server_cleanup_threshold
-	cleanUpTimer.one_shot = false
-	cleanUpTimer.autostart = true
-	cleanUpTimer.timeout.connect(clean_up)
-	add_child(cleanUpTimer)
+var _udp: PacketPeerUDP = PacketPeerUDP.new()
+var _servers: Dictionary = {}  # key: ip (String), value: Dictionary with server info
+var _cleanup_timer: Timer
 
 func _ready():
-	knownServers.clear()
+	_servers.clear()
 	
-	set_process(false)
+	# Setup UDP socket
+	var err = _udp.bind(listen_port)
+	if err != OK:
+		push_error("SimusNetServerListener: Failed to bind UDP port %d. Error code: %d" % [listen_port, err])
+		set_process(false)
+		return
 	
-	var err = socketUDP.bind(listenPort)
+	
+	# Setup cleanup timer
+	_cleanup_timer = Timer.new()
+	_cleanup_timer.wait_time = cleanup_interval
+	_cleanup_timer.one_shot = false
+	_cleanup_timer.autostart = true
+	_cleanup_timer.timeout.connect(_cleanup)
+	add_child(_cleanup_timer)
+	
+	set_process(true)
 
-func _process(delta):
-	if socketUDP.get_available_packet_count() > 0:
-		var serverIp = socketUDP.get_packet_ip()
-		var serverPort = socketUDP.get_packet_port()
-		var array_bytes = socketUDP.get_packet()
+
+func _process(_delta):
+	while _udp.get_available_packet_count() > 0:
+		var packet_ip: String = _udp.get_packet_ip()
+		var packet_port: int = _udp.get_packet_port()
+		var packet_data: PackedByteArray = _udp.get_packet()
 		
-		if serverIp != '' and serverPort > 0:
-			# We've discovered a new server! Add it to the list and let people know
-			if not knownServers.has(serverIp):
-				var gameInfo = bytes_to_var(array_bytes)
-				var game_port = gameInfo.get("port", -1)
-				if game_port < 0:
-					return 
-				gameInfo.ip = serverIp
-				gameInfo.lastSeen = Time.get_unix_time_from_system()
-				knownServers[serverIp] = gameInfo
-				new_server.emit(gameInfo, serverIp, game_port)
-			# Update the last seen time
-			else:
-				var gameInfo = knownServers[serverIp]
-				gameInfo.lastSeen =  Time.get_unix_time_from_system()
+		if packet_ip.is_empty() or packet_port <= 0:
+			continue
+		
+		# Deserialize the packet data
+		var server_info: Dictionary
+		var deserialize_ok = false
+		if packet_data.size() > 0:
+			var deserialized = bytes_to_var(packet_data)
+			if deserialized is Dictionary:
+				server_info = deserialized
+				deserialize_ok = true
+		
+		if not deserialize_ok:
+			# Invalid data, ignore this packet
+			continue
+		
+		# Validate required fields
+		var required_fields = ["port", "name", "player_count", "max_players"]
+		var missing = false
+		for field in required_fields:
+			if not server_info.has(field):
+				missing = true
+				break
+		if missing:
+			continue
+		
+		# Add or update server entry
+		var now = Time.get_unix_time_from_system()
+		server_info["ip"] = packet_ip
+		server_info["last_seen"] = now
+		
+		if not _servers.has(packet_ip):
+			# New server discovered
+			_servers[packet_ip] = server_info
+			server_discovered.emit(server_info)
+		else:
+			# Update existing server info (optional: merge only last_seen and maybe other fields)
+			var existing = _servers[packet_ip]
+			existing.merge(server_info, true)  # overwrite fields from new packet
+			existing["last_seen"] = now
 
-func clean_up():
+
+func _cleanup():
 	var now = Time.get_unix_time_from_system()
-	for serverIp in knownServers:
-		var serverInfo = knownServers[serverIp]
-		if (now - serverInfo.lastSeen) > server_cleanup_threshold:
-			knownServers.erase(serverIp)
-			remove_server.emit(serverIp)
+	var to_remove: Array[String] = []
+	
+	for ip in _servers:
+		var last_seen = _servers[ip].get("last_seen", 0)
+		if now - last_seen > server_timeout:
+			to_remove.append(ip)
+	
+	for ip in to_remove:
+		_servers.erase(ip)
+		server_removed.emit(ip)
+
 
 func _exit_tree():
-	socketUDP.close()
+	if _udp:
+		_udp.close()
+	if _cleanup_timer:
+		_cleanup_timer.stop()
+
+
+# Optional: send a broadcast discovery request to actively solicit servers.
+func broadcast_discovery_request(broadcast_port: int = 4242, message: Variant = "DISCOVER"):
+	var broadcast_address = "255.255.255.255"  # or use network interface broadcast
+	var data = var_to_bytes(message)
+	_udp.set_broadcast_enabled(true)
+	_udp.put_var(data)
+	_udp.put_packet(data)
+	_udp.set_broadcast_enabled(false)

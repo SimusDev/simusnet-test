@@ -8,10 +8,17 @@ static var _list: Array[CT_User]
 
 var _server_data: R_LocalData
 
+var _synced_data_last: Dictionary = {}
+var _right_list: PackedStringArray
+
 var _nickname: String = ""
 
 signal on_nickname_changed()
 signal on_avatar_changed()
+
+signal on_right_added(right: PackedStringArray)
+signal on_right_removed(right: PackedStringArray)
+signal on_rights_updated()
 
 static var _local: CT_User
 
@@ -90,6 +97,54 @@ func _ready() -> void:
 	set_multiplayer_authority(SimusNet.SERVER_ID)
 	if _peer == SimusNetConnection.get_unique_id():
 		_local = self
+	
+	SimusNetRPC.register(
+		[
+			_right_remove_or_add_rpc,
+		], SimusNetRPCConfig.new().flag_mode_to_server().
+		flag_set_channel(Network.CHANNEL_USERS)
+	)
+	
+	SimusNetRPC.register(
+		[
+			_receive_remove_or_add_right,
+		], SimusNetRPCConfig.new().flag_mode_server_only().
+		flag_set_channel(Network.CHANNEL_USERS)
+	)
+
+func is_admin() -> bool:
+	return get_right_list().has("admin")
+
+func get_right_list() -> PackedStringArray:
+	return _right_list
+
+func try_give_rights(list: PackedStringArray) -> CT_User:
+	SimusNetRPC.invoke_on_server(_right_remove_or_add_rpc, list, false)
+	return self
+
+func try_remove_rights(list: PackedStringArray) -> CT_User:
+	SimusNetRPC.invoke_on_server(_right_remove_or_add_rpc, list, true)
+	return self
+
+func _right_remove_or_add_rpc(list: PackedStringArray, remove: bool) -> void:
+	if SimusNetRemote.sender_id != get_peer():
+		return
+	
+	if is_admin() or get_peer() == SimusNet.SERVER_ID:
+		for r in list:
+			SimusNetRPC.invoke_all(_receive_remove_or_add_right, r, remove)
+
+func _receive_remove_or_add_right(right: String, remove: bool) -> void:
+	if remove:
+		if get_right_list().has(right):
+			_right_list.erase(right)
+			on_right_removed.emit(right)
+	else:
+		if !get_right_list().has(right):
+			_right_list.append(right)
+			on_right_added.emit(right)
+	
+	on_rights_updated.emit()
 
 func _enter_tree() -> void:
 	_dictionary[get_peer()] = self
@@ -103,6 +158,7 @@ func serialize() -> Dictionary:
 	var data: Dictionary = {}
 	data[0] = get_peer()
 	data[1] = get_nickname()
+	data[2] = _right_list
 	return data
 
 static func deserialize(data: Dictionary) -> CT_User:
@@ -110,6 +166,7 @@ static func deserialize(data: Dictionary) -> CT_User:
 	user._peer = data[0]
 	user._nickname = data[1]
 	user.name = str(data[0])
+	user._right_list = data[2]
 	return user
 
 func serialize_reference() -> int:
@@ -127,5 +184,6 @@ static func server_create(user_input: Dictionary, peer: int) -> CT_User:
 	data.get_value_or_add("password", user_input.password)
 	user._nickname = data.get_value_or_add("nickname", user_input.login)
 	user.name = str(peer)
+	user._right_list = data.get_value_or_add("right_list", PackedStringArray())
 	data.save()
 	return user

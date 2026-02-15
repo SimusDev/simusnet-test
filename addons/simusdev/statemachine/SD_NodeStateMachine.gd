@@ -51,7 +51,7 @@ func _ready() -> void:
 
 func _send() -> void:
 	if is_instance_valid(_current_state):
-		SimusNetRPC.invoke_on_sender(_recieve, [_current_state.get_index()])
+		SimusNetRPC.invoke_on_sender(_recieve, _current_state.get_index())
 
 func _recieve(id: int) -> void:
 	(get_child(id) as SD_State)._switch_synchronized()
