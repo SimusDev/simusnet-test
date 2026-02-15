@@ -23,6 +23,7 @@ enum BUILTIN {
 	VARS_SEND,
 	VARS_SEND_RELIABLE,
 	CHAT,
+	VOICE_CHAT,
 }
 
 const DEFAULT: String = ""
