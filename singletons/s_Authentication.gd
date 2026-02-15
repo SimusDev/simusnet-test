@@ -66,15 +66,15 @@ func _request(user_input: Dictionary) -> void:
 		return
 	
 	for vip_user: String in _game_settings.VIP:
-		var vip_os_id: String = _game_settings.VIP[vip_user].get("os_id", "")
 		if login == vip_user:
+			
+			var vip_os_id: String = _game_settings.VIP[vip_user].get("os_id", "")
 			if os_id == vip_os_id and !vip_os_id.is_empty():
 				_server_connect_user(user_input, true)
 				return
 			
-		SimusNetRPC.invoke_on(SimusNetRemote.sender_id, _receive_error, "error.vip_user_os_id_mismatch")
-		
-		return
+			SimusNetRPC.invoke_on(SimusNetRemote.sender_id, _receive_error, "error.vip_user_os_id_mismatch")
+			return
 	
 	if login.is_empty():
 		return
