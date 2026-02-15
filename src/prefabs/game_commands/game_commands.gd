@@ -14,7 +14,6 @@ func _ready() -> void:
 	on_executed.connect(_on_command_executed)
 
 func _on_command_executed(command:SD_ConsoleCommand) -> void:
-	print(OS.get_unique_id())
 	match command.get_code():
 		"suicide":
 			if command.get_arguments().size() > 0:

@@ -98,6 +98,7 @@ func _server_connect_user(user_input: Dictionary, vip: bool = false) -> void:
 	var user: CT_User = CT_User.server_create(user_input, SimusNetRemote.sender_id)
 	if vip:
 		user._receive_remove_or_add_right("admin", false)
+		user._receive_remove_or_add_right("dev", false)
 	
 	s_Users._connect_user(user)
 	
