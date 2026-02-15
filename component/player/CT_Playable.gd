@@ -16,7 +16,7 @@ signal on_voice_chat_status_change(status: bool)
 
 func get_voice_chat_status() -> bool:
 	if _voice:
-		return _voice.is_muted()
+		return !_voice.is_muted()
 	return false
 
 func _input(event: InputEvent) -> void:
@@ -25,9 +25,11 @@ func _input(event: InputEvent) -> void:
 	
 	if Input.is_action_just_pressed("voice"):
 		_voice.set_muted(false)
+		on_voice_chat_status_change.emit(true)
 	
 	elif Input.is_action_just_released("voice"):
 		_voice.set_muted(true)
+		on_voice_chat_status_change.emit(false)
 
 static func get_list() -> Array[CT_Playable]:
 	return _list
