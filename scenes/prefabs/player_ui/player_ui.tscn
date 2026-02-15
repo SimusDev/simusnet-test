@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://bf6yqsfyrvv86" path="res://scenes/prefabs/player_ui/player_ui.gd" id="1_nask7"]
 [ext_resource type="PackedScene" uid="uid://7snekvg028ei" path="res://src/ui/spawner/spawner.tscn" id="2_e6fbb"]
 [ext_resource type="PackedScene" uid="uid://dbhqs4tv52evh" path="res://addons/simusdev/SimusNet/profiler/SimpleProfiler.tscn" id="3_m3nbl"]
+[ext_resource type="PackedScene" uid="uid://dipfkk5xnx8g" path="res://src/ui/chat/voice_icon.tscn" id="4_e6fbb"]
 
 [node name="PlayerUI" type="Control" unique_id=1578783826]
 layout_mode = 3
@@ -16,6 +17,7 @@ script = ExtResource("1_nask7")
 
 [node name="front" type="CanvasLayer" parent="." unique_id=1904646778]
 layer = 2
+visible = false
 
 [node name="Spawner" parent="front" unique_id=1812698674 instance=ExtResource("2_e6fbb")]
 anchors_preset = -1
@@ -31,3 +33,6 @@ offset_bottom = -0.040039063
 [node name="SimpleProfiler" parent="." unique_id=605018193 instance=ExtResource("3_m3nbl")]
 layout_mode = 1
 offset_right = -0.00012207031
+
+[node name="VoiceIcon" parent="." unique_id=1867000700 instance=ExtResource("4_e6fbb")]
+layout_mode = 0

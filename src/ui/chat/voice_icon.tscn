@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://dipfkk5xnx8g"]
+
+[ext_resource type="Script" uid="uid://iwevgjb6y36" path="res://src/ui/chat/voice_icon.gd" id="1_4t0go"]
+
+[node name="VoiceIcon" type="TextureRect" unique_id=1867000700]
+script = ExtResource("1_4t0go")

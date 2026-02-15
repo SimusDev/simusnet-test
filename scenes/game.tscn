@@ -12,7 +12,6 @@
 [ext_resource type="PackedScene" uid="uid://bqx58y6sxcy1v" path="res://scenes/prefabs/ui/main_menu/main_menu.tscn" id="9_0tnpc"]
 [ext_resource type="Script" uid="uid://d1l1jkmj6s53f" path="res://addons/simusdev/ui/SD_UIInterfaceMenu.gd" id="10_vtaks"]
 [ext_resource type="PackedScene" uid="uid://cw7rjiwvg4pda" path="res://src/prefabs/water.tscn" id="12_dinhu"]
-[ext_resource type="Script" uid="uid://w5msjn4bnddt" path="res://addons/simusdev/SimusNet/SimusNetVoiceChat.gd" id="13_kvuet"]
 
 [node name="Game" type="Node3D" unique_id=1979558274]
 script = ExtResource("1_yqjtg")
@@ -70,10 +69,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.58, 0)
 
 [node name="MeshInstance3D" parent="Water" index="0" unique_id=2003374163]
 gi_mode = 2
-
-[node name="SimusNetVoiceChat" type="Node" parent="." unique_id=1815520945]
-script = ExtResource("13_kvuet")
-metadata/_custom_type_script = "uid://w5msjn4bnddt"
 
 [editable path="Sky3D"]
 [editable path="Water"]

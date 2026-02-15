@@ -1,5 +1,4 @@
 @icon("res://component/icons/playable.png")
-
 extends Node
 class_name CT_Playable
 
@@ -8,6 +7,27 @@ class_name CT_Playable
 static var _list: Array[CT_Playable] = []
 
 static var _local: CT_Playable
+
+@export_group("VoiceChat", "voice_chat")
+var _voice: SimusNetVoiceChat
+@export var voice_chat_output: AudioStreamPlayer3D
+
+signal on_voice_chat_status_change(status: bool)
+
+func get_voice_chat_status() -> bool:
+	if _voice:
+		return _voice.is_muted()
+	return false
+
+func _input(event: InputEvent) -> void:
+	if !_voice:
+		return
+	
+	if Input.is_action_just_pressed("voice"):
+		_voice.set_muted(false)
+	
+	elif Input.is_action_just_released("voice"):
+		_voice.set_muted(true)
 
 static func get_list() -> Array[CT_Playable]:
 	return _list
@@ -26,11 +46,22 @@ func is_local() -> bool:
 func _ready() -> void:
 	SimusNetIdentity.register(self)
 	
+	if voice_chat_output:
+		_voice = SimusNetVoiceChat.new()
+		_voice.name = "voice"
+		_voice._output_player = voice_chat_output
+		_voice._muted = true
+		add_child(_voice)
+	else:
+		printerr(get_path(), ": ", "voice chat is not configured.")
+	
 	SD_ECS.append_to(node, self)
 	
 	if SimusNet.is_network_authority(self):
 		_local = self
 		EVENT.on_player_spawned_local.setup(self).publish()
+	
+	set_process_input(is_local())
 	
 	EVENT.on_player_spawned.setup(self).publish()
 
