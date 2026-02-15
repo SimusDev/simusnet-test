@@ -191,7 +191,6 @@ button = NodePath("..")
 metadata/_custom_type_script = "uid://dotjiengj0hqs"
 
 [node name="ScreenConnect" type="VBoxContainer" parent="Panel/MarginContainer" unique_id=277743264]
-visible = false
 layout_mode = 2
 alignment = 1
 
@@ -262,8 +261,7 @@ offset_top = -21.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_jm523")
-text = "Connecting to the server
-%s"
+text = "Connecting to the server"
 horizontal_alignment = 1
 vertical_alignment = 1
 

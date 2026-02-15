@@ -11,6 +11,8 @@ const DEFAULT_PORT: int = 8080
 
 var server_info: CT_ServerInfo
 
+static var server_broadcaster:SimusNetServerBroadcaster
+
 func _ready() -> void:
 	server_info = CT_ServerInfo.new()
 	server_info.name = "server_info"
@@ -66,6 +68,28 @@ func connect_to_server_by_address(address: String) -> void:
 		connect_to_server(parsed[0], int(parsed[1]))
 	return
 
-func create_server(port: int = DEFAULT_PORT, dedicated: bool = false) -> void:
+func create_server(port: int = -1, dedicated: bool = false) -> void:
+	if port < 0:
+		var cfg_port = server_info._config.get_value("info", "port", -2)
+		if cfg_port is int:
+			port = cfg_port
+		elif cfg_port is String:
+			if cfg_port.is_valid_int():
+				cfg_port = int(cfg_port)
+		if port < 0:
+			SimusDev.console.write_error("Failed to create server with this port %s" % port)
+			return
+	
+	
 	SimusNetConnection.set_dedicated_server(dedicated)
 	SimusNetConnectionENet.create_server(port, MAX_PLAYERS)
+	
+	#server_info._request_update_rpc()
+	
+	#if is_instance_valid(server_broadcaster):
+		#if not server_info._config:
+			#return
+	#if !server_broadcaster:
+		#server_broadcaster = SimusNetServerBroadcaster.new()
+		#add_child(server_broadcaster)
+	#server_broadcaster.serverInfo = server_info.get_last().get_data()

@@ -35,8 +35,9 @@ func _switch_buttons_screen(_name: String) -> void:
 	SD_Nodes.set_children_visibility(_screens_container, false)
 	_screens_container.get_node(_name).visible = true
 
-func _switch_popup(_name: String) -> void:
-	SD_Nodes.set_children_visibility(_popups_container, false)
+func _switch_popup(_name: String, hide_prev:bool = false) -> void:
+	if hide_prev:
+		SD_Nodes.set_children_visibility(_popups_container, false)
 	_popups_container.get_node(_name).visible = true
 
 func _on_button_pressed(button: Button) -> void:
@@ -46,7 +47,8 @@ func _on_button_pressed(button: Button) -> void:
 		"Play":
 			Network.create_server()
 		"Multiplayer":
-			_switch_buttons_screen("ScreenConnect")
+			_switch_popup("ServerList")
+			#_switch_buttons_screen("ScreenConnect")
 		"ConnectToServer":
 			Network.connect_to_server_by_address(_connect_to_server_.text)
 			SD_ConsoleCommand.get_or_create("last_address").set_value(_connect_to_server_.text)

@@ -1,0 +1,106 @@
+[gd_scene format=3 uid="uid://wedsojbauet6"]
+
+[ext_resource type="Script" uid="uid://btnndcv0y11i4" path="res://scenes/prefabs/ui/server_item/server_item.gd" id="1_ib6mk"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1761v"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ib6mk"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0, 0, 0, 0.6)
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lci6o"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.225, 0.225, 0.225, 0.6)
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i3548"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.1, 0.1, 0.1, 0.3)
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eo76q"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(1, 1, 1, 0.75)
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+corner_detail = 5
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+
+[node name="ServerItem" type="Button" unique_id=2007537412]
+custom_minimum_size = Vector2(256, 64)
+offset_right = 576.0
+offset_bottom = 64.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_1761v")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ib6mk")
+theme_override_styles/hover = SubResource("StyleBoxFlat_lci6o")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_i3548")
+theme_override_styles/focus = SubResource("StyleBoxFlat_eo76q")
+script = ExtResource("1_ib6mk")
+
+[node name="ServerName" type="Label" parent="." unique_id=456417977]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 248.0
+offset_bottom = 56.0
+text = "bezumnie zimba online suZsus sex sex sex sex sexex sseee"
+autowrap_mode = 1
+visible_characters = 55
+
+[node name="Description" type="RichTextLabel" parent="." unique_id=1479144553]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.44400004
+anchor_right = 0.44400004
+offset_left = 0.25598145
+offset_top = 8.0
+offset_right = 320.25598
+offset_bottom = 64.0
+mouse_filter = 1
+text = "addr
+"

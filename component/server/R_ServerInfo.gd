@@ -9,6 +9,12 @@ var _max_players: int = 78
 
 var _image: ImageTexture
 
+func get_data() -> Dictionary:
+	return _cfg_data
+
+func get_port() -> int:
+	return _cfg_data.get("port", -2)
+
 func get_image() -> ImageTexture:
 	return _image
 

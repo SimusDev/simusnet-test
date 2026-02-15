@@ -6,6 +6,7 @@ var _config: ConfigFile = ConfigFile.new()
 const CONFIG_PATH: String = "user://server_info.ini"
 
 const INFO_KEYS: Dictionary = {
+	"port": 7878,
 	"name": "My Server",
 	"description": "My Description.",
 	"image": "icon.svg",

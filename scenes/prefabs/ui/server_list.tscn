@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://bohfn8vx8tq8p"]
+
+[ext_resource type="Script" uid="uid://d0g52dymxyu1a" path="res://scenes/prefabs/ui/server_list.gd" id="1_37tix"]
+[ext_resource type="PackedScene" uid="uid://wedsojbauet6" path="res://scenes/prefabs/ui/server_item/server_item.tscn" id="1_rdw5b"]
+[ext_resource type="Script" uid="uid://0d3k6g88vx7f" path="res://addons/simusdev/SimusNet/broadcasting/SimusNetServerListener.gd" id="2_tch4j"]
+
+[node name="ServerList" type="Control" unique_id=823416535]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_37tix")
+server_item = ExtResource("1_rdw5b")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=2096633059]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.19140625, 0.19140625, 0.19140625, 0.6039216)
+
+[node name="ScrollContainer" type="ScrollContainer" parent="." unique_id=1597405138]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer" unique_id=1693007589]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ServerItem" parent="ScrollContainer/VBoxContainer" unique_id=1428227974 instance=ExtResource("1_rdw5b")]
+layout_mode = 2
+
+[node name="SimusNetServerListener" type="Node" parent="." unique_id=426478954]
+script = ExtResource("2_tch4j")
+metadata/_custom_type_script = "uid://0d3k6g88vx7f"
