@@ -84,6 +84,7 @@ func _physics_process(delta: float) -> void:
 		_on_hit(result)
 	else:
 		global_position += step
+	
 
 func _on_hit(result: Dictionary) -> void:
 	var collider = result.get("collider") as Node3D
@@ -138,19 +139,23 @@ func _on_hit(result: Dictionary) -> void:
 		_destroy()
 
 func _apply_physics_impulse(collider: Node, v_before: Vector3, v_after: Vector3, hit_pos: Vector3) -> void:
-	if not SimusNetConnection.is_server(): return
+	if not SimusNetConnection.is_server():
+		return
 	if collider is RigidBody3D:
 		var impulse = (v_before - v_after) * ammo.mass
 		collider.apply_impulse(impulse, hit_pos - collider.global_position)
 
 func _apply_damage(collider: Node, speed_at_impact: float) -> void:
-	if not SimusNetConnection.is_server(): return
+	if not SimusNetConnection.is_server():
+		return
 	if collider is CT_Hitbox:
 		var speed_ratio = speed_at_impact / _initial_speed
 		var final_damage = ammo.base_damage * collider.damage_multiplier * speed_ratio
 		
 		var dmg = R_Damage.new()
-		dmg.set_value(final_damage).apply(collider.health)
+		dmg.set_value(final_damage)
+		dmg.apply(collider.health)
+		print(dmg.get_value())
 
 func _calculate_thickness(entry_pos: Vector3, travel_dir: Vector3, _target: Node, max_p_depth: float) -> float:
 	var space_state = get_world_3d().direct_space_state

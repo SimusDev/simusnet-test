@@ -14,6 +14,7 @@ func _ready() -> void:
 	on_executed.connect(_on_command_executed)
 
 func _on_command_executed(command:SD_ConsoleCommand) -> void:
+	print(OS.get_unique_id())
 	match command.get_code():
 		"suicide":
 			if command.get_arguments().size() > 0:
@@ -50,6 +51,9 @@ func _on_command_executed(command:SD_ConsoleCommand) -> void:
 						pass
 					else:
 						SD_Console.i().write_warning("can't remove rights from %s" % [founded_user.get_nickname()])
+		
+		"os.get_unique_id":
+			SimusDev.console.write_info("OS Unique id: %s" % OS.get_unique_id())
 
 func _player_find_by_login(login:String) -> CT_User:
 	var user: CT_User = CT_User.server_find_by_login(login)

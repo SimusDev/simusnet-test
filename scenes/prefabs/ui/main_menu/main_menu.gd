@@ -23,7 +23,7 @@ func _ready() -> void:
 				child.pressed.connect(_on_button_pressed.bind(child))
 	
 	_switch_buttons_screen("ScreenMain")
-	
+
 	if ingame:
 		for i in _hide_ingame:
 			i.hide()
