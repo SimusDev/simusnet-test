@@ -6,7 +6,7 @@
 [ext_resource type="Script" uid="uid://bbfomib82eucq" path="res://component/animation/CT_AnimationEventsCharacter.gd" id="2_cy1pa"]
 [ext_resource type="PackedScene" uid="uid://bb30gdt6q8ij" path="res://addons/simusdev/components/fp_controller/source_like/W_FPCSourceLikeCamera.tscn" id="3_j7lg1"]
 [ext_resource type="Script" uid="uid://dfok55wn4kqd2" path="res://component/player/CT_Playable.gd" id="3_rlttd"]
-[ext_resource type="Script" uid="uid://b0jl432eesuju" path="res://component/health/CT_DestroyOnDeath.gd" id="4_10txx"]
+[ext_resource type="Script" path="res://component/health/CT_DestroyOnDeath.gd" id="4_10txx"]
 [ext_resource type="PackedScene" uid="uid://be7h2lkvpihn3" path="res://addons/simusdev/components/fp_controller/source_like/W_FPCSourceLikeMovement.tscn" id="4_d5u4l"]
 [ext_resource type="Script" uid="uid://dpblk4cnhdonv" path="res://component/viewmodel/ViewModelRoot3D.gd" id="4_heeeb"]
 [ext_resource type="PackedScene" uid="uid://cmmrufl5ygbop" path="res://component/inventory/prefabs/inventory.tscn" id="4_wdfrp"]
@@ -53,9 +53,10 @@ root = NodePath("..")
 [node name="CT_DestroyOnDeath" type="Node" parent="CT_Health" unique_id=132424885]
 script = ExtResource("4_10txx")
 
-[node name="CT_Playable" type="Node" parent="." unique_id=768027577 node_paths=PackedStringArray("node")]
+[node name="CT_Playable" type="Node" parent="." unique_id=768027577 node_paths=PackedStringArray("node", "voice_chat_output")]
 script = ExtResource("3_rlttd")
 node = NodePath("..")
+voice_chat_output = NodePath("../Camera/voice")
 metadata/_custom_type_script = "uid://dfok55wn4kqd2"
 
 [node name="SimusNetTransform" type="Node" parent="." unique_id=1897966060 node_paths=PackedStringArray("node")]
@@ -99,9 +100,9 @@ shape = SubResource("BoxShape3D_k5oc5")
 [node name="Camera" parent="." unique_id=1452450032 node_paths=PackedStringArray("body") instance=ExtResource("3_j7lg1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.64549553, 0)
 body = NodePath("..")
-metadata/SD_ECS = Array[Node]([])
 
 [node name="Camera3D" parent="Camera" index="0"]
+fov = 60.0
 metadata/SD_ECS = Array[Node]([])
 
 [node name="CameraShake" type="Node3D" parent="Camera/Camera3D" index="0" unique_id=77756217 node_paths=PackedStringArray("player", "viewmodel_root", "camera", "movement")]
@@ -114,16 +115,16 @@ movement = NodePath("../../../Movement")
 crouch_bob_amplitude = Vector2(0.005, 0.01)
 walk_bob_amplitude = Vector2(0.01, 0.02)
 sprint_bob_amplitude = Vector2(0.015, 0.03)
-metadata/SD_ECS = Array[Node]([])
 
 [node name="ViewModelRoot3D" type="Node3D" parent="Camera/Camera3D/CameraShake" unique_id=370646152]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.07311028, 0.97400725, 0.098163635)
 script = ExtResource("4_heeeb")
 type = 2
-metadata/SD_ECS = Array[Node]([])
 
 [node name="ViewModelSway" type="Node" parent="Camera/Camera3D/CameraShake/ViewModelRoot3D" unique_id=1406768518]
 script = ExtResource("9_xiv16")
+
+[node name="voice" type="AudioStreamPlayer3D" parent="Camera" unique_id=2008636301]
 
 [node name="CT_EntityHead" type="Node" parent="Camera" unique_id=335382267 node_paths=PackedStringArray("_entity", "_eyes")]
 script = ExtResource("9_k5oc5")
@@ -143,8 +144,6 @@ collide_with_areas = true
 script = ExtResource("9_y56kl")
 root = NodePath("../..")
 metadata/_custom_type_script = "uid://diojix86rolea"
-metadata/SimusNetVisible = Object(RefCounted,"script":Resource("res://addons/simusdev/SimusNet/SimusNetVisible.gd"))
-
 
 [node name="Movement" parent="." unique_id=240765583 node_paths=PackedStringArray("actor") instance=ExtResource("4_d5u4l")]
 actor = NodePath("..")

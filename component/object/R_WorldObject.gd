@@ -52,6 +52,9 @@ func _spawned(instance: Node3D, level_group: LevelGroup) -> void:
 				instance.freeze = true
 		
 		
+		if self is R_Entity:
+			return
+		
 		await instance.get_tree().process_frame
 		var pick_up_action: R_InteractAction = load("uid://cvbrrn0mme4i")
 		pick_up_action.append_to(instance)

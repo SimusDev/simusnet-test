@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://dipfkk5xnx8g"]
+
+[ext_resource type="Script" uid="uid://iwevgjb6y36" path="res://src/ui/chat/voice_icon.gd" id="1_4t0go"]
+[ext_resource type="Texture2D" uid="uid://daraayp7plbqq" path="res://src/textures/general/microphone.png" id="1_m52xo"]
+
+[node name="VoiceIcon" type="TextureRect" unique_id=1867000700]
+offset_right = 64.0
+offset_bottom = 64.0
+pivot_offset_ratio = Vector2(0.5, 0.5)
+texture = ExtResource("1_m52xo")
+expand_mode = 1
+stretch_mode = 5
+script = ExtResource("1_4t0go")
