@@ -8,7 +8,7 @@ func _ready() -> void:
 			_player_kill
 		],
 		SimusNetRPCConfig.new()
-			.flag_mode_any_peer()
+			.flag_mode_to_server()
 	)
 	
 	on_executed.connect(_on_command_executed)
@@ -32,21 +32,48 @@ func _on_command_executed(command:SD_ConsoleCommand) -> void:
 				return
 			SimusNetRPC.invoke_on_server(
 				_player_kill,
-				_player_find_by_login(command.get_value_as_string())
+				command.get_value_as_string()
 			)
 			
 			return
+	
+	if command.get_code().begins_with("player.rights."):
+			var founded_user: CT_User = _player_find_by_nick(command.get_argument(0))
+			if founded_user:
+				if command.get_code().ends_with("give"):
+					if founded_user.try_give_rights([command.get_argument(1)]):
+						pass
+					else:
+						SD_Console.i().write_warning("can't give rights to %s" % [founded_user.get_nickname()])
+				else:
+					if founded_user.try_remove_rights([command.get_argument(1)]):
+						pass
+					else:
+						SD_Console.i().write_warning("can't remove rights from %s" % [founded_user.get_nickname()])
 
 func _player_find_by_login(login:String) -> CT_User:
-	return CT_User.server_find_by_login(login)
+	var user: CT_User = CT_User.server_find_by_login(login)
+	return user
 
-func _player_kill(user:CT_User) -> void:
-	if not user:
+func _player_find_by_nick(nick: String) -> CT_User:
+	var user: CT_User = CT_User.find_by_nickname(nick)
+	if !user:
+		SD_Console.i().write_warning("can't find user by nick: %s" % nick)
+	return user
+
+func _player_kill(nick: String) -> void:
+	var sender: CT_User = CT_User.find_by_peer(SimusNetRemote.sender_id)
+	if !sender:
 		return
 	
-	var health:CT_Health = SD_ECS.find_first_component_by_script(user.get_player_node(), [CT_Health]) as CT_Health
-	if health:
-		health.kill()
-	else:
-		user.get_player_node().queue_free()
-	pass
+	var user: CT_User = CT_User.find_by_nickname(nick)
+	if !user:
+		return
+	
+	if sender.is_admin():
+		var health:CT_Health = SD_ECS.find_first_component_by_script(user.get_player_node(), [CT_Health]) as CT_Health
+		if health:
+			health.kill()
+		else:
+			user.get_player_node().queue_free()
+	

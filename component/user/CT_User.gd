@@ -69,6 +69,12 @@ func server_get_login() -> String:
 func server_get_password() -> String:
 	return _server_data.get_value("password", "")
 
+static func find_by_nickname(nick: String) -> CT_User:
+	for i in get_list():
+		if i.get_nickname() == nick:
+			return i
+	return null
+
 static func server_find_by_login(login: String) -> CT_User:
 	for i in _list:
 		if i.server_get_login() == login:
@@ -113,24 +119,39 @@ func _ready() -> void:
 	)
 
 func is_admin() -> bool:
-	return get_right_list().has("admin")
+	return get_right_list().has("admin") or is_developer()
+
+func is_developer() -> bool:
+	return get_right_list().has("dev")
 
 func get_right_list() -> PackedStringArray:
 	return _right_list
 
-func try_give_rights(list: PackedStringArray) -> CT_User:
-	SimusNetRPC.invoke_on_server(_right_remove_or_add_rpc, list, false)
-	return self
+func try_give_rights(list: PackedStringArray) -> bool:
+	if !get_local():
+		return false
+	
+	if get_local().is_admin():
+		SimusNetRPC.invoke_on_server(_right_remove_or_add_rpc, list, false)
+	return get_local().is_admin()
 
-func try_remove_rights(list: PackedStringArray) -> CT_User:
-	SimusNetRPC.invoke_on_server(_right_remove_or_add_rpc, list, true)
-	return self
+func try_remove_rights(list: PackedStringArray) -> bool:
+	if !get_local():
+		return false
+	
+	if get_local().is_admin():
+		SimusNetRPC.invoke_on_server(_right_remove_or_add_rpc, list, true)
+	return get_local().is_admin()
 
 func _right_remove_or_add_rpc(list: PackedStringArray, remove: bool) -> void:
 	if SimusNetRemote.sender_id != get_peer():
 		return
 	
+	if is_developer() and get_peer() != SimusNetRemote.sender_id:
+		return
+	
 	if is_admin() or get_peer() == SimusNet.SERVER_ID:
+		
 		for r in list:
 			SimusNetRPC.invoke_all(_receive_remove_or_add_right, r, remove)
 
