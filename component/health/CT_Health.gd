@@ -19,8 +19,8 @@ func _ready() -> void:
 	if root.is_multiplayer_authority() and ui_prefab:
 		if root is Entity:
 			var ui = ui_prefab.instantiate()
-			ui.set("entity", root)
-			ui.set("health", self)
+			ui.entity = root
+			ui.health = self
 			add_child(ui)
 	
 	SD_ECS.append_to(root, self)

@@ -47,16 +47,16 @@ func setup_bullet(ammo_res: R_Ammo) -> void:
 	setup.emit()
 
 func _physics_process(delta: float) -> void:
-	if not is_setup:
-		await setup
-	if not ammo or ammo.mass < 0.0001: return
+	#if not is_setup:
+		#await setup
+	if not ammo or ammo.mass < 0.00001: return
 	
 	var speed = velocity.length()
 	if speed > 1.0:
 		var drag_force = ammo.air_friction * speed * speed
 		var drag_accel = drag_force / ammo.mass
 		
-		var max_deceleration = (speed * 0.9) / delta
+		var max_deceleration = (speed * 0.5) / delta
 		drag_accel = min(drag_accel, max_deceleration)
 		
 		velocity -= velocity.normalized() * drag_accel * delta
