@@ -21,12 +21,13 @@ corner_detail = 5
 anchors_preset = -1
 anchor_right = 0.2092014
 anchor_bottom = 0.11265432
+offset_top = 640.0
 offset_right = -1.0
-offset_bottom = 2.0
+offset_bottom = 638.8889
+grow_vertical = 0
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_nask7")
 script = ExtResource("1_hbov3")
-metadata/_edit_use_anchors_ = true
 
 [node name="HealthLabel" type="RichTextLabel" parent="." unique_id=1386555650]
 layout_mode = 1
