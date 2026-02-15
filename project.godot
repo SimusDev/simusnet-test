@@ -45,6 +45,10 @@ run/main_scene="uid://bqy2338pry4q6"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[audio]
+
+driver/enable_input=true
+
 [autoload]
 
 SimusDev="*uid://cvfrshw18g5he"

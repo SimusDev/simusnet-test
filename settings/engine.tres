@@ -30,6 +30,12 @@ cache = SubResource("Resource_cxv7n")
 [resource]
 script = ExtResource("8")
 developer = "zxcvlxd and simusdev"
+game = Dictionary[String, Variant]({
+"minimize_feature": false,
+"minimize_feature_on_release": true,
+"mute_audio_when_minimized": false,
+"pause_when_minimized": false
+})
 gamebuild = SubResource("Resource_tfge0")
 console = Dictionary[String, Variant]({
 "disable_on_release": true,
