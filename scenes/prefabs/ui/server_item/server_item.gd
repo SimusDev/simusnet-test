@@ -5,13 +5,13 @@ var server_ip_addr:String
 var server_port:int
 var server_listener:SimusNetServerListener
 
-@onready var server_name: Label = $ServerName
+@onready var server_name: RichTextLabel = $ServerName
 @onready var description: RichTextLabel = $Description
 
 
 func _ready() -> void:
 	server_name.text = info.get("name", "<empty_name>")
-	description.text = server_ip_addr + ":" + str(server_port)
+	description.text = info.get("description", "<empty_description>")
 	if server_listener:
 		server_listener.server_removed.connect(_on_server_removed)
 

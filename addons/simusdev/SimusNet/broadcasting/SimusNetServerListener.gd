@@ -35,8 +35,6 @@ func _ready():
 
 
 func _process(_delta):
-	#if multiplayer.is_server():
-		#return
 	while _udp.get_available_packet_count() > 0:
 		var packet_ip: String = _udp.get_packet_ip()
 		var packet_port: int = _udp.get_packet_port()
