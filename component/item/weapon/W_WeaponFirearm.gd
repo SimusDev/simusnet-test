@@ -83,6 +83,8 @@ func _local_input_no_interface_check(event: InputEvent) -> void:
 func _exit_tree() -> void:
 	super()
 	
+	#set_camera_fov(75.0)
+	
 	if is_local():
 		var ui: Control = await _ammo_packs_ui.async_get_instance()
 		ui.hide()
@@ -113,6 +115,19 @@ func request_release() -> void:
 	
 	if state_machine.get_current_state() == "fire":
 		state_machine.try_switch("idle")
+
+func _pressed_alt() -> void:
+	super()
+	#set_camera_fov(object.base_aim_fov)
+
+func _released_alt() -> void:
+	super()
+	#set_camera_fov(75.0)
+
+func set_camera_fov(fov:float) -> void:
+	if entity_eyes is W_FPCSourceLikeCamera:
+		if entity_eyes.camera.current:
+			entity_eyes.camera.fov = fov
 
 func _process(_delta: float) -> void:
 	if state_machine.get_current_state() == "fire":

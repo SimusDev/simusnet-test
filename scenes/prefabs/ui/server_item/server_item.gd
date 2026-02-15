@@ -13,7 +13,11 @@ func _ready() -> void:
 	server_name.text = info.get("name", "<empty_name>")
 	description.text = server_ip_addr + ":" + str(server_port)
 	if server_listener:
-		server_listener.remove_server.connect(queue_free)
+		server_listener.server_removed.connect(_on_server_removed)
+
+func _on_server_removed(ip:String) -> void:
+	if ip == server_ip_addr:
+		queue_free()
 
 func _pressed() -> void:
 	Network.connect_to_server(server_ip_addr, server_port)
