@@ -37,14 +37,12 @@ func _ready() -> void:
 
 func _input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("console.open_close"):
-		print(123)
 		set_visible(not is_visible())
 
 func update_bg() -> void:
 	$fade.visible = menu.is_opened()
 
 func set_visible(value: bool) -> void:
-	print(value)
 	if is_visible():
 		menu.close()
 	else:
