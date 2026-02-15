@@ -197,6 +197,7 @@ alignment = 1
 
 [node name="LineEdit" type="LineEdit" parent="Panel/MarginContainer/ScreenConnect" unique_id=656455464]
 layout_mode = 2
+theme_override_constants/outline_size = 3
 theme_override_font_sizes/font_size = 24
 theme_override_styles/normal = SubResource("StyleBoxFlat_4hkdk")
 theme_override_styles/read_only = SubResource("StyleBoxFlat_f41q6")
@@ -207,6 +208,7 @@ alignment = 1
 
 [node name="ConnectToServer" type="Button" parent="Panel/MarginContainer/ScreenConnect" unique_id=836580550]
 layout_mode = 2
+theme_override_constants/outline_size = 3
 theme_override_font_sizes/font_size = 24
 text = "Connect"
 flat = true
@@ -214,6 +216,7 @@ alignment = 0
 
 [node name="BackToMain" type="Button" parent="Panel/MarginContainer/ScreenConnect" unique_id=319050546]
 layout_mode = 2
+theme_override_constants/outline_size = 3
 theme_override_font_sizes/font_size = 24
 text = "Back"
 flat = true

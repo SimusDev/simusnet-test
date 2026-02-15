@@ -23,13 +23,13 @@
 [ext_resource type="Script" uid="uid://bhjo2567050lh" path="res://component/player/CT_PlayerNickname3D.gd" id="21_2kspa"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_yyb7l"]
-size = Vector3(1, 0.5, 1)
+size = Vector3(0.39123535, 0.42785645, 0.33911133)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_xiv16"]
-size = Vector3(1, 0.90000004, 1)
+size = Vector3(0.55981445, 0.46464846, 0.3232422)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_k5oc5"]
-size = Vector3(1, 0.6, 1)
+size = Vector3(0.63220215, 1.0361084, 0.31323242)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_2kspa"]
 radius = 0.325
@@ -74,6 +74,7 @@ health = NodePath("../CT_Health")
 metadata/_custom_type_script = "uid://dvlnhvdrc3dy6"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CT_HitboxHead" unique_id=31555626]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.026672363, -0.036071777, -0.034301758)
 shape = SubResource("BoxShape3D_yyb7l")
 debug_color = Color(0.99094063, 0, 0.27785844, 0.41960785)
 
@@ -83,7 +84,7 @@ health = NodePath("../CT_Health")
 metadata/_custom_type_script = "uid://dvlnhvdrc3dy6"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CT_HitboxBody" unique_id=2114861173]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.049999967, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.030395508, 0.26767576, -0.0024414063)
 shape = SubResource("BoxShape3D_xiv16")
 
 [node name="CT_HitboxLegs" type="Area3D" parent="." unique_id=1168561640 node_paths=PackedStringArray("health")]
@@ -93,6 +94,7 @@ health = NodePath("../CT_Health")
 metadata/_custom_type_script = "uid://dvlnhvdrc3dy6"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CT_HitboxLegs" unique_id=1301651919]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.007385254, 0.21805418, -0.009155273)
 shape = SubResource("BoxShape3D_k5oc5")
 
 [node name="Camera" parent="." unique_id=1452450032 node_paths=PackedStringArray("body") instance=ExtResource("3_j7lg1")]
@@ -104,6 +106,7 @@ metadata/SD_ECS = Array[Node]([])
 
 [node name="Camera3D" parent="Camera" index="1"]
 fov = 60.0
+[node name="Camera3D" parent="Camera" index="0"]
 metadata/SD_ECS = Array[Node]([])
 
 [node name="CameraShake" type="Node3D" parent="Camera/Camera3D" index="0" unique_id=77756217 node_paths=PackedStringArray("player", "viewmodel_root", "camera", "movement")]
@@ -113,6 +116,9 @@ player = NodePath("../../..")
 viewmodel_root = NodePath("ViewModelRoot3D")
 camera = NodePath("../..")
 movement = NodePath("../../../Movement")
+crouch_bob_amplitude = Vector2(0.005, 0.01)
+walk_bob_amplitude = Vector2(0.01, 0.02)
+sprint_bob_amplitude = Vector2(0.015, 0.03)
 metadata/SD_ECS = Array[Node]([])
 
 [node name="ViewModelRoot3D" type="Node3D" parent="Camera/Camera3D/CameraShake" unique_id=370646152]

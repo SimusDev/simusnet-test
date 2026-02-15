@@ -1,6 +1,7 @@
 class_name R_WeaponFirearm extends R_Item
 
 @export var range:float = 250.0
+@export var base_aim_fov:float = 50.0
 @export var base_dispersion: float = 1.0 
 
 @export var ammo_pack: R_AmmoPack

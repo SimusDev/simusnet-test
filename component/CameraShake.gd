@@ -15,14 +15,19 @@ class_name CameraShake extends Node3D
 @export var recoil_horizontal: float = 0.05 
 @export var recoil_kickback: float = 0.1 
 
-@export_group("ViewModel Bob/Sway")
+@export_group("ViewModel Bob")
+@export_subgroup("Sway")
 @export var crouch_bob: float = 4.3
-@export var walk_bob: float = 6.8
-@export var sprint_bob: float = 12.5
+@export var walk_bob: float = 7.3
+@export var sprint_bob: float = 12.8
 var bob_frequency:float = 0.0
 
-@export var bob_amplitude_x: float = 0.01
-@export var bob_amplitude_y: float = 0.01
+@export_subgroup("Bob Amplitude")
+@export var crouch_bob_amplitude:Vector2 = Vector2(0.005, 0.005)
+@export var walk_bob_amplitude:Vector2 = Vector2(0.01, 0.01)
+@export var sprint_bob_amplitude:Vector2 = Vector2(0.025, 0.025)
+
+var bob_amplitude = walk_bob_amplitude
 
 @export var crouch_offset:Vector3 = Vector3(0.0, 0.05, 0.05)
 @export var walk_offset:Vector3 = Vector3(0.0, 0.0, 0.0)
@@ -70,6 +75,15 @@ func _handle_viewmodel_offset() -> void:
 	else:
 		viewmodel_offset = Vector3.ZERO
 
+func _handle_bob_amplitude() -> void:
+	if movement.is_crouched:
+		bob_amplitude = crouch_bob_amplitude
+	elif movement.is_sprinting:
+		bob_amplitude = sprint_bob_amplitude
+	else:
+		bob_amplitude = walk_bob_amplitude
+
+
 func _process(delta: float) -> void:
 	var viewmodel_object:Node3D = viewmodel_root.get_object_instance()
 	if viewmodel_object is W_WeaponFirearm:
@@ -77,12 +91,13 @@ func _process(delta: float) -> void:
 	
 	_handle_bob_frequency()
 	_handle_viewmodel_offset()
+	_handle_bob_amplitude()
 	
 	var bob_offset = Vector3.ZERO
 	if player and player.is_on_floor() and player.velocity.length() > 0.1:
 		time_elapsed += delta * bob_frequency
-		bob_offset.x = sin(time_elapsed) * bob_amplitude_x
-		bob_offset.y = abs(cos(time_elapsed)) * bob_amplitude_y
+		bob_offset.x = sin(time_elapsed) * bob_amplitude.x
+		bob_offset.y = abs(cos(time_elapsed)) * bob_amplitude.y
 	else:
 		time_elapsed = lerp(time_elapsed, 0.0, delta * 10.0)
 	
@@ -107,8 +122,8 @@ func _handle_bobbing(delta: float) -> void:
 	if player and player.is_on_floor():
 		if player.velocity:
 			time_elapsed += delta * bob_frequency
-			var bob_x = sin(time_elapsed) * bob_amplitude_x
-			var bob_y = abs(cos(time_elapsed)) * bob_amplitude_y
+			var bob_x = sin(time_elapsed) * bob_amplitude.x
+			var bob_y = abs(cos(time_elapsed)) * bob_amplitude.y
 			
 			if viewmodel_root:
 				position.x = bob_x

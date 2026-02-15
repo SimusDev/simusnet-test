@@ -20,7 +20,6 @@ func _ready():
 	var err = _udp.bind(listen_port)
 	if err != OK:
 		push_error("SimusNetServerListener: Failed to bind UDP port %d. Error code: %d" % [listen_port, err])
-		set_process(false)
 		return
 	
 	
@@ -36,6 +35,8 @@ func _ready():
 
 
 func _process(_delta):
+	if multiplayer.is_server():
+		return
 	while _udp.get_available_packet_count() > 0:
 		var packet_ip: String = _udp.get_packet_ip()
 		var packet_port: int = _udp.get_packet_port()
@@ -58,7 +59,7 @@ func _process(_delta):
 			continue
 		
 		# Validate required fields
-		var required_fields = ["port", "name", "player_count", "max_players"]
+		var required_fields = ["port", "name"]
 		var missing = false
 		for field in required_fields:
 			if not server_info.has(field):
