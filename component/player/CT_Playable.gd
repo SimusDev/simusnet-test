@@ -9,7 +9,7 @@ static var _list: Array[CT_Playable] = []
 static var _local: CT_Playable
 
 @export_group("VoiceChat", "voice_chat")
-var _voice: SimusNetVoiceChat
+@export var _voice: SimusNetVoiceChat
 @export var voice_chat_output: AudioStreamPlayer3D
 
 signal on_voice_chat_status_change(status: bool)
@@ -48,11 +48,12 @@ func is_local() -> bool:
 func _ready() -> void:
 	SimusNetIdentity.register(self)
 	
-	if voice_chat_output:
+	if voice_chat_output and !is_instance_valid(_voice):
 		_voice = SimusNetVoiceChat.new()
 		_voice.name = "voice"
 		_voice._output_player = voice_chat_output
 		_voice._muted = true
+		_voice.set_multiplayer_authority(get_multiplayer_authority())
 		add_child(_voice)
 	else:
 		printerr(get_path(), ": ", "voice chat is not configured.")

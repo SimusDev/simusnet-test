@@ -11,6 +11,7 @@
 [ext_resource type="Script" uid="uid://dpblk4cnhdonv" path="res://component/viewmodel/ViewModelRoot3D.gd" id="4_heeeb"]
 [ext_resource type="PackedScene" uid="uid://cmmrufl5ygbop" path="res://component/inventory/prefabs/inventory.tscn" id="4_wdfrp"]
 [ext_resource type="Script" uid="uid://dvlnhvdrc3dy6" path="res://component/hitbox/CT_Hitbox.gd" id="5_yyb7l"]
+[ext_resource type="Script" uid="uid://w5msjn4bnddt" path="res://addons/simusdev/SimusNet/SimusNetVoiceChat.gd" id="6_5kqjh"]
 [ext_resource type="Script" uid="uid://c1pmyb3w7dbto" path="res://component/CameraShake.gd" id="8_k5oc5"]
 [ext_resource type="Script" uid="uid://bfvmikvjmhnii" path="res://component/entity/CT_EntityHead.gd" id="9_k5oc5"]
 [ext_resource type="Script" uid="uid://cth053db6jxla" path="res://component/ViewModelSway.gd" id="9_xiv16"]
@@ -53,11 +54,19 @@ root = NodePath("..")
 [node name="CT_DestroyOnDeath" type="Node" parent="CT_Health" unique_id=132424885]
 script = ExtResource("4_10txx")
 
-[node name="CT_Playable" type="Node" parent="." unique_id=768027577 node_paths=PackedStringArray("node", "voice_chat_output")]
+[node name="CT_Playable" type="Node" parent="." unique_id=768027577 node_paths=PackedStringArray("node", "_voice", "voice_chat_output")]
 script = ExtResource("3_rlttd")
 node = NodePath("..")
+_voice = NodePath("SimusNetVoiceChat")
 voice_chat_output = NodePath("../Camera/voice")
 metadata/_custom_type_script = "uid://dfok55wn4kqd2"
+
+[node name="SimusNetVoiceChat" type="Node" parent="CT_Playable" unique_id=2089074210 node_paths=PackedStringArray("_output_player")]
+script = ExtResource("6_5kqjh")
+audio_quality = 1
+spatial_mode = 2
+_output_player = NodePath("../../Camera/voice")
+metadata/_custom_type_script = "uid://w5msjn4bnddt"
 
 [node name="SimusNetTransform" type="Node" parent="." unique_id=1897966060 node_paths=PackedStringArray("node")]
 script = ExtResource("2_744qn")
