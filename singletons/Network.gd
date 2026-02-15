@@ -44,7 +44,7 @@ func _on_cmd_executed(cmd: SD_ConsoleCommand) -> void:
 		"connect":
 			connect_to_server_by_address(cmd.get_value())
 		"disconnect":
-			SimusNetConnection.try_close_peer()
+			try_disconnect()
 		"start.server":
 			if cmd.get_arguments().size() < 1:
 				cmd.get_console().write_error("please, set the port.")
@@ -58,6 +58,9 @@ func _on_cmd_executed(cmd: SD_ConsoleCommand) -> void:
 
 func try_disconnect() -> void:
 	SimusNetConnection.try_close_peer()
+	
+	if is_instance_valid(server_broadcaster):
+		server_broadcaster.queue_free()
 
 func connect_to_server(ip: String, port: int = DEFAULT_PORT) -> void:
 	SimusNetConnectionENet.create_client(ip, port)
