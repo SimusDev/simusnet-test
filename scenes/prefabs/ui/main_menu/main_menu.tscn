@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://clinvld10jut" path="res://scenes/prefabs/ui/main_menu/settings/settings.tscn" id="3_5h2bh"]
 [ext_resource type="Script" uid="uid://buo415nhjgsrx" path="res://addons/simusdev/localization/SD_NodeLocalizatorProperty.gd" id="4_4hkdk"]
 [ext_resource type="PackedScene" uid="uid://prodeloqtcwu" path="res://scenes/prefabs/ui/server_info.tscn" id="5_f41q6"]
+[ext_resource type="PackedScene" uid="uid://bohfn8vx8tq8p" path="res://scenes/prefabs/ui/server_list.tscn" id="6_w676r"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5h2bh"]
 content_margin_left = 0.0
@@ -284,6 +285,10 @@ offset_left = -256.0
 offset_top = -256.0
 offset_right = 256.0
 offset_bottom = 256.0
+
+[node name="ServerList" parent="Popups" unique_id=823416535 instance=ExtResource("6_w676r")]
+visible = false
+layout_mode = 1
 
 [node name="version" type="Label" parent="." unique_id=1409942562]
 layout_mode = 1

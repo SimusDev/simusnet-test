@@ -47,7 +47,7 @@ func _on_button_pressed(button: Button) -> void:
 		"Play":
 			Network.create_server()
 		"Multiplayer":
-			#_switch_popup("ServerList")
+			_switch_popup("ServerList")
 			_switch_buttons_screen("ScreenConnect")
 		"ConnectToServer":
 			Network.connect_to_server_by_address(_connect_to_server_.text)
