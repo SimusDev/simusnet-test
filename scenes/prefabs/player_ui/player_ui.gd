@@ -8,6 +8,8 @@ static func get_local() -> PlayerUI:
 	return _local
 
 func _ready() -> void:
+	$front.show()
+	
 	if SimusNet.is_network_authority(self):
 		_local = self
 	
