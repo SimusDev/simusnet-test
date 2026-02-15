@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://wedsojbauet6"]
 
 [ext_resource type="Script" uid="uid://btnndcv0y11i4" path="res://scenes/prefabs/ui/server_item/server_item.gd" id="1_ib6mk"]
+[ext_resource type="Texture2D" uid="uid://dya0lilhdw3n2" path="res://addons/boujie_water_shader/icons/water_shader_avatar.png" id="2_lci6o"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1761v"]
 content_margin_left = 4.0
@@ -71,6 +72,17 @@ expand_margin_top = 2.0
 expand_margin_right = 2.0
 expand_margin_bottom = 2.0
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xv8sv"]
+bg_color = Color(0.2890625, 0.2890625, 0.2890625, 0.5764706)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+
 [node name="ServerItem" type="Button" unique_id=2007537412]
 custom_minimum_size = Vector2(256, 64)
 offset_right = 576.0
@@ -83,25 +95,43 @@ theme_override_styles/focus = SubResource("StyleBoxFlat_eo76q")
 script = ExtResource("1_ib6mk")
 
 [node name="ServerName" type="Label" parent="." unique_id=456417977]
-layout_mode = 0
-offset_left = 8.0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.22200002
+anchor_right = 0.625
+anchor_bottom = 1.0
+offset_left = 0.12799072
 offset_top = 8.0
-offset_right = 248.0
-offset_bottom = 56.0
-text = "bezumnie zimba online suZsus sex sex sex sex sexex sseee"
+offset_bottom = -11.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_xv8sv")
+text = "Zerver BeZuMn1E ZoMb1 sex with babushki 78+"
 autowrap_mode = 1
-visible_characters = 55
+visible_characters = 42
 visible_ratio = 0.98214287
 
 [node name="Description" type="RichTextLabel" parent="." unique_id=1479144553]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.44400004
-anchor_right = 0.44400004
-offset_left = 0.25598145
+anchor_left = 0.63900006
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -0.06402588
 offset_top = 8.0
-offset_right = 320.25598
-offset_bottom = 64.0
+offset_right = -8.0
+offset_bottom = -8.0
 mouse_filter = 1
-text = "addr
-"
+theme_override_styles/normal = SubResource("StyleBoxFlat_xv8sv")
+text = "127.0.0.1:7856"
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=470093405]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.014
+anchor_top = 0.125
+anchor_right = 0.208
+anchor_bottom = 0.87500006
+offset_left = -0.06400013
+offset_right = 0.19200134
+texture = ExtResource("2_lci6o")
+expand_mode = 1
+stretch_mode = 5
