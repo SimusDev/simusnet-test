@@ -29,6 +29,9 @@ var _inventory: CT_Inventory
 
 var _logger: SD_Logger = SD_Logger.new(self) 
 
+func get_object_instance() -> Node3D:
+	return _object_instance
+
 func get_inventory() -> CT_Inventory:
 	return _inventory
 

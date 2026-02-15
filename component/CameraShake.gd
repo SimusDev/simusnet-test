@@ -2,7 +2,7 @@ class_name CameraShake extends Node3D
 
 
 @export var player: CharacterBody3D
-@export var viewmodel_root: Node3D
+@export var viewmodel_root: ViewModelRoot3D
 @export var camera: W_FPCSourceLikeCamera
 @export var movement: W_FPCSourceLikeMovement
 
@@ -36,13 +36,15 @@ var current_position: Vector3
 var accumulated_recoil_pitch: float = 0.0 
 var accumulated_recoil_yaw: float = 0.0
 
+var is_weapon_aim:bool = false
+
 func _ready() -> void:
 	var auth:bool = SD_Network.is_authority(self)
 	set_process(auth)
 	set_process_input(auth) 
 	SD_Components.append_to(player, self)
 	if viewmodel_root == null:
-		viewmodel_root = $SourceViewModelRoot3d
+		viewmodel_root = $ViewModelRoot3d
 
 func _handle_bob_frequency() -> void:
 	if movement.is_crouched:
@@ -54,9 +56,11 @@ func _handle_bob_frequency() -> void:
 
 func _handle_viewmodel_offset() -> void:
 	if movement.is_crouched:
-		if camera.rotation.x < -0.75:
-			viewmodel_offset = crouch_offset
-			return
+		if not is_weapon_aim:
+			if camera.rotation.x < -0.75:
+				viewmodel_offset = crouch_offset
+				return
+	
 	
 	if player.velocity:
 		if movement.is_sprinting:
@@ -67,6 +71,10 @@ func _handle_viewmodel_offset() -> void:
 		viewmodel_offset = Vector3.ZERO
 
 func _process(delta: float) -> void:
+	var viewmodel_object:Node3D = viewmodel_root.get_object_instance()
+	if viewmodel_object is W_WeaponFirearm:
+		is_weapon_aim = viewmodel_object.is_using_alt
+	
 	_handle_bob_frequency()
 	_handle_viewmodel_offset()
 	
@@ -80,10 +88,11 @@ func _process(delta: float) -> void:
 	
 	var final_target = viewmodel_offset + bob_offset
 	
-	target_position = target_position.lerp(Vector3.ZERO, return_speed * delta)
-	current_position = current_position.lerp(target_position, snappiness * delta)
+	target_position = lerp(target_position, Vector3.ZERO, return_speed * delta)
+	current_position = lerp(current_position, target_position, snappiness * delta)
 	
-	position = final_target
+	
+	position = lerp(position, final_target, snappiness * delta)
 	position.z += current_position.z
 
 func apply() -> void:

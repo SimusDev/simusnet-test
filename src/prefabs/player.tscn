@@ -6,14 +6,14 @@
 [ext_resource type="Script" uid="uid://bbfomib82eucq" path="res://component/animation/CT_AnimationEventsCharacter.gd" id="2_cy1pa"]
 [ext_resource type="PackedScene" uid="uid://bb30gdt6q8ij" path="res://addons/simusdev/components/fp_controller/source_like/W_FPCSourceLikeCamera.tscn" id="3_j7lg1"]
 [ext_resource type="Script" uid="uid://dfok55wn4kqd2" path="res://component/player/CT_Playable.gd" id="3_rlttd"]
-[ext_resource type="Script" path="res://component/health/CT_DestroyOnDeath.gd" id="4_10txx"]
+[ext_resource type="Script" uid="uid://b0jl432eesuju" path="res://component/health/CT_DestroyOnDeath.gd" id="4_10txx"]
 [ext_resource type="PackedScene" uid="uid://be7h2lkvpihn3" path="res://addons/simusdev/components/fp_controller/source_like/W_FPCSourceLikeMovement.tscn" id="4_d5u4l"]
 [ext_resource type="Script" uid="uid://dpblk4cnhdonv" path="res://component/viewmodel/ViewModelRoot3D.gd" id="4_heeeb"]
 [ext_resource type="PackedScene" uid="uid://cmmrufl5ygbop" path="res://component/inventory/prefabs/inventory.tscn" id="4_wdfrp"]
 [ext_resource type="Script" uid="uid://dvlnhvdrc3dy6" path="res://component/hitbox/CT_Hitbox.gd" id="5_yyb7l"]
-[ext_resource type="Script" path="res://component/CameraShake.gd" id="8_k5oc5"]
+[ext_resource type="Script" uid="uid://c1pmyb3w7dbto" path="res://component/CameraShake.gd" id="8_k5oc5"]
 [ext_resource type="Script" uid="uid://bfvmikvjmhnii" path="res://component/entity/CT_EntityHead.gd" id="9_k5oc5"]
-[ext_resource type="Script" path="res://component/ViewModelSway.gd" id="9_xiv16"]
+[ext_resource type="Script" uid="uid://cth053db6jxla" path="res://component/ViewModelSway.gd" id="9_xiv16"]
 [ext_resource type="Script" uid="uid://diojix86rolea" path="res://component/interaction/CT_InteractionRay.gd" id="9_y56kl"]
 [ext_resource type="Script" uid="uid://cgpsyyx2x8kki" path="res://component/ui/MP_CanvasLayer.gd" id="10_wdfrp"]
 [ext_resource type="Script" uid="uid://dfsnjhyc2ld3c" path="res://addons/simusdev/components/fp_controller/source_like/W_FPCSourceLikeCrouch.gd" id="10_y56kl"]
@@ -66,26 +66,29 @@ metadata/_custom_type_script = "uid://d1jwapkumdp1u"
 [node name="Inventory" parent="." unique_id=1499312686 node_paths=PackedStringArray("node") instance=ExtResource("4_wdfrp")]
 node = NodePath("..")
 
-[node name="CT_HitboxHead" type="Area3D" parent="." unique_id=751971328 groups=["piercable"]]
+[node name="CT_HitboxHead" type="Area3D" parent="." unique_id=751971328 node_paths=PackedStringArray("health") groups=["piercable"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
 script = ExtResource("5_yyb7l")
+health = NodePath("../CT_Health")
 metadata/_custom_type_script = "uid://dvlnhvdrc3dy6"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CT_HitboxHead" unique_id=31555626]
 shape = SubResource("BoxShape3D_yyb7l")
 debug_color = Color(0.99094063, 0, 0.27785844, 0.41960785)
 
-[node name="CT_HitboxBody" type="Area3D" parent="." unique_id=1925169250]
+[node name="CT_HitboxBody" type="Area3D" parent="." unique_id=1925169250 node_paths=PackedStringArray("health")]
 script = ExtResource("5_yyb7l")
+health = NodePath("../CT_Health")
 metadata/_custom_type_script = "uid://dvlnhvdrc3dy6"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CT_HitboxBody" unique_id=2114861173]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.049999967, 0)
 shape = SubResource("BoxShape3D_xiv16")
 
-[node name="CT_HitboxLegs" type="Area3D" parent="." unique_id=1168561640]
+[node name="CT_HitboxLegs" type="Area3D" parent="." unique_id=1168561640 node_paths=PackedStringArray("health")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.7, 0)
 script = ExtResource("5_yyb7l")
+health = NodePath("../CT_Health")
 metadata/_custom_type_script = "uid://dvlnhvdrc3dy6"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CT_HitboxLegs" unique_id=1301651919]
