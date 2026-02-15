@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://cpwjwfhig01jj" path="res://addons/simusdev/audio/SD_SoundData3D.gd" id="1_x00lb"]
 [ext_resource type="AudioStream" uid="uid://c1atbryh2lw8r" path="res://audio/sfx/ricochet_1.mp3" id="2_urktf"]
 [ext_resource type="AudioStream" uid="uid://md2lltseb6dp" path="res://audio/sfx/ricochet_2.mp3" id="3_8uiia"]
-[ext_resource type="Script" path="res://addons/simusdev/audio/SD_SoundPackage3D.gd" id="3_urktf"]
+[ext_resource type="Script" uid="uid://b7fflt0r416ip" path="res://addons/simusdev/audio/SD_SoundPackage3D.gd" id="3_urktf"]
 [ext_resource type="Script" uid="uid://comfyg2dac6fj" path="res://component/object/sound/R_SoundObject.gd" id="4_8uiia"]
 [ext_resource type="AudioStream" uid="uid://dly51yafxwh2v" path="res://audio/sfx/ricochet_3.mp3" id="4_i5p0a"]
 

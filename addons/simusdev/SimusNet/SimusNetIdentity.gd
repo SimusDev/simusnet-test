@@ -116,8 +116,6 @@ func _tree_entered() -> void:
 	else:
 		_generated_unique_id = settings.get_unique_id()
 	
-	_list_by_generated_id[_generated_unique_id] = self
-	
 	if SimusNetConnection.is_server():
 		_set_ready()
 	
@@ -127,6 +125,7 @@ func _set_ready() -> void:
 		return
 	
 	_list_by_id[get_unique_id()] = self
+	_list_by_generated_id[_generated_unique_id] = self
 	
 	is_ready = true
 	on_ready.emit()
