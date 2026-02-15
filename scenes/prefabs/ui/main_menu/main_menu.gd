@@ -54,6 +54,7 @@ func _on_button_pressed(button: Button) -> void:
 			Network.connect_to_server_by_address(_connect_to_server_.text)
 			SD_ConsoleCommand.get_or_create("last_address").set_value(_connect_to_server_.text)
 			#Simus
+			_switch_buttons_screen("ScreenMain")
 			
 		"Load Game":
 			pass

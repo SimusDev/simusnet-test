@@ -273,6 +273,10 @@ node = NodePath("..")
 key = &"G_CONNECTING"
 metadata/_custom_type_script = "uid://buo415nhjgsrx"
 
+[node name="ServerList" parent="Popups" unique_id=823416535 instance=ExtResource("6_w676r")]
+visible = false
+layout_mode = 1
+
 [node name="ServerInfo" parent="Popups" unique_id=614010673 instance=ExtResource("5_f41q6")]
 visible = false
 layout_mode = 1
@@ -285,10 +289,6 @@ offset_left = -256.0
 offset_top = -256.0
 offset_right = 256.0
 offset_bottom = 256.0
-
-[node name="ServerList" parent="Popups" unique_id=823416535 instance=ExtResource("6_w676r")]
-visible = false
-layout_mode = 1
 
 [node name="version" type="Label" parent="." unique_id=1409942562]
 layout_mode = 1
