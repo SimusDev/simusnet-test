@@ -94,5 +94,7 @@ func create_server(port: int = -1, dedicated: bool = false) -> void:
 			return
 	if !server_broadcaster:
 		server_broadcaster = SimusNetServerBroadcaster.new()
-		add_child(server_broadcaster)
+	
 	server_broadcaster.serverInfo = server_info.get_last().get_data()
+	if not server_broadcaster.is_inside_tree():
+		add_child(server_broadcaster)

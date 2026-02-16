@@ -1,12 +1,85 @@
 [gd_scene format=3 uid="uid://557aowua8vot"]
 
 [ext_resource type="Script" uid="uid://cyk4nsuvdcjnk" path="res://scenes/prefabs/ui/main_menu/settings/keybindings/action.gd" id="1_6kamm"]
+[ext_resource type="Theme" uid="uid://ckrih4ao16ccg" path="res://src/themes/main.tres" id="2_nn6u4"]
 
-[node name="Action" type="Button" unique_id=743036358]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nn6u4"]
+bg_color = Color(0.2890625, 0.2890625, 0.2890625, 0.5764706)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5ps2v"]
+bg_color = Color(0.2890625, 0.2890625, 0.2890625, 0.5764706)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7a0nk"]
+
+[node name="Action" type="Panel" unique_id=1210858169]
 custom_minimum_size = Vector2(0, 48)
-offset_right = 600.0
-offset_bottom = 52.0
-focus_mode = 0
+offset_right = 576.0
+offset_bottom = 56.0
 mouse_filter = 1
-autowrap_mode = 3
 script = ExtResource("1_6kamm")
+
+[node name="LabelActionName" type="Label" parent="." unique_id=1028037028]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.013333334
+anchor_top = 0.14285715
+anchor_right = 0.33333337
+anchor_bottom = 0.85714287
+offset_right = -3.0517578e-05
+mouse_filter = 1
+theme = ExtResource("2_nn6u4")
+theme_override_styles/normal = SubResource("StyleBoxFlat_nn6u4")
+text = "sexsex ))"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Button" type="Button" parent="." unique_id=75508726]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.3472222
+anchor_top = 0.14285715
+anchor_right = 0.9861111
+anchor_bottom = 0.85714287
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Panel" type="Panel" parent="Button" unique_id=118284807]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_5ps2v")
+
+[node name="LabelActionKeys" type="RichTextLabel" parent="Button/Panel" unique_id=1982465702]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_override_styles/focus = SubResource("StyleBoxEmpty_7a0nk")
+text = "sSex;"
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1

@@ -45,4 +45,7 @@ layout_mode = 2
 
 [node name="SimusNetServerListener" type="Node" parent="." unique_id=426478954]
 script = ExtResource("2_tch4j")
+listen_port = null
+cleanup_interval = null
+server_timeout = null
 metadata/_custom_type_script = "uid://0d3k6g88vx7f"

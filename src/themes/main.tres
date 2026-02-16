@@ -71,11 +71,21 @@ corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 corner_detail = 5
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xx0da"]
+bg_color = Color(0.2890625, 0.2890625, 0.2890625, 0.5764706)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
 [resource]
+default_font = ExtResource("1_fuxyg")
 Button/font_sizes/font_size = 16
 Button/styles/disabled = SubResource("StyleBoxFlat_5fjx1")
 Button/styles/focus = SubResource("StyleBoxFlat_fuxyg")
 Button/styles/hover = SubResource("StyleBoxFlat_l2yc5")
 Button/styles/normal = SubResource("StyleBoxFlat_1j2wj")
 Button/styles/pressed = SubResource("StyleBoxFlat_dufae")
+HSlider/styles/grabber_area_highlight = null
 Label/fonts/font = ExtResource("1_fuxyg")
+Panel/styles/panel = SubResource("StyleBoxFlat_xx0da")

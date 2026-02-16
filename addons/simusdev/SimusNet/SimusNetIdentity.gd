@@ -136,8 +136,6 @@ func _set_ready() -> void:
 	if owner:
 		SimusNetVisibility._local_identity_create(self)
 	
-	print("ID:SEX ::" + str(_generated_unique_id))
-	
 	
 
 func _tree_exited() -> void:

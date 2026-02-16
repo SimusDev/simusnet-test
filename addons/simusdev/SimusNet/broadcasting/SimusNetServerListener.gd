@@ -56,7 +56,12 @@ func _process(_delta):
 			# Invalid data, ignore this packet
 			continue
 		
-		# Validate required fields
+		if server_info.has("image_data"):
+			var img = Image.new()
+			var error = img.load_jpg_from_buffer(server_info["image_data"])
+			if error == OK:
+				server_info["texture"] = ImageTexture.create_from_image(img)
+		
 		var required_fields = ["port", "name"]
 		var missing = false
 		for field in required_fields:
@@ -103,7 +108,6 @@ func _exit_tree():
 		_cleanup_timer.stop()
 
 
-# Optional: send a broadcast discovery request to actively solicit servers.
 func broadcast_discovery_request(broadcast_port: int = 4242, message: Variant = "DISCOVER"):
 	var broadcast_address = "255.255.255.255"  # or use network interface broadcast
 	var data = var_to_bytes(message)

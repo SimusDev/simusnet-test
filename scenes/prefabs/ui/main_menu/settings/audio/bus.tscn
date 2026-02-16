@@ -1,33 +1,26 @@
 [gd_scene format=3 uid="uid://bssvk8rek2k6"]
 
 [ext_resource type="Script" uid="uid://dc8wvjovoabtv" path="res://scenes/prefabs/ui/main_menu/settings/audio/bus.gd" id="1_l7m4c"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sn711"]
-content_margin_left = 0.0
-content_margin_top = 0.0
-content_margin_right = 0.0
-content_margin_bottom = 0.0
-bg_color = Color(0.20784314, 0.20784314, 0.20784314, 0.6901961)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
-corner_detail = 5
+[ext_resource type="Theme" uid="uid://ckrih4ao16ccg" path="res://src/themes/main.tres" id="1_wpfie"]
 
 [node name="Bus" type="Panel" unique_id=1965746248]
-custom_minimum_size = Vector2(428, 94)
-offset_right = 428.0
-offset_bottom = 94.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_sn711")
+custom_minimum_size = Vector2(432, 64)
+offset_right = 432.0
+offset_bottom = 64.0
+theme = ExtResource("1_wpfie")
 script = ExtResource("1_l7m4c")
 metadata/_edit_horizontal_guides_ = [44.0]
 
 [node name="Name" type="Label" parent="." unique_id=257692177]
 layout_mode = 1
 anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 0.55300003
-offset_bottom = 0.017997742
+anchor_left = 0.019000001
+anchor_top = 0.125
+anchor_right = 0.97200006
+anchor_bottom = 0.5
+offset_left = -0.20800018
+offset_right = 0.09597778
+offset_bottom = 0.040000916
 grow_horizontal = 2
 grow_vertical = 2
 text = "BUS.NAME"
@@ -37,19 +30,19 @@ vertical_alignment = 1
 [node name="HSlider" type="HSlider" parent="." unique_id=997448557]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.028
-anchor_top = 0.46800002
-anchor_right = 0.97400004
-anchor_bottom = 1.0
-offset_left = 0.016000748
-offset_top = 0.00799942
-offset_right = -93.33353
-offset_bottom = -11.538452
+anchor_left = 0.019000001
+anchor_top = 0.46500003
+anchor_right = 0.98100007
+anchor_bottom = 0.88400006
+offset_left = -0.20800018
+offset_right = -95.79199
+offset_bottom = -5.416008
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(1.3, 1.3)
 max_value = 1.0
-step = 0.0
+step = 0.01
 scrollable = false
 
 [connection signal="drag_ended" from="HSlider" to="." method="_on_h_slider_drag_ended"]
+[connection signal="value_changed" from="HSlider" to="." method="_on_h_slider_value_changed"]
