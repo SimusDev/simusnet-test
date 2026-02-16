@@ -139,9 +139,6 @@ func _set_ready() -> void:
 		SimusNetVisibility._local_identity_create(self)
 
 func _tree_exited() -> void:
-	if !is_ready:
-		await is_ready
-	
 	_destroy()
 
 static func _parse_and_clear_identities_with_no_owner() -> void:

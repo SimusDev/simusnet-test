@@ -5,6 +5,7 @@
 [ext_resource type="Resource" uid="uid://dd76mxp2nfucb" path="res://src/metadata_material/Concrete.tres" id="2_vuvbf"]
 [ext_resource type="Texture2D" uid="uid://dndfhyh82p3rv" path="res://src/textures/general/stone/0.png" id="3_1dl0r"]
 [ext_resource type="PackedScene" uid="uid://c0gcmsl4fll2x" path="res://scenes/prefabs/base_objects_tables.tscn" id="6_ypthj"]
+[ext_resource type="Script" uid="uid://blgj77kwvpiwc" path="res://component/level/CT_LevelTransition3D.gd" id="8_6rygw"]
 [ext_resource type="Script" uid="uid://fc6kpuv5syvv" path="res://component/level/CT_SpawnPoint3D.gd" id="13_1dl0r"]
 [ext_resource type="PackedScene" uid="uid://c04sd4mj5rmef" path="res://scenes/prefabs/lighting/omni_light_3d.tscn" id="16_jk8u2"]
 
@@ -37,7 +38,11 @@ uv1_triplanar = true
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jk8u2"]
 emission_enabled = true
 emission = Color(1, 1, 1, 1)
-emission_energy_multiplier = 1.5416944
+emission_energy_multiplier = 3.0833888
+
+[sub_resource type="BoxMesh" id="BoxMesh_p870i"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hxoi0"]
 
 [node name="MainLevel" type="Node3D" unique_id=658119017]
 
@@ -126,8 +131,8 @@ mesh = SubResource("BoxMesh_n0uqs")
 surface_material_override/0 = SubResource("StandardMaterial3D_jk8u2")
 
 [node name="OmniLight3D" parent="CubeLight" unique_id=2105551723 instance=ExtResource("16_jk8u2")]
-light_energy = 1.5416944
-light_indirect_energy = 1.5416944
+light_energy = 3.0833888
+light_indirect_energy = 3.0833888
 
 [node name="cLampComponent" parent="CubeLight/OmniLight3D" index="0" unique_id=1203643786 node_paths=PackedStringArray("MeshInstances")]
 Lit = true
@@ -156,5 +161,19 @@ font_size = 128
 
 [node name="base_objects_tables" parent="." unique_id=1906786045 instance=ExtResource("6_ypthj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.02505, 0.7, -0.31052685)
+
+[node name="CT_LevelTransition3D" type="Area3D" parent="." unique_id=1672597804]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.286501, 1.9279871, -12.081857)
+monitorable = false
+script = ExtResource("8_6rygw")
+level = "uid://bq60pep62nfs6"
+spawn_point3d_name = &"player"
+metadata/_custom_type_script = "uid://blgj77kwvpiwc"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CT_LevelTransition3D" unique_id=1110481197]
+mesh = SubResource("BoxMesh_p870i")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CT_LevelTransition3D" unique_id=585202740]
+shape = SubResource("BoxShape3D_hxoi0")
 
 [editable path="CubeLight/OmniLight3D"]

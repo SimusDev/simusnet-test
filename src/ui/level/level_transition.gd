@@ -7,22 +7,26 @@ static var _instance: UI_LevelTransition
 
 @onready var _logger: SD_Logger = SD_Logger.new(self)
 
+var _level: R_Level
+
 func _ready() -> void:
 	_instance = self
 
 func ___set_level(level: R_Level) -> void:
+	_level = level
+	
 	if !level:
 		_logger.debug("set_level(): level is null!", SD_ConsoleCategories.ERROR)
 		return
-	
-	
 
 static func set_level(level: R_Level) -> UI_LevelTransition:
 	_instance.___set_level(level)
 	return _instance
 
 func _on_yes_pressed() -> void:
-	pass # Replace with function body.
+	var player: CT_Playable = CT_Playable.get_local()
+	if player:
+		player.get_level().get_handler().request_transition_to_level(_level)
 
 func _on_no_pressed() -> void:
 	hide()

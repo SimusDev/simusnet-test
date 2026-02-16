@@ -48,6 +48,9 @@ func async_clear_all_children() -> void:
 		await i.tree_exited
 	
 
+static func find_above(from: Node) -> LevelGroup:
+	return SD_ECS.node_find_above_by_script(from, LevelGroup)
+
 func _on_child_exiting_tree(child: Node) -> void:
 	pass
 

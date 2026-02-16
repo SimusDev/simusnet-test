@@ -44,6 +44,12 @@ func _input(event: InputEvent) -> void:
 static func get_list() -> Array[CT_Playable]:
 	return _list
 
+static func get_by_peer_id(id: int) -> CT_Playable:
+	for i in get_list():
+		if i.get_peer_id() == id:
+			return i
+	return null
+
 static func get_local() -> CT_Playable:
 	if !is_instance_valid(_local):
 		_local = null
