@@ -47,6 +47,8 @@ func _initialize() -> void:
 	if !is_instance_valid(settings):
 		settings = SimusNetIdentitySettings.new()
 	
+	SimusNetEvents.event_disconnected.listen(_deinitialize_dynamic)
+	
 	_net_settings = SimusNetSettings.get_or_create()
 	
 	if SimusNetConnection.is_server():
