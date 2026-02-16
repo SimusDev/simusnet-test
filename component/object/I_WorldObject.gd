@@ -71,7 +71,11 @@ static func deserialize(data: Dictionary, object: Object, level: LevelInstance) 
 	instance._instance.set_meta(META, instance)
 	return instance
 
-static func find_in(node: Node) -> I_WorldObject:
+static func find_in(node: Node, recursive: bool = false) -> I_WorldObject:
 	if node.has_meta(META):
 		return node.get_meta(META)
+	
+	if recursive:
+		for child in node.get_children():
+			return find_in(node)
 	return null

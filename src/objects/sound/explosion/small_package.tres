@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cpwjwfhig01jj" path="res://addons/simusdev/audio/SD_SoundData3D.gd" id="1_xerm6"]
 [ext_resource type="AudioStream" uid="uid://b0r8sn3rgt8gt" path="res://audio/hl2/explosion/explode_close_power_1_1.ogg" id="2_8dnnx"]
-[ext_resource type="Script" path="res://addons/simusdev/audio/SD_SoundPackage3D.gd" id="2_sfkfy"]
+[ext_resource type="Script" uid="uid://b7fflt0r416ip" path="res://addons/simusdev/audio/SD_SoundPackage3D.gd" id="2_sfkfy"]
 [ext_resource type="AudioStream" uid="uid://c6ppa3k0267ld" path="res://audio/hl2/explosion/explode_close_power_1_2.ogg" id="3_ign28"]
 [ext_resource type="AudioStream" uid="uid://bb5tttjicqry3" path="res://audio/hl2/explosion/explode_close_power_1_3.ogg" id="4_0yysk"]
 [ext_resource type="AudioStream" uid="uid://bv6d3xv2dqp2t" path="res://audio/hl2/explosion/explode_medium_power_1_1.ogg" id="5_6jthp"]

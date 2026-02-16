@@ -14,6 +14,9 @@ var _handler: LevelHandler
 var _spawnpoints: Array[CT_SpawnPoint3D] = []
 var _players: Array[CT_Playable] = []
 
+func get_handler() -> LevelHandler:
+	return _handler
+
 func _player_entered(player: CT_Playable) -> void:
 	_players.append(player)
 	_handler._player_entered(player, self)
@@ -50,6 +53,12 @@ static func get_global_position_from(from: Variant) -> Vector3:
 func get_spawnpoints() -> Array[CT_SpawnPoint3D]:
 	return _spawnpoints
 
+func get_spawnpoint_by_name(spawn: StringName) -> CT_SpawnPoint3D:
+	for i in get_spawnpoints():
+		if i.name == spawn:
+			return i
+	return null
+
 func _ready() -> void:
 	position = _resource.position
 	
@@ -75,6 +84,12 @@ func _ready() -> void:
 		func(instance: R_GameStateNodeInstance):
 			_read_and_spawn_objects(instance.read("objects", {}))
 	)
+
+func _enter_tree() -> void:
+	_handler._levels[_resource] = self
+
+func _exit_tree() -> void:
+	_handler._levels.erase(_resource)
 
 func _instantiate_file_prefabs(prefabs: Array[String], to: Node) -> void:
 	for file in prefabs:
@@ -162,6 +177,22 @@ func get_local_group(group: String) -> LevelGroup:
 
 func get_resource() -> R_Level:
 	return _resource
+
+func teleport_entity(entity: Node3D) -> void:
+	if !SimusNetConnection.is_server():
+		_logger.debug("teleport_entity(): only server can teleport entities. %s" % entity, SD_ConsoleCategories.ERROR)
+		return
+	
+	var level_group: LevelGroup = LevelGroup.find_above(entity)
+	if !level_group:
+		_logger.debug("teleport_entity(): cant find level group above %s." % entity, SD_ConsoleCategories.ERROR)
+		return
+	
+	if level_group.get_level() == self:
+		return
+	
+	var teleport_to: LevelGroup = get_networked_group(level_group.name)
+	entity.reparent(teleport_to)
 
 static func find_above(from: Node) -> LevelInstance:
 	return SD_ECS.node_find_above_by_script(from, LevelInstance)

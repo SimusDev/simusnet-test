@@ -9,12 +9,26 @@ signal level_changed
 var _registry: Array[R_Level]
 var current_level:R_Level
 
+var _levels: Dictionary[R_Level, LevelInstance] = {}
+
+func get_levels_dictionary() -> Dictionary[R_Level, LevelInstance]:
+	return _levels
+
+func get_level_by_resource(resource: R_Level) -> LevelInstance:
+	return _levels.get(resource)
+
 func _ready() -> void:
 	SimusNetIdentity.register(self)
 	
 	SimusNetRPC.register(
 		[
 			_client_receive_level
+		], SimusNetRPCConfig.new().flag_mode_server_only().flag_serialization()
+	)
+	
+	SimusNetRPC.register(
+		[
+			_request_transition_rpc
 		], SimusNetRPCConfig.new().flag_mode_server_only().flag_serialization()
 	)
 	
@@ -42,6 +56,8 @@ func _client_receive_level(resource: R_Level) -> void:
 		level_holder.add_child(level_instance)
 
 func _handle() -> void:
+	R_Level._reference_list.clear()
+	
 	for directory:String in directories:
 		for file in SD_FileSystem.get_all_files_with_extension_from_directory(base_path.path_join(directory), SD_FileExtensions.EC_RESOURCE):
 			var resource:Resource = load(file)
@@ -55,23 +71,19 @@ func _exit_tree() -> void:
 		level.unregister()
 		_registry.erase(level)
 
-func clear(safe:bool = true) -> void:
-	if safe:
-		if not is_instance_valid(level_holder):
-			return
-	await SD_Nodes.async_clear_all_children(level_holder)
-
-func change_level(to:R_Level) -> void:
-	if not is_instance_valid(level_holder):
+func request_transition_to_level(level: R_Level) -> void:
+	var player: CT_Playable = CT_Playable.get_local()
+	if !player:
 		return
-	await clear(false)
-	current_level = to
-	if current_level:
-		var level_instance: LevelInstance = LevelInstance._create(current_level)
-		level_holder.add_child(level_instance)
-	level_changed.emit()
+	
+	SimusNetRPC.invoke_on_server(_request_transition_rpc, level)
 
-func change_level_by_code(level_code:StringName) -> void:
-	for ref in R_Level.get_reference_list():
-		if ref.code == level_code:
-			change_level(ref)
+func _request_transition_rpc(level: R_Level) -> void:
+	if !level:
+		return
+	
+	var playable: CT_Playable = CT_Playable.get_by_peer_id(SimusNetRemote.sender_id)
+	if !playable:
+		return
+	
+	

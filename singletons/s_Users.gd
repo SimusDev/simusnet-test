@@ -10,7 +10,7 @@ func _ready() -> void:
 	SimusNetEvents.event_peer_disconnected.listen(_on_peer_disconnected, true)
 	
 	SimusNetRPC.register([_send], SimusNetRPCConfig.new().
-	flag_set_channel(Network.CHANNEL_USERS).flag_mode_any_peer())
+	flag_set_channel(Network.CHANNEL_USERS).flag_mode_to_server())
 	SimusNetRPC.register([_receive], SimusNetRPCConfig.new().
 	flag_set_channel(Network.CHANNEL_USERS).flag_mode_server_only())
 
