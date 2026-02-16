@@ -4,7 +4,6 @@ signal level_changed
 
 @export var base_path:String = "res://"
 @export var directories:PackedStringArray
-@export var level_at_start:R_Level
 @export var level_holder:Node
 
 var _registry: Array[R_Level]
@@ -15,36 +14,32 @@ func _ready() -> void:
 	
 	SimusNetRPC.register(
 		[
-			_send,
-			_request_clear_level_rpc,
-		],
-		SimusNetRPCConfig.new().flag_mode_to_server()
+			_client_receive_level
+		], SimusNetRPCConfig.new().flag_mode_server_only().flag_serialization()
 	)
-	SimusNetRPC.register(
-		[_receive],
-		SimusNetRPCConfig.new()
-			.flag_mode_server_only()
-			.flag_serialization()
-	)
+	
 	_handle()
 	
-	if level_at_start and SimusNetConnection.is_server():
-		change_level(level_at_start)
-	
-	if not SimusNetConnection.is_server():
-		SimusNetRPC.invoke_on_server(_send)
-	
-	
+	for resource in _registry:
+		if SimusNetConnection.is_server():
+			var level_instance: LevelInstance = LevelInstance._create(resource)
+			level_instance._handler = self
+			level_holder.add_child(level_instance)
 
-func _send() -> void:
-	SimusNetRPC.invoke_on_sender(
-		_receive,
-		current_level
-	)
+func _player_entered(playable: CT_Playable, level: LevelInstance) -> void:
+	if SimusNetConnection.is_server():
+		if playable.get_peer_id() != SimusNet.SERVER_ID:
+			SimusNetRPC.invoke_on(playable.get_peer_id(), _client_receive_level, level.get_resource())
 
-func _receive(_current_level:R_Level) -> void:
-	current_level = _current_level
-	change_level(current_level)
+func _player_exited(playable: CT_Playable, level: LevelInstance) -> void:
+	pass
+
+func _client_receive_level(resource: R_Level) -> void:
+	if SimusNetConnection.is_client():
+		await SD_Nodes.async_clear_all_children(level_holder)
+		var level_instance: LevelInstance = LevelInstance._create(resource)
+		level_instance._handler = self
+		level_holder.add_child(level_instance)
 
 func _handle() -> void:
 	for directory:String in directories:
@@ -80,16 +75,3 @@ func change_level_by_code(level_code:StringName) -> void:
 	for ref in R_Level.get_reference_list():
 		if ref.code == level_code:
 			change_level(ref)
-
-@onready var _cmd_clear: SD_ConsoleCommand = SD_ConsoleCommand.get_or_create("level.clear").connect_executed_signal(request_clear_level)
-func request_clear_level() -> void:
-	var playable: CT_Playable = CT_Playable.get_local()
-	if playable:
-		SimusNetRPC.invoke_on_server(_request_clear_level_rpc, playable.node)
-
-func _request_clear_level_rpc(entity: Node3D) -> void:
-	if !is_instance_valid(entity):
-		return
-	
-	var level: LevelInstance = LevelInstance.find_above(entity)
-	level.clear_objects()

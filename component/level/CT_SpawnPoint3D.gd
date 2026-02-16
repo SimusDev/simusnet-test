@@ -60,6 +60,7 @@ func _ready() -> void:
 	
 	if not Engine.is_editor_hint():
 		return
+	
 	if not view_mesh:
 		view_mesh = load("res://src/meshes/sp_box_mesh.tres")
 	

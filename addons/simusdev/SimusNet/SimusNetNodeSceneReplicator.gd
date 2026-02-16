@@ -24,8 +24,6 @@ func get_channel() -> int:
 	return SimusNetChannels.BUILTIN.SCENE_REPLICATION
 
 func _ready() -> void:
-	SimusNetNodeAutoVisible.register_or_get(self)
-	
 	SimusNetVisibility.set_method_always_visible(
 		[_send, _receive]
 	)
@@ -153,7 +151,12 @@ func _receive(packet: Variant) -> void:
 		if root.has_node(str(i.name)):
 			await root.get_node(str(i.name)).tree_exited
 		
-		await get_tree().process_frame
+		if get_tree():
+			await get_tree().process_frame
+		
+		if root.has_node(str(i.name)):
+			i.queue_free()
+			continue
 		
 		root.add_child(i)
 
