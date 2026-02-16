@@ -227,7 +227,7 @@ func _replicate_client(packet: PackedByteArray) -> void:
 	var data: Dictionary = SimusNetDecompressor.parse(packet)
 	for identity_id in data:
 		var identity: SimusNetIdentity = SimusNetIdentity.try_deserialize_from_variant(identity_id)
-		if identity:
+		if identity and identity.owner:
 			for s_p in data[identity_id]:
 				var property: String = try_deserialize_from_variant(s_p)
 				if is_instance_valid(identity.owner):
@@ -238,6 +238,8 @@ func _replicate_client(packet: PackedByteArray) -> void:
 					var value: Variant = SimusNetDeserializer.parse(data[identity_id][s_p], config._serialize)
 					SimusNetProfiler._instance._put_var_traffic(var_to_bytes(data[identity_id][s_p]).size(), identity, property, true)
 					identity.owner.set(property, value)
+		else:
+			logger.debug_error("_replicate_client() cant find identity by %s ID" % identity_id)
 
 @rpc("authority", "call_remote", "reliable", SimusNetChannels.BUILTIN.VARS_RELIABLE)
 func _replicate_client_recieve(packet: PackedByteArray) -> void:

@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bf6yqsfyrvv86" path="res://scenes/prefabs/player_ui/player_ui.gd" id="1_nask7"]
 [ext_resource type="PackedScene" uid="uid://7snekvg028ei" path="res://src/ui/spawner/spawner.tscn" id="2_e6fbb"]
+[ext_resource type="PackedScene" uid="uid://dqf7e3x3ylhha" path="res://src/ui/level/level_transition.tscn" id="3_75edr"]
 [ext_resource type="PackedScene" uid="uid://dbhqs4tv52evh" path="res://addons/simusdev/SimusNet/profiler/SimpleProfiler.tscn" id="3_m3nbl"]
 [ext_resource type="PackedScene" uid="uid://dipfkk5xnx8g" path="res://src/ui/chat/voice_icon.tscn" id="4_e6fbb"]
 
@@ -28,6 +29,8 @@ offset_left = 0.519989
 offset_top = 0.0399971
 offset_right = -0.52001953
 offset_bottom = -0.040039063
+
+[node name="LevelTransition" parent="front" unique_id=938803892 instance=ExtResource("3_75edr")]
 
 [node name="SimpleProfiler" parent="." unique_id=605018193 instance=ExtResource("3_m3nbl")]
 layout_mode = 1

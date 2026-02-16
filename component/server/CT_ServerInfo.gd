@@ -11,6 +11,7 @@ const INFO_KEYS: Dictionary = {
 	"description": "My Description.",
 	"image": "icon.svg",
 	"web_site": "https://contract.gosuslugi.ru/",
+	"max_players": 32,
 }
 
 signal on_update_received()
@@ -59,12 +60,17 @@ func reload_config() -> void:
 	if !is_instance_valid(_image):
 		return
 	
+	_image.resize(256, 256)
 	_image.compress(Image.COMPRESS_ETC2)
 	
+
+var _request_time: int = 0
 
 func request_update() -> CT_ServerInfo:
 	if !SimusNetConnection.is_active():
 		return
+	
+	_request_time = Time.get_ticks_msec()
 	
 	SimusNetRPC.invoke_on_server(_request_update_rpc)
 	return self
@@ -75,13 +81,24 @@ func _request_update_rpc() -> void:
 		if _config.has_section_key("info", key):
 			data.set(key, _config.get_value("info", key))
 	
+	var p: PackedStringArray
+	for user in CT_User.get_list():
+		p.append(user.get_nickname())
+	
+	data._players = p
+	
 	if !data.is_empty():
 		SimusNetRPC.invoke_on_sender(_receive_update_rpc, data, _image)
 
 func _receive_update_rpc(data: Dictionary, image: Image) -> void:
 	var info: R_ServerInfo = R_ServerInfo.new()
+	info._ping = Time.get_ticks_msec() - _request_time
+	info._max_players = data.max_players
 	info._image = ImageTexture.create_from_image(image)
 	info._cfg_data = data
 	_last = info
+	
+	info._players = data._players
+	
 	on_update_received.emit()
 	

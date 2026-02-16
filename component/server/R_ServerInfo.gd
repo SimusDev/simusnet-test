@@ -3,7 +3,7 @@ class_name R_ServerInfo
 
 var _cfg_data: Dictionary = {}
 
-var _players: Array[String]
+var _players: PackedStringArray
 var _ping: int = 0
 var _max_players: int = 78
 
@@ -21,7 +21,7 @@ func get_image() -> ImageTexture:
 func get_ping() -> int:
 	return _ping
 
-func get_players() -> Array[String]:
+func get_players() -> PackedStringArray:
 	return _players
 
 func get_max_players() -> int:

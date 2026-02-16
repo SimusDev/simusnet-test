@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://c1nmtx0bjn5lf" path="res://src/ui/character/location.gd" id="1_c55a1"]
 [ext_resource type="ButtonGroup" uid="uid://dkq2jhyriq27w" path="res://src/ui/character/locations_button_group.tres" id="1_kliii"]
-[ext_resource type="Texture2D" uid="uid://bum2ihiviu62" path="res://src/levels/main_level.png" id="3_xm2aj"]
+[ext_resource type="Texture2D" uid="uid://bum2ihiviu62" path="res://src/levels/icons/main_level.png" id="3_xm2aj"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_jqmi1"]
 font_size = 20

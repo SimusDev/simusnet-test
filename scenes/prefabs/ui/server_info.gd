@@ -37,7 +37,7 @@ func _on_update_received() -> void:
 	
 	_description.text = info.get_description()
 	_name.text = info.get_name()
-	_user_count.text = "%sms" % info.get_ping()
+	_ping.text = "%sms" % info.get_ping()
 	_user_count.text = "%s/%s" % [ info.get_players().size(), info.get_max_players() ]
 	
 	server_uri = info.get_website()

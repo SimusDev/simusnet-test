@@ -2,17 +2,27 @@
 extends Node
 class_name CT_Playable
 
-@export var node: Node3D
+@export var node: Node3D : get = get_playable_node
 
 static var _list: Array[CT_Playable] = []
 
 static var _local: CT_Playable
 
 @export_group("VoiceChat", "voice_chat")
-@export var _voice: SimusNetVoiceChat
+@export var _voice: CT_VoiceChat
 @export var voice_chat_output: AudioStreamPlayer3D
 
+var _level: LevelInstance
+
 signal on_voice_chat_status_change(status: bool)
+
+func get_level() -> LevelInstance:
+	return _level
+
+func get_playable_node() -> Node3D:
+	if is_instance_valid(node):
+		return node
+	return null
 
 func get_voice_chat_status() -> bool:
 	if _voice:
@@ -50,7 +60,7 @@ func _ready() -> void:
 	
 	if voice_chat_output:
 		if !is_instance_valid(_voice):
-			_voice = SimusNetVoiceChat.new()
+			_voice = CT_VoiceChat.new()
 			_voice.name = "voice"
 			_voice._output_player = voice_chat_output
 			_voice._muted = true
@@ -75,6 +85,8 @@ static func find_in(target: Node) -> CT_Playable:
 func _enter_tree() -> void:
 	if !node:
 		node = get_parent()
+	
+	_level = LevelInstance.find_above(self)
 	
 	_list.append(self)
 

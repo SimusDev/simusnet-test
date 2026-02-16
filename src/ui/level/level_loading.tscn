@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://cu3cotwp6e47q"]
+
+[ext_resource type="Script" uid="uid://c6jumpnnh45wv" path="res://src/ui/level/level_loading.gd" id="1_vl2x0"]
+
+[node name="LevelLoading" type="Control" unique_id=129653217]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_vl2x0")
+
+[node name="ProgressBar" type="ProgressBar" parent="." unique_id=1811792339]
+layout_mode = 0
+offset_left = 315.0
+offset_top = 364.0
+offset_right = 870.0
+offset_bottom = 428.0

@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bum2ihiviu62"
-path.s3tc="res://.godot/imported/main_level.png-3da8bf74c54b7b2af84a6d327e9ce72f.s3tc.ctex"
+path.s3tc="res://.godot/imported/main_level.png-b854480b9ab9e65d8df023b62a053e0f.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://src/levels/main_level.png"
-dest_files=["res://.godot/imported/main_level.png-3da8bf74c54b7b2af84a6d327e9ce72f.s3tc.ctex"]
+source_file="res://src/levels/icons/main_level.png"
+dest_files=["res://.godot/imported/main_level.png-b854480b9ab9e65d8df023b62a053e0f.s3tc.ctex"]
 
 [params]
 
