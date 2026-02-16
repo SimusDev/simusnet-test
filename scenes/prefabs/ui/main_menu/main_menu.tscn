@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://gkpe7xci8on3" path="res://scenes/prefabs/ui/main_menu/main_menu.gd" id="1_026n6"]
 [ext_resource type="Script" uid="uid://dotjiengj0hqs" path="res://addons/simusdev/ui/SD_UINodeExitButton.gd" id="2_da2ht"]
 [ext_resource type="PackedScene" uid="uid://clinvld10jut" path="res://scenes/prefabs/ui/main_menu/settings/settings.tscn" id="3_5h2bh"]
-[ext_resource type="Script" uid="uid://buo415nhjgsrx" path="res://addons/simusdev/localization/SD_NodeLocalizatorProperty.gd" id="4_4hkdk"]
 [ext_resource type="PackedScene" uid="uid://prodeloqtcwu" path="res://scenes/prefabs/ui/server_info.tscn" id="5_f41q6"]
 [ext_resource type="PackedScene" uid="uid://bohfn8vx8tq8p" path="res://scenes/prefabs/ui/server_list.tscn" id="6_w676r"]
 
@@ -56,15 +55,6 @@ expand_margin_left = 2.0
 expand_margin_top = 2.0
 expand_margin_right = 2.0
 expand_margin_bottom = 2.0
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jm523"]
-content_margin_bottom = 4.0
-bg_color = Color(0.1015625, 0.1015625, 0.1015625, 0.6431373)
-corner_radius_top_left = 5
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
-expand_margin_top = 4.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wmaw6"]
 bg_color = Color(0.5267931, 1.6544946e-06, 0, 1)
@@ -246,36 +236,6 @@ offset_bottom = 0.079956055
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Connecting" type="Control" parent="Popups" unique_id=42367407]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Label" type="Label" parent="Popups/Connecting" unique_id=1312538253]
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -21.0
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_styles/normal = SubResource("StyleBoxFlat_jm523")
-text = "Connecting to the server"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Localizator" type="Node" parent="Popups/Connecting/Label" unique_id=1462898981 node_paths=PackedStringArray("node")]
-process_mode = 4
-script = ExtResource("4_4hkdk")
-node = NodePath("..")
-key = &"G_CONNECTING"
-metadata/_custom_type_script = "uid://buo415nhjgsrx"
-
 [node name="ServerList" parent="Popups" unique_id=823416535 instance=ExtResource("6_w676r")]
 visible = false
 layout_mode = 1
@@ -304,7 +264,7 @@ offset_right = 85.79553
 offset_bottom = 9.083132
 rotation = 0.7853982
 theme_override_styles/normal = SubResource("StyleBoxFlat_wmaw6")
-text = "v0.01-alpha"
+text = "v0.05-alpha"
 label_settings = SubResource("LabelSettings_wmaw6")
 horizontal_alignment = 1
 vertical_alignment = 1

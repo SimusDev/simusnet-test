@@ -4,7 +4,7 @@ class_name SimusNetVoiceChat
 
 @export var _muted : bool = true
 
-@export var input_volume_threshold : float = 0.01
+@export var input_volume_threshold : float = 0.05
 ## The audio quality. Not recommended to go above Medium.
 @export_enum("Very High", "High", "Medium", "Low") var audio_quality : int = 2 : 
 	set(value):
@@ -48,6 +48,13 @@ func set_muted(value: bool) -> void:
 func is_muted() -> bool:
 	return _muted
 
+func get_max_distance() -> float:
+	if _output_player is AudioStreamPlayer2D:
+		return _output_player.max_distance
+	elif _output_player is AudioStreamPlayer3D:
+		return _output_player.max_distance
+	return 0.0
+
 func _ready() -> void:
 	if Engine.is_editor_hint():
 		set_process(false)
@@ -60,18 +67,22 @@ func _ready() -> void:
 	)
 	
 	_configure_bus()
+	set_process(SimusNet.is_network_authority(self))
 	
 	if _output_player == null:
-		push_error("Output Node is null.")
-		set_process(false)
 		return
 	
+	_configure_auto()
+
+
+func _configure_auto() -> void:
 	if SimusNet.is_network_authority(self):
 		_configure_input()
 	else:
 		_configure_output()
-	
-	set_process(SimusNet.is_network_authority(self))
+
+func is_all_configured() -> bool:
+	return _output_configured and _input_configured
 
 #func _owner_changed(peer : int) -> void:
 	#if SimusNet.is_network_authority(self):
@@ -80,7 +91,13 @@ func _ready() -> void:
 		#_configure_output()
 
 func _process(delta: float) -> void:
-	if _input_configured and _record_effect.get_frames_available() > 0:
+	if Engine.is_editor_hint():
+		return
+	
+	if not _input_configured:
+		return
+	
+	if _record_effect.get_frames_available() > 0:
 		if _muted:
 			_record_effect.clear_buffer()
 			return
@@ -102,9 +119,11 @@ func _process(delta: float) -> void:
 				_downsample_eighth(recording_data, data)
 				sr /= 8.0
 		
+		
 		var max_amp : float = 0.0
 		for i in range(data.size()):
 			max_amp = max(abs(data[i]), max_amp)
+		
 		
 		if max_amp > input_volume_threshold:
 			for peer in SimusNetConnection.get_connected_peers():
@@ -205,6 +224,7 @@ func _configure_output() -> void:
 
 func set_output_player(p : Node) -> void:
 	_output_player = p
+	_configure_auto()
 	update_configuration_warnings()
 
 func _get_property_list() -> Array:
@@ -235,7 +255,7 @@ func is_visible_for_peer(peer: int) -> bool:
 func _get_configuration_warnings() -> PackedStringArray:
 	var warnings : PackedStringArray = []
 	
-	warnings.append("The VoiceChat Node is experimental. Please report any issues on GitHub.")
+	#warnings.append("The VoiceChat Node is experimental. Please report any issues on GitHub.")
 	
 	if _output_player == null:
 		warnings.append("No output AudioStreamPlayer assigned.")

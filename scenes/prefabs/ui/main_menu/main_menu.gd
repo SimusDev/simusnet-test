@@ -39,7 +39,12 @@ func _switch_buttons_screen(_name: String) -> void:
 func _switch_popup(_name: String, hide_prev:bool = false) -> void:
 	if hide_prev:
 		SD_Nodes.set_children_visibility(_popups_container, false)
+	
 	_popups_container.get_node(_name).visible = true
+
+func _hide_popups() -> void:
+	for child in _popups_container.get_children():
+		child.visible = false
 
 func _on_button_pressed(button: Button) -> void:
 	match button.name:
@@ -66,3 +71,4 @@ func _on_button_pressed(button: Button) -> void:
 			_switch_popup("ServerInfo")
 		"BackToMain":
 			_switch_buttons_screen("ScreenMain")
+			_hide_popups()

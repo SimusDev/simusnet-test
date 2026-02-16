@@ -62,10 +62,10 @@ func _ready() -> void:
 		if !is_instance_valid(_voice):
 			_voice = CT_VoiceChat.new()
 			_voice.name = "voice"
-			_voice._output_player = voice_chat_output
 			_voice._muted = true
 			_voice.set_multiplayer_authority(get_multiplayer_authority())
 			add_child(_voice)
+		_voice.set_output_player(voice_chat_output)
 	else:
 		printerr(get_path(), ": ", "voice chat is not configured.")
 	

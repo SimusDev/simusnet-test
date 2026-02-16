@@ -40,7 +40,7 @@ Shortcuts/density_decrement=Object(Shortcut,"resource_local_to_scene":false,"res
 [application]
 
 config/name="simusnet-test"
-config/version="v0-01a"
+config/version="v0-05a"
 run/main_scene="uid://bqy2338pry4q6"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"

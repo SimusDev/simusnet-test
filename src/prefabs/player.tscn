@@ -6,7 +6,7 @@
 [ext_resource type="Script" uid="uid://bbfomib82eucq" path="res://component/animation/CT_AnimationEventsCharacter.gd" id="2_cy1pa"]
 [ext_resource type="PackedScene" uid="uid://bb30gdt6q8ij" path="res://addons/simusdev/components/fp_controller/source_like/W_FPCSourceLikeCamera.tscn" id="3_j7lg1"]
 [ext_resource type="Script" uid="uid://dfok55wn4kqd2" path="res://component/player/CT_Playable.gd" id="3_rlttd"]
-[ext_resource type="Script" path="res://component/health/CT_DestroyOnDeath.gd" id="4_10txx"]
+[ext_resource type="Script" uid="uid://b0jl432eesuju" path="res://component/health/CT_DestroyOnDeath.gd" id="4_10txx"]
 [ext_resource type="PackedScene" uid="uid://be7h2lkvpihn3" path="res://addons/simusdev/components/fp_controller/source_like/W_FPCSourceLikeMovement.tscn" id="4_d5u4l"]
 [ext_resource type="Script" uid="uid://dpblk4cnhdonv" path="res://component/viewmodel/ViewModelRoot3D.gd" id="4_heeeb"]
 [ext_resource type="PackedScene" uid="uid://cmmrufl5ygbop" path="res://component/inventory/prefabs/inventory.tscn" id="4_wdfrp"]
@@ -60,8 +60,11 @@ _voice = NodePath("CT_VoiceChat")
 voice_chat_output = NodePath("../Camera/voice")
 metadata/_custom_type_script = "uid://dfok55wn4kqd2"
 
-[node name="CT_VoiceChat" type="Node" parent="CT_Playable" unique_id=276629472]
+[node name="CT_VoiceChat" type="Node" parent="CT_Playable" unique_id=151902650 node_paths=PackedStringArray("_output_player")]
 script = ExtResource("6_5kqjh")
+input_volume_threshold = 0.1
+spatial_mode = 2
+_output_player = NodePath("../../Camera/voice")
 metadata/_custom_type_script = "uid://cris7ktsgfk7j"
 
 [node name="SimusNetTransform" type="Node" parent="." unique_id=1897966060 node_paths=PackedStringArray("node")]
@@ -130,6 +133,7 @@ type = 2
 script = ExtResource("9_xiv16")
 
 [node name="voice" type="AudioStreamPlayer3D" parent="Camera" unique_id=2008636301]
+max_distance = 50.0
 
 [node name="CT_EntityHead" type="Node" parent="Camera" unique_id=335382267 node_paths=PackedStringArray("_entity", "_eyes")]
 script = ExtResource("9_k5oc5")
