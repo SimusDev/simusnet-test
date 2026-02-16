@@ -7,7 +7,12 @@ script = ExtResource("1_xo5mr")
 DATA = "[en]
 G_SPAWN = \"Spawn\"
 G_CONNECTING = \"Connecting to the server\"
+YES = \"Yes\"
+NO = \"No\"
+
 [ru]
 G_SPAWN = \"Спавн\"
-G_CONNECTING = \"Подключение к серверу\""
+G_CONNECTING = \"Подключение к серверу\"
+YES = \"Да\"
+NO = \"Нет\""
 metadata/_custom_type_script = "uid://ta36ebtpvxq7"

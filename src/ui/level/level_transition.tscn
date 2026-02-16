@@ -1,0 +1,147 @@
+[gd_scene format=3 uid="uid://dqf7e3x3ylhha"]
+
+[ext_resource type="Script" uid="uid://lxu1choh32vu" path="res://src/ui/level/level_transition.gd" id="1_66u8v"]
+[ext_resource type="Texture2D" uid="uid://bum2ihiviu62" path="res://src/levels/icons/main_level.png" id="2_8hw24"]
+[ext_resource type="Script" uid="uid://c8aak514meidq" path="res://component/ui/CT_IControlInterface.gd" id="2_18tl4"]
+[ext_resource type="Script" uid="uid://buo415nhjgsrx" path="res://addons/simusdev/localization/SD_NodeLocalizatorProperty.gd" id="4_8hw24"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_66u8v"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.101960786, 0.101960786, 0.101960786, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[node name="LevelTransition" type="ColorRect" unique_id=938803892]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0)
+script = ExtResource("1_66u8v")
+
+[node name="Panel" type="Panel" parent="." unique_id=954711473]
+custom_minimum_size = Vector2(617.5, 201)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.259
+anchor_top = 0.36
+anchor_right = 0.74100006
+anchor_bottom = 0.64000005
+offset_left = -0.27001953
+offset_top = 0.2999878
+offset_right = 0.26989746
+offset_bottom = -0.3000183
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_66u8v")
+
+[node name="_Icon" type="TextureRect" parent="Panel" unique_id=248040953]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.326
+anchor_bottom = 1.0
+offset_right = -0.30500793
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_8hw24")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="ReferenceRect" type="ReferenceRect" parent="Panel/_Icon" unique_id=1324913835]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+border_color = Color(0.52123696, 0.5212369, 0.5212369, 1)
+border_width = 3.0
+editor_only = false
+
+[node name="Label" type="Label" parent="Panel" unique_id=498682009]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.367
+anchor_top = 0.102000006
+anchor_right = 0.96500003
+anchor_bottom = 0.70900005
+offset_left = 0.12748718
+offset_top = -0.0020008087
+offset_right = -0.1375122
+offset_bottom = -0.009002686
+grow_horizontal = 2
+grow_vertical = 2
+text = "Move to another location?"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SD_NodeLocalizatorProperty" type="Node" parent="Panel/Label" unique_id=190667232 node_paths=PackedStringArray("node")]
+process_mode = 4
+script = ExtResource("4_8hw24")
+node = NodePath("..")
+key = &"level.transition_msg"
+metadata/_custom_type_script = "uid://buo415nhjgsrx"
+
+[node name="CT_IControlInterface" type="Node" parent="." unique_id=151084104 node_paths=PackedStringArray("target")]
+script = ExtResource("2_18tl4")
+target = NodePath("..")
+hide_at_start = true
+metadata/_custom_type_script = "uid://c8aak514meidq"
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1197851812]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.41700003
+anchor_top = 0.55300003
+anchor_right = 0.74
+anchor_bottom = 0.63900006
+offset_left = 0.23999023
+offset_top = -0.16003418
+offset_right = -0.2000122
+offset_bottom = -0.08004761
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer" unique_id=1631572289]
+layout_mode = 2
+alignment = 1
+
+[node name="Yes" type="Button" parent="MarginContainer/HBoxContainer" unique_id=718558771]
+layout_mode = 2
+size_flags_horizontal = 15
+size_flags_vertical = 13
+focus_mode = 0
+text = "Yes"
+
+[node name="SD_NodeLocalizatorProperty" type="Node" parent="MarginContainer/HBoxContainer/Yes" unique_id=1705607913 node_paths=PackedStringArray("node")]
+process_mode = 4
+script = ExtResource("4_8hw24")
+node = NodePath("..")
+key = &"YES"
+metadata/_custom_type_script = "uid://buo415nhjgsrx"
+
+[node name="No" type="Button" parent="MarginContainer/HBoxContainer" unique_id=752518284]
+layout_mode = 2
+size_flags_horizontal = 15
+size_flags_vertical = 13
+focus_mode = 0
+text = "No"
+
+[node name="SD_NodeLocalizatorProperty" type="Node" parent="MarginContainer/HBoxContainer/No" unique_id=1077060465 node_paths=PackedStringArray("node")]
+process_mode = 4
+script = ExtResource("4_8hw24")
+node = NodePath("..")
+key = &"NO"
+metadata/_custom_type_script = "uid://buo415nhjgsrx"
+
+[connection signal="pressed" from="MarginContainer/HBoxContainer/Yes" to="." method="_on_yes_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/No" to="." method="_on_no_pressed"]

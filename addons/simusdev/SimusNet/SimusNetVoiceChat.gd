@@ -107,7 +107,9 @@ func _process(delta: float) -> void:
 			max_amp = max(abs(data[i]), max_amp)
 		
 		if max_amp > input_volume_threshold:
-			SimusNetRPCGodot.invoke(_process_audio, data, sr)
+			for peer in SimusNetConnection.get_connected_peers():
+				if is_visible_for_peer(peer):
+					SimusNetRPCGodot.invoke(_process_audio, data, sr)
 
 func _process_audio(audio : PackedFloat32Array, mixrate : float) -> void:
 	if _output_stream.mix_rate != mixrate: _output_stream.mix_rate = mixrate
@@ -226,6 +228,9 @@ func _get_property_list() -> Array:
 	})
 	
 	return properties
+
+func is_visible_for_peer(peer: int) -> bool:
+	return true
 
 func _get_configuration_warnings() -> PackedStringArray:
 	var warnings : PackedStringArray = []

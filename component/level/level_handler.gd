@@ -11,6 +11,8 @@ var _registry: Array[R_Level]
 var current_level:R_Level
 
 func _ready() -> void:
+	SimusNetIdentity.register(self)
+	
 	SimusNetRPC.register(
 		[
 			_send,

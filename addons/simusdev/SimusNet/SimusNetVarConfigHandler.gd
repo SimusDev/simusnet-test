@@ -28,6 +28,7 @@ func _add_cfg(cfg: SimusNetVarConfig, property: StringName) -> void:
 	var properties: PackedStringArray = _properties_for.get_or_add(cfg, PackedStringArray())
 	if !property in properties:
 		properties.append(property)
+		SimusNetVars.cache(property)
 	
 	if SimusNetConnection.is_active():
 		cfg._network_ready(self)

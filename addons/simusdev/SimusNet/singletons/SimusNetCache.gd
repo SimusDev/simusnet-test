@@ -5,6 +5,9 @@ static var instance: SimusNetCache
 
 var _data: Dictionary[String, Variant] = {} 
 
+var _identities_by_generated_id: Dictionary[Variant, SimusNetIdentity]
+var _identities_by_unique_id: Dictionary[int, SimusNetIdentity]
+
 static func get_data() -> Dictionary[String, Variant]:
 	return instance._data
 
@@ -60,11 +63,9 @@ func _unique_id_request_rpc(serialized: Variant) -> void:
 	var id_list: Array = SimusNetDecompressor.parse(serialized)
 	
 	for id: Variant in id_list:
-		var identity: SimusNetIdentity = SimusNetIdentity._list_by_generated_id.get(id)
+		var identity: SimusNetIdentity = SimusNetIdentity.get_dictionary_by_generated_id().get(id)
 		if identity:
 			packet[id] = identity.get_unique_id()
-		else:
-			print(id)
 	
 	if !packet.is_empty():
 		_unique_id_request_receive.rpc_id(multiplayer.get_remote_sender_id(), SimusNetCompressor.parse(packet))

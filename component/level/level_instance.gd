@@ -11,11 +11,22 @@ const SCENE: PackedScene = preload("uid://c8wx4j8l5ed75")
 @onready var _logger: SD_Logger = SD_Logger.new(self)
 
 var _spawnpoints: Array[CT_SpawnPoint3D] = []
+var _players: Array[CT_Playable] = []
 
-static var _current: LevelInstance
+func get_players() -> Array[CT_Playable]:
+	return _players
+
+func get_player_by_peer_id(peer: int) -> CT_Playable:
+	for p in get_players():
+		if p.get_peer_id() == peer:
+			return p
+	return null
 
 static func get_current() -> LevelInstance:
-	return _current
+	var playable: CT_Playable = CT_Playable.get_local()
+	if playable:
+		return playable.get_level()
+	return null
 
 static func get_global_position_from(from: Variant) -> Vector3:
 	if from is Vector3:
@@ -32,8 +43,6 @@ func get_spawnpoints() -> Array[CT_SpawnPoint3D]:
 func _ready() -> void:
 	SimusNetIdentity.register(self)
 	
-	_current = self
-	
 	for group in R_Object.get_level_group_list():
 		get_local_group(group)
 		get_networked_group(group)
@@ -48,6 +57,8 @@ func _ready() -> void:
 		func(instance: R_GameStateNodeInstance):
 			_read_and_spawn_objects(instance.read("objects", {}))
 	)
+	
+	
 
 func _collect_and_get_save_objects() -> Dictionary:
 	var result: Dictionary = {}
@@ -108,8 +119,6 @@ func clear_objects() -> void:
 	for group: LevelGroup in _groups_networked.get_children(): 
 		group.get_replicator().clear_path_optimization()
 		group.async_clear_all_children()
-
-
 
 func _get_group_(group: String, root: Node3D) -> LevelGroup:
 	group = group.validate_node_name().to_pascal_case()
