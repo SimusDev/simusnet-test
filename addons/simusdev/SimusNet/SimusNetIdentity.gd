@@ -28,7 +28,7 @@ static func register(object: Object, settings: SimusNetIdentitySettings = null, 
 		var variant: Variant = object.get_meta("SimusNetIdentity")
 		if is_instance_valid(variant):
 			if variant is SimusNetIdentity:
-				if variant.owner:
+				if variant.owner == object:
 					return variant
 	
 	var identity: SimusNetIdentity = from
