@@ -57,14 +57,14 @@ func _process(delta: float) -> void:
 	
 	var i: float = interpolate_speed * delta
 	
-	node.position = lerp(node.position, p, i)
+	node.position = node.position.lerp(s, i)
 	node.rotation.x = lerp_angle(node.rotation.x, r.x, i)
 	node.rotation.y = lerp_angle(node.rotation.y, r.y, i)
 	
 	if node.rotation is Vector3:
 		node.rotation.z = lerp_angle(node.rotation.z, r.z, i)
 	
-	node.scale = lerp(node.scale, s, i)
+	node.scale = node.scale.lerp(s, i)
 
 func _enter_tree() -> void:
 	if Engine.is_editor_hint() or !node:
