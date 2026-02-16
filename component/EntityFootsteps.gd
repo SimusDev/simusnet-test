@@ -42,6 +42,9 @@ func _ready() -> void:
 		await entity.ready
 		movement = SD_ECS.find_first_component_by_script(entity, [W_FPCSourceLikeMovement])
 
+func do_footstep_net() -> void:
+	pass
+
 func do_footstep() -> void:
 	if not model:
 		if not entity.velocity:
