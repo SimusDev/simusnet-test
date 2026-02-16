@@ -58,11 +58,16 @@ func _initialize() -> void:
 		if !owner.is_node_ready():
 			await owner.ready
 		
+		owner.renamed.connect(_renamed)
 		owner.tree_entered.connect(_tree_entered)
 		owner.tree_exited.connect(_tree_exited)
 	
 	_initialize_dynamic()
 	
+
+func _renamed() -> void:
+	get_dictionary_by_generated_id().erase(get_generated_unique_id())
+	_try_generate_generated_id()
 
 func _initialize_dynamic() -> void:
 	if !SimusNetConnection.is_active():
