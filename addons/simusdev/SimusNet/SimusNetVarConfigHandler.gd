@@ -75,9 +75,10 @@ func _deinitialize_dynamic() -> void:
 
 static func find_in(object: Object) -> SimusNetVarConfigHandler:
 	if object.has_meta(_META):
-		var cfg: Variant = object.get_meta(_META)
+		var cfg: SimusNetVarConfigHandler = object.get_meta(_META)
 		if is_instance_valid(cfg):
-			return cfg
+			if cfg.get_object() == object:
+				return cfg
 	return null
 
 static func get_or_create(object: Object) -> SimusNetVarConfigHandler:
