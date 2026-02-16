@@ -65,11 +65,6 @@ func _initialize() -> void:
 	
 
 func _initialize_dynamic() -> void:
-	if owner is Node:
-		if !owner.is_inside_tree():
-			await owner.tree_entered
-			_try_generate_generated_id()
-	
 	if !SimusNetConnection.is_active():
 		await SimusNetEvents.event_connected.published
 	
@@ -115,9 +110,10 @@ func _tree_entered() -> void:
 func _try_generate_generated_id() -> void:
 	if settings.get_unique_id() == null:
 		if owner is Node:
-			_generated_unique_id = owner.get_path()
 			if !owner.is_node_ready():
 				await owner.ready
+			
+			_generated_unique_id = owner.get_path()
 	else:
 		_generated_unique_id = settings.get_unique_id()
 	
@@ -130,7 +126,7 @@ func _set_ready() -> void:
 	_try_generate_generated_id()
 	
 	get_dictionary_by_unique_id()[get_unique_id()] = self
-	#get_dictionary_by_generated_id()[get_generated_unique_id()] = self
+	get_dictionary_by_generated_id()[get_generated_unique_id()] = self
 	
 	is_ready = true
 	on_ready.emit()
@@ -150,6 +146,8 @@ static func _parse_and_clear_identities_with_no_owner() -> void:
 			get_dictionary_by_generated_id().erase(identity.get_generated_unique_id())
 
 func _destroy() -> void:
+	get_dictionary_by_generated_id().erase(get_generated_unique_id())
+	
 	if owner:
 		SimusNetVisibility._local_identity_delete(self)
 	
