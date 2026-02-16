@@ -49,7 +49,11 @@ func close_last_interface() -> void:
 
 func get_last_interface() -> Node:
 	if has_active_interface():
-		var last: Node = _active_interfaces[_active_interfaces.size() - 1]
+		var id: int = _active_interfaces.size() - 1
+		if id < 0:
+			return null
+		
+		var last: Node = _active_interfaces[id]
 		return last
 	return null
 
