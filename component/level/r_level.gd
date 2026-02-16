@@ -9,6 +9,7 @@ class_name R_Level extends Resource
 @export_file("*.tscn", "*.scn") var prefabs: Array[String]
 @export_file("*.tscn", "*.scn") var server_prefabs: Array[String]
 @export_file("*.tscn", "*.scn") var client_prefabs: Array[String]
+@export_file("*.tscn", "*.scn") var online_prefabs: Array[String]
 
 @export var map_size: float = 0.0
 
