@@ -65,12 +65,13 @@ func _initialize() -> void:
 	
 
 func _initialize_dynamic() -> void:
-	if !SimusNetConnection.is_active():
-		await SimusNetEvents.event_connected.published
-	
 	if owner is Node:
 		if !owner.is_inside_tree():
 			await owner.tree_entered
+			_try_generate_generated_id()
+	
+	if !SimusNetConnection.is_active():
+		await SimusNetEvents.event_connected.published
 	
 	if is_initialized:
 		return
@@ -119,6 +120,8 @@ func _try_generate_generated_id() -> void:
 				await owner.ready
 	else:
 		_generated_unique_id = settings.get_unique_id()
+	
+	get_dictionary_by_generated_id()[get_generated_unique_id()] = self
 
 func _set_ready() -> void:
 	if is_ready:
@@ -127,7 +130,7 @@ func _set_ready() -> void:
 	_try_generate_generated_id()
 	
 	get_dictionary_by_unique_id()[get_unique_id()] = self
-	get_dictionary_by_generated_id()[get_generated_unique_id()] = self
+	#get_dictionary_by_generated_id()[get_generated_unique_id()] = self
 	
 	is_ready = true
 	on_ready.emit()

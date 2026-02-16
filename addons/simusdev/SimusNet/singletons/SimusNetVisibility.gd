@@ -89,7 +89,7 @@ func _server_receive_identities(packet: PackedByteArray, creation: bool = true) 
 		return
 	
 	var sender_bytes: PackedByteArray = SimusNetCompressor.parse(_peers_and_identities)
-	_client_receive_identities_sender.rpc_id(sender, sender, creation)
+	_client_receive_identities_sender.rpc_id(sender, sender_bytes, creation)
 	
 	SimusNetProfiler._put_up_packet()
 	SimusNetProfiler._instance._put_visibility_up_traffic(sender_bytes.size())
