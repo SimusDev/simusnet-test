@@ -10,8 +10,18 @@ const SCENE: PackedScene = preload("uid://c8wx4j8l5ed75")
 
 @onready var _logger: SD_Logger = SD_Logger.new(self)
 
+var _handler: LevelHandler
 var _spawnpoints: Array[CT_SpawnPoint3D] = []
 var _players: Array[CT_Playable] = []
+
+func _player_entered(player: CT_Playable) -> void:
+	_players.append(player)
+	_handler._player_entered(player, self)
+
+func _player_exited(player: CT_Playable) -> void:
+	_players.erase(player)
+	_handler._player_exited(player, self)
+
 
 func get_players() -> Array[CT_Playable]:
 	return _players
@@ -41,13 +51,21 @@ func get_spawnpoints() -> Array[CT_SpawnPoint3D]:
 	return _spawnpoints
 
 func _ready() -> void:
+	position = _resource.position
+	
 	SimusNetIdentity.register(self)
 	
 	for group in R_Object.get_level_group_list():
 		get_local_group(group)
 		get_networked_group(group)
 	
-	$Prefabs.add_child(_resource.prefab.instantiate())
+	_instantiate_file_prefabs(_resource.prefabs, $P_Prefabs)
+	
+	if SimusNetConnection.is_server():
+		_instantiate_file_prefabs(_resource.server_prefabs, $P_Server)
+	
+	if SimusNetConnection.is_client():
+		_instantiate_file_prefabs(_resource.client_prefabs, $P_Client)
 	
 	R_GameStateNodeReference.new(self).on_save_event(
 		func(instance: R_GameStateNodeInstance):
@@ -57,8 +75,12 @@ func _ready() -> void:
 		func(instance: R_GameStateNodeInstance):
 			_read_and_spawn_objects(instance.read("objects", {}))
 	)
-	
-	
+
+func _instantiate_file_prefabs(prefabs: Array[String], to: Node) -> void:
+	for file in prefabs:
+		var scene: PackedScene = load(file)
+		if scene:
+			to.add_child(scene.instantiate(), true)
 
 func _collect_and_get_save_objects() -> Dictionary:
 	var result: Dictionary = {}

@@ -87,10 +87,12 @@ func _enter_tree() -> void:
 		node = get_parent()
 	
 	_level = LevelInstance.find_above(self)
+	_level._player_entered(self)
 	
 	_list.append(self)
 
 func _exit_tree() -> void:
+	_level._player_exited(self)
 	_list.erase(self)
 
 func _notification(what: int) -> void:

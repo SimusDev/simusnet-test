@@ -6,7 +6,13 @@
 script = ExtResource("1_yqfgh")
 metadata/_custom_type_script = "uid://dpg82gcac54ds"
 
-[node name="Prefabs" type="Node3D" parent="." unique_id=898872504]
+[node name="P_Prefabs" type="Node3D" parent="." unique_id=898872504]
+
+[node name="P_Server" type="Node3D" parent="." unique_id=698182048]
+
+[node name="P_Client" type="Node3D" parent="." unique_id=2032863513]
+
+[node name="P_Online" type="Node3D" parent="." unique_id=2126498608]
 
 [node name="GroupsNetworked" type="Node3D" parent="." unique_id=423821889]
 
