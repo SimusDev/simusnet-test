@@ -68,7 +68,7 @@ func _initialize_dynamic() -> void:
 	if !SimusNetConnection.is_active():
 		await SimusNetEvents.event_connected.published
 	
-	if is_initialized:
+	if is_initialized and _unique_id > -1:
 		return
 	
 	is_initialized = true
@@ -146,6 +146,8 @@ static func _parse_and_clear_identities_with_no_owner() -> void:
 			get_dictionary_by_generated_id().erase(identity.get_generated_unique_id())
 
 func _destroy() -> void:
+	is_initialized = false
+	
 	get_dictionary_by_generated_id().erase(get_generated_unique_id())
 	
 	if owner:
