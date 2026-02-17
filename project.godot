@@ -69,6 +69,10 @@ SimpleGrass="*uid://bfq0snth8sj3h"
 window/size/viewport_width=1280
 window/size/viewport_height=720
 
+[dotnet]
+
+project/assembly_name="simusnet-test"
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/lensflares/plugin.cfg", "res://addons/simplegrasstextured/plugin.cfg", "res://addons/simusdev/plugin.cfg", "res://addons/sky_3d/plugin.cfg")

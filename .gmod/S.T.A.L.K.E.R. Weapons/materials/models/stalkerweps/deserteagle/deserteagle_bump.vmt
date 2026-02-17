@@ -1,6 +1,0 @@
-"VertexLitGeneric"
-{
-	"$baseTexture" "models\StalkerWeps\DesertEagle/deserteagle_bump"
-	"$bumpmap" "models\StalkerWeps\DesertEagle/DesertEagle_Bump"
-	"$model" "1"
-}

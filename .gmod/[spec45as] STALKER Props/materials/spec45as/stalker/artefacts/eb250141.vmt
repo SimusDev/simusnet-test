@@ -1,7 +1,0 @@
-"VertexLitGeneric"
-{
-	"$baseTexture" "spec45as\stalker\artefacts/eb250141"
-	"$model" "1"
-	"$AmbientOcclusion" "1"
-	"$AmbientOcclTexture" "spec45as/stalker/artefacts\eb250141"
-}

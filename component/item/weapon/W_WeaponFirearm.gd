@@ -43,6 +43,7 @@ func _ready() -> void:
 	SimusNetRPC.register(
 		[
 			_request_reload_receive,
+			_fire_local,
 		],
 		SimusNetRPCConfig.new().flag_set_channel("item").flag_serialization().flag_mode_server_only()
 	)
@@ -53,9 +54,9 @@ func _ready() -> void:
 	_get_or_create_sound("reload").max_distance = 15
 
 func _state_machine_init() -> void:
-	#state_machine.debug = true
 	state_machine.add_state("idle").add_state("fire")
 	state_machine.add_state("reload")
+	
 
 func _state_machine_transitioned(from: String, to: String) -> void:
 	match to:
@@ -116,25 +117,26 @@ func request_release() -> void:
 	if state_machine.get_current_state() == "fire":
 		state_machine.try_switch("idle")
 
-func _pressed_alt() -> void:
-	super()
-	#set_camera_fov(object.base_aim_fov)
-
-func _released_alt() -> void:
-	super()
-	#set_camera_fov(75.0)
-
 func set_camera_fov(fov:float) -> void:
 	if entity_eyes is W_FPCSourceLikeCamera:
 		if entity_eyes.camera.current:
 			entity_eyes.camera.fov = fov
 
 func _process(_delta: float) -> void:
-	if state_machine.get_current_state() == "fire":
-		if can_use():
-			fire()
+	if SimusNetConnection.is_server():
+		if !can_use():
+			return
+		
+		if state_machine.get_current_state() == "fire":
+				fire()
 
 func fire() -> void:
+	if !SimusNetConnection.is_server():
+		return
+	
+	SimusNetRPC.invoke_all(_fire_local)
+
+func _fire_local() -> void:
 	if _get_stack().bullets <= 0:
 		return
 	
@@ -144,7 +146,6 @@ func fire() -> void:
 	cooldown_timer.start()
 	if muzzle_flash:
 		muzzle_flash.emitting = true
-	
 	
 	_spawn_bullet()
 	_spawn_fake_bullet()
@@ -156,8 +157,6 @@ func fire() -> void:
 	
 	if _character_animations:
 		_character_animations.get_or_create("firearm_shoot").publish(self)
-	
-
 
 func _spawn_bullet() -> void:
 	var bullet: Node = _get_stack().ammo.get_prefab().instantiate()

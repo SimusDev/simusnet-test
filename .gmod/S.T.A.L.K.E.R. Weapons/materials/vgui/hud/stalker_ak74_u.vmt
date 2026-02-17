@@ -1,7 +1,0 @@
-"UnlitGeneric"
-{
-	"$basetexture" "vgui/hud/ak_u_hud"
-	"$translucent" 1
-	"$vertexalpha" 1
-	"$vertexcolor" 1
-}

@@ -1,7 +1,0 @@
-VertexLitGeneric
-{
-	"$basetexture"	"models\weapons\v_models\stalkawr_calt\wpn_colt"
-	"$envmap" "env_cubemap"
-	"$envmapmask" "models\weapons\v_models\stalkawr_calt\wpn_colt_ref"
-
-}
