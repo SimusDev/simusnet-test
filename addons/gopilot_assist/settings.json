@@ -1,7 +1,7 @@
 {
 	"architect_model": {
-		"api_key": "",
-		"host": "MgulR5fsBMBI9keDk2NECwWpwdROcYjt",
+		"api_key": "bDImOpkEwi6yVB7tOwVhjSVrW4gEqJw3",
+		"host": "https://codestral.mistral.ai",
 		"model": "codestral-latest",
 		"override_temperature": false,
 		"port": 443.0,
@@ -9,8 +9,8 @@
 		"temperature": 0.0
 	},
 	"chat_model": {
-		"api_key": "",
-		"host": "MgulR5fsBMBI9keDk2NECwWpwdROcYjtMgulR5fsBMBI9keDk2NECwWpwdROcYjt",
+		"api_key": "bDImOpkEwi6yVB7tOwVhjSVrW4gEqJw3",
+		"host": "https://codestral.mistral.ai",
 		"model": "codestral-latest",
 		"override_temperature": false,
 		"port": 443.0,
@@ -19,8 +19,8 @@
 	},
 	"chat_shortcut": "Alt+C",
 	"code_model": {
-		"api_key": "",
-		"host": "MgulR5fsBMBI9keDk2NECwWpwdROcYjt",
+		"api_key": "bDImOpkEwi6yVB7tOwVhjSVrW4gEqJw3",
+		"host": "https://codestral.mistral.ai",
 		"model": "codestral-latest",
 		"override_temperature": false,
 		"port": 443.0,
@@ -43,8 +43,8 @@
 		"temperature": -0.01
 	},
 	"flash_model": {
-		"api_key": "",
-		"host": "MgulR5fsBMBI9keDk2NECwWpwdROcYjt",
+		"api_key": "bDImOpkEwi6yVB7tOwVhjSVrW4gEqJw3",
+		"host": "https://codestral.mistral.ai",
 		"model": "codestral-latest",
 		"override_temperature": false,
 		"port": 443.0,
@@ -69,5 +69,5 @@
 	"show_welcome_message": true,
 	"tool_model_supports_function_calling": true,
 	"use_markdown_formatting": true,
-	"user_name": "SEX"
+	"user_name": "Luca"
 }
