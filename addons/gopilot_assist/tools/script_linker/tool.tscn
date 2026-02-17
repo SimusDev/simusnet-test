@@ -1,0 +1,92 @@
+[gd_scene load_steps=3 format=3 uid="uid://did4s16qflnbh"]
+
+[ext_resource type="Texture2D" uid="uid://cl3ikvuviln72" path="res://addons/gopilot_utils/textures/Script.png" id="1_rah8s"]
+
+[sub_resource type="GDScript" id="GDScript_c08m0"]
+script/source = "@tool
+extends GopilotTool
+
+func _run_tool(conv:Array[Dictionary]):
+	print(\"Im running!\")
+	var prompt:String = conv[-1][\"content\"]
+	var current_script_mentioned:bool = \"@\" + \"script\" in prompt
+	
+	var script_prompt_finder := RegEx.new()
+	script_prompt_finder.compile(\"@[\\\\S]+\\\\.\" + \"gd\")
+	var matches := script_prompt_finder.search_all(prompt)
+	
+	# Adding current script if mentioned
+	if current_script_mentioned:
+		var error_message:String = \"\"
+		var editor_root := EditorInterface.get_script_editor()
+		if !editor_root:
+			add_prefix(conv, \"<error>\\nNo script editor is open. Could not retrieve script from @script command\\ni</error>\")
+			add_button_citation(\"Retrieval Error\", \"No script editor is open. Could not retrieve script from @script command\")
+			return
+		var script_editor := editor_root.get_current_editor()
+		if !script_editor:
+			add_prefix(conv, \"<error>\\nNo script editor is open. Could not retrieve script from @script command\\ni</error>\")
+			add_button_citation(\"Retrieval Error\", \"No script editor is open. Could not retrieve script from @script command\")
+		var file_path:String = editor_root.get_current_script().resource_path.split(\"/\")[-1]
+		var code:String = script_editor.get_base_editor().text
+		var code_prefix:String = \"# Currently open script '\" + file_path + \"'\\n\"
+		
+		code_prefix += \"```gdscript\\n\" + code + \"\\n```\\n\"
+		add_prefix(conv, code_prefix)
+		add_button_citation(\"Current Script\", \"Script from currently open script editor '\" + file_path + \"'\")
+	
+	# Back to the other script mentions
+	
+	if matches.size() == 0:
+		print(\"zero matches\")
+		return
+	
+	# Get the paths of the open scripts to match with matches
+	var open_scripts:Array[Script] = EditorInterface.get_script_editor().get_open_scripts()
+	var open_scripts_paths:PackedStringArray = []
+	for script in open_scripts:
+		open_scripts_paths.append(script.resource_path)
+	
+	var matching_scripts:Array[Script] = []
+	
+	# Find the matches that are in the open scripts
+	for match in matches:
+		var script_name := match.get_string(0)
+		script_name = script_name.trim_prefix(\"@\")
+		print(script_name)
+		var script_index:int = 0
+		for open_script_path in open_scripts_paths:
+			print(\"open path: \", open_script_path)
+			if script_name in open_script_path:
+				print(\"appended: \", open_script_path)
+				matching_scripts.append(open_scripts[script_index])
+				break
+			script_index += 1
+	
+	
+	var prefix:String = \"\"
+	
+	for script in matching_scripts:
+		prefix += \"# '\" + script.resource_path + \"'\\n\"
+		prefix += \"```gdscript\\n\" + FileAccess.get_file_as_string(script.resource_path) + \"\\n```\\n\\n\"
+		add_button_citation(script.resource_path.split(\"/\")[-1], \"Script from currently open script editor '\" + script.resource_path + \"'\")
+	
+	add_prefix(conv, prefix)
+
+
+func _is_elegible(conv) -> bool:
+	if !EditorInterface.get_script_editor():
+		return false
+	if !EditorInterface.get_script_editor().get_open_scripts():
+		return false
+	return \"@\" in conv[-1][\"content\"]
+"
+
+[node name="ScriptLinker" type="Node"]
+script = SubResource("GDScript_c08m0")
+tool_name = "current_script"
+icon = ExtResource("1_rah8s")
+is_retrieval_tool = true
+tool_description = "Mention your current script with @script or any script with @my_script.gd which is open in the tabs"
+trigger_prompts = PackedStringArray("@script", "@your_script_name_here.gd")
+metadata/_custom_type_script = "uid://bvhnuqgn6v06u"

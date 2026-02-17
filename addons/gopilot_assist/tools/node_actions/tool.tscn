@@ -1,0 +1,828 @@
+[gd_scene load_steps=13 format=3 uid="uid://eh1dybnfoaka"]
+
+[ext_resource type="Texture2D" uid="uid://dbnimr2diptiw" path="res://addons/gopilot_assist/textures/check.png" id="1_tv1oq"]
+[ext_resource type="Texture2D" uid="uid://bnxhdmd5o8yjq" path="res://addons/gopilot_assist/textures/Node.png" id="1_vbr18"]
+[ext_resource type="Script" uid="uid://u3vxvbpbjxp4" path="res://addons/gopilot_utils/classes/agent_handler.gd" id="2_17rv5"]
+[ext_resource type="Texture2D" uid="uid://dqle3u4wo0nux" path="res://addons/gopilot_assist/textures/List.png" id="2_myw61"]
+[ext_resource type="Texture2D" uid="uid://v5omew4llxgs" path="res://addons/gopilot_utils/textures/Play.png" id="3_17rv5"]
+[ext_resource type="Texture2D" uid="uid://dtnk5offplrhs" path="res://addons/gopilot_utils/textures/Edit.png" id="3_33hkf"]
+[ext_resource type="Texture2D" uid="uid://csth1wjypb564" path="res://addons/gopilot_utils/textures/Remove.png" id="4_33hkf"]
+[ext_resource type="Texture2D" uid="uid://dus7h1k42t8s0" path="res://addons/gopilot_assist/textures/ScriptCreate.png" id="5_aiim4"]
+[ext_resource type="Texture2D" uid="uid://ppxlp2uijvly" path="res://addons/gopilot_assist/textures/ScriptExtend.png" id="6_47wrc"]
+[ext_resource type="Texture2D" uid="uid://fa3w6nwyvt3i" path="res://addons/gopilot_assist/textures/FolderBrowse.png" id="7_47wrc"]
+[ext_resource type="Texture2D" uid="uid://bqm3m82gdl3qs" path="res://addons/gopilot_utils/textures/agent_handler_icon.svg" id="9_v04te"]
+
+[sub_resource type="GDScript" id="GDScript_5blta"]
+script/source = "@tool
+extends GopilotTool
+
+@export var agents:Array[AgentHandler] = []
+@export var agent_dict:Dictionary[String, AgentHandler]
+@export var action_icons:Dictionary[String, Texture2D]
+
+@export var check_icon:Texture2D
+
+const ERROR_SUFFIX:String = \"\\n\\nThere were errors in the actions. Actions without errors were successful and executed. Figure out the problem of each error and plan what to do next\"
+
+var COMMON := preload(\"res://addons/gopilot_utils/scripts/common.gd\").new()
+
+#func _ready() -> void:
+	#for agent in agents:
+		#agent.thought_finished.connect(func(thought:String):
+			#add_sub_action(\"Thought from [color=skyblue]\" + agent.name + \"[/color]\\n\" + thought)
+			#update_action_block(agent.name + \" is thinking...\"))
+		#agent.new_thought_token.connect(func(thought:String):
+			#)
+		#
+		#agent.action_finished.connect(func(thought:String):
+			#add_sub_action(\"Action from [color=skyblue]\" + agent.name + \"[/color]\\n\" + thought)
+			#update_action_block(agent.name + \" is acting...\"))
+		#
+		#agent.observation_received.connect(func(thought:String):
+			#add_sub_action(\"[color=skyblue]\" + agent.name + \"[/color] received observation\\n\" + thought)
+			#update_action_block(agent.name + \" reviews observation...\"))
+		#
+		#agent.task_finished.connect(func(thought:String):
+			#add_sub_action(\"[color=skyblue]\" + agent.name + \"[/color] completed its job\\n\" + thought)
+			#update_action_block(agent.name + \" completed its job!\"))
+
+
+
+
+func _ready() -> void:
+	
+	for agent in agents:
+		agent.generation_type_changed.connect(func(type: AgentHandler.GenerationType):
+			match type:
+				AgentHandler.GenerationType.THOUGHT:
+					add_sub_action(\"[b][color=skyblue]\" + agent.name + \"[/color] is thinking[/b]\\n\")
+				AgentHandler.GenerationType.ACTION:
+					add_sub_action(\"[b][color=skyblue]\" + agent.name + \"[/color] is acting[/b]\\n\")
+				AgentHandler.GenerationType.FINAL_ANSWER:
+					add_sub_action(\"[b][color=skyblue]\" + agent.name + \"[/color] is finalizing[/b]\\n\")
+			)
+			
+		agent.new_thought_token.connect(func(token:String):
+			append_to_sub_action(token)
+			)
+			
+		agent.new_action_token.connect(func(token:String):
+			append_to_sub_action(token)
+			)
+			
+		agent.new_final_answer_token.connect(func(token:String):
+			append_to_sub_action(token)
+			)
+			
+		agent.observation_received.connect(func(observation:String):
+			add_sub_action(\"[b][color=skyblue]\" + agent.name + \"[/color] received observation[/b]\\n\" + observation)
+			)
+
+
+
+
+var root_dup:Node
+var root:Node
+
+var actions_taken:Array[Dictionary]
+var action_calls:Array[Callable]
+
+func _cancel_tool():
+	for agent in agents:
+		agent.stop()
+		agent.disconnect_signals()
+	architect_model.stop_generation()
+	display_actions(actions_taken)
+
+func _run_tool(conv):
+	add_action_block(\"Performing task...\")
+	virtual_directory = []
+	actions_taken = []
+	action_calls = []
+	sub_actions = []
+	if !EditorInterface.get_edited_scene_root():
+		printerr(\"GopilotTool: Could not find edited scene root. Aborting tool use\")
+		add_tag_suffix(conv, \"Could not find edited scene root. Tell the user that they must have a scene open to use this tool\")
+	for agent in agents:
+		agent.clear_conversation()
+		agent.chat_requester = architect_model
+		agent.disconnect_signals()
+	%Orchestrator.connect_signals()
+	root_dup = EditorInterface.get_edited_scene_root().duplicate()
+	root = get_tree().edited_scene_root
+	var dir_tree = COMMON.directory_tree_to_string_with_rules(\"res://\", 4, \"  \", \"\", [\"gd\", \"tscn\", \"png\", \"jpg\", \"svg\"], [\"res://addons\"])
+	var scene_tree = COMMON.get_node_as_string(root_dup, 10)
+	var orchestrator_message:String = \"# Directory Tree\\n\" + dir_tree + \"\\n\\n# Scene Tree\\n\" + scene_tree + \"\\n\\n# Task\\n\" + conv[-1][\"content\"]
+	%Orchestrator.send_message(orchestrator_message)
+	var final_answer:String = await %Orchestrator.task_finished
+	display_actions(actions_taken)
+	#execute_actions(action_calls)
+	add_tag_suffix(conv, \"Executed these actions '\" + str(actions_taken) + \"' and returned this message: \" + final_answer)
+
+
+var error_count:int = 0
+func handle_action(actions_string:String) -> String:
+	actions_string = actions_string.strip_edges()
+	actions_string = actions_string.trim_prefix(\"```\").trim_prefix(\"json\\n\").trim_suffix(\"\\n```\")
+	error_count = 0
+	var action_json = JSON.new()
+	var json_error = action_json.parse(actions_string)
+	if json_error != OK:
+		return \"Error: Could not parse actions string. Error: '\" + action_json.get_error_message() + \"'\"
+	var action_array:Array = action_json.get_data()
+	var observations:PackedStringArray
+	var attempted_actions:Array[Dictionary]
+	for action in action_array:
+		var act_name:String = action[\"action\"]
+		var args:Dictionary = action[\"args\"]
+		var error_free:bool = false
+		match act_name:
+			\"add_node\":
+				var node_path:String = args[\"node_path\"].trim_prefix(root_dup.name + \"/\")
+				var node_type:String = args[\"node_type\"]
+				var initial_properties:Dictionary = {}
+				if args.has(\"initial_properties\"):
+					initial_properties = args[\"initial_properties\"]
+				error_free = safe_add_node(node_path, node_type, initial_properties, observations)
+			
+			\"get_property_list\":
+				var node_path:String = args[\"node_path\"].trim_prefix(root_dup.name + \"/\")
+				if !root_dup.has_node(node_path):
+					error_count += 1
+					observations.append(\"Error: Node '\" + node_path + \"' does not exist. Could not search properties\")
+					error_free = false
+				var node:Node = root_dup.get_node(node_path)
+				var properties:Array[Dictionary] = node.get_property_list()
+				var property_strings:PackedStringArray = []
+				for property in properties:
+					if property[\"type\"] != TYPE_OBJECT:
+						property_strings.append(property[\"name\"] + \"(\" + str(property[\"type\"]) + \")\")
+					else:
+						property_strings.append(property[\"name\"] + \"(\" + property[\"class_name\"] + \")\")
+				
+				observations.append(\"Search results: \" + \"\\n\".join(property_strings))
+			
+			\"set_property\":
+				var node_path:String = args[\"node_path\"].trim_prefix(root_dup.name).trim_prefix(\"/\")
+				var property_name:String = args[\"property_name\"]
+				var value_string:String = args[\"value\"]
+				error_free = safe_set_property(node_path, property_name, value_string, observations)
+			
+			\"create_script\":
+				var file_path:String = args[\"file_path\"]
+				var file_content:String = args[\"file_content\"]
+				error_free = safe_create_script(file_path, file_content, observations)
+			
+			\"assign_script\":
+				var node_path:String = args[\"node_path\"].trim_prefix(root_dup.name).trim_prefix(\"/\")
+				var script_path:String = args[\"script_path\"]
+				error_free = safe_assign_script(node_path, script_path, observations)
+			#\"get_property\":
+				#var node_path:String = args[\"node_path\"].trim_prefix(root_dup.name + \"/\")
+				#var property_name:String = args[\"property_name\"]
+				#if !root_dup.has_node(node_path):
+					#error_count += 1
+					#observations.append(\"Error: Node '\" + node_path + \"' does not exist. Could not get property\")
+					#continue
+				#var node:Node = root_dup.get_node(node_path)
+				#var node_properties:PackedStringArray = []
+				#for property in node.get_property_list():
+					#node_properties.append(property[\"name\"])
+				#if property_name not in node_properties:
+					#error_count += 1
+					#observations.append(\"Error: Property '\" + property_name + \"' does not exist. Search the nodes properties to find correct name\")
+					#continue
+				#observations.append(\"Property '\" + property_name + \"' is '\" + str(node.get(property_name)) + \"'\")
+				#attempted_actions.append(action)
+				#sub_actions.append(action)
+			
+			\"remove_node\":
+				var node_path:String = args[\"node_path\"].trim_prefix(root_dup.name + \"/\")
+				error_free = safe_remove_node(node_path, observations)
+			\"create_directory\":
+				var dir_path:String = args[\"dir_path\"]
+				error_free = safe_create_directory(dir_path, observations)
+			_:
+				error_count += 1
+				observations.append(\"Error: Unknown action: '\" + act_name + \"'\")
+				error_free = false
+				#sub_actions.append(action)
+		if error_free:
+			attempted_actions.append(action)
+			sub_actions.append(action)
+	var observations_string:String = \"\"
+	for observation in observations.size():
+		observations_string += observations[observation]
+		if observation != observations.size() - 1:
+			observations_string += \";\\n\"
+	if error_count > 0:
+		observations_string += ERROR_SUFFIX
+	actions_taken.append_array(attempted_actions)
+	return observations_string
+
+
+func handle_orchestrator(action:String) -> String:
+	print(\"############################ ORCHESTRATOR RESPONSE SO FAR:\\n\\n\" + %Orchestrator.conversation[-1][\"content\"] + \"\\n\\n############################### [END OF RESPONSE]\")
+	var action_json := JSON.new()
+	var json_err := action_json.parse(action)
+	if json_err != OK:
+		return \"Error: Could not parse action JSON. Error message: '\" + action_json.get_error_message() + \"' Make sure you use \\\\n for newlines and that you only delegate a single task at a time\"
+	var dict:Dictionary = str_to_var(action)
+	var agent_name:String = dict[\"agent\"]
+	var task:String = dict[\"task\"]
+	if agent_name not in agent_dict:
+		return \"Error: Agent '\" + agent_name + \"' does not exist.\"
+	var agent:AgentHandler = agent_dict[agent_name]
+	var scene_tree:String = COMMON.get_node_as_string(root_dup, 16, \"  \", \"\")
+	var file_tree:String = COMMON.directory_tree_to_string_with_rules(\"res://\", 10, \"  \", \"\", [\"gd\", \"tscn\", \"png\", \"jpg\", \"svg\"], [\"res://addons\"])
+
+	var include_file_tree:bool = agent_name in [\"script_editor\", \"node_editor\"]
+	var final_task:String = \"\"
+	final_task = \"# File Tree\\n\" + file_tree + \"\\n\\nScene Tree\\n\" + scene_tree + \"\\n\\n# Task\\n\" + task
+	print(\"[MESSAGE]\\n\" + final_task + \"\\n\\n[/MESSAGE]\")
+	agent.send_message(final_task)
+	%Orchestrator.disconnect_signals()
+	agent.connect_signals()
+	var response:String = await agent.task_finished
+	%Orchestrator.connect_signals()
+	var observation_string:String = \"\"
+	for sub in sub_actions.size():
+		observation_string += str(sub_actions[sub])
+		if sub != sub_actions.size() - 1:
+			observation_string += \";\\n\"
+	sub_actions.clear()
+	var full_response:String = \"Actions taken:\\n\" + observation_string + \"\\n\\nAgent response:\\n\" + response
+	return full_response
+
+
+var sub_actions:Array[Dictionary]
+
+
+func safe_set_property(node_path:String, property_name:String, value_string:String, observations:PackedStringArray, append_actions:bool = true) -> bool:
+	if !root_dup.has_node(node_path) and !node_path.is_empty():
+		error_count += 1
+		observations.append(\"Error: Node '\" + node_path + \"' does not exist. Could not set property\")
+		return false
+	var node:Node
+	if node_path.is_empty():
+		node = root_dup
+	else:
+		node = root_dup.get_node(node_path)
+	var node_properties:PackedStringArray = []
+	for property in node.get_property_list():
+		node_properties.append(property[\"name\"])
+	if property_name not in node_properties:
+		error_count += 1
+		observations.append(\"Error: Property '\" + property_name + \"' does not exist. Search the nodes properties to find correct name\")
+		return false
+	var value:Variant
+	var result:Array = COMMON.parse_value(value_string)
+	var expr_error:String = result[1]
+	if expr_error.is_empty():
+		value = result[0]
+	else:
+		error_count += 1
+		observations.append(\"Error: Could not evaluate value '\" + value_string + \"'. Error: '\" + result[1] + \"'\")
+		return false
+	
+	node.set(property_name, value)
+	if append_actions:
+		action_calls.append(set_prop.bindv([node_path, property_name, value_string]))
+	observations.append(\"Property '\" + property_name + \"' set to '\" + str(value) + \"'\")
+	return true
+
+
+func safe_add_node(node_path:String, node_type:String, initial_properties:Dictionary, observations:PackedStringArray) -> bool:
+	var parent_path = node_path.get_base_dir()
+	var node_name:String = node_path.split(\"/\")[-1]
+	# Check if parent exists and 
+	if !root_dup.has_node(parent_path) and !parent_path.is_empty():
+		error_count += 1
+		observations.append(\"Error: Parent node '\" + parent_path + \"' does not exist. Could not create node. Make sure you don't include the root nodes name!\")
+		return false
+	if root_dup.has_node(node_path):
+		error_count += 1
+		observations.append(\"Error: Node '\" + node_path + \"' already exists. Could not create node\")
+		return false
+	if !ClassDB.class_exists(node_type):
+		error_count += 1
+		observations.append(\"Error: Class '\" + node_type + \"' does not exist. Could not create node\")
+		return false
+	if !ClassDB.can_instantiate(node_type):
+		error_count += 1
+		observations.append(\"Error: Class '\" + node_type + \"' cannot be instantiated. Could not create node\")
+		return false
+	var parent_node:Node
+	if parent_path.is_empty():
+		parent_node = root_dup
+	else:
+		parent_node = root_dup.get_node(parent_path)
+	var new_node:Node = ClassDB.instantiate(node_type)
+	new_node.name = node_name
+	parent_node.add_child(new_node, true)
+	observations.append(\"Node '\" + node_path + \"' created\")
+	action_calls.append(add_node.bindv([node_path, node_type, initial_properties]))
+	for property:String in initial_properties:
+		var value_string:String = initial_properties[property]
+		safe_set_property(node_path, property, value_string, observations, false)
+	return true
+
+
+func safe_remove_node(node_path:String, observations:PackedStringArray) -> bool:
+	if !root_dup.has_node(node_path):
+		error_count += 1
+		observations.append(\"Error: Node '\" + node_path + \"' does not exist. Could not remove node\")
+		return false
+	var node:Node = root_dup.get_node(node_path)
+	node.get_parent().remove_child(node)
+	node.queue_free()
+	observations.append(\"Node '\" + node_path + \"' removed\")
+	action_calls.append(remove_node.bindv([node_path]))
+	return true
+
+
+func safe_assign_script(node_path:String, script_path:String, observations:PackedStringArray) -> bool:
+	if !root_dup.has_node(node_path) and !node_path.is_empty():
+		error_count += 1
+		observations.append(\"Error: Node '\" + node_path + \"' does not exist. Could not assign script\")
+		return false
+	if !script_path in virtual_directory and !FileAccess.file_exists(script_path):
+		error_count += 1
+		observations.append(\"Error: Script '\" + script_path + \"' does not exist. Could not assign script\")
+		return false
+	observations.append(\"Script '\" + script_path + \"' assigned to node '\" + node_path + \"'\")
+	action_calls.append(assign_script.bindv([node_path, script_path]))
+	# Not actually assigning the script, just recording the action
+	#var node:Node = root_dup.get_node(node_path)
+	return true
+
+
+var virtual_directory:PackedStringArray = []
+
+func safe_create_script(file_path:String, content:String, observations:PackedStringArray) -> bool:
+	var parent_dir:String = file_path.get_base_dir()
+	if !DirAccess.dir_exists_absolute(parent_dir) and parent_dir not in virtual_directory:
+		error_count += 1
+		observations.append(\"Error: Directory '\" + parent_dir + \"' does not exist. Could not create script\")
+		return false
+	if FileAccess.file_exists(file_path) or file_path in virtual_directory:
+		error_count += 1
+		observations.append(\"Error: File '\" + file_path + \"' already exists. Overwriting is impossible\")
+		return false
+	virtual_directory.append(file_path)
+	observations.append(\"Script '\" + file_path + \"' created\")
+	action_calls.append(create_script.bindv([file_path, content]))
+	return true
+
+
+func safe_create_directory(dir_path:String, observations:PackedStringArray) -> bool:
+	if DirAccess.dir_exists_absolute(dir_path) or dir_path in virtual_directory:
+		error_count += 1
+		observations.append(\"Error: Directory '\" + dir_path + \"' already exists. Overwriting is impossible\")
+		return false
+	virtual_directory.append(dir_path)
+	observations.append(\"Directory '\" + dir_path + \"' created\")
+	action_calls.append(create_directory.bindv([dir_path]))
+	return true
+
+
+func create_directory(dir_path:String):
+	DirAccess.make_dir_absolute(dir_path)
+	EditorInterface.get_resource_filesystem().update_file(dir_path)
+	EditorInterface.get_resource_filesystem().scan()
+
+
+func create_script(file_path:String, content:String):
+	var file:FileAccess = FileAccess.open(file_path, FileAccess.WRITE)
+	file.store_string(COMMON.gdscript_3_to_4(content))
+	file.close()
+	EditorInterface.get_resource_filesystem().update_file(file_path)
+	EditorInterface.get_resource_filesystem().scan()
+
+
+func assign_script(node_path:String, script_path:String):
+	var node:Node
+	if node_path.is_empty():
+		node = root
+	else:
+		node = root.get_node(node_path)
+	node.set_script(load(script_path))
+
+
+func add_node(node_path:String, _class:String, initial_props:Dictionary):
+	print(\"ADDING A NODE!!!\")
+	var parent_node_path:String = node_path.get_base_dir()
+	print(\"node path is \" + node_path + \"\\nparent path is \" + parent_node_path)
+	var node_name:String = node_path.get_file()
+	
+	var parent_node:Node
+	if parent_node_path.is_empty():
+		parent_node = root
+	else:
+		parent_node = root.get_node(parent_node_path)
+	var new_node:Node = ClassDB.instantiate(_class)
+	new_node.name = node_name
+	var property_names:PackedStringArray = []
+	for prop in ClassDB.class_get_property_list(_class):
+		property_names.append(prop[\"name\"])
+	for prop in initial_props:
+		if prop in property_names:
+			var parsed_value = COMMON.parse_value(initial_props[prop])
+			if parsed_value[1].is_empty():
+				new_node.set(prop, parsed_value[0])
+	parent_node.add_child(new_node, true)
+	new_node.set_owner(EditorInterface.get_edited_scene_root())
+
+
+func remove_node(node_path:String):
+	var node:Node = root.get_node(node_path.trim_prefix(root.name + \"/\"))
+	node.get_parent().remove_child(node)
+	node.queue_free()
+
+
+func set_prop(node_path:String, property_name:String, value_string:Variant):
+	var node:Node = root.get_node(node_path)
+	node.set(property_name, COMMON.parse_value(value_string)[0])
+
+
+func get_action_callables() -> Array[Callable]:
+	return action_calls
+
+func display_actions(actions:Array[Dictionary]):
+	var actions_block:Control = %ActionsBlock.duplicate()
+	var apply_selected_btn:Button = actions_block.get_node(\"ApplySelectedBtn\")
+	apply_selected_btn.pressed.connect(_apply_selected.bind(actions_block.get_node(\"Actions\")))
+	var action_index:int = 0
+	print(\"actions array size: \", actions.size(), \"\\ncalls array size: \", action_calls.size())
+	if actions.size() != action_calls.size():
+		print(\"NOT THE SAME!\\nActions array:\\n\" + JSON.stringify(actions, \"\\t\", false) + \"\\n\\nCalls array:\\n\" + JSON.stringify(action_calls, \"\\t\", false))
+		return
+	for action in actions:
+		var action_sample:Control = %ActionSample.duplicate()
+		action_sample.show()
+		actions_block.get_node(\"Actions\").add_child(action_sample)
+		var button_name:String = action[\"action\"]
+		button_name = button_name.capitalize()
+		var button_tooltip:String = JSON.stringify(action, \"\\t\", false, true)
+		var button_icon:Texture2D = icon
+		if action[\"action\"] in action_icons:
+			button_icon = action_icons[action[\"action\"]]
+		var btn:Button = action_sample.get_node(\"Button\")
+		var check:CheckBox = action_sample.get_node(\"CheckBox\")
+		
+		btn.text = button_name
+		btn.icon = button_icon
+		btn.tooltip_text = button_tooltip
+		
+		btn.pressed.connect(action_calls[action_index])
+		btn.pressed.connect(func():
+			btn.icon = check_icon
+			btn.disabled = true
+			check.disabled = true
+			check.button_pressed = false)
+		
+		check.button_pressed = true
+		
+		action_index += 1
+	actions_block.show()
+	add_custom_control(actions_block)
+
+
+func _apply_selected(actions:Control):
+	for action in actions.get_children():
+		var btn:Button = action.get_node(\"Button\")
+		var check:CheckBox = action.get_node(\"CheckBox\")
+		if check.button_pressed:
+			btn.pressed.emit()
+			await get_tree().create_timer(0.1).timeout
+"
+
+[node name="NodeOrchestrator" type="Node" node_paths=PackedStringArray("agents", "agent_dict")]
+script = SubResource("GDScript_5blta")
+agents = [NodePath("Orchestrator"), NodePath("Orchestrator/SceneTreeCreator"), NodePath("Orchestrator/ScriptEditor"), NodePath("Orchestrator/InterfaceCreator")]
+agent_dict = {
+"interface_creator": NodePath("Orchestrator/InterfaceCreator"),
+"orchestrator": NodePath("Orchestrator"),
+"scene_tree_creator": NodePath("Orchestrator/SceneTreeCreator"),
+"script_editor": NodePath("Orchestrator/ScriptEditor")
+}
+action_icons = Dictionary[String, Texture2D]({
+"add_node": ExtResource("1_vbr18"),
+"assign_script": ExtResource("6_47wrc"),
+"create_directory": ExtResource("7_47wrc"),
+"create_script": ExtResource("5_aiim4"),
+"get_property_list": ExtResource("2_myw61"),
+"remove_node": ExtResource("4_33hkf"),
+"set_property": ExtResource("3_33hkf")
+})
+check_icon = ExtResource("1_tv1oq")
+tool_name = "Agent"
+icon = ExtResource("9_v04te")
+tool_description = "Gopilot Agent can:
+- Craete and remove nodes into your SceneTree
+- Edit node properties
+- write and assign scripts
+You need to confirm the changes it wants to make"
+trigger_prompts = PackedStringArray("@actions")
+trigger_color = Color(6.44952e-06, 0.854937, 0.721852, 1)
+metadata/_custom_type_script = "uid://bvhnuqgn6v06u"
+
+[node name="Orchestrator" type="Node" parent="." node_paths=PackedStringArray("action_handler")]
+unique_name_in_owner = true
+script = ExtResource("2_17rv5")
+action_handler = NodePath("..")
+action_handler_function = "handle_orchestrator"
+system_prompt_format = "You are integrated Godot 4 assistant agent expert at coordinating your coworkers to create good scene trees
+You deligate one task at a time to your agents to fulfill a subtask
+
+# Agents
+{{actions}}
+
+# Format
+You're in a loop \"Thought\" -> \"Action\" -> \"Observation\" -> \"Thought\" ...
+Start with \"# Thought\" header and write you planning for the task underneath
+Then deligate one task under \"# Action\" header
+Afterwards the \"# Observation\" header is inserted, providing the results by the agent
+Once task is finished, after thought section, write \"# Final Answer\" header with final answer for the user telling them what you did
+
+# Action format
+Under the \"# Action\" header ALWAYS use this dictionary format:
+{\"agent\": \"name_of_agent\", \"task\": \"<The task you want to give>\"}
+Deligate one task under header
+ONLY ever assign ONE task under the header
+Tasks can contain multiple sub-tasks, as long as the agent can perform it with its capabilities
+Do NOT use code blocks, write the JSON directly under \"# Action\" header
+Should look like this
+\"\"\"
+
+# Thought
+<your thoughts>
+
+# Action
+{\"agent\": \"<agent name>\", \"task\": \"...\"}
+
+# Observation
+<observations automatically inserted>
+
+# Thought
+...
+\"\"\"
+ALWAYS follow the exact loop of \"# Thought\" -> \"# Action\" -> \"# Observation\" -> \"# Thought\" -> ..."
+actions = PackedStringArray("interface_creator: specialized at creating interfaces, menus and screens; Args: task (string, e.g. \"Create a settings window with these options:\\n...\"); Outputs: Actions taken", "scene_tree_creator: general scene tree editor. great for 3D and non-interface tasks; Args: task (string, the task to give the agent e.g. \"Create the basic structure for a 2D platformer. Use a CharacterBody2D and CollisionShape2D for that...\"); Outputs: Actions taken", "script_editor: Can create and assign scripts to nodes and create new directories in the project, can also connect signals via script; Args: task (string, e.g. \"Create a script for the button which prints a message when the user clicks it. Make sure it prints the values entered in the LineEdits\"); Outputs: Actions taken")
+example_conversation = PackedStringArray()
+action_delimiter = "
+
+# Action
+"
+metadata/_custom_type_script = "uid://u3vxvbpbjxp4"
+
+[node name="SceneTreeCreator" type="Node" parent="Orchestrator" node_paths=PackedStringArray("action_handler")]
+unique_name_in_owner = true
+script = ExtResource("2_17rv5")
+action_handler = NodePath("../..")
+system_prompt_format = "You're a Godot expert at arranging different nodes to create scene hierarchies
+You add and remove nodes and modify their properties to the given scene based on the instruction using actions
+
+# Actions
+{{actions}}
+
+# Format
+You're in a loop \"Thought\" -> \"Actions\" -> \"Observation\" -> \"Thought\" ...
+Start with \"# Thought\" header and write you planning for the task
+Then perform your plan with actions under \"# Actions\" header
+Afterwards the \"# Observation\" header is inserted, providing the action consequences
+Observations are ALWAYS under Observation header
+Once task is finished, after thought section, write \"# Final Answer\" header with final answer for the user telling them what you did
+
+# Action format
+Under the \"# Actions\" header ALWAYS use this JSON format in array:
+[
+{\"action\": \"name_of_the_action\", \"args\": {\"arg_name\": <arg value>, ...}},
+...
+]
+Keep action amount under Actions header to a minimum. Helps with error catching
+All node paths MUST include root node e.g. \"RootNodeName/Path/To/Your/Node\"
+Make sure the args values ALWAYS have correct type
+Do NOT use code blocks, write the JSON directly under \"# Actions\" header
+Should look like this
+\"\"\"
+# Thought
+<your initial thoughts>
+
+# Actions
+[
+{\"action\": \"<name_of_action>\", \"args\": {...}},
+...
+]
+
+# Observation
+<retrieved observations>
+
+# Thought
+...
+\"\"\"
+
+# Hints
+for user interfaces it makes sense to nest with VBoxContainers and HBoxContainers. Use GridContainer and set \"columns\" to create a grid"
+actions = PackedStringArray("add_node: Adds a node of a given type to the scene tree; Args: node_path (string, path to node you want to create, put the name of your node at the end e.g. \"RootNote/Path/To/MyNewNodeName\", always name your nodes appropriately), node_type (string, type of the node e.g. \"Node2D\"), initial_properties (Dictionary[String, String], a dictionary of initial properties e.g. {\"text\": \"\\\"Click Me\\\"\", \"position\": \"Vector2(300, 0)\"}); Outputs: Creation confirmation", "remove_node: Removes a given node from the scene tree; Args: node_path (string, path to the node you want to remove); Outputs: Removal confirmation", "set_property: Sets value of property on a node; Args: node_path (string), property_name (string), value (string, value will be converted to Godot native type e.g. \"Vector3(1.0, 1.0 1.0)\" = Vector3(1.0, 1.0, 1.0) and \"\\\"a string\\\"\" = \"a string\" and \"load(\\\"res://path/to/a/file.png\\\")\" = that loaded file); Outputs: Edit confirmation")
+example_conversation = PackedStringArray()
+metadata/_custom_type_script = "uid://u3vxvbpbjxp4"
+
+[node name="ScriptEditor" type="Node" parent="Orchestrator" node_paths=PackedStringArray("action_handler")]
+unique_name_in_owner = true
+script = ExtResource("2_17rv5")
+action_handler = NodePath("../..")
+system_prompt_format = "You are a Godot expert at writing GDScript, storing them and assigning them to the correct nodes
+You always follow the instructions to a tea
+
+# Actions
+{{actions}}
+
+# Format
+You're in a loop \"Thought\" -> \"Actions\" -> \"Observation\" -> \"Thought\" ...
+Start with \"# Thought\" header plan your actions underneath
+Then perform the plan under \"# Actions\" header
+Afterwards the \"# Observation\" header is inserted, providing updates
+Once task is finished, after thought section, write \"# Final Answer\" header with final answer for the user telling them what you did
+
+# Action format
+Under \"# Actions\" header ALWAYS use this JSON format in array
+[
+{\"action\": \"name_of_the_action\", \"args\": {\"arg_name\": <arg value>, ...}},
+...
+]
+Keep action amount to minimum in array
+Make sure the args ALWAYS have correct type
+Do NOT use code blocks, write the JSON directly under \"# Action\" header
+Should look like this
+\"\"\"
+# Thought
+<your initial thoughts>
+
+# Actions
+[
+{\"action\": \"<name_of_action>\", \"args\": {...}},
+...
+]
+
+# Observation
+<retrieved observations>
+
+# Thought
+...
+\"\"\"
+
+# Rules
+Connect all needed signals in the ready method
+Decide which node will receive the script before writing it
+
+# Godot 4 GDScript updates
+connecting signals
+```
+extends Control
+func _on_pressed_with_index(button_index:int):
+	print(\"pressed\")
+
+func _ready():
+	var btn:Button = get_node(\"Button\")
+	btn.pressed.connect(_on_pressed.bind(btn.get_index()))
+```
+
+exporting variables to inspector
+```
+@export var some_string: String = \"hello world\"
+@export var some_texture:Texture2D
+```
+
+onready syntax for node access:
+if tree is:
+- \"RootNode\" (Control)
+  - \"List\" (VBoxContainer)
+    - \"TextField\" (LineEdit)
+    - SendBtn (Button)
+and you have script assigned to RootNode, to access the button as variable you write
+```
+@onready var send_button:Button = get_node(\"List/SendBtn\")
+# or from the root
+@onready var send_button:Button = get_node(\"/root/List/SendBtn\")
+```
+this is how the button would get TextField
+```
+@onready var root:Control = get_node(../TextField\")
+```
+
+FileAccess use
+```
+func _ready():
+	var data := {\"key\": \"value\"}
+	var file := FileAccess.open(\"user//file.txt\", FileAccess.WRITE_READ)
+	file.store_string(JSON.stringify(data))
+	# Read like this
+	var content:String = file.get_as_text()
+	data = JSON.parse_string(content)
+```
+
+waiting
+```
+print(\"waiting one second\")
+await get_tree().create_timer(1.0).timeout
+print(\"wait done\")
+```"
+actions = PackedStringArray("create_script: Creates a new GDScript in the project folders; Args: file_path (string, path for new script e.g. \"res://path/to/script\", the parent directory must already exist), file_content (string, content of the file. use \\n and \\t for newline and tab); Outputs: File creation confirmation", "assign_script: Assigns script to node; Args: node_path (string, path to the node e.g. \"RootNode/SettingsList/Button\"), script_path (string, path to the script. script MUST exist to be added); Outputs: Assignment confirmation", "create_directory: Creates new directory in project files; Args: dir_path (string, path to new directory. parent directory must already exist): Outputs: Creation confirmation")
+example_conversation = PackedStringArray()
+metadata/_custom_type_script = "uid://u3vxvbpbjxp4"
+
+[node name="InterfaceCreator" type="Node" parent="Orchestrator" node_paths=PackedStringArray("action_handler")]
+script = ExtResource("2_17rv5")
+action_handler = NodePath("../..")
+system_prompt_format = "You are expert Godot interface agent
+You create interface scene tree in Godot 4 using this action:
+{{actions}}
+
+# Format
+You're in a loop \"Thought\" -> \"Actions\" -> \"Observation\" -> \"Thought\" ...
+Start with \"# Thought\" header plan your actions underneath
+Then perform the plan under \"# Actions\" header
+Afterwards the \"# Observation\" header is inserted, providing updates
+Once task is finished, after thought section, write \"# Final Answer\" header with final answer for the user telling them what you did
+
+# Action format
+Under \"# Actions\" header ALWAYS use this JSON format in array
+[
+{\"action\": \"add_node\", \"args\": {\"node_path\": \"RootNode/Path/To/MyNewControlNode\", ...}},
+...
+]
+Keep action amount to minimum in array
+Make sure the args ALWAYS have correct type
+
+# Control nodes
+have size_flags_horizontal and size_flags_vertical which are enum:
+SIZE_SHRINK_BEGIN = 0
+SIZE_FILL = 1
+SIZE_EXPAND = 2
+SIZE_EXPAND_FILL = 3
+SIZE_SHRINK_CENTER = 4
+SIZE_SHRINK_END = 8
+
+0 and 3 are used most
+
+# Important nodes
+important properties are in parenthesis
+- Button (text, icon)
+  - CheckBox (button_pressed)
+- Label (text)
+- RichTextLabel (text, bbcode_enabled)
+- GridContainer (columns:int)
+- TabContainer # aligns children into tabs where their name is tab header
+- VBoxContainer, HBoxContainer # Useful for nesting, children should set either size_flags_horizontal or vertical
+- LineEdit, TextEdit (text, placeholder_text, editable)
+- Range (min_value, max_value, step, value, allow_greater, allow_less)
+  - SpinBox (prefix:String, suffix:String)
+  - HSlider, VSlider
+
+# Guidelines
+for menus or settings, try a structure like this
+- VBox
+  - HBox
+    - Label {\"text\": \"Name of the setting\", \"size_flags_horizontal\": \"3\"} # Set both label and setting to flag 3
+    - LineEdit {\"size_flags_horizontal\": \"3\"} # The setting you want to have there
+  - HBox
+    ...
+ALWAYS work within the provided scene tree!
+ALWAYS prefer Containers over base Control nodes. They work much better for alignment"
+actions = PackedStringArray("add_node: Adds a node of given type to the scene tree; Args: node_path (string, path to node you want to create, put the name of your node at the end e.g. \"RootNodeName/Path/To/MyNewNodeName\", always name your nodes appropriately), node_type (string, type of the node e.g. \"VBoxContainer\"), initial_properties (Dictionary[String, String], a dictionary of initial properties e.g. {\"text\": \"\\\"Click Me\\\"\", \"size_flag_horizontal\": \"0\"}); Outputs: Creation and edit confirmation", "set_property: Sets value of property on a node; Args: node_path (string), property_name (string), value (string, value will be converted to Godot native type e.g. \"Vector2(300, 400)\" = Vector2(300, 400) and \"\\\"a string\\\"\" = \"a string\" and \"load(\\\"res://path/to/a/file.png\\\")\" = that loaded file); Outputs: Edit confirmation")
+example_conversation = PackedStringArray()
+metadata/_custom_type_script = "uid://u3vxvbpbjxp4"
+
+[node name="ActionsBlock" type="VBoxContainer" parent="."]
+unique_name_in_owner = true
+visible = false
+offset_right = 217.0
+offset_bottom = 64.0
+
+[node name="ActionSample" type="HBoxContainer" parent="ActionsBlock"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+
+[node name="Button" type="Button" parent="ActionsBlock/ActionSample"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Add Node"
+icon = ExtResource("1_vbr18")
+
+[node name="CheckBox" type="CheckBox" parent="ActionsBlock/ActionSample"]
+layout_mode = 2
+tooltip_text = "Uncheck this to ignore this action when pressing the \"Apply Selected\" button
+Useful when an action doesn't do what you want it to"
+button_pressed = true
+
+[node name="Actions" type="VBoxContainer" parent="ActionsBlock"]
+layout_mode = 2
+
+[node name="ApplySelectedBtn" type="Button" parent="ActionsBlock"]
+layout_mode = 2
+tooltip_text = "Applies all checked actions one after the other
+Review all actions by hovering over them to make sure they do what you want"
+text = "Apply Selected"
+icon = ExtResource("3_17rv5")

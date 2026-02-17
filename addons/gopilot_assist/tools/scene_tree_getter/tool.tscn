@@ -1,0 +1,30 @@
+[gd_scene load_steps=3 format=3 uid="uid://cmrsfloo0pl7w"]
+
+[ext_resource type="Texture2D" uid="uid://5d8o82rv8ga8" path="res://addons/gopilot_utils/textures/PackedScene.png" id="2_06vlq"]
+
+[sub_resource type="GDScript" id="GDScript_wh8gb"]
+script/source = "@tool
+extends GopilotTool
+
+const COMMON := preload(\"res://addons/gopilot_utils/scripts/common.gd\")
+
+func _run_tool(conversation:Array[Dictionary]) -> void:
+	var root:Node = EditorInterface.get_edited_scene_root()
+	var scene_path:String = root.scene_file_path
+	var root_children:Array[Dictionary]
+	var cite_name:String = root.scene_file_path.split(\"/\")[-1]
+	var cite_tooltip:String = \"The currently opened scene '\" + root.scene_file_path + \"'\"
+	add_button_citation(cite_name, cite_tooltip, COMMON.PACKED_SCENE_ICON)
+	var scene := {\"file_name\":root.scene_file_path, \"name\":root.name, \"children\":root_children}
+	var additional_info:String = \"# Current Scene \" + root.scene_file_path + \"\\n\" + COMMON.get_node_as_string(root, 10) + \"\\n\"
+	add_prefix(conversation, additional_info)
+"
+
+[node name="SceneGetter" type="Node"]
+script = SubResource("GDScript_wh8gb")
+tool_name = "scene_tree"
+icon = ExtResource("2_06vlq")
+is_retrieval_tool = true
+tool_description = "Adds entire node scene tree into context window in JSON format"
+trigger_prompts = PackedStringArray("@scene")
+metadata/_custom_type_script = "uid://bvhnuqgn6v06u"

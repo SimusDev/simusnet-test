@@ -1,0 +1,245 @@
+[gd_scene load_steps=10 format=3 uid="uid://dby1p7mj472dd"]
+
+[ext_resource type="Script" uid="uid://bndn2vfhmr0y" path="res://addons/gopilot_assist/scripts/create_buddy_window.gd" id="1_1gk80"]
+[ext_resource type="PackedScene" uid="uid://bmaoeol88226l" path="res://addons/gopilot_assist/buddies/default_buddy/default_buddy.tscn" id="1_t6a73"]
+[ext_resource type="Texture2D" uid="uid://fa3w6nwyvt3i" path="res://addons/gopilot_assist/textures/FolderBrowse.png" id="2_c2brq"]
+[ext_resource type="Script" uid="uid://bki1cvhowv6t5" path="res://addons/gopilot_utils/classes/chat_requester.gd" id="2_y5auc"]
+[ext_resource type="LabelSettings" uid="uid://w0eyysmkf5w3" path="res://addons/gopilot_assist/resources/warning_label_settings.tres" id="3_7vdjv"]
+[ext_resource type="Texture2D" uid="uid://c18qw6568c5w6" path="res://addons/gopilot_utils/textures/Info.png" id="4_hn0o6"]
+[ext_resource type="Texture2D" uid="uid://cqxylo5wdjpt0" path="res://addons/gopilot_utils/textures/Plus.png" id="4_m7jhw"]
+[ext_resource type="PackedScene" uid="uid://buk3mdqtutkvd" path="res://addons/gopilot_utils/scenes/chat_conversation.tscn" id="6_mnhqm"]
+[ext_resource type="PackedScene" uid="uid://dt4m5posjkuw4" path="res://addons/gopilot_utils/scenes/prompt_field.tscn" id="7_wbcwl"]
+
+[node name="CreateBuddyWindow" type="ConfirmationDialog"]
+title = "Buddy Studio"
+initial_position = 4
+size = Vector2i(770, 510)
+visible = true
+ok_button_text = "Create"
+script = ExtResource("1_1gk80")
+
+[node name="ChoseBuddyDialog" type="FileDialog" parent="."]
+unique_name_in_owner = true
+title = "Open a File"
+initial_position = 4
+size = Vector2i(475, 480)
+ok_button_text = "Open"
+file_mode = 0
+filters = PackedStringArray("*.tscn")
+
+[node name="Chat" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("2_y5auc")
+
+[node name="BuddyCreationInfo" type="AcceptDialog" parent="."]
+unique_name_in_owner = true
+title = "Gopilot"
+initial_position = 4
+size = Vector2i(568, 366)
+dialog_text = "Create your own Buddy visual!
+
+A new inherited scene from the default Buddy will now be created, but you can also create your own!
+
+There are two rules for buddy scenes:
+1. Must have the minimum_size set (Root node should be a Control)
+2. (optional) Should have an AnimationPlayer with name \"Anim\" as  a child. This player should have the animations \"talk\" and \"idle\"
+
+Come back to Buddy Studio when you are done and chose your newly created scene!"
+dialog_autowrap = true
+
+[node name="BuddyInfo" type="AcceptDialog" parent="."]
+unique_name_in_owner = true
+title = "Gopilot Buddy Info"
+initial_position = 4
+size = Vector2i(427, 340)
+dialog_text = "Gopilot Buddies are ChatBots, specifically tuned for your desires.
+Give your buddy a name and a \"system prompt\", which lets it know how you want it to respond.
+
+Customize the look of your Buddy by creating and selecting a scene using the buttons below.
+
+This scene should have an AnimationPlayer as a child with the name \"Anim\". It should have the animations \"talk\" and \"idle\"."
+dialog_autowrap = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 762.0
+offset_bottom = 461.0
+
+[node name="Warning" type="Label" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Experimental feature"
+label_settings = ExtResource("3_7vdjv")
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Name" type="HBoxContainer" parent="VBoxContainer/VBoxContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="SettingName" type="Label" parent="VBoxContainer/VBoxContainer/VBoxContainer2/Name"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.5
+tooltip_text = "The name of the Buddy! Mostly just a visual."
+mouse_filter = 1
+text = "Name"
+
+[node name="Name" type="LineEdit" parent="VBoxContainer/VBoxContainer/VBoxContainer2/Name"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "The name of the Buddy! Mostly just a visual."
+placeholder_text = "Fritz"
+
+[node name="Temperature" type="HBoxContainer" parent="VBoxContainer/VBoxContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="OverrideTemperatureBtn" type="CheckBox" parent="VBoxContainer/VBoxContainer/VBoxContainer2/Temperature"]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "Check this if you want to set a custom temperature"
+text = "Temperature"
+
+[node name="Label" type="Label" parent="VBoxContainer/VBoxContainer/VBoxContainer2/Temperature"]
+layout_mode = 2
+text = "0"
+
+[node name="TemperatureSlider" type="HSlider" parent="VBoxContainer/VBoxContainer/VBoxContainer2/Temperature"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+tooltip_text = "The temperature, or 'creativity' of the model. Keep low for connsistency, push high (about 1.3) for creative and unpredictable output."
+max_value = 10.0
+step = 0.1
+value = 0.7
+
+[node name="SliderValue" type="Label" parent="VBoxContainer/VBoxContainer/VBoxContainer2/Temperature"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(35, 0)
+layout_mode = 2
+text = "0.7"
+horizontal_alignment = 1
+
+[node name="System" type="HBoxContainer" parent="VBoxContainer/VBoxContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="SettingName" type="Label" parent="VBoxContainer/VBoxContainer/VBoxContainer2/System"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+size_flags_stretch_ratio = 0.5
+tooltip_text = "Tell the model how it should behave. Tell it how to structure its messages and what to pay attention to.
+
+Example: Respond with very short messages. Only include the most important information"
+mouse_filter = 1
+text = "System Prompt"
+
+[node name="SysmtePrompt" type="TextEdit" parent="VBoxContainer/VBoxContainer/VBoxContainer2/System"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Modifies the system prompt template.
+Optionally, use: {{file_tree}}, {{scene_tree}}, {{custom_instructions}}, {{nane}} and {{pronouns}}"
+placeholder_text = "You are an integrated Godot 4 assistant.
+{{custom_instructions}}
+
+# Project Files
+{{file_tree}}
+
+# Current Scene
+{{scene_tree}}
+
+The users name is {{name}} with pronouns {{pronouns}}."
+wrap_mode = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="BuddyCon" type="CenterContainer" parent="VBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+clip_contents = true
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "The Buddy you will see in the Gopilot window.
+Can be enabled and disabled in the settings."
+
+[node name="DefaultBuddy" parent="VBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/BuddyCon" instance=ExtResource("1_t6a73")]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="TalkBtn" type="Button" parent="VBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+tooltip_text = "Play Buddy \"talk\" animation"
+text = "Talk"
+
+[node name="IdleBtn" type="Button" parent="VBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+tooltip_text = "Play Buddy \"idle\" animaion"
+text = "Idle"
+
+[node name="InfoBtn" type="Button" parent="VBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+tooltip_text = "What is this Buddy thing and why should I care?"
+icon = ExtResource("4_hn0o6")
+icon_alignment = 1
+
+[node name="Path" type="HBoxContainer" parent="VBoxContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="BuddyPath" type="LineEdit" parent="VBoxContainer/VBoxContainer/VBoxContainer/Path"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+editable = false
+
+[node name="BrowseBuddiesBtn" type="Button" parent="VBoxContainer/VBoxContainer/VBoxContainer/Path"]
+layout_mode = 2
+tooltip_text = "Chose a scene for your Buddy"
+icon = ExtResource("2_c2brq")
+
+[node name="CreateBuddySceneBtn" type="Button" parent="VBoxContainer/VBoxContainer/VBoxContainer/Path"]
+layout_mode = 2
+tooltip_text = "Create a new buddy scene"
+icon = ExtResource("4_m7jhw")
+
+[node name="TestWindow" type="VSplitContainer" parent="VBoxContainer/VBoxContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ChatConversation" parent="VBoxContainer/VBoxContainer/VBoxContainer/TestWindow" instance=ExtResource("6_mnhqm")]
+layout_mode = 2
+size_flags_vertical = 3
+use_markdown_formatting = true
+
+[node name="PromptField" parent="VBoxContainer/VBoxContainer/VBoxContainer/TestWindow" instance=ExtResource("7_wbcwl")]
+layout_mode = 2
+
+[connection signal="about_to_popup" from="." to="." method="_on_about_to_popup"]
+[connection signal="confirmed" from="." to="." method="_on_confirmed"]
+[connection signal="file_selected" from="ChoseBuddyDialog" to="." method="_buddy_scene_selected"]
+[connection signal="confirmed" from="BuddyCreationInfo" to="." method="_on_buddy_creation_info_confirmed"]
+[connection signal="toggled" from="VBoxContainer/VBoxContainer/VBoxContainer2/Temperature/OverrideTemperatureBtn" to="." method="_on_override_temperature_btn_toggled"]
+[connection signal="value_changed" from="VBoxContainer/VBoxContainer/VBoxContainer2/Temperature/TemperatureSlider" to="." method="_on_temperature_slider_value_changed"]
+[connection signal="pressed" from="VBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/TalkBtn" to="." method="_on_talk_btn_pressed"]
+[connection signal="pressed" from="VBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/IdleBtn" to="." method="_on_idle_btn_pressed"]
+[connection signal="pressed" from="VBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/InfoBtn" to="." method="_on_info_btn_pressed"]
+[connection signal="pressed" from="VBoxContainer/VBoxContainer/VBoxContainer/Path/BrowseBuddiesBtn" to="." method="_on_browse_buddies_btn_pressed"]
+[connection signal="pressed" from="VBoxContainer/VBoxContainer/VBoxContainer/Path/CreateBuddySceneBtn" to="." method="_on_create_buddy_scene_btn_pressed"]

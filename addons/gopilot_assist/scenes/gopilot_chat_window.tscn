@@ -1,0 +1,600 @@
+[gd_scene load_steps=35 format=3 uid="uid://cw6dmsjmvpnl2"]
+
+[ext_resource type="Script" uid="uid://dxvtv5ikqfcrf" path="res://addons/gopilot_assist/scripts/gopilot_chat_window.gd" id="1_md2c7"]
+[ext_resource type="Texture2D" uid="uid://cwicxo2mxmd0l" path="res://addons/gopilot_assist/textures/StatusSuccess.png" id="2_cu072"]
+[ext_resource type="Texture2D" uid="uid://cdqe400wm4tx7" path="res://addons/gopilot_assist/textures/StatusWarning.png" id="3_gjfue"]
+[ext_resource type="Texture2D" uid="uid://v5omew4llxgs" path="res://addons/gopilot_utils/textures/Play.png" id="4_81x3m"]
+[ext_resource type="Texture2D" uid="uid://chw8x0p05hr03" path="res://addons/gopilot_utils/textures/Stop.png" id="5_80dgd"]
+[ext_resource type="Texture2D" uid="uid://cl3ikvuviln72" path="res://addons/gopilot_utils/textures/Script.png" id="6_ab3yx"]
+[ext_resource type="Texture2D" uid="uid://balf1xtoncg8x" path="res://addons/gopilot_assist/textures/Gear.png" id="7_d3pva"]
+[ext_resource type="Texture2D" uid="uid://dus7h1k42t8s0" path="res://addons/gopilot_assist/textures/ScriptCreate.png" id="8_wg36t"]
+[ext_resource type="PackedScene" uid="uid://buk3mdqtutkvd" path="res://addons/gopilot_utils/scenes/chat_conversation.tscn" id="9_r7xnq"]
+[ext_resource type="Texture2D" uid="uid://cqxylo5wdjpt0" path="res://addons/gopilot_utils/textures/Plus.png" id="10_xuh5c"]
+[ext_resource type="Script" uid="uid://bg2vwcy5fq0w4" path="res://addons/gopilot_assist/scripts/chat_syntax_highlighter.gd" id="10_yooau"]
+[ext_resource type="Texture2D" uid="uid://bjppapop1udji" path="res://addons/gopilot_assist/textures/BackArrow.png" id="11_7gj4k"]
+[ext_resource type="Texture2D" uid="uid://pb5w62qk3erj" path="res://addons/gopilot_utils/textures/sparkle.svg" id="11_nmb2s"]
+[ext_resource type="Texture2D" uid="uid://ba1myyao0mcl0" path="res://addons/gopilot_assist/textures/GodotWhite.png" id="11_ooyrf"]
+[ext_resource type="Texture2D" uid="uid://d155qcjx6x0l8" path="res://addons/gopilot_utils/textures/Clear.png" id="12_4cc4m"]
+[ext_resource type="Texture2D" uid="uid://brvgeqlwurv6w" path="res://addons/gopilot_assist/textures/ForwardArrow.png" id="12_p2a5m"]
+[ext_resource type="Texture2D" uid="uid://bejwedgw8tico" path="res://addons/gopilot_utils/textures/Tools.png" id="14_lsw88"]
+[ext_resource type="PackedScene" uid="uid://dt4m5posjkuw4" path="res://addons/gopilot_utils/scenes/prompt_field.tscn" id="16_1nish"]
+[ext_resource type="Script" uid="uid://brr3fsgmwwxxs" path="res://addons/gopilot_utils/classes/embed_requester.gd" id="17_mkvih"]
+[ext_resource type="Texture2D" uid="uid://baiogkctl08df" path="res://addons/gopilot_utils/textures/chat_requester_icon.svg" id="18_0euwt"]
+[ext_resource type="Script" uid="uid://bki1cvhowv6t5" path="res://addons/gopilot_utils/classes/chat_requester.gd" id="18_2oya2"]
+[ext_resource type="PackedScene" uid="uid://bd2gvgo1udsno" path="res://addons/gopilot_assist/scenes/settings_window.tscn" id="18_se0k8"]
+[ext_resource type="Texture2D" uid="uid://310r7142ftch" path="res://addons/gopilot_assist/textures/Docs.png" id="19_c60bm"]
+[ext_resource type="Texture2D" uid="uid://b4fmhqcokoqsl" path="res://addons/gopilot_assist/textures/DropUp.png" id="19_r1phx"]
+[ext_resource type="Texture2D" uid="uid://fa3w6nwyvt3i" path="res://addons/gopilot_assist/textures/FolderBrowse.png" id="20_drtuc"]
+[ext_resource type="Texture2D" uid="uid://c4yvdun15i5ef" path="res://addons/gopilot_assist/textures/Debug.png" id="21_drtuc"]
+[ext_resource type="Texture2D" uid="uid://5d8o82rv8ga8" path="res://addons/gopilot_utils/textures/PackedScene.png" id="22_lov72"]
+[ext_resource type="PackedScene" uid="uid://dby1p7mj472dd" path="res://addons/gopilot_assist/scenes/create_buddy_window.tscn" id="23_xxmb7"]
+[ext_resource type="Texture2D" uid="uid://bqm3m82gdl3qs" path="res://addons/gopilot_utils/textures/agent_handler_icon.svg" id="24_08fpy"]
+[ext_resource type="Script" uid="uid://bbh8qe3j0grs" path="res://addons/gopilot_utils/api_providers/mistral-codestral.gd" id="26_y888t"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_66t38"]
+
+[sub_resource type="CodeHighlighter" id="CodeHighlighter_1skve"]
+number_color = Color(1, 1, 1, 1)
+symbol_color = Color(1, 1, 1, 1)
+function_color = Color(1, 1, 1, 1)
+member_variable_color = Color(1, 1, 1, 1)
+color_regions = {
+"/": Color(0.529412, 0.807843, 0.980392, 1)
+}
+script = ExtResource("10_yooau")
+
+[sub_resource type="CodeHighlighter" id="CodeHighlighter_lsw88"]
+number_color = Color(1, 1, 1, 1)
+symbol_color = Color(1, 1, 1, 1)
+function_color = Color(1, 1, 1, 1)
+member_variable_color = Color(1, 1, 1, 1)
+keyword_colors = {
+"@Files": Color(1, 0.647059, 0, 1),
+"@Files(7)": Color(1, 0.647059, 0, 1),
+"@actions": Color(6.44952e-06, 0.854937, 0.721852, 1),
+"@docs(NodeType)": Color(1, 0.647059, 0, 1),
+"@print_conv": Color(0.51, 0.51, 0.51, 1),
+"@scene": Color(1, 0.647059, 0, 1),
+"@script": Color(1, 0.647059, 0, 1),
+"@your_script_name_here.gd": Color(1, 0.647059, 0, 1)
+}
+color_regions = {
+"/  ": Color(0.529412, 0.807843, 0.980392, 1)
+}
+script = ExtResource("10_yooau")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pbrey"]
+
+[node name="GopilotChatWindow" type="Control" node_paths=PackedStringArray("all_requesters", "text_field", "chat_model", "code_model", "flash_model", "architect_model")]
+custom_minimum_size = Vector2(230, 210)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -877.0
+offset_bottom = -114.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_md2c7")
+all_requesters = [NodePath("ChatModel"), NodePath("CodeModel"), NodePath("FlashModel"), NodePath("ArchitectModel")]
+connected_texture = ExtResource("2_cu072")
+connecting_texture = ExtResource("3_gjfue")
+sparkle_icon = ExtResource("11_nmb2s")
+play = ExtResource("4_81x3m")
+stop = ExtResource("5_80dgd")
+script_icon = ExtResource("6_ab3yx")
+example_prompts = Array[String](["Explain what each function in my /script does in a table with a \"function name\" and a \"functionality\" column", "Can you write a gdscript with a function which takes a group name and returns the names of the nodes?", "Make a 4 by 4 tgrid where every column and every line equates to the same number. think hard about this!", "Here, take some info on my /scene. Just so you know", "Name 5 bullet short bullet points on what I can improve in my /script. Point out examples in my script"])
+text_field = NodePath("SplitCon/VBoxContainer/PromptField/PanelContainer/PromptMargin/PromptField/TextEdit")
+chat_icon = ExtResource("18_0euwt")
+chat_model = NodePath("ChatModel")
+code_model = NodePath("CodeModel")
+flash_model = NodePath("FlashModel")
+architect_model = NodePath("ArchitectModel")
+
+[node name="SplitCon" type="VSplitContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+split_offset = 415
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="SplitCon"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="SplitCon/VBoxContainer2"]
+layout_mode = 2
+
+[node name="SettingsBtn" type="Button" parent="SplitCon/VBoxContainer2/HBoxContainer4"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 4
+tooltip_text = "Gopilot settings"
+icon = ExtResource("7_d3pva")
+flat = true
+
+[node name="BuddyBtn" type="MenuButton" parent="SplitCon/VBoxContainer2/HBoxContainer4"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 4
+tooltip_text = "Select a Buddy or create one yourself
+(Customize system prompt and such)"
+icon = ExtResource("11_ooyrf")
+item_count = 3
+popup/item_0/text = "default_buddy"
+popup/item_0/id = 0
+popup/item_1/text = "lite_gopilot"
+popup/item_1/id = 1
+popup/item_2/text = "Create Buddy"
+popup/item_2/id = 2
+
+[node name="PrintDocBtn" type="Button" parent="SplitCon/VBoxContainer2/HBoxContainer4"]
+visible = false
+layout_mode = 2
+tooltip_text = "Clears the conversation history"
+icon = ExtResource("8_wg36t")
+flat = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SplitCon/VBoxContainer2/HBoxContainer4"]
+visible = false
+layout_mode = 2
+
+[node name="StatusLabel" type="RichTextLabel" parent="SplitCon/VBoxContainer2/HBoxContainer4/HBoxContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+tooltip_text = "Ollama connection status"
+theme_override_font_sizes/normal_font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxEmpty_66t38")
+text = "connected"
+fit_content = true
+autowrap_mode = 0
+
+[node name="PanelContainer" type="PanelContainer" parent="SplitCon/VBoxContainer2/HBoxContainer4"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="BuddySelection" type="HBoxContainer" parent="SplitCon/VBoxContainer2/HBoxContainer4/PanelContainer"]
+layout_mode = 2
+
+[node name="BackBtn" type="Button" parent="SplitCon/VBoxContainer2/HBoxContainer4/PanelContainer/BuddySelection"]
+layout_mode = 2
+icon = ExtResource("11_7gj4k")
+flat = true
+
+[node name="Label" type="Label" parent="SplitCon/VBoxContainer2/HBoxContainer4/PanelContainer/BuddySelection"]
+visible = false
+layout_mode = 2
+text = "default_buddy"
+
+[node name="ForwardBtn" type="Button" parent="SplitCon/VBoxContainer2/HBoxContainer4/PanelContainer/BuddySelection"]
+layout_mode = 2
+icon = ExtResource("12_p2a5m")
+flat = true
+
+[node name="Spacer" type="Control" parent="SplitCon/VBoxContainer2/HBoxContainer4"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ToolsCheck" type="CheckBox" parent="SplitCon/VBoxContainer2/HBoxContainer4"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 10
+tooltip_text = "When deactivated, context retrieval tools will not work
+That means, that automatic script-retrieval will also not work"
+button_pressed = true
+icon = ExtResource("14_lsw88")
+
+[node name="MarginContainer" type="MarginContainer" parent="SplitCon/VBoxContainer2/HBoxContainer4"]
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_right = 5
+
+[node name="StatusIcon" type="TextureRect" parent="SplitCon/VBoxContainer2/HBoxContainer4/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 10
+tooltip_text = "Ollama connection status
+Green = connected
+Yellow = connecting"
+texture = ExtResource("2_cu072")
+stretch_mode = 5
+
+[node name="ChatConversation" parent="SplitCon/VBoxContainer2" instance=ExtResource("9_r7xnq")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+buddy_visible = true
+user_role_name = "Maria"
+user_can_edit = true
+user_can_remove = true
+assistant_role_name = "Gopilot"
+assistant_can_edit = true
+
+[node name="ExampleScroller" type="ScrollContainer" parent="SplitCon/VBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 8
+vertical_scroll_mode = 0
+
+[node name="ExampleCon" type="HBoxContainer" parent="SplitCon/VBoxContainer2/ExampleScroller"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SplitCon"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SplitCon/VBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="UserInput" type="TextEdit" parent="SplitCon/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Ask anything..."
+wrap_mode = 1
+syntax_highlighter = SubResource("CodeHighlighter_1skve")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SplitCon/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="SendMessageBtn" type="Button" parent="SplitCon/VBoxContainer/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 0
+tooltip_text = "Send your message to GoPilot"
+disabled = true
+text = "SEND"
+icon = ExtResource("4_81x3m")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="SplitCon/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="UseToolsBtn" type="CheckBox" parent="SplitCon/VBoxContainer/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+tooltip_text = "Allow Gopilot to interact with your SceneTree and scripts
+All actions must be confirmed by you"
+text = "Tools"
+
+[node name="PromptField" parent="SplitCon/VBoxContainer" instance=ExtResource("16_1nish")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="TextEdit" parent="SplitCon/VBoxContainer/PromptField/PanelContainer/PromptMargin/PromptField" index="1"]
+custom_minimum_size = Vector2(0, 0)
+syntax_highlighter = SubResource("CodeHighlighter_lsw88")
+
+[node name="CodeEdit" parent="SplitCon/VBoxContainer/PromptField/PanelContainer/PromptMargin/PromptField" index="2"]
+syntax_highlighter = SubResource("CodeHighlighter_lsw88")
+
+[node name="ToolButtons" parent="SplitCon/VBoxContainer/PromptField/PanelContainer/PromptMargin/PromptField/VBoxContainer" index="0"]
+visible = true
+
+[node name="NewChatBtn" type="Button" parent="SplitCon/VBoxContainer/PromptField/PanelContainer/PromptMargin/PromptField/VBoxContainer/ToolButtons" index="0"]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "Clears the chat history"
+icon = ExtResource("12_4cc4m")
+flat = true
+
+[node name="ToolsDropdown" type="MenuButton" parent="SplitCon/VBoxContainer/PromptField/PanelContainer/PromptMargin/PromptField/VBoxContainer/ToolButtons" index="1"]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "Add more context to your prompts by using these triggers"
+icon = ExtResource("10_xuh5c")
+item_count = 5
+popup/item_0/text = "Get Docs"
+popup/item_0/icon = ExtResource("19_c60bm")
+popup/item_0/id = 0
+popup/item_1/text = "Get File Tree"
+popup/item_1/icon = ExtResource("20_drtuc")
+popup/item_1/id = 1
+popup/item_2/text = "Print Conversation"
+popup/item_2/icon = ExtResource("21_drtuc")
+popup/item_2/id = 2
+popup/item_3/text = "Get Node Tree"
+popup/item_3/icon = ExtResource("22_lov72")
+popup/item_3/id = 3
+popup/item_4/text = "Link Open Script"
+popup/item_4/icon = ExtResource("6_ab3yx")
+popup/item_4/id = 4
+
+[node name="ConversationTypeDropdown" type="OptionButton" parent="SplitCon/VBoxContainer/PromptField/PanelContainer/PromptMargin/PromptField/VBoxContainer/ToolButtons" index="2"]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "The type of interaction you want to initiate with your prompt
+Select \"Chat\" for a normal conversation"
+theme_override_icons/arrow = ExtResource("19_r1phx")
+flat = true
+selected = 0
+fit_to_longest_item = false
+allow_reselect = true
+item_count = 2
+popup/item_0/text = "Chat"
+popup/item_0/icon = ExtResource("18_0euwt")
+popup/item_0/id = 0
+popup/item_1/text = "Agent"
+popup/item_1/icon = ExtResource("24_08fpy")
+popup/item_1/id = 1
+
+[node name="StatusIndicator" parent="SplitCon/VBoxContainer/PromptField/PanelContainer/PromptMargin/PromptField/VBoxContainer" index="1"]
+theme_override_styles/normal = SubResource("StyleBoxEmpty_pbrey")
+
+[node name="SendBtn" parent="SplitCon/VBoxContainer/PromptField/PanelContainer/PromptMargin/PromptField/VBoxContainer" index="2"]
+disabled = false
+
+[node name="ChatModel" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("18_2oya2")
+_api_gdscript = ExtResource("26_y888t")
+provider = "mistral-codestral"
+api_key = "Zb3O5CbwOcAcyKpuMLfznQwzy5czqXPM"
+host = "https://codestral.mistral.ai"
+port = 443
+model = "codestral-latest"
+system_prompt = "You are a helpful AI assistant integrated in the Godot 4.4 Game Engine.
+Always keep your responses short but informative, as the user has they have a short attention span. The users name is Maria 💖 and they pronouns are she/her"
+automatically_add_messages = false
+metadata/_custom_type_script = "uid://bki1cvhowv6t5"
+
+[node name="CodeModel" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("18_2oya2")
+_api_gdscript = ExtResource("26_y888t")
+provider = "mistral-codestral"
+api_key = "Zb3O5CbwOcAcyKpuMLfznQwzy5czqXPM"
+host = "https://codestral.mistral.ai"
+port = 443
+model = "codestral-latest"
+system_prompt = "You are a helpful AI assistant integrated in the Godot 4.4 Game Engine.
+Always keep your responses short but informative, as the user has they have a short attention span. The users name is Maria 💖 and they pronouns are she/her"
+automatically_add_messages = false
+metadata/_custom_type_script = "uid://bki1cvhowv6t5"
+
+[node name="FlashModel" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("18_2oya2")
+_api_gdscript = ExtResource("26_y888t")
+provider = "mistral-codestral"
+api_key = "Zb3O5CbwOcAcyKpuMLfznQwzy5czqXPM"
+host = "https://codestral.mistral.ai"
+port = 443
+model = "codestral-latest"
+automatically_add_messages = false
+metadata/_custom_type_script = "uid://bki1cvhowv6t5"
+
+[node name="ArchitectModel" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("18_2oya2")
+_api_gdscript = ExtResource("26_y888t")
+provider = "mistral-codestral"
+api_key = "Zb3O5CbwOcAcyKpuMLfznQwzy5czqXPM"
+host = "https://codestral.mistral.ai"
+port = 443
+model = "codestral-latest"
+metadata/_custom_type_script = "uid://bki1cvhowv6t5"
+
+[node name="EmbedRequester" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("17_mkvih")
+in_editor = true
+
+[node name="ModelListGetter" type="HTTPRequest" parent="."]
+unique_name_in_owner = true
+
+[node name="SettingsWindow" parent="." instance=ExtResource("18_se0k8")]
+unique_name_in_owner = true
+size = Vector2i(587, 518)
+visible = false
+max_size = Vector2i(16384, 518)
+
+[node name="AboutWindow" type="AcceptDialog" parent="."]
+title = "Gopilot Info"
+initial_position = 4
+size = Vector2i(595, 615)
+exclusive = false
+
+[node name="TabContainer" type="TabContainer" parent="AboutWindow"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 9.0
+offset_top = 9.0
+offset_right = -9.0
+offset_bottom = -51.0
+grow_horizontal = 2
+grow_vertical = 2
+current_tab = 1
+
+[node name="Getting Started" type="RichTextLabel" parent="AboutWindow/TabContainer"]
+visible = false
+layout_mode = 2
+bbcode_enabled = true
+text = "[center][b]Getting Started[/b][/center]
+To run Gopilot, you must first do the following:
+[ol]
+Install the open source software [url=https://ollama.com]ollama[/url] on your machine. It will do all the heavy lifting, and perform the generations in the background.
+Chose a model on the [url=https://ollama.com/library]ollama model library[/url], preferably a code model, and install it in your terminal
+In the Gopilot chat window, click the gear icon and press the [b]Reload Models[/b] button
+Assign each task to a model. Tasks can have the same model
+Click on [b]Save Settings[/b] to store the changes you have made
+[/ol]
+
+And done! Try out the chat interface and see how your model performs.
+
+Afterwards, try the shortcuts [bgcolor=black]Atl+E[/bgcolor] and [bgcolor=black]Shift+Alt+E[/bgcolor] in the script editor!"
+metadata/_tab_index = 0
+
+[node name="Chat" type="TabContainer" parent="AboutWindow/TabContainer"]
+layout_mode = 2
+current_tab = 1
+metadata/_tab_index = 1
+
+[node name="Basics" type="RichTextLabel" parent="AboutWindow/TabContainer/Chat"]
+visible = false
+layout_mode = 2
+bbcode_enabled = true
+text = "[center][b]The chat: Better than most![/b][/center]
+Gopilot Chat allows for back and forth interaction between you and your LLMs (large language models). But not only that, it can also:
+[ul][b]Scripts![/b] Add [color=skyblue]/script[/color] into your prompt to add the currently open script to your message. You want to include multiple? Simply add [color=skyblue]/more_scripts.gd /like_this.gd[/color] and Gopilot will find these scripts in your script sidebar, and add them too.
+[b]Intuitive inclusion[/b]: Select some code and Gopilot automatically adds it to you message. No need for tags!
+[b]Scene tree citation[/b]: To include your scene tree, add [color=skyblue]/scene[/color] to your prompt. Gopilot will understand your scene structure and help you create your desired layout faster!
+[b]And now, everyone![/b] Add as many of these tags as you want, the sky is the limit!... Actually, your models context-size is [b]:P[/b]
+[b]Code Links[/b]: All your tagged additions are listed below your message once you send it. You can then click them, to link back to that file
+[b]Markdown Support[/b]: Most chat-tuned LLMs are trained on markdown text, which enables it to format its response using richtext. Gopilot will try to convert the given markdown text into BBCode text, so it will be displayed as richtext in the chat. This is experimental for now and can be turned off in the Gopilot settings.
+[/ul]"
+metadata/_tab_index = 0
+
+[node name="Tools" type="RichTextLabel" parent="AboutWindow/TabContainer/Chat"]
+layout_mode = 2
+bbcode_enabled = true
+text = "[center][b]Tool calls for everyone![/b] [i]yes, even you![/i][/center]
+
+Gopilot comes with three basic tools by default:[ul]
+[b]Create a script[/b]: Lets the LLM write a script based on your prompt and create it with one click
+[b]Test tool[/b]: Just an example tool for you to exa
+[b][/b]: 
+[/ul]"
+metadata/_tab_index = 1
+
+[node name="Code Completion" type="RichTextLabel" parent="AboutWindow/TabContainer"]
+visible = false
+layout_mode = 2
+bbcode_enabled = true
+text = "[center][b]Code Completion[/b][/center]
+Gopilot can complete your code, depending on your machine, blazingly fast!
+
+In the script editor, no matter where, press the primary shortcut (default is [bgcolor=black]Alt+E[/bgcolor]) and Gopilot will try to complete the code for you where your cursor just was. Accept the generation with tab or decline with [bgcolor=black]Escape[/bgcolor]
+
+Set the context size in the settings, to prioritize either speed, or accuracy. The larger the context, the longer the first word takes to load.
+
+You can change the keyboard shortcuts at any time in the Gopilot settings."
+metadata/_tab_index = 2
+
+[node name="Code Refactoring" type="RichTextLabel" parent="AboutWindow/TabContainer"]
+visible = false
+layout_mode = 2
+bbcode_enabled = true
+text = "[center][b]Code Refactoring[/b][/center]
+Stuck on a silly problem, or cluttered code? Use Refactor for a quick fix!
+
+[ol]
+Select the code you want to modify
+Press the primary shortcut [bgcolor=black]Alt+E[/bgcolor] to open the Refactor menu
+Chose an example prompt, or write your own and send your message
+Review and accept the code
+[/ol]"
+metadata/_tab_index = 3
+
+[node name="Insert" type="RichTextLabel" parent="AboutWindow/TabContainer"]
+visible = false
+layout_mode = 2
+bbcode_enabled = true
+text = "[center][b]Code Insert[/b][/center]
+You have an idea but are lazy? Lean back and let Gopilot take the wheel!
+
+[ol]
+In the script editor, press the secondary shortcut (default [bgcolor=black]Shift+Alt+E[/bgcolor])
+Descripe the code you want and hit [bgcolor=black]Enter[/bgcolor]
+Modify the generated code or refine it using another prompt
+Accept or decline the code into your script
+[/ol]"
+metadata/_tab_index = 4
+
+[node name="BuddyWindow" type="Window" parent="."]
+unique_name_in_owner = true
+initial_position = 4
+size = Vector2i(330, 250)
+visible = false
+wrap_controls = true
+transient = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BuddyWindow"]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 322.0
+offset_bottom = 201.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BuddyWindow/VBoxContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="BuddyWindow/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="ScrollContainer" type="ScrollContainer" parent="BuddyWindow/VBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Buddies" type="HBoxContainer" parent="BuddyWindow/VBoxContainer/MarginContainer/ScrollContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="BuddySample" type="Button" parent="BuddyWindow"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(160, 150)
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 322.0
+offset_bottom = 201.0
+
+[node name="BuddyCon" type="VBoxContainer" parent="BuddyWindow/BuddySample"]
+layout_mode = 2
+offset_right = 160.0
+offset_bottom = 164.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BuddyCon" type="CenterContainer" parent="BuddyWindow/BuddySample/BuddyCon"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="BuddyName" type="Label" parent="BuddyWindow/BuddySample/BuddyCon"]
+layout_mode = 2
+text = "[EXAMPLE NAME]"
+horizontal_alignment = 1
+
+[node name="BuddyStudioWindow" parent="." instance=ExtResource("23_xxmb7")]
+unique_name_in_owner = true
+visible = false
+exclusive = false
+
+[node name="Tools" type="Node" parent="."]
+unique_name_in_owner = true
+
+[connection signal="pressed" from="SplitCon/VBoxContainer2/HBoxContainer4/SettingsBtn" to="SettingsWindow" method="show"]
+[connection signal="pressed" from="SplitCon/VBoxContainer2/HBoxContainer4/PrintDocBtn" to="." method="_test_function"]
+[connection signal="pressed" from="SplitCon/VBoxContainer2/HBoxContainer4/ToolsCheck" to="." method="setup_tools"]
+[connection signal="toggled" from="SplitCon/VBoxContainer2/HBoxContainer4/ToolsCheck" to="SplitCon/VBoxContainer/PromptField/PanelContainer/PromptMargin/PromptField/VBoxContainer/ToolButtons/ToolsDropdown" method="set_visible"]
+[connection signal="edit_message_requested" from="SplitCon/VBoxContainer2/ChatConversation" to="." method="_on_edit_message_requested"]
+[connection signal="remove_message_requested" from="SplitCon/VBoxContainer2/ChatConversation" to="." method="_on_remove_message_requested"]
+[connection signal="gui_input" from="SplitCon/VBoxContainer/HBoxContainer/UserInput" to="." method="_on_user_input_gui_input"]
+[connection signal="text_changed" from="SplitCon/VBoxContainer/HBoxContainer/UserInput" to="." method="_on_user_input_text_changed"]
+[connection signal="prompt_submitted" from="SplitCon/VBoxContainer/PromptField" to="." method="_on_prompt_submitted"]
+[connection signal="stop_pressed" from="SplitCon/VBoxContainer/PromptField" to="." method="_on_stop_pressed"]
+[connection signal="text_changed" from="SplitCon/VBoxContainer/PromptField" to="." method="_on_user_input_text_changed"]
+[connection signal="pressed" from="SplitCon/VBoxContainer/PromptField/PanelContainer/PromptMargin/PromptField/VBoxContainer/ToolButtons/NewChatBtn" to="." method="_on_stop_pressed"]
+
+[editable path="SplitCon/VBoxContainer/PromptField"]

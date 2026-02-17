@@ -1,0 +1,120 @@
+[gd_scene load_steps=7 format=3 uid="uid://buk3mdqtutkvd"]
+
+[ext_resource type="Script" uid="uid://ous6qtnj7cww" path="res://addons/gopilot_utils/scripts/gopilot_conversation.gd" id="1_e7i2k"]
+[ext_resource type="Texture2D" uid="uid://bejwedgw8tico" path="res://addons/gopilot_utils/textures/Tools.png" id="2_jdymo"]
+[ext_resource type="PackedScene" uid="uid://q0tot0eolplg" path="res://addons/gopilot_utils/scenes/chat_entry_sample.tscn" id="2_o5d31"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8aaoi"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ncmbp"]
+font_size = 12
+font_color = Color(0.493545, 0.493546, 0.493546, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jdymo"]
+
+[node name="ChatConversation" type="Control" node_paths=PackedStringArray("conversation")]
+custom_minimum_size = Vector2(220, 0)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -932.0
+offset_bottom = -198.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_e7i2k")
+in_editor = true
+buddy_visible = false
+conversation = NodePath("VBoxContainer/ScrollCon/ContentCon/Conversation")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScrollCon" type="ScrollContainer" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="ContentCon" type="VBoxContainer" parent="VBoxContainer/ScrollCon"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 2
+
+[node name="TopVisual" type="VBoxContainer" parent="VBoxContainer/ScrollCon/ContentCon"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="BuddyCon" type="CenterContainer" parent="VBoxContainer/ScrollCon/ContentCon/TopVisual"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+
+[node name="WelcomeMessage" type="RichTextLabel" parent="VBoxContainer/ScrollCon/ContentCon/TopVisual"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_8aaoi")
+bbcode_enabled = true
+text = "[b]Hello User[/b]
+What would you like to do?"
+fit_content = true
+
+[node name="Warning" type="Label" parent="VBoxContainer/ScrollCon/ContentCon/TopVisual"]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "GoPilot may generate inaccurate or false content.
+Always check important information!"
+mouse_filter = 0
+text = "Always check important information"
+label_settings = SubResource("LabelSettings_ncmbp")
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Conversation" type="VBoxContainer" parent="VBoxContainer/ScrollCon/ContentCon"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 4
+
+[node name="ChatEntrySample" parent="VBoxContainer/ScrollCon/ContentCon" instance=ExtResource("2_o5d31")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+in_editor = true
+
+[node name="ActionSample" type="PanelContainer" parent="VBoxContainer/ScrollCon/ContentCon"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_jdymo")
+
+[node name="BtnCon" type="VBoxContainer" parent="VBoxContainer/ScrollCon/ContentCon/ActionSample"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="VBoxContainer/ScrollCon/ContentCon/ActionSample/BtnCon"]
+layout_mode = 2
+toggle_mode = true
+text = "Calling a tool..."
+icon = ExtResource("2_jdymo")
+alignment = 0
+autowrap_mode = 3
+
+[node name="SubActionSample" type="RichTextLabel" parent="VBoxContainer/ScrollCon/ContentCon/ActionSample/BtnCon"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+bbcode_enabled = true
+fit_content = true
+
+[node name="SubTasksCon" type="VBoxContainer" parent="VBoxContainer/ScrollCon/ContentCon/ActionSample/BtnCon"]
+visible = false
+layout_mode = 2
+
+[connection signal="toggled" from="VBoxContainer/ScrollCon/ContentCon/ActionSample/BtnCon/Button" to="VBoxContainer/ScrollCon/ContentCon/ActionSample/BtnCon/SubTasksCon" method="set_visible"]

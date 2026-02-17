@@ -1,0 +1,43 @@
+[gd_scene load_steps=3 format=3 uid="uid://bos4abi8mu01k"]
+
+[ext_resource type="Texture2D" uid="uid://310r7142ftch" path="res://addons/gopilot_assist/textures/Docs.png" id="1_0k01d"]
+
+[sub_resource type="GDScript" id="GDScript_jn74r"]
+script/source = "@tool
+extends GopilotTool
+
+var doc_getting_expression:String = \"@\" + r\"docs\\((?<class>[\\S]+?)\\)\"
+var doc_getting_regex := RegEx.create_from_string(doc_getting_expression)
+
+var COMMON := preload(\"res://addons/gopilot_utils/scripts/common.gd\").new()
+
+func _run_tool(conv:Array[Dictionary]):
+	var prompt:String = conv[-1][\"content\"]
+	var doc_matches:Array[RegExMatch]= doc_getting_regex.search_all(prompt)
+	if doc_matches.size() == 0:
+		return
+	for doc_match in doc_matches:
+		var _class_name:String = doc_match.get_string(\"class\")
+		var docs:String = COMMON.get_class_reference(_class_name)
+		if docs.is_empty():
+			add_tag_suffix(conv, \"Class '\" + _class_name + \"' not found. Inform the user that this class does not exist and that they should preff F1 and search the class they mean\", \"docs_getter\")
+			return
+		add_prefix(conv, \"# '\" + _class_name + \"' Docs\\n\" + docs + \"\\n\\n\")
+		var theme_getter := Control.new()
+		add_button_citation(_class_name + \" Docs\", \"Retrieved class reference for class '\" + _class_name + \"'\")
+
+
+func _is_elegible(conv):
+	var prompt:String = conv[-1][\"content\"]
+	var doc_matches := doc_getting_regex.search_all(prompt)
+	return doc_matches.size() > 0
+"
+
+[node name="DocsGetter" type="Node"]
+script = SubResource("GDScript_jn74r")
+tool_name = "docs"
+icon = ExtResource("1_0k01d")
+is_retrieval_tool = true
+tool_description = "Gets the docs of a given node type"
+trigger_prompts = PackedStringArray("@docs(NodeType)")
+metadata/_custom_type_script = "uid://bvhnuqgn6v06u"

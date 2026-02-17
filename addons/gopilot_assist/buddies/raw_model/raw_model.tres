@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="GopilotBuddy" load_steps=4 format=3 uid="uid://d35ta6iuccbly"]
+
+[ext_resource type="Texture2D" uid="uid://pb5w62qk3erj" path="res://addons/gopilot_utils/textures/sparkle.svg" id="1_v5c6b"]
+[ext_resource type="PackedScene" uid="uid://bmaoeol88226l" path="res://addons/gopilot_assist/buddies/default_buddy/default_buddy.tscn" id="1_xgj4w"]
+[ext_resource type="Script" uid="uid://c21wgr2asobn7" path="res://addons/gopilot_assist/scripts/classes/gopilot_buddy.gd" id="2_xgj4w"]
+
+[resource]
+script = ExtResource("2_xgj4w")
+name = "raw_model"
+icon = ExtResource("1_v5c6b")
+buddy = ExtResource("1_xgj4w")
+system_prompt = ""
+use_custom_temperature = false
+custom_temperature = 0.7
+custom_options = Dictionary[String, Variant]({})

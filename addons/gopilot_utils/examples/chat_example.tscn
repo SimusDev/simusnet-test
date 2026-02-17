@@ -1,0 +1,69 @@
+[gd_scene load_steps=4 format=3 uid="uid://de1njv3rdbjj0"]
+
+[ext_resource type="Texture2D" uid="uid://v5omew4llxgs" path="res://addons/gopilot_utils/textures/Play.png" id="1_hbt7e"]
+[ext_resource type="Script" uid="uid://bki1cvhowv6t5" path="res://addons/gopilot_utils/classes/chat_requester.gd" id="2_m7r2s"]
+
+[sub_resource type="GDScript" id="GDScript_hbt7e"]
+script/source = "extends VBoxContainer
+
+@onready var conversation: RichTextLabel = $Conversation
+@onready var prompt: LineEdit = $HBoxContainer/Prompt
+@onready var chat_requester: ChatRequester = $ChatRequester
+
+
+func _on_send_btn_pressed() -> void:
+	var user_message:String = prompt.text
+	chat_requester.send_message(user_message)
+	chat_requester.start_response()
+	conversation.text += \"\\nUser: \" + user_message + \"\\nAssistant: \"
+
+
+func _on_chat_requester_new_word(word: String) -> void:
+	conversation.text += word
+"
+
+[node name="ChatExample" type="HBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 15.0
+offset_top = 11.0
+offset_right = -15.0
+offset_bottom = -11.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Chat" type="VBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+script = SubResource("GDScript_hbt7e")
+
+[node name="Label" type="Label" parent="Chat"]
+layout_mode = 2
+text = "Chat Example"
+horizontal_alignment = 1
+
+[node name="Conversation" type="RichTextLabel" parent="Chat"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Chat"]
+layout_mode = 2
+
+[node name="Prompt" type="LineEdit" parent="Chat/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Ask anything..."
+
+[node name="SendBtn" type="Button" parent="Chat/HBoxContainer"]
+layout_mode = 2
+text = "SEND"
+icon = ExtResource("1_hbt7e")
+
+[node name="ChatRequester" type="Node" parent="Chat"]
+script = ExtResource("2_m7r2s")
+model = "qwen2.5:3b"
+metadata/_custom_type_script = "uid://bki1cvhowv6t5"
+
+[connection signal="pressed" from="Chat/HBoxContainer/SendBtn" to="Chat" method="_on_send_btn_pressed"]
+[connection signal="new_word" from="Chat/ChatRequester" to="Chat" method="_on_chat_requester_new_word"]

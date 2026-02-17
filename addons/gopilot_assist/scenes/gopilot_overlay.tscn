@@ -1,0 +1,339 @@
+[gd_scene load_steps=23 format=3 uid="uid://bfua12s8kfwry"]
+
+[ext_resource type="Script" uid="uid://d087kcggrtsn1" path="res://addons/gopilot_assist/scripts/gopilot_overlay.gd" id="1_4uvry"]
+[ext_resource type="Texture2D" uid="uid://pb5w62qk3erj" path="res://addons/gopilot_utils/textures/sparkle.svg" id="2_u2oiu"]
+[ext_resource type="Texture2D" uid="uid://v5omew4llxgs" path="res://addons/gopilot_utils/textures/Play.png" id="3_iuesx"]
+[ext_resource type="PackedScene" uid="uid://cyntyq3dw1l3m" path="res://addons/gopilot_assist/scenes/code_refactor.tscn" id="3_lv1n7"]
+[ext_resource type="Texture2D" uid="uid://chw8x0p05hr03" path="res://addons/gopilot_utils/textures/Stop.png" id="4_i2jyq"]
+[ext_resource type="Script" uid="uid://bki1cvhowv6t5" path="res://addons/gopilot_utils/classes/chat_requester.gd" id="5_mtxrm"]
+[ext_resource type="StyleBox" uid="uid://b07kyd4i1noxo" path="res://addons/gopilot_assist/resources/code_panel.tres" id="6_5uqyv"]
+[ext_resource type="Script" uid="uid://bbh8qe3j0grs" path="res://addons/gopilot_utils/api_providers/mistral-codestral.gd" id="6_dm5o1"]
+[ext_resource type="Script" uid="uid://cg4t3c0u5sknp" path="res://addons/gopilot_assist/scripts/csv_translation_window.gd" id="7_ariyl"]
+[ext_resource type="Script" uid="uid://catfxnxl7alkb" path="res://addons/gopilot_utils/scripts/status_indicator.gd" id="8_ukljn"]
+[ext_resource type="LabelSettings" uid="uid://w0eyysmkf5w3" path="res://addons/gopilot_assist/resources/warning_label_settings.tres" id="9_fl2ru"]
+[ext_resource type="PackedScene" uid="uid://bxntdi2dog2dp" path="res://addons/gopilot_assist/scenes/insert_code_window.tscn" id="10_u1v1o"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1m7id"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oy1dk"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 20
+border_width_top = 20
+border_width_right = 20
+border_width_bottom = 20
+border_color = Color(0, 1, 0.916667, 1)
+border_blend = true
+
+[sub_resource type="InputEventKey" id="InputEventKey_4lxic"]
+device = -1
+ctrl_pressed = true
+keycode = 4194309
+
+[sub_resource type="Shortcut" id="Shortcut_f0567"]
+events = [SubResource("InputEventKey_4lxic")]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6p0bi"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7eil8"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_551cy"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_j5axv"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bhmun"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yikob"]
+
+[node name="GopilotOverlay" type="Control" node_paths=PackedStringArray("chat_requesters", "code_requesters")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_4uvry")
+icon = ExtResource("2_u2oiu")
+play = ExtResource("3_iuesx")
+stop = ExtResource("4_i2jyq")
+chat_requesters = [NodePath("GPI")]
+code_requesters = [NodePath("CodeSuggester")]
+
+[node name="CodeSuggester" type="Node" parent="." groups=["CODE_REQUESTER"]]
+unique_name_in_owner = true
+script = ExtResource("5_mtxrm")
+_api_gdscript = ExtResource("6_dm5o1")
+provider = "mistral-codestral"
+api_key = "Zb3O5CbwOcAcyKpuMLfznQwzy5czqXPM"
+host = "https://codestral.mistral.ai"
+port = 443
+model = "codestral-latest"
+options = {
+"stop": ["
+"]
+}
+
+[node name="SuggestionWindow" type="Panel" parent="."]
+unique_name_in_owner = true
+visible = false
+top_level = true
+clip_children = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 757.0
+offset_top = 141.0
+offset_right = 1395.0
+offset_bottom = 305.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_1m7id")
+
+[node name="SuggestionCon" type="Control" parent="SuggestionWindow"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 136.0
+offset_top = -9835.0
+offset_right = 188.0
+offset_bottom = -9794.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="CodeSuggestion" type="CodeEdit" parent="SuggestionWindow/SuggestionCon"]
+unique_name_in_owner = true
+clip_contents = false
+layout_mode = 1
+offset_left = -8.0
+offset_top = -4.0
+offset_right = 98.0
+offset_bottom = 31.0
+mouse_filter = 2
+theme_override_constants/outline_size = 0
+placeholder_text = "LOADING..."
+scroll_fit_content_height = true
+scroll_fit_content_width = true
+highlight_current_line = true
+draw_tabs = true
+
+[node name="ReferenceRect" type="ReferenceRect" parent="SuggestionWindow/SuggestionCon/CodeSuggestion"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+border_color = Color(0.52, 0.52, 0.52, 0.533333)
+border_width = 3.0
+editor_only = false
+
+[node name="HintsContainer" type="HBoxContainer" parent="SuggestionWindow/SuggestionCon"]
+unique_name_in_owner = true
+layout_mode = 1
+offset_left = -10.0
+offset_top = -53.0
+offset_right = 304.0
+offset_bottom = -10.0
+mouse_filter = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="SuggestionWindow/SuggestionCon/HintsContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("6_5uqyv")
+
+[node name="MarginContainer" type="MarginContainer" parent="SuggestionWindow/SuggestionCon/HintsContainer/PanelContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="SuggestionStatus" type="RichTextLabel" parent="SuggestionWindow/SuggestionCon/HintsContainer/PanelContainer/MarginContainer"]
+unique_name_in_owner = true
+modulate = Color(0, 1, 0, 1)
+layout_mode = 2
+bbcode_enabled = true
+text = "[color=green]Done[/color]"
+fit_content = true
+autowrap_mode = 0
+vertical_alignment = 1
+
+[node name="HintContainer" type="HBoxContainer" parent="SuggestionWindow/SuggestionCon/HintsContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Panel2" type="PanelContainer" parent="SuggestionWindow/SuggestionCon/HintsContainer/HintContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("6_5uqyv")
+
+[node name="MarginContainer" type="MarginContainer" parent="SuggestionWindow/SuggestionCon/HintsContainer/HintContainer/Panel2"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Label" type="Label" parent="SuggestionWindow/SuggestionCon/HintsContainer/HintContainer/Panel2/MarginContainer"]
+layout_mode = 2
+text = "TAB to accept, Escape to cancel"
+
+[node name="ScriptShower" type="Panel" parent="SuggestionWindow"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_oy1dk")
+
+[node name="CodeRefactorWindow" parent="." instance=ExtResource("3_lv1n7")]
+unique_name_in_owner = true
+auto_translate_mode = 1
+popup_window = false
+
+[node name="TranslationWindow" type="ConfirmationDialog" parent="."]
+unique_name_in_owner = true
+title = "Translation"
+initial_position = 4
+size = Vector2i(628, 500)
+exclusive = false
+ok_button_text = "Save File"
+cancel_button_text = "Close"
+script = ExtResource("7_ariyl")
+
+[node name="Control" type="VBoxContainer" parent="TranslationWindow"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -49.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Warning" type="Label" parent="TranslationWindow/Control"]
+layout_mode = 2
+text = "Experimental Feature: Only works with csv translation files with no empty rows"
+label_settings = ExtResource("9_fl2ru")
+horizontal_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="TranslationWindow/Control"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="TableRoot" type="HBoxContainer" parent="TranslationWindow/Control/ScrollContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="TranslationWindow/Control"]
+layout_mode = 2
+
+[node name="LanguageLabel" type="Label" parent="TranslationWindow/Control/HBoxContainer2"]
+layout_mode = 2
+text = "Please add a column in"
+
+[node name="Language" type="LineEdit" parent="TranslationWindow/Control/HBoxContainer2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+placeholder_text = "French"
+expand_to_text_length = true
+
+[node name="TranslateBtn" type="Button" parent="TranslationWindow/Control/HBoxContainer2"]
+layout_mode = 2
+shortcut = SubResource("Shortcut_f0567")
+text = "Translate"
+language = "en"
+
+[node name="TranslationStatus" type="RichTextLabel" parent="TranslationWindow/Control/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 10
+theme_override_font_sizes/normal_font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxEmpty_6p0bi")
+bbcode_enabled = true
+text = "Idle"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 2
+language = "en"
+script = ExtResource("8_ukljn")
+
+[node name="LineEdit" type="LineEdit" parent="."]
+visible = false
+layout_mode = 0
+offset_right = 68.5625
+offset_bottom = 31.0
+text = "fdsafdsafdsaffdsa"
+expand_to_text_length = true
+
+[node name="GPI" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("5_mtxrm")
+api_key = "Zb3O5CbwOcAcyKpuMLfznQwzy5czqXPM"
+
+[node name="ConfirmationWindow" type="ConfirmationDialog" parent="."]
+unique_name_in_owner = true
+title = "GoPilot"
+initial_position = 4
+size = Vector2i(335, 102)
+ok_button_text = "Allow"
+dialog_autowrap = true
+cancel_button_text = "Deny"
+
+[node name="InsertCodeWindow" parent="." instance=ExtResource("10_u1v1o")]
+unique_name_in_owner = true
+size = Vector2i(700, 96)
+visible = false
+
+[node name="ScriptPopup" type="PopupMenu" parent="."]
+unique_name_in_owner = true
+size = Vector2i(153, 89)
+item_count = 3
+item_0/text = "Explain"
+item_0/icon = ExtResource("2_u2oiu")
+item_0/id = 0
+item_1/text = "Add comments"
+item_1/icon = ExtResource("2_u2oiu")
+item_1/id = 1
+item_2/text = "Optimize"
+item_2/icon = ExtResource("2_u2oiu")
+item_2/id = 2
+
+[node name="CodeEdit" type="CodeEdit" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 204.0
+offset_top = 122.0
+offset_right = 897.0
+offset_bottom = 520.0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_7eil8")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_551cy")
+theme_override_styles/read_only = SubResource("StyleBoxEmpty_j5axv")
+theme_override_styles/completion = SubResource("StyleBoxEmpty_bhmun")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_yikob")
+text = "some
+code
+here"
+
+[connection signal="canceled" from="TranslationWindow" to="TranslationWindow" method="_on_canceled"]
+[connection signal="confirmed" from="TranslationWindow" to="TranslationWindow" method="_on_confirmed"]
+[connection signal="pressed" from="TranslationWindow/Control/HBoxContainer2/TranslateBtn" to="TranslationWindow" method="_on_translate_btn_pressed"]

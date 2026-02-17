@@ -1,0 +1,54 @@
+[gd_scene load_steps=4 format=3 uid="uid://5rtdxsuoudlk"]
+
+[ext_resource type="Texture2D" uid="uid://c4yvdun15i5ef" path="res://addons/gopilot_assist/textures/Debug.png" id="1_4d3eb"]
+
+[sub_resource type="GDScript" id="GDScript_368q6"]
+script/source = "@tool
+extends GopilotTool
+
+func _run_tool(conv:Array[Dictionary]):
+	var conversation_shower := %ConversationShower.duplicate()
+	conversation_shower.text = JSON.stringify(conv, \"\\t\", false, true)
+	conversation_shower.show()
+	add_custom_control(conversation_shower)
+	add_tag_suffix(conv, \"\"\"The @print_conv tool ran and pasted a code block including the entire conversatio between you and the them into the chat in JSON format looks like this '[{\"role\":\"user\", \"content\": \"<user message>\"}, {\"role\": \"assistant\", \"content\": \"<assistant message>\"}, ...]'. Respond with \"I pasted our conversation into the chat\" \"\"\")
+"
+
+[sub_resource type="GDScriptSyntaxHighlighter" id="GDScriptSyntaxHighlighter_368q6"]
+
+[node name="ConversationPrinter" type="Node"]
+script = SubResource("GDScript_368q6")
+tool_name = "print_conversation"
+icon = ExtResource("1_4d3eb")
+is_retrieval_tool = true
+tool_description = "Prints the entirety of the chat conversation into the chat"
+trigger_prompts = PackedStringArray("@print_conv")
+trigger_color = Color(0.51, 0.51, 0.51, 1)
+metadata/_custom_type_script = "uid://bvhnuqgn6v06u"
+
+[node name="ConversationShower" type="CodeEdit" parent="."]
+unique_name_in_owner = true
+visible = false
+offset_right = 288.0
+offset_bottom = 144.0
+theme_override_colors/font_readonly_color = Color(0, 0, 0, 1)
+text = "{
+	\"some_key\": \"some value\",
+	\"another_key\": \"another value\",
+	\"the_last_key\": [
+		\"yup\",
+		\"these\",
+		\"sure\",
+		\"are\",
+		\"values\"
+	]
+}"
+placeholder_text = "[NO CONVERSATION PRINTED! PLEASE REPORT THIS BUG]"
+editable = false
+wrap_mode = 1
+indent_wrapped_lines = true
+scroll_fit_content_height = true
+syntax_highlighter = SubResource("GDScriptSyntaxHighlighter_368q6")
+draw_tabs = true
+line_folding = true
+gutters_draw_fold_gutter = true

@@ -1,0 +1,101 @@
+[gd_scene load_steps=4 format=3 uid="uid://cbfffuotbvtfc"]
+
+[ext_resource type="Script" uid="uid://bki1cvhowv6t5" path="res://addons/gopilot_utils/classes/chat_requester.gd" id="1_yfort"]
+[ext_resource type="PackedScene" uid="uid://dt4m5posjkuw4" path="res://addons/gopilot_utils/scenes/prompt_field.tscn" id="2_ghroa"]
+
+[sub_resource type="GDScript" id="GDScript_5rak8"]
+script/source = "extends Control
+
+func _ready() -> void:
+	print(await $ChatRequester.get_models())
+
+
+
+var COMMON := preload(\"res://addons/gopilot_interface/scripts/common.gd\").new()
+
+var TOOL := preload(\"res://addons/gopilot_interface/buddies/default_buddy/tool_script.gd\").new()
+
+func _on_prompt_field_prompt_submitted(_prompt: String) -> void:
+	TOOL.task_changed.connect(%PromptField.set_status)
+	TOOL.set_chat(%ChatRequester)
+	var response := await TOOL.create_interface(_prompt)
+	if response.size() < 2:
+		print(\"did not receive node\")
+		return
+	for child in %InterfaceCon.get_children():
+		child.queue_free()
+	var node:Node = response[1]
+	%TextEdit.text = node.get_tree_string_pretty()
+	%InterfaceCon.add_child(node)
+	TOOL.task_changed.disconnect(%PromptField.set_status)
+	
+
+
+func _on_chat_requester_new_word(word: String) -> void:
+	var scroll_v:float = %TextEdit.scroll_vertical
+	var scroll_h:float = %TextEdit.scroll_horizontal
+	%TextEdit.text += word
+	%TextEdit.scroll_vertical = scroll_v
+	%TextEdit.scroll_horizontal = scroll_h
+	
+
+
+
+func _on_chat_requester_message_end(_full_message: String) -> void:
+	print(\"message end\")
+	%PromptField.set_generating(false)
+
+
+func _on_prompt_field_stop_pressed() -> void:
+	%ChatRequester.stop_generation()
+"
+
+[node name="InferencePlayground" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_5rak8")
+
+[node name="ChatRequester" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("1_yfort")
+temperature = -0.01
+internal_system_prompt = "Keep your answers short!"
+
+[node name="HSplitContainer" type="HSplitContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="InterfaceCon" type="PanelContainer" parent="HSplitContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Chat" type="VSplitContainer" parent="HSplitContainer"]
+layout_mode = 2
+
+[node name="TextEdit" type="TextEdit" parent="HSplitContainer/Chat"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PromptField" parent="HSplitContainer/Chat" instance=ExtResource("2_ghroa")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="SpinBox" type="SpinBox" parent="."]
+visible = false
+layout_mode = 0
+offset_right = 86.5625
+offset_bottom = 31.0
+
+[connection signal="message_end" from="ChatRequester" to="." method="_on_chat_requester_message_end"]
+[connection signal="new_word" from="ChatRequester" to="." method="_on_chat_requester_new_word"]
+[connection signal="prompt_submitted" from="HSplitContainer/Chat/PromptField" to="." method="_on_prompt_field_prompt_submitted"]
+[connection signal="stop_pressed" from="HSplitContainer/Chat/PromptField" to="." method="_on_prompt_field_stop_pressed"]

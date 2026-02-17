@@ -1,0 +1,86 @@
+[gd_scene load_steps=3 format=3 uid="uid://bxntdi2dog2dp"]
+
+[ext_resource type="Script" uid="uid://bf278mqt0pqji" path="res://addons/gopilot_assist/scripts/insert_code_window.gd" id="2_wchy4"]
+[ext_resource type="PackedScene" uid="uid://dt4m5posjkuw4" path="res://addons/gopilot_utils/scenes/prompt_field.tscn" id="4_colpa"]
+
+[node name="InsertCodeWindow" type="ConfirmationDialog"]
+title = "Insert Code"
+size = Vector2i(700, 600)
+visible = true
+borderless = true
+min_size = Vector2i(700, 70)
+keep_title_visible = false
+ok_button_text = "Accept  Code"
+cancel_button_text = "Deny Code"
+script = ExtResource("2_wchy4")
+
+[node name="WriteFunctionWindow" type="VSplitContainer" parent="."]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 692.0
+offset_bottom = 551.0
+
+[node name="WritePrompt" parent="WriteFunctionWindow" instance=ExtResource("4_colpa")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+mouse_filter = 0
+text_type = 0
+placeholder_text = "Write code which..."
+initial_text = "Write a function which "
+clear_text_on_send = false
+status_indicator = false
+clear_suggestions_when_submitted = false
+send_button_keyboard_shortcuts = PackedStringArray("Ctrl+Enter", "Enter")
+send_button_tooltip = "Create a function based on your prompt
+[Enter], [Ctrl+Enter]"
+disable_text_field_on_submit = false
+
+[node name="BottomControls" type="VSplitContainer" parent="WriteFunctionWindow"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+
+[node name="CodeCon" type="VBoxContainer" parent="WriteFunctionWindow/BottomControls"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Code" type="CodeEdit" parent="WriteFunctionWindow/BottomControls/CodeCon"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 300)
+layout_mode = 2
+size_flags_vertical = 3
+draw_tabs = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="WriteFunctionWindow/BottomControls/CodeCon"]
+layout_mode = 2
+
+[node name="RemoveCommentsBtn" type="CheckBox" parent="WriteFunctionWindow/BottomControls/CodeCon/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Remove Comments"
+
+[node name="RemoveBlanksBtn" type="CheckBox" parent="WriteFunctionWindow/BottomControls/CodeCon/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Remove Blank space"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="WriteFunctionWindow/BottomControls"]
+layout_mode = 2
+
+[node name="RefinePrompt" parent="WriteFunctionWindow/BottomControls/VBoxContainer" instance=ExtResource("4_colpa")]
+unique_name_in_owner = true
+layout_mode = 2
+placeholder_text = "Edit the function so that..."
+send_button_send_text = "REFINE"
+send_button_tooltip = "Refine the generated prompt to fit your needs
+[Ctrl+Enter]"
+
+[connection signal="canceled" from="." to="." method="_on_deny_btn_pressed"]
+[connection signal="confirmed" from="." to="." method="_on_accept_btn_pressed"]
+[connection signal="prompt_submitted" from="WriteFunctionWindow/WritePrompt" to="." method="_on_write_prompt_submitted"]
+[connection signal="stop_pressed" from="WriteFunctionWindow/WritePrompt" to="." method="_on_generation_interrupted"]
+[connection signal="prompt_submitted" from="WriteFunctionWindow/BottomControls/VBoxContainer/RefinePrompt" to="." method="_on_refine_prompt_submitted"]
+[connection signal="stop_pressed" from="WriteFunctionWindow/BottomControls/VBoxContainer/RefinePrompt" to="." method="_on_generation_interrupted"]

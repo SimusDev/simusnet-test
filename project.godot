@@ -75,7 +75,7 @@ project/assembly_name="simusnet-test"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/lensflares/plugin.cfg", "res://addons/simplegrasstextured/plugin.cfg", "res://addons/simusdev/plugin.cfg", "res://addons/sky_3d/plugin.cfg")
+enabled=PackedStringArray("res://addons/gopilot_assist/plugin.cfg", "res://addons/gopilot_utils/plugin.cfg", "res://addons/lensflares/plugin.cfg", "res://addons/simplegrasstextured/plugin.cfg", "res://addons/simusdev/plugin.cfg", "res://addons/sky_3d/plugin.cfg")
 
 [global_group]
 

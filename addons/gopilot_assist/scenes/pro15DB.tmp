@@ -1,0 +1,205 @@
+[gd_scene load_steps=5 format=3 uid="uid://b6gpev23tq8xo"]
+
+[ext_resource type="Script" path="res://scenes/prompt_creator.gd" id="1_5fq02"]
+[ext_resource type="PackedScene" uid="uid://bfyh12r5lyrx3" path="res://scenes/tool_sample.tscn" id="2_vd814"]
+[ext_resource type="PackedScene" uid="uid://85gfcc76yb4w" path="res://scenes/parameter_sample.tscn" id="3_m3wvn"]
+
+[sub_resource type="Theme" id="Theme_tu47p"]
+MarginContainer/constants/margin_bottom = 4
+MarginContainer/constants/margin_left = 4
+MarginContainer/constants/margin_right = 4
+MarginContainer/constants/margin_top = 4
+
+[node name="PromptCreator" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_tu47p")
+script = ExtResource("1_5fq02")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="TopButtons" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="MarginContainer/VBoxContainer/TopButtons"]
+layout_mode = 2
+text = "Some button"
+
+[node name="Button2" type="Button" parent="MarginContainer/VBoxContainer/TopButtons"]
+layout_mode = 2
+text = "Another button"
+
+[node name="PanelCon" type="PanelContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/PanelCon"]
+layout_mode = 2
+
+[node name="TabContainer" type="TabContainer" parent="MarginContainer/VBoxContainer/PanelCon/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+current_tab = 1
+
+[node name="Prompt" type="VBoxContainer" parent="MarginContainer/VBoxContainer/PanelCon/HBoxContainer/TabContainer"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+metadata/_tab_index = 0
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/PanelCon/HBoxContainer/TabContainer/Prompt"]
+layout_mode = 2
+text = "Prompt Settings"
+horizontal_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/PanelCon/HBoxContainer/TabContainer/Prompt"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/PanelCon/HBoxContainer/TabContainer/Prompt/MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/PanelCon/HBoxContainer/TabContainer/Prompt/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="PropertyName" type="Label" parent="MarginContainer/VBoxContainer/PanelCon/HBoxContainer/TabContainer/Prompt/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+text = "System Prompt"
+
+[node name="SystemPrompt" type="TextEdit" parent="MarginContainer/VBoxContainer/PanelCon/HBoxContainer/TabContainer/Prompt/MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Tools" type="VBoxContainer" parent="MarginContainer/VBoxContainer/PanelCon/HBoxContainer/TabContainer/Prompt/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer/PanelCon/HBoxContainer/TabContainer/Prompt/MarginContainer/VBoxContainer/Tools"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/PanelCon/HBoxContainer/TabContainer/Prompt/MarginContainer/VBoxContainer/Tools/PanelContainer"]
+layout_mode = 2
+text = "Tools"
+horizontal_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer/PanelCon/HBoxContainer/TabContainer/Prompt/MarginContainer/VBoxContainer/Tools"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ToolList" type="VBoxContainer" parent="MarginContainer/VBoxContainer/PanelCon/HBoxContainer/TabContainer/Prompt/MarginContainer/VBoxContainer/Tools/ScrollContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="NewToolBtn" type="Button" parent="MarginContainer/VBoxContainer/PanelCon/HBoxContainer/TabContainer/Prompt/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Add new tool"
+
+[node name="Advanced Settings" type="VBoxContainer" parent="MarginContainer/VBoxContainer/PanelCon/HBoxContainer/TabContainer"]
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/PanelCon/HBoxContainer/TabContainer/Advanced Settings"]
+layout_mode = 2
+text = "Advanced Settings"
+horizontal_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/PanelCon/HBoxContainer/TabContainer/Advanced Settings"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/VBoxContainer/PanelCon/HBoxContainer/TabContainer/Advanced Settings/MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/PanelCon/HBoxContainer/TabContainer/Advanced Settings/MarginContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/PanelCon/HBoxContainer/TabContainer/Advanced Settings/MarginContainer/VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+text = "Function suffix"
+
+[node name="FunctionPrefix" type="TextEdit" parent="MarginContainer/VBoxContainer/PanelCon/HBoxContainer/TabContainer/Advanced Settings/MarginContainer/VBoxContainer2/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/VBoxContainer/PanelCon/HBoxContainer/TabContainer/Advanced Settings/MarginContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/PanelCon/HBoxContainer/TabContainer/Advanced Settings/MarginContainer/VBoxContainer2/VBoxContainer2"]
+layout_mode = 2
+text = "Function calling schema"
+
+[node name="FunctionSchema" type="TextEdit" parent="MarginContainer/VBoxContainer/PanelCon/HBoxContainer/TabContainer/Advanced Settings/MarginContainer/VBoxContainer2/VBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/VBoxContainer/PanelCon/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/PanelCon/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "Prompt Output"
+horizontal_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/PanelCon/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="FinalPrompt" type="TextEdit" parent="MarginContainer/VBoxContainer/PanelCon/HBoxContainer/VBoxContainer2/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Acceptors" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Accept" type="Button" parent="MarginContainer/VBoxContainer/Acceptors"]
+layout_mode = 2
+size_flags_horizontal = 6
+text = "Accept"
+
+[node name="Cancel" type="Button" parent="MarginContainer/VBoxContainer/Acceptors"]
+layout_mode = 2
+size_flags_horizontal = 6
+text = "Decline"
+
+[node name="TabContainer" type="TabContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Samples" type="Node" parent="."]
+
+[node name="ToolSample" parent="Samples" instance=ExtResource("2_vd814")]
+unique_name_in_owner = true
+
+[node name="ParameterSample" parent="Samples" instance=ExtResource("3_m3wvn")]
+unique_name_in_owner = true

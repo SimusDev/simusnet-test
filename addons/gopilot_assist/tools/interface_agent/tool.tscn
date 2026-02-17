@@ -1,0 +1,95 @@
+[gd_scene load_steps=4 format=3 uid="uid://dimekba4bdt57"]
+
+[ext_resource type="Texture2D" uid="uid://l436p5sjufei" path="res://addons/gopilot_assist/textures/BoxContainer.png" id="1_34hwc"]
+[ext_resource type="Script" uid="uid://u3vxvbpbjxp4" path="res://addons/gopilot_utils/classes/agent_handler.gd" id="1_pmno8"]
+
+[sub_resource type="GDScript" id="GDScript_1tlbc"]
+script/source = "@tool
+extends GopilotTool
+
+
+var COMMON := preload(\"res://addons/gopilot_utils/scripts/common.gd\").new()
+
+
+func _ready() -> void:
+	%Agent.action_finished.connect(func(action_text:String):
+		add_action_block(\"Action:\\n\" + action_text))
+	%Agent.thought_finished.connect(func(thought_text:String):
+		add_action_block(\"Thought:\\n\" + thought_text))
+	%Agent.observation_received.connect(func(observation_text:String):
+		add_action_block(\"Observation:\\n\" + observation_text))
+	%Agent.task_finished.connect(func(task_text:String):
+		add_action_block(\"Task:\\n\" + task_text))
+
+
+func _run_tool(conv:Array[Dictionary]):
+	var scene_root:Node = EditorInterface.get_edited_scene_root()
+	var scene_string:String = COMMON.get_node_as_string(scene_root, 10)
+	var prompt:String = \"# Scene\\n```\\n\" + scene_string + \"\\n```\\n\\n# Instructions\\n\" + conv[-1][\"content\"]
+	%Agent.chat_requester = code_model
+	%Agent.send_message(prompt)
+	var response:String = await %Agent.task_finished
+	add_tag_suffix(conv, \"The interface agent ran and returned this: \" + response)
+
+
+func handle_action():
+	
+	pass
+"
+
+[node name="InterfaceAgent" type="Node"]
+script = SubResource("GDScript_1tlbc")
+tool_name = "ui_creator"
+icon = ExtResource("1_34hwc")
+tool_description = "Creates user interfaces or edits them to your liking. Can perform these actions:
+"
+is_active = false
+metadata/_custom_type_script = "uid://bvhnuqgn6v06u"
+
+[node name="Agent" type="Node" parent="." node_paths=PackedStringArray("action_handler")]
+unique_name_in_owner = true
+script = ExtResource("1_pmno8")
+action_handler = NodePath("..")
+system_prompt_format = "You are an expert at creating or editing UI for the user
+
+# Format
+You're in a loop \"Plan\" -> \"Actions\" -> \"Observation\" -> \"Plan\" ...
+Start with \"# Plan\" header plan your actions underneath
+Then perform the plan under \"# Action\" header
+Afterwards the \"# Observation\" header is inserted, providing updates
+Once task is finished, after thought section, write \"# Final Answer\" header with final answer for the user telling them what you did
+
+# Action format
+To create and edit interfaces, you use these actions
+
+# Actions
+{{actions}}
+
+To initiate an action use this syntax after you planned your action
+\"\"\"
+# Action
+action(name_of_your_action)
+\"\"\"
+and then your action input below
+only use one action under the \"# Action\" header
+
+# Best Practices
+- Nesting with VBoxContainer and HBoxContainer is good
+- Limit your node use to these
+  - BoxContainers
+  - GridContainer (and modifying the `columns`)
+  - Buttons
+  - Sliders
+  - LineEdit, TextEdit
+  - SpinBox
+  - RichTextLabel (and activating `fit_content`), Label"
+actions = PackedStringArray("- edit_node_tree: Add nodes into the scene tree and assign properties with {\"property_name\": \"value\"}\nExample:\n  given scene tree:\n    \"\"\"\n    - Control\n    \"\"\"\n  (just the root node)\n  your action for adding to it:\n    ```\n    - Control\n      - ScreenContainer (VBoxContainer) {\"custom_minimum_size\": \"Vector2(300.0, 400.0)\"}\n        - TopBar (HBoxContainer)\n          - FirstButton (Button) {\"text\": \"\\\"My first Button!\\\"\"}\n          - SecondButton (Button) {\"text\": \"\\\"My second Button!\\\"\"}\n        - ExcitingLabel (RichTextLabel) {\"bbcode_enabled\": \"true\", \"text\": \"[font_size=50][b]Hello World![/b][/font_size]\\nThis is [b]quite[/b] the exciting time to be alive!\"}\n    ...\n    ```\n  This way you can add to the scene tree\n  You can also override properties of nodes just by including them in your edit and putting {\"property\": \"value\"} after it\nOutputs: Edit confirmation", "- run_code: Runs code from a specified node\nExample:\n  You created an OptionButton with edit_node_tree earlier and now want to add items to it\n  To execute code from a given node, you write the code in a code block like this:\n    ```gdscript\n    extends OptionButton\n    \n    func _ready():\n        add_item(\"First Item\")\n        add_item(\"Second Item\")\n        add_item(\"Last Item\")\n    ```\nOutputs: execution confirmation")
+example_conversation = PackedStringArray()
+thought_delimiter = "
+# Plan
+"
+action_delimiter = "
+# Action
+"
+debug_mode = true
+metadata/_custom_type_script = "uid://u3vxvbpbjxp4"

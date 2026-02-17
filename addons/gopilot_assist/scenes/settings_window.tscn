@@ -1,0 +1,789 @@
+[gd_scene load_steps=23 format=3 uid="uid://bd2gvgo1udsno"]
+
+[ext_resource type="Script" uid="uid://cbvm8wq4fh35t" path="res://addons/gopilot_assist/scripts/settings_window.gd" id="1_pm3yj"]
+[ext_resource type="Script" uid="uid://b1rn3qofa7fyh" path="res://addons/gopilot_assist/scripts/shortcut_window.gd" id="2_348qa"]
+[ext_resource type="Texture2D" uid="uid://baiogkctl08df" path="res://addons/gopilot_utils/textures/chat_requester_icon.svg" id="2_xs457"]
+[ext_resource type="Texture2D" uid="uid://ddorlb53wu2cb" path="res://addons/gopilot_utils/textures/embed_requester_icon.svg" id="3_xx40b"]
+[ext_resource type="Texture2D" uid="uid://dus7h1k42t8s0" path="res://addons/gopilot_assist/textures/ScriptCreate.png" id="4_1mxpt"]
+[ext_resource type="Texture2D" uid="uid://c4yvdun15i5ef" path="res://addons/gopilot_assist/textures/Debug.png" id="4_a3mp6"]
+[ext_resource type="Script" uid="uid://0in3ljj6se78" path="res://addons/gopilot_assist/scripts/model_choser_window.gd" id="4_xs457"]
+[ext_resource type="Texture2D" uid="uid://b01okjynriymm" path="res://addons/gopilot_utils/textures/Font.png" id="5_rn8q8"]
+[ext_resource type="Texture2D" uid="uid://v5omew4llxgs" path="res://addons/gopilot_utils/textures/Play.png" id="6_sng6n"]
+[ext_resource type="Texture2D" uid="uid://bejwedgw8tico" path="res://addons/gopilot_utils/textures/Tools.png" id="6_xsgnc"]
+[ext_resource type="Texture2D" uid="uid://dqle3u4wo0nux" path="res://addons/gopilot_assist/textures/List.png" id="7_atpdp"]
+[ext_resource type="Texture2D" uid="uid://cl3ikvuviln72" path="res://addons/gopilot_utils/textures/Script.png" id="7_llefo"]
+[ext_resource type="Texture2D" uid="uid://ba1myyao0mcl0" path="res://addons/gopilot_assist/textures/GodotWhite.png" id="8_b57hy"]
+[ext_resource type="LabelSettings" uid="uid://w0eyysmkf5w3" path="res://addons/gopilot_assist/resources/warning_label_settings.tres" id="9_urkx4"]
+[ext_resource type="Texture2D" uid="uid://ppxlp2uijvly" path="res://addons/gopilot_assist/textures/ScriptExtend.png" id="11_1qmd1"]
+[ext_resource type="Texture2D" uid="uid://bqm3m82gdl3qs" path="res://addons/gopilot_utils/textures/agent_handler_icon.svg" id="12_ogxfo"]
+[ext_resource type="Script" uid="uid://rl1pp3rldu4" path="res://addons/gopilot_assist/scripts/mcp_server_window.gd" id="17_b6ntc"]
+[ext_resource type="Script" uid="uid://cw8udkirqk686" path="res://addons/gopilot_assist/scripts/configure_prompts_window.gd" id="17_qf7tq"]
+[ext_resource type="Script" uid="uid://cfusxakir0k75" path="res://addons/gopilot_assist/scripts/mcp_server_entry.gd" id="18_fgco2"]
+[ext_resource type="Texture2D" uid="uid://csth1wjypb564" path="res://addons/gopilot_utils/textures/Remove.png" id="18_qriba"]
+[ext_resource type="Script" uid="uid://bbl8rcdlil4xx" path="res://addons/gopilot_assist/scripts/mcp/arg_sample.gd" id="19_mnjhp"]
+[ext_resource type="Texture2D" uid="uid://cqxylo5wdjpt0" path="res://addons/gopilot_utils/textures/Plus.png" id="19_qriba"]
+
+[node name="SettingsWindow" type="ConfirmationDialog"]
+title = "Settings"
+initial_position = 4
+size = Vector2i(587, 602)
+visible = true
+popup_window = true
+max_size = Vector2i(31608, 1000)
+keep_title_visible = false
+ok_button_text = "Save Settings"
+script = ExtResource("1_pm3yj")
+
+[node name="General" type="VBoxContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 9.0
+offset_top = 9.0
+offset_right = -9.0
+offset_bottom = -51.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+
+[node name="Header" type="RichTextLabel" parent="General"]
+layout_mode = 2
+bbcode_enabled = true
+text = "[center][b][font_size=30][wave amp=30]Let's configure [color=skyblue]Gopilot![/color][/wave][/font_size][font_size=10]
+
+[/font_size]Set the [color=lightgreen]Chat Model[/color] and [color=lightgreen]Code Model[/color]!"
+fit_content = true
+
+[node name="HSeparator" type="HSeparator" parent="General"]
+layout_mode = 2
+
+[node name="Models" type="GridContainer" parent="General"]
+layout_mode = 2
+columns = 2
+
+[node name="ChatBtn" type="Button" parent="General/Models"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Used for the chat
+Can be accessed as \"chat_model\" in GopilotTools"
+text = "Chat Model"
+icon = ExtResource("2_xs457")
+
+[node name="CodeBtn" type="Button" parent="General/Models"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Used for code completion and certain code related tools like refactor
+Can be accessed as \"code_model\" in GopilotTools"
+text = "Code Model"
+icon = ExtResource("4_1mxpt")
+
+[node name="ArchitectBtn" type="Button" parent="General/Models"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Used for agentic tasks
+Can be accessed as \"architect_model\" in GopilotTools"
+text = "Architect Model"
+icon = ExtResource("12_ogxfo")
+
+[node name="FalshBtn" type="Button" parent="General/Models"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Used for prompt recommendations and simpler tasks, should be fast
+Can be accessed as \"flash_model\" in GopilotTools"
+text = "Flash Model"
+icon = ExtResource("6_sng6n")
+
+[node name="User" type="HBoxContainer" parent="General"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="General/User"]
+custom_minimum_size = Vector2(160, 0)
+layout_mode = 2
+size_flags_stretch_ratio = 0.45
+tooltip_text = "Your name and pronouns"
+text = "Name and Pronouns"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="General/User"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="UserName" type="LineEdit" parent="General/User/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Enter your name (or just \"User\" if you want)"
+text = "Maria"
+placeholder_text = "John Doe"
+
+[node name="Pronouns" type="LineEdit" parent="General/User/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Your pronouns (e.g. she/her and he/him)"
+text = "she/her"
+placeholder_text = "pronouns"
+
+[node name="Completion" type="HBoxContainer" parent="General"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="General/Completion"]
+custom_minimum_size = Vector2(160, 0)
+layout_mode = 2
+size_flags_stretch_ratio = 0.45
+tooltip_text = "Settings for code completion
+(Uses temperature 0.0 for best accuracy)"
+text = "Completion Context"
+
+[node name="CodeCompletionAbove" type="SpinBox" parent="General/Completion"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "How many lines of code are kept in memory above the cursor when generating a completion.
+Lower value results in quicker but less accurate generations"
+min_value = 10.0
+max_value = 100000.0
+value = 100.0
+prefix = "All above"
+suffix = "lines"
+
+[node name="CodeCompletionBelow" type="SpinBox" parent="General/Completion"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "How many lines of code are kept in memory below the cursor when generating a completion.
+Lower value results in quicker but less accurate generations"
+min_value = 10.0
+max_value = 100000.0
+value = 100.0
+prefix = "All below"
+suffix = "lines"
+
+[node name="Advanced" type="HSeparator" parent="General"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="General"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="General/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CustomInstructions" type="TextEdit" parent="General/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+tooltip_text = "Configure Gopilots behaviour by writing your own custom instructions
+For more customizability, create a \"Buddy\"
+(Option can be found under Godot-logo dropdown in the top left of the chat)"
+text = "ALWAYS use hearts and other cute non-face emojis!"
+placeholder_text = "Custom Instructions..."
+wrap_mode = 1
+
+[node name="Buttons" type="VBoxContainer" parent="General/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="General/HBoxContainer/Buttons"]
+layout_mode = 2
+
+[node name="OpenShortcutsWindowBtn" type="Button" parent="General/HBoxContainer/Buttons/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+tooltip_text = "Set your shortcuts here (e.g. for initiating code completion)"
+text = "Set Shortcuts"
+icon = ExtResource("6_xsgnc")
+
+[node name="HiddenElementsButton" type="Button" parent="General/HBoxContainer/Buttons/HBoxContainer"]
+layout_mode = 2
+tooltip_text = "Display hidden dev options
+They don't do anything yet, but you sure can look at them"
+icon = ExtResource("4_a3mp6")
+
+[node name="OpenPromptsWindowBtn" type="Button" parent="General/HBoxContainer/Buttons"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+tooltip_text = "Set your shortcuts here (e.g. for initiating code completion)"
+text = "Configure Prompts"
+icon = ExtResource("2_xs457")
+
+[node name="UseMarkdownFormatting" type="CheckBox" parent="General/HBoxContainer/Buttons"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Applies custom markdown handling, converting Gopilots output to BBCode
+and inserting it into a RichTextLabel
+Code blocks are also separated into CodeEdits"
+button_pressed = true
+text = "Experimental markdown to bbcode conversion"
+icon = ExtResource("7_llefo")
+autowrap_mode = 3
+
+[node name="PromptRecommendationsBtn" type="CheckBox" parent="General/HBoxContainer/Buttons"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Generates a list of followup messages for you to click or drag into the message field
+Requires two API requests per chat message"
+text = "Recommend Prompts"
+icon = ExtResource("7_atpdp")
+
+[node name="ShowBuddy" type="CheckBox" parent="General/HBoxContainer/Buttons"]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "If the Godot head in the chat bothers you, disable this option"
+button_pressed = true
+text = "Show Buddy"
+icon = ExtResource("8_b57hy")
+
+[node name="ShowWelcomeMessage" type="CheckBox" parent="General/HBoxContainer/Buttons"]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "Toggles the \"Hello user! What would you like to do today?\" message in the chat"
+button_pressed = true
+text = "Show Welcome Message"
+icon = ExtResource("8_b57hy")
+
+[node name="MultilineCompletion" type="CheckBox" parent="General/HBoxContainer/Buttons"]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "Toggles the \"Hello user! What would you like to do today?\" message in the chat"
+text = "Multi-Line Completion"
+icon = ExtResource("11_1qmd1")
+
+[node name="ShortcutWindow" type="AcceptDialog" parent="."]
+unique_name_in_owner = true
+auto_translate_mode = 1
+title = "Shortcuts"
+initial_position = 4
+size = Vector2i(309, 177)
+exclusive = false
+unresizable = true
+script = ExtResource("2_348qa")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ShortcutWindow"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = -2.0
+offset_bottom = -44.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="ShortcutWindow/VBoxContainer"]
+layout_mode = 2
+text = "Click on thesShortcuts to change them"
+horizontal_alignment = 1
+
+[node name="Primary" type="HBoxContainer" parent="ShortcutWindow/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ShortcutWindow/VBoxContainer/Primary"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Primary"
+
+[node name="PrimaryShortcutBtn" type="Button" parent="ShortcutWindow/VBoxContainer/Primary"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Alt+E"
+
+[node name="Secondary" type="HBoxContainer" parent="ShortcutWindow/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ShortcutWindow/VBoxContainer/Secondary"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Secondary"
+
+[node name="SecondaryShortcutBtn" type="Button" parent="ShortcutWindow/VBoxContainer/Secondary"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Shift+Alt+E"
+
+[node name="EnterChat" type="HBoxContainer" parent="ShortcutWindow/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ShortcutWindow/VBoxContainer/EnterChat"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Chat"
+
+[node name="ChatShortcutBtn" type="Button" parent="ShortcutWindow/VBoxContainer/EnterChat"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Alt+C"
+
+[node name="InputListenerWindow" type="AcceptDialog" parent="ShortcutWindow"]
+unique_name_in_owner = true
+auto_translate_mode = 1
+title = "Listening for shurtcut..."
+initial_position = 4
+size = Vector2i(278, 100)
+exclusive = false
+unresizable = true
+popup_window = true
+
+[node name="ShortcutListener" type="Label" parent="ShortcutWindow/InputListenerWindow"]
+unique_name_in_owner = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -49.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Listening..."
+horizontal_alignment = 1
+
+[node name="ModelChoser" type="AcceptDialog" parent="."]
+unique_name_in_owner = true
+title = "Chose your Model"
+initial_position = 4
+size = Vector2i(280, 264)
+exclusive = false
+ok_button_text = "Accept"
+script = ExtResource("4_xs457")
+
+[node name="ModelChoser" type="VBoxContainer" parent="ModelChoser"]
+offset_left = 9.0
+offset_top = 9.0
+offset_right = 271.0
+offset_bottom = 213.0
+
+[node name="Provider" type="HBoxContainer" parent="ModelChoser/ModelChoser"]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="ModelChoser/ModelChoser/Provider"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Provider"
+
+[node name="Providers" type="OptionButton" parent="ModelChoser/ModelChoser/Provider"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Host" type="HBoxContainer" parent="ModelChoser/ModelChoser"]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="ModelChoser/ModelChoser/Host"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Host"
+
+[node name="Host" type="LineEdit" parent="ModelChoser/ModelChoser/Host"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "http://127.0.0.1"
+placeholder_text = "https://api.your-provider.com"
+
+[node name="Port" type="HBoxContainer" parent="ModelChoser/ModelChoser"]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="ModelChoser/ModelChoser/Port"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Port"
+
+[node name="Port" type="SpinBox" parent="ModelChoser/ModelChoser/Port"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 1e+06
+value = 11434.0
+alignment = 1
+
+[node name="Key" type="HBoxContainer" parent="ModelChoser/ModelChoser"]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="ModelChoser/ModelChoser/Key"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "API Key"
+
+[node name="Key" type="LineEdit" parent="ModelChoser/ModelChoser/Key"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "API key here"
+secret = true
+
+[node name="Model" type="HBoxContainer" parent="ModelChoser/ModelChoser"]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="ModelChoser/ModelChoser/Model"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Model"
+
+[node name="ModelName" type="LineEdit" parent="ModelChoser/ModelChoser/Model"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "llama3.2"
+placeholder_text = "llama3.2"
+alignment = 1
+
+[node name="Temperature" type="HBoxContainer" parent="ModelChoser/ModelChoser"]
+layout_mode = 2
+
+[node name="OverrideTemperature" type="CheckBox" parent="ModelChoser/ModelChoser/Temperature"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Temperature"
+
+[node name="Temperature" type="SpinBox" parent="ModelChoser/ModelChoser/Temperature"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 10.0
+step = 0.01
+value = 0.7
+allow_greater = true
+alignment = 1
+custom_arrow_step = 0.1
+
+[node name="Reasoning" type="VBoxContainer" parent="ModelChoser/ModelChoser"]
+visible = false
+layout_mode = 2
+
+[node name="ReasoningMode" type="HBoxContainer" parent="ModelChoser/ModelChoser/Reasoning"]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="ModelChoser/ModelChoser/Reasoning/ReasoningMode"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Reasoning Mode"
+
+[node name="ReasoningMode" type="OptionButton" parent="ModelChoser/ModelChoser/Reasoning/ReasoningMode"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="BeginDelimiter" type="HBoxContainer" parent="ModelChoser/ModelChoser/Reasoning"]
+visible = false
+layout_mode = 2
+
+[node name="Name" type="Label" parent="ModelChoser/ModelChoser/Reasoning/BeginDelimiter"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Reasoning Begin"
+
+[node name="ReasoningBegin" type="LineEdit" parent="ModelChoser/ModelChoser/Reasoning/BeginDelimiter"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "<think>"
+alignment = 1
+
+[node name="EndDelimiter" type="HBoxContainer" parent="ModelChoser/ModelChoser/Reasoning"]
+visible = false
+layout_mode = 2
+
+[node name="Name" type="Label" parent="ModelChoser/ModelChoser/Reasoning/EndDelimiter"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Reasoning End"
+
+[node name="ReasoningBegin" type="LineEdit" parent="ModelChoser/ModelChoser/Reasoning/EndDelimiter"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "</think>"
+alignment = 1
+
+[node name="HiddenOptions" type="AcceptDialog" parent="."]
+title = "Dev Settings"
+initial_position = 1
+size = Vector2i(587, 196)
+exclusive = false
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HiddenOptions"]
+offset_left = 9.0
+offset_top = 9.0
+offset_right = 578.0
+offset_bottom = 145.0
+
+[node name="Label" type="Label" parent="HiddenOptions/VBoxContainer"]
+layout_mode = 2
+text = "These options have no effect! For dev purposes only!"
+label_settings = ExtResource("9_urkx4")
+horizontal_alignment = 1
+
+[node name="Queries" type="HBoxContainer" parent="HiddenOptions/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HiddenOptions/VBoxContainer/Queries"]
+custom_minimum_size = Vector2(160, 0)
+layout_mode = 2
+size_flags_stretch_ratio = 0.45
+text = "Embedding prefixes"
+
+[node name="QueryPrefix" type="LineEdit" parent="HiddenOptions/VBoxContainer/Queries"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "The prefix for embedding a user message.
+If you use the recommended nomic-embed-text model, leave this as default.
+Not all embedding models have prefixes. If your model doesn't have prefixes, leave empty"
+text = "question: "
+placeholder_text = "question: "
+
+[node name="DocumentPrefix" type="LineEdit" parent="HiddenOptions/VBoxContainer/Queries"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "The prefix for embedding a text file / Godot documentation.
+If you use the recommended nomic-embed-text model, leave this as default.
+Not all embedding models have prefixes. If your model doesn't have prefixes, leave empty"
+text = "document: "
+placeholder_text = "document: "
+
+[node name="GridContainer" type="GridContainer" parent="HiddenOptions/VBoxContainer"]
+layout_mode = 2
+columns = 2
+
+[node name="EmbeddingBtn" type="Button" parent="HiddenOptions/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Embedding Model (Coming Soon)"
+icon = ExtResource("3_xx40b")
+
+[node name="TranslationBtn" type="Button" parent="HiddenOptions/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Translation Model (Coming Soon)"
+icon = ExtResource("5_rn8q8")
+
+[node name="MCPServersBtn" type="Button" parent="HiddenOptions/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "MCP Servers"
+icon = ExtResource("6_xsgnc")
+
+[node name="MCPServerWindow" type="AcceptDialog" parent="." node_paths=PackedStringArray("arg_sample", "mcp_server_sample", "server_list", "mcp_json_field", "warning_label")]
+auto_translate_mode = 1
+title = "MCP Servers Configuration"
+initial_position = 1
+size = Vector2i(587, 587)
+exclusive = false
+script = ExtResource("17_b6ntc")
+arg_sample = NodePath("VBoxContainer/ServerList/McpServerEntrySample/VBoxContainer/ArgsCon/VBoxContainer/ArgSample")
+mcp_server_sample = NodePath("VBoxContainer/ServerList/McpServerEntrySample")
+server_list = NodePath("VBoxContainer/ServerList")
+mcp_json_field = NodePath("VBoxContainer/VBoxContainer/McpInputField")
+warning_label = NodePath("VBoxContainer/VBoxContainer/WarningLabel")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MCPServerWindow"]
+offset_left = 9.0
+offset_top = 9.0
+offset_right = 578.0
+offset_bottom = 536.0
+
+[node name="ServerList" type="VBoxContainer" parent="MCPServerWindow/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="McpServerEntrySample" type="VBoxContainer" parent="MCPServerWindow/VBoxContainer/ServerList" node_paths=PackedStringArray("server_name_field", "command_field", "arg_list", "arg_sample")]
+layout_mode = 2
+script = ExtResource("18_fgco2")
+server_name_field = NodePath("HBoxContainer/ServerNameCon/ServerName")
+command_field = NodePath("HBoxContainer/CommandCon/Command")
+arg_list = NodePath("VBoxContainer/ArgsCon/VBoxContainer/ArgsList")
+arg_sample = NodePath("VBoxContainer/ArgsCon/VBoxContainer/ArgSample")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MCPServerWindow/VBoxContainer/ServerList/McpServerEntrySample"]
+layout_mode = 2
+
+[node name="ServerNameCon" type="HBoxContainer" parent="MCPServerWindow/VBoxContainer/ServerList/McpServerEntrySample/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PropertyName" type="Label" parent="MCPServerWindow/VBoxContainer/ServerList/McpServerEntrySample/HBoxContainer/ServerNameCon"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Server Name"
+
+[node name="ServerName" type="LineEdit" parent="MCPServerWindow/VBoxContainer/ServerList/McpServerEntrySample/HBoxContainer/ServerNameCon"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "e.g. filesystem"
+
+[node name="CommandCon" type="HBoxContainer" parent="MCPServerWindow/VBoxContainer/ServerList/McpServerEntrySample/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PropertyName" type="Label" parent="MCPServerWindow/VBoxContainer/ServerList/McpServerEntrySample/HBoxContainer/CommandCon"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Command"
+
+[node name="Command" type="LineEdit" parent="MCPServerWindow/VBoxContainer/ServerList/McpServerEntrySample/HBoxContainer/CommandCon"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "e.g. npx"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MCPServerWindow/VBoxContainer/ServerList/McpServerEntrySample"]
+layout_mode = 2
+
+[node name="ArgumentsBtn" type="Button" parent="MCPServerWindow/VBoxContainer/ServerList/McpServerEntrySample/VBoxContainer"]
+layout_mode = 2
+toggle_mode = true
+text = "Arguments"
+icon = ExtResource("6_xsgnc")
+
+[node name="ArgsCon" type="PanelContainer" parent="MCPServerWindow/VBoxContainer/ServerList/McpServerEntrySample/VBoxContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MCPServerWindow/VBoxContainer/ServerList/McpServerEntrySample/VBoxContainer/ArgsCon"]
+layout_mode = 2
+
+[node name="ArgSample" type="HBoxContainer" parent="MCPServerWindow/VBoxContainer/ServerList/McpServerEntrySample/VBoxContainer/ArgsCon/VBoxContainer" node_paths=PackedStringArray("value_field")]
+visible = false
+layout_mode = 2
+script = ExtResource("19_mnjhp")
+value_field = NodePath("Value")
+
+[node name="Value" type="LineEdit" parent="MCPServerWindow/VBoxContainer/ServerList/McpServerEntrySample/VBoxContainer/ArgsCon/VBoxContainer/ArgSample"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Argument Content"
+
+[node name="DeleteBtn" type="Button" parent="MCPServerWindow/VBoxContainer/ServerList/McpServerEntrySample/VBoxContainer/ArgsCon/VBoxContainer/ArgSample"]
+layout_mode = 2
+icon = ExtResource("18_qriba")
+
+[node name="ArgsList" type="VBoxContainer" parent="MCPServerWindow/VBoxContainer/ServerList/McpServerEntrySample/VBoxContainer/ArgsCon/VBoxContainer"]
+layout_mode = 2
+
+[node name="AddArgBtn" type="Button" parent="MCPServerWindow/VBoxContainer/ServerList/McpServerEntrySample/VBoxContainer/ArgsCon/VBoxContainer"]
+layout_mode = 2
+text = "Add Argument"
+icon = ExtResource("19_qriba")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MCPServerWindow/VBoxContainer"]
+layout_mode = 2
+
+[node name="WarningLabel" type="Label" parent="MCPServerWindow/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="McpInputField" type="CodeEdit" parent="MCPServerWindow/VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 140)
+layout_mode = 2
+size_flags_vertical = 3
+placeholder_text = "{
+	\"mcpServers\": {
+		[...]
+	}
+}"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MCPServerWindow/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="PrintToolsBtn" type="Button" parent="MCPServerWindow/VBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Print Tools"
+icon = ExtResource("7_atpdp")
+
+[node name="AddServerBtn" type="Button" parent="MCPServerWindow/VBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Add Server to List"
+icon = ExtResource("19_qriba")
+
+[node name="ConfigurePromptsWindow" type="ConfirmationDialog" parent="."]
+title = "Refactor Prompts"
+initial_position = 4
+size = Vector2i(480, 307)
+ok_button_text = "Save"
+script = ExtResource("17_qf7tq")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ConfigurePromptsWindow"]
+offset_left = 9.0
+offset_top = 9.0
+offset_right = 471.0
+offset_bottom = 256.0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="ConfigurePromptsWindow/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PromptSample" type="HBoxContainer" parent="ConfigurePromptsWindow/VBoxContainer/ScrollContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+
+[node name="Left" type="VBoxContainer" parent="ConfigurePromptsWindow/VBoxContainer/ScrollContainer/PromptSample"]
+layout_mode = 2
+
+[node name="Title" type="LineEdit" parent="ConfigurePromptsWindow/VBoxContainer/ScrollContainer/PromptSample/Left"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_vertical = 0
+placeholder_text = "Title"
+
+[node name="RemoveBtn" type="Button" parent="ConfigurePromptsWindow/VBoxContainer/ScrollContainer/PromptSample/Left"]
+layout_mode = 2
+icon = ExtResource("18_qriba")
+
+[node name="Content" type="TextEdit" parent="ConfigurePromptsWindow/VBoxContainer/ScrollContainer/PromptSample"]
+custom_minimum_size = Vector2(0, 170)
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Content"
+
+[node name="Prompts" type="VBoxContainer" parent="ConfigurePromptsWindow/VBoxContainer/ScrollContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="NewPromptBtn" type="Button" parent="ConfigurePromptsWindow/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Add new Prompt"
+icon = ExtResource("19_qriba")
+
+[connection signal="about_to_popup" from="." to="." method="_on_about_to_popup"]
+[connection signal="canceled" from="." to="." method="_ready"]
+[connection signal="confirmed" from="." to="." method="_on_confirmed"]
+[connection signal="pressed" from="General/Models/ChatBtn" to="ModelChoser" method="configure_model" binds= ["chat_model"]]
+[connection signal="pressed" from="General/Models/CodeBtn" to="ModelChoser" method="configure_model" binds= ["code_model"]]
+[connection signal="pressed" from="General/Models/ArchitectBtn" to="ModelChoser" method="configure_model" binds= ["architect_model"]]
+[connection signal="pressed" from="General/Models/FalshBtn" to="ModelChoser" method="configure_model" binds= ["flash_model"]]
+[connection signal="pressed" from="General/HBoxContainer/Buttons/HBoxContainer/OpenShortcutsWindowBtn" to="ShortcutWindow" method="popup"]
+[connection signal="pressed" from="General/HBoxContainer/Buttons/HBoxContainer/HiddenElementsButton" to="HiddenOptions" method="show"]
+[connection signal="pressed" from="General/HBoxContainer/Buttons/OpenPromptsWindowBtn" to="ConfigurePromptsWindow" method="popup"]
+[connection signal="about_to_popup" from="ShortcutWindow" to="ShortcutWindow" method="_on_popup"]
+[connection signal="confirmed" from="ShortcutWindow/InputListenerWindow" to="ShortcutWindow" method="_on_input_listener_window_confirmed"]
+[connection signal="window_input" from="ShortcutWindow/InputListenerWindow" to="ShortcutWindow" method="_listener_gui_input"]
+[connection signal="canceled" from="ModelChoser" to="ModelChoser" method="_on_canceled"]
+[connection signal="confirmed" from="ModelChoser" to="ModelChoser" method="_on_confirmed"]
+[connection signal="item_selected" from="ModelChoser/ModelChoser/Provider/Providers" to="ModelChoser" method="_on_providers_item_selected"]
+[connection signal="toggled" from="ModelChoser/ModelChoser/Temperature/OverrideTemperature" to="ModelChoser/ModelChoser/Temperature/Temperature" method="set_visible"]
+[connection signal="pressed" from="HiddenOptions/VBoxContainer/GridContainer/EmbeddingBtn" to="ModelChoser" method="configure_model" binds= ["embedding_model"]]
+[connection signal="pressed" from="HiddenOptions/VBoxContainer/GridContainer/TranslationBtn" to="ModelChoser" method="configure_model" binds= ["translation_model"]]
+[connection signal="toggled" from="MCPServerWindow/VBoxContainer/ServerList/McpServerEntrySample/VBoxContainer/ArgumentsBtn" to="MCPServerWindow/VBoxContainer/ServerList/McpServerEntrySample/VBoxContainer/ArgsCon" method="set_visible"]
+[connection signal="pressed" from="MCPServerWindow/VBoxContainer/ServerList/McpServerEntrySample/VBoxContainer/ArgsCon/VBoxContainer/ArgSample/DeleteBtn" to="MCPServerWindow/VBoxContainer/ServerList/McpServerEntrySample/VBoxContainer/ArgsCon/VBoxContainer/ArgSample" method="queue_free"]
+[connection signal="pressed" from="MCPServerWindow/VBoxContainer/ServerList/McpServerEntrySample/VBoxContainer/ArgsCon/VBoxContainer/AddArgBtn" to="MCPServerWindow/VBoxContainer/ServerList/McpServerEntrySample" method="_on_add_arg_btn_pressed"]
+[connection signal="about_to_popup" from="ConfigurePromptsWindow" to="ConfigurePromptsWindow" method="_on_about_to_popup"]
+[connection signal="confirmed" from="ConfigurePromptsWindow" to="ConfigurePromptsWindow" method="_on_confirmed"]
+[connection signal="pressed" from="ConfigurePromptsWindow/VBoxContainer/ScrollContainer/PromptSample/Left/RemoveBtn" to="ConfigurePromptsWindow/VBoxContainer/ScrollContainer/PromptSample" method="queue_free"]
+[connection signal="pressed" from="ConfigurePromptsWindow/VBoxContainer/NewPromptBtn" to="ConfigurePromptsWindow" method="_on_new_prompt_btn_pressed"]

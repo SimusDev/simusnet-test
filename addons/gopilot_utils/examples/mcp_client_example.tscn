@@ -1,0 +1,51 @@
+[gd_scene load_steps=3 format=3 uid="uid://dk03mn375ndmm"]
+
+[ext_resource type="Script" uid="uid://ijtrhioasi3d" path="res://addons/gopilot_utils/classes/mcp_client.gd" id="1_3ci63"]
+
+[sub_resource type="GDScript" id="GDScript_3ci63"]
+script/source = "extends Control
+
+@onready var mcp_client: MCPClient = $MCPClient
+
+
+
+func _ready() -> void:
+	await mcp_client.start_server()
+	print(\"Server started\")
+
+	print(JSON.stringify(await mcp_client.get_tools(), \"\\t\", false))
+"
+
+[node name="McpClient" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_3ci63")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MCPClient" type="Node" parent="."]
+script = ExtResource("1_3ci63")
+server_name = "fileaccess"
+base_command = "npx"
+arguments = PackedStringArray("-y", "@modelcontextprotocol/server-filesystem", "~")
+metadata/_custom_type_script = "uid://ijtrhioasi3d"
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 361.0
+offset_top = 220.0
+offset_right = 691.0
+offset_bottom = 285.0
+text = "Print Tools"
+
+[connection signal="pressed" from="Button" to="MCPClient" method="get_tools"]

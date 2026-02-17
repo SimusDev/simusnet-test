@@ -1,0 +1,139 @@
+[gd_scene load_steps=5 format=3 uid="uid://diapdhkjv8i6f"]
+
+[ext_resource type="Texture2D" uid="uid://v5omew4llxgs" path="res://addons/gopilot_utils/textures/Play.png" id="1_gvtci"]
+[ext_resource type="Script" uid="uid://bki1cvhowv6t5" path="res://addons/gopilot_utils/classes/chat_requester.gd" id="2_jwq4p"]
+[ext_resource type="Script" uid="uid://u3vxvbpbjxp4" path="res://addons/gopilot_utils/classes/agent_handler.gd" id="3_a4c5e"]
+
+[sub_resource type="GDScript" id="GDScript_y8j5p"]
+script/source = "extends Control
+
+@onready var prompt: LineEdit = $VBoxContainer/HBoxContainer/Prompt
+@onready var conversation: RichTextLabel = $VBoxContainer/Conversation
+@onready var agent_handler: AgentHandler = $AgentHandler
+
+
+func handle_action(action:String) -> String:
+	var action_dict:Dictionary = JSON.parse_string(action)
+	var expression:String = action_dict[\"expression\"]
+	
+	var expr := Expression.new()
+	
+	expr.parse(expression)
+	
+	if not expr.get_error_text().is_empty():
+		return \"Calculator errored with this message: '\" + expr.get_error_text() + \"'\"
+	
+	var result:float = expr.execute()
+	
+	
+	return \"Result: \" + str(result)
+
+
+
+func _on_send_btn_pressed() -> void:
+	var message:String = prompt.text
+	agent_handler.send_message(message)
+	conversation.text += \"\\nUser: \" + message
+
+
+func _on_agent_handler_thought_finished(thought: String) -> void:
+	conversation.text += \"\\nThought: \" + thought
+
+
+func _on_agent_handler_task_finished(finished_message: String) -> void:
+	conversation.text += \"\\nFINISHED: \" + finished_message
+
+
+func _on_agent_handler_observation_received(observation: String) -> void:
+	conversation.text += \"\\nObservation: \" + observation
+
+
+func _on_agent_handler_action_finished(action: String) -> void:
+	conversation.text += \"\\nAction: \" + action
+"
+
+[node name="AgentExample" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_y8j5p")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_top = 23.0
+offset_right = -24.0
+offset_bottom = -23.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Agent Example"
+horizontal_alignment = 1
+
+[node name="Conversation" type="RichTextLabel" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Prompt" type="LineEdit" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Calculate the sin of 2000 for me please..."
+
+[node name="SendBtn" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "SEND"
+icon = ExtResource("1_gvtci")
+
+[node name="ChatRequester" type="Node" parent="."]
+script = ExtResource("2_jwq4p")
+metadata/_custom_type_script = "uid://bki1cvhowv6t5"
+
+[node name="AgentHandler" type="Node" parent="." node_paths=PackedStringArray("chat_requester", "action_handler")]
+script = ExtResource("3_a4c5e")
+chat_requester = NodePath("../ChatRequester")
+action_handler = NodePath("..")
+system_prompt_format = "You are an expert agent and perform actions until goal reached
+
+# Actions
+{{actions}}
+
+# Format
+You're in a loop \"Thought\" -> \"Action\" -> \"Observation\" -> \"Thought\" ...
+Start with \"# Thought\" header plan your actions underneath
+Then perform the plan under \"# Action\" header
+Afterwards the \"# Observation\" header is inserted, providing updates
+Once task is finished, after thought section, write \"# Final Answer\" header with final answer for the user telling them what you did
+
+# Action format
+Under \"# Action\" header ALWAYS use this JSON format
+{\"expression\": \"<the expression you want to use>\"}
+for example:
+\"\"\"
+# Action
+{\"expression\": \"sin(10/20)\"}
+\"\"\"
+Keep action amount to minimum in array
+Make sure the args ALWAYS have correct type"
+actions = PackedStringArray()
+example_conversation = PackedStringArray("please calcuate 100 / 2000", "# Thought\nHmm I need to calculate 100 / 2000. This is quite difficult. Let me use the calculate action.\n\n# Action\n{\"expression\": \"100/2000\"}\n\n# Observation\nResult: 0.05\n\n# Thought\nAha, the result it 0.05. Let me tell the user about it\n\n# Final Answer\n100 / 2000 is 0.05. If you want me to calcualte more, just let me know!")
+action_delimiter = "
+# Action
+"
+metadata/_custom_type_script = "uid://u3vxvbpbjxp4"
+
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/SendBtn" to="." method="_on_send_btn_pressed"]
+[connection signal="action_finished" from="AgentHandler" to="." method="_on_agent_handler_action_finished"]
+[connection signal="observation_received" from="AgentHandler" to="." method="_on_agent_handler_observation_received"]
+[connection signal="task_finished" from="AgentHandler" to="." method="_on_agent_handler_task_finished"]
+[connection signal="thought_finished" from="AgentHandler" to="." method="_on_agent_handler_thought_finished"]

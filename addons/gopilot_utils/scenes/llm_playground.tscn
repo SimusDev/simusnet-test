@@ -1,0 +1,174 @@
+[gd_scene load_steps=4 format=3 uid="uid://c16dfx0fx62vq"]
+
+[ext_resource type="PackedScene" uid="uid://dt4m5posjkuw4" path="res://addons/gopilot_utils/scenes/prompt_field.tscn" id="1_ku72f"]
+[ext_resource type="Script" uid="uid://bki1cvhowv6t5" path="res://addons/gopilot_utils/classes/chat_requester.gd" id="2_14qvg"]
+
+[sub_resource type="GDScript" id="GDScript_14qvg"]
+script/source = "extends Control
+
+@export_group(\"Special Tokens\")
+@export_multiline var user_token:String = \"\\n<|USER|>\\n\"
+@export_multiline var ai_token:String = \"\\n<|AI|>\\n\"
+@export_multiline var system_token:String = \"\\n<|SYSTEM|>\\n\"
+
+var tokens:PackedStringArray = [
+	user_token,
+	ai_token,
+	system_token
+]
+
+func parse_conversation(text: String) -> Array[Dictionary]:
+	var messages:Array[Dictionary] = []
+	var lines = text.split(\"\\n\", false)  # Split text into lines, ignoring empty lines
+	
+	var current_role = \"\"
+	var current_content = \"\"
+	
+	for line in lines:
+		if line == user_token.strip_edges():
+			if current_role != \"\":
+				messages.append({\"role\": current_role, \"content\": current_content})
+			current_role = \"user\"
+			current_content = \"\"
+		elif line == ai_token.strip_edges():
+			if current_role != \"\":
+				messages.append({\"role\": current_role, \"content\": current_content})
+			current_role = \"assistant\"
+			current_content = \"\"
+		elif line == system_token.strip_edges():
+			if current_role != \"\":
+				messages.append({\"role\": current_role, \"content\": current_content})
+			current_role = \"system\"
+			current_content = \"\"
+		else:
+			current_content += line + \"\\n\"
+	
+	# Add the last message if it exists
+	if current_role != \"\":
+		messages.append({\"role\": current_role, \"content\": current_content})
+	
+	return messages
+
+func convert_to_json(messages: Array) -> String:
+	return JSON.stringify(messages, \"\\t\")
+
+
+
+
+func _on_add_msg_btn_pressed() -> void:
+	%Text.text += tokens[%Role.selected] + %MsgContent.text
+
+
+func _on_prompt_field_prompt_submitted(_prompt: String) -> void:
+	%Chat.model = %Model.text
+	var parsed_conversation := parse_conversation(%Text.text)
+	print(\"parsed:\\n\", parsed_conversation)
+	%Chat.set_conversation(parse_conversation(%Text.text))
+	%Chat.start_response()
+	%Text.text += ai_token
+
+
+func _on_chat_new_word(word: String) -> void:
+	%Text.text += word
+
+
+func _on_chat_message_end(full_message: String) -> void:
+	%PromptField.set_generating(false)
+
+
+func _on_prompt_field_stop_pressed() -> void:
+	%Chat.stop_generation()
+"
+
+[node name="LLMPlayground" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_14qvg")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Model"
+
+[node name="Model" type="LineEdit" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "llama3.2"
+placeholder_text = "e.g.: llama3.2"
+
+[node name="Text" type="TextEdit" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="BottomSender" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="MsgContent" type="TextEdit" parent="MarginContainer/VBoxContainer/BottomSender"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Hello! Please respond with \"hi\"."
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/BottomSender"]
+layout_mode = 2
+
+[node name="Role" type="OptionButton" parent="MarginContainer/VBoxContainer/BottomSender/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+selected = 0
+item_count = 3
+popup/item_0/text = "User"
+popup/item_0/id = 0
+popup/item_1/text = "LLM"
+popup/item_1/id = 1
+popup/item_2/text = "System"
+popup/item_2/id = 2
+
+[node name="AddMsgBtn" type="Button" parent="MarginContainer/VBoxContainer/BottomSender/VBoxContainer"]
+layout_mode = 2
+tooltip_text = "Add the message with the role to the query"
+text = "Add Msg"
+
+[node name="PromptField" parent="MarginContainer/VBoxContainer/BottomSender/VBoxContainer" instance=ExtResource("1_ku72f")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 0
+text_type = 3
+disable_button_when_empty = false
+
+[node name="Chat" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("2_14qvg")
+debug_mode = true
+metadata/_custom_type_script = "uid://bki1cvhowv6t5"
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/BottomSender/VBoxContainer/AddMsgBtn" to="." method="_on_add_msg_btn_pressed"]
+[connection signal="prompt_submitted" from="MarginContainer/VBoxContainer/BottomSender/VBoxContainer/PromptField" to="." method="_on_prompt_field_prompt_submitted"]
+[connection signal="stop_pressed" from="MarginContainer/VBoxContainer/BottomSender/VBoxContainer/PromptField" to="." method="_on_prompt_field_stop_pressed"]
+[connection signal="message_end" from="Chat" to="." method="_on_chat_message_end"]
+[connection signal="new_word" from="Chat" to="." method="_on_chat_new_word"]
