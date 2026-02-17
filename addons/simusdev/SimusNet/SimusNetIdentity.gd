@@ -60,7 +60,7 @@ func _initialize() -> void:
 		
 		owner.renamed.connect(_renamed)
 		owner.tree_entered.connect(_tree_entered)
-		owner.tree_exited.connect(_tree_exited)
+		owner.tree_exiting.connect(_tree_exited)
 	
 	_initialize_dynamic()
 	
@@ -68,6 +68,7 @@ func _initialize() -> void:
 func _renamed() -> void:
 	get_dictionary_by_generated_id().erase(get_generated_unique_id())
 	_try_generate_generated_id()
+	get_dictionary_by_generated_id().set(get_generated_unique_id(), self)
 
 func _initialize_dynamic() -> void:
 	if !SimusNetConnection.is_active():
@@ -107,6 +108,7 @@ func _deinitialize_dynamic() -> void:
 
 func _tree_entered() -> void:
 	_try_generate_generated_id()
+	get_dictionary_by_generated_id().set(get_generated_unique_id(), self)
 	
 	if SimusNetConnection.is_server():
 		_set_ready()
@@ -122,7 +124,7 @@ func _try_generate_generated_id() -> void:
 	else:
 		_generated_unique_id = settings.get_unique_id()
 	
-	get_dictionary_by_generated_id()[get_generated_unique_id()] = self
+	
 
 func _set_ready() -> void:
 	if is_ready:
@@ -133,6 +135,10 @@ func _set_ready() -> void:
 	get_dictionary_by_unique_id()[get_unique_id()] = self
 	get_dictionary_by_generated_id()[get_generated_unique_id()] = self
 	
+	#if SimusNetConnection.is_server():
+		#print("caching: ", get_generated_unique_id())
+		#print(get_dictionary_by_generated_id().has(get_generated_unique_id()))
+	#
 	is_ready = true
 	on_ready.emit()
 	
@@ -140,7 +146,17 @@ func _set_ready() -> void:
 		SimusNetVisibility._local_identity_create(self)
 
 func _tree_exited() -> void:
-	_destroy()
+	is_initialized = false
+	
+	_parse_and_clear_identities_with_no_owner()
+	
+	get_dictionary_by_generated_id().erase(get_generated_unique_id())
+	#if SimusNetConnection.is_server():
+		#print("removing: ", get_generated_unique_id())
+	
+	if owner:
+		SimusNetVisibility._local_identity_delete(self)
+	
 
 static func _parse_and_clear_identities_with_no_owner() -> void:
 	var i: Dictionary[int, SimusNetIdentity] = get_dictionary_by_unique_id()
@@ -148,18 +164,7 @@ static func _parse_and_clear_identities_with_no_owner() -> void:
 		var identity: SimusNetIdentity = i[id]
 		if !identity.owner:
 			i.erase(id)
-			get_dictionary_by_generated_id().erase(identity.get_generated_unique_id())
-
-func _destroy() -> void:
-	is_initialized = false
-	
-	get_dictionary_by_generated_id().erase(get_generated_unique_id())
-	
-	if owner:
-		SimusNetVisibility._local_identity_delete(self)
-	
-	_parse_and_clear_identities_with_no_owner()
-	
+			
 
 func get_generated_unique_id() -> Variant:
 	return _generated_unique_id

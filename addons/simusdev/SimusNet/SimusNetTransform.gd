@@ -57,7 +57,7 @@ func _process(delta: float) -> void:
 	
 	var i: float = interpolate_speed * delta
 	
-	node.position = node.position.lerp(s, i)
+	node.position = node.position.lerp(p, i)
 	node.rotation.x = lerp_angle(node.rotation.x, r.x, i)
 	node.rotation.y = lerp_angle(node.rotation.y, r.y, i)
 	

@@ -13,7 +13,6 @@ extends Control
 func _ready() -> void:
 	_connect_to_server_.text = SD_ConsoleCommand.get_or_create("last_address", "localhost:8080").get_value_as_string()
 	
-	
 	$Devs.text = "by %s" % SD_EngineSettings.create_or_get().developer
 	$version.text = ProjectSettings.get_setting("application/config/version")
 	
@@ -45,6 +44,7 @@ func _switch_popup(_name: String, hide_prev:bool = false) -> void:
 func _hide_popups() -> void:
 	for child in _popups_container.get_children():
 		child.visible = false
+	
 
 func _on_button_pressed(button: Button) -> void:
 	match button.name:

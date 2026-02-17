@@ -45,7 +45,6 @@ signal on_unique_id_received(generated_id: Variant, unique_id: Variant)
 static func request_unique_id(id: Variant) -> void:
 	if !instance._unique_id_queue.has(id):
 		instance._unique_id_queue.append(id)
-	
 
 func _process(delta: float) -> void:
 	if _unique_id_queue.is_empty() or SimusNetConnection.is_server():
@@ -66,6 +65,8 @@ func _unique_id_request_rpc(serialized: Variant) -> void:
 		var identity: SimusNetIdentity = SimusNetIdentity.get_dictionary_by_generated_id().get(id)
 		if identity:
 			packet[id] = identity.get_unique_id()
+		else:
+			logger.debug_error("(peer: %s) requested generated id was not found: %s" % [multiplayer.get_remote_sender_id(), id])
 	
 	if !packet.is_empty():
 		_unique_id_request_receive.rpc_id(multiplayer.get_remote_sender_id(), SimusNetCompressor.parse(packet))

@@ -34,7 +34,7 @@ func _ready() -> void:
 		if not placeable.object:
 			placeable.object = item.object
 	
-	item.pressed.connect(_place)
+	item.on_server_use_pressed.connect(_place)
 	
 	_spawn_ghost()
 

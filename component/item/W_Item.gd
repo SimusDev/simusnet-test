@@ -3,11 +3,17 @@ class_name W_Item extends Node3D
 signal event_pick
 signal event_inspect
 
-signal pressed
-signal released
+signal on_local_use_pressed()
+signal on_local_use_released()
 
-signal pressed_alt
-signal released_alt
+signal on_local_use_alt_pressed()
+signal on_local_use_alt_released()
+
+signal on_server_use_pressed()
+signal on_server_use_released()
+
+signal on_server_use_alt_pressed()
+signal on_server_use_alt_released()
 
 @export var object:R_WorldObject
 
@@ -69,11 +75,22 @@ func _ready() -> void:
 		.flag_mode_any_peer()
 		)
 	
+	SimusNetRPC.register([
+		_pressed_server,
+		_released_server,
+		_pressed_alt_server,
+		_released_alt_server,
+		
+	], SimusNetRPCConfig.new().flag_mode_to_server().flag_set_channel("item"))
+	
 	SimusNetVars.register(self,
 	[
 		"is_using",
 		"is_using_alt"
+	
 	], SimusNetVarConfig.new().flag_replication())
+	
+	
 	
 	if not object:
 		object = R_WorldObject.find_in(self)
@@ -114,7 +131,6 @@ func _ready() -> void:
 	set_process_unhandled_input(is_local())
 	set_process_shortcut_input(is_local())
 	set_process_unhandled_key_input(is_local())
-	
 	
 
 func _exit_tree() -> void:
@@ -171,38 +187,40 @@ func _local_input_no_interface_check(event: InputEvent) -> void:
 	pass
 
 func request_press() -> void:
-	__pressed_net()
+	SimusNetRPC.invoke_on_server(_pressed_server)
+	is_using = true
+	on_local_use_pressed.emit()
 
 func request_release() -> void:
-	__released_net()
+	SimusNetRPC.invoke_on_server(_released_server)
+	is_using = false
+	on_local_use_released.emit()
 
 func request_press_alt() -> void:
-	__pressed_alt_net()
+	SimusNetRPC.invoke_on_server(_pressed_alt_server)
+	is_using_alt = true
+	on_local_use_alt_pressed.emit()
 
 func request_release_alt() -> void:
-	__released_alt_net()
-
-func __pressed_net() -> void:
-	is_using = true
-	_pressed()
-
-func __released_net() -> void:
-	is_using = false
-	_released()
-
-func __pressed_alt_net() -> void:
-	is_using_alt = true
-	_pressed_alt()
-
-func __released_alt_net() -> void:
+	SimusNetRPC.invoke_on_server(_released_alt_server)
 	is_using_alt = false
-	_released_alt()
+	on_local_use_alt_released.emit()
 
-func _pressed() -> void: pressed.emit()
-func _released() -> void: released.emit()
+func _pressed_server() -> void:
+	is_using = true
+	on_server_use_pressed.emit()
 
-func _pressed_alt() -> void: pressed_alt.emit()
-func _released_alt() -> void: released_alt.emit()
+func _released_server() -> void:
+	is_using = false
+	on_server_use_released.emit()
+
+func _pressed_alt_server() -> void:
+	is_using_alt = true
+	on_server_use_alt_pressed.emit()
+
+func _released_alt_server() -> void:
+	is_using_alt = false
+	on_server_use_alt_released.emit()
 
 func _local_client_ready() -> void:
 	pass
