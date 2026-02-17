@@ -1,7 +1,0 @@
-"UnlitGeneric"
-{
-	"$basetexture" "vgui/entities/stalker_grenade_gd"
-	"$translucent" 1
-	"$vertexalpha" 1
-	"$vertexcolor" 1
-}

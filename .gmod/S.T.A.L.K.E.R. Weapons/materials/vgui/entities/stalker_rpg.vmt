@@ -1,7 +1,0 @@
-"UnlitGeneric"
-{
-	"$basetexture" "vgui/entities/stalker_rpg"
-	"$nolod" 1
-	"$vertexalpha" 1
-	"$vertexcolor" 1
-}
