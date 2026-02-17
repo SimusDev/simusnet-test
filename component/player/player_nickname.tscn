@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bnxbgsea816pv"]
 
-[ext_resource type="Script" uid="uid://bss8w54gfij34" path="res://component/player/player_nickname.gd" id="1_mqequ"]
+[ext_resource type="Script" path="res://component/player/player_nickname.gd" id="1_mqequ"]
 [ext_resource type="Texture2D" uid="uid://jqsxep3h4fus" path="res://icon.svg" id="2_vkijd"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_mqequ"]

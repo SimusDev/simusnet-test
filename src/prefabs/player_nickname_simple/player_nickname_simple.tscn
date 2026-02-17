@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://bs1ijqs8wfexr"]
+
+[ext_resource type="Script" uid="uid://dxgue12ab7pyd" path="res://src/prefabs/player_nickname_simple/player_nickname_simple.gd" id="1_e1l8b"]
+
+[node name="PlayerNicknameSimple" type="Node3D" unique_id=1215346871]
+script = ExtResource("1_e1l8b")
+
+[node name="Label3D" type="Label3D" parent="." unique_id=1399928566]
+visibility_range_end = 2.5
+billboard = 1
+modulate = Color(1, 1, 1, 0.63411427)
+text = "zxcvlxd or simusdev))"
+outline_size = 0

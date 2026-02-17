@@ -11,7 +11,10 @@ var _server_data: R_LocalData
 var _synced_data_last: Dictionary = {}
 var _right_list: PackedStringArray
 
-var _nickname: String = ""
+var _nickname: String = "" :
+	set(val):
+		_nickname = val
+		on_nickname_changed.emit()
 
 signal on_nickname_changed()
 signal on_avatar_changed()
