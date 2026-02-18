@@ -92,6 +92,8 @@ var _queue_replicate_server: Dictionary = {}
 
 var _queue_send: Dictionary = {}
 
+var _queue_send_types: Dictionary = {}
+
 func _physics_process(delta: float) -> void:
 	if !_queue_replicate.is_empty():
 		_handle_replicate(_queue_replicate, true)

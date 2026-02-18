@@ -18,6 +18,7 @@ enum KEY {
 	NAME,
 	TRANSFORM,
 	MULTIPLAYER_AUTHORITY,
+	NETWORK_PARAMETERS,
 }
 
 func get_channel() -> int:
@@ -66,6 +67,10 @@ func serialize_node(node: Node) -> PackedByteArray:
 	if node.get_multiplayer_authority() != SimusNet.SERVER_ID:
 		result[KEY.MULTIPLAYER_AUTHORITY] = node.get_multiplayer_authority()
 	
+	var network_parameters: Dictionary = serialize_object_network_parameters(node)
+	if !network_parameters.is_empty():
+		result[KEY.NETWORK_PARAMETERS] = network_parameters
+	
 	serialize_custom(node, result)
 	return SimusNetCompressor.parse(result)
 
@@ -88,6 +93,8 @@ func deserialize_node(bytes: PackedByteArray) -> Node:
 		node.transform = data[KEY.TRANSFORM]
 	if data.has(KEY.MULTIPLAYER_AUTHORITY):
 		node.set_multiplayer_authority(data[KEY.MULTIPLAYER_AUTHORITY])
+	if data.has(KEY.NETWORK_PARAMETERS):
+		deserialize_object_network_parameters_to(node, data[KEY.NETWORK_PARAMETERS])
 	
 	deserialize_custom(data, node)
 	return node
@@ -225,3 +232,71 @@ func _network_disconnect() -> void:
 func _network_not_connected() -> void:
 	super()
 	set_process(false)
+
+enum R_KEYS {
+	IDENTITIES,
+	VARS,
+	
+}
+
+
+static func _replication_parameters_put_identities(object: Object, root: Object, data: Dictionary) -> void:
+	var identity: SimusNetIdentity = SimusNetIdentity.try_find_in(object)
+	if identity:
+		if identity.owner:
+			if object is Node:
+				var node: Node = object as Node
+				var node_paths: Dictionary = data.get_or_add(R_KEYS.IDENTITIES, {})
+				node_paths.set(str(root.get_path_to(node)), identity.get_unique_id())
+				
+				for child in node.get_children():
+					_replication_parameters_put_identities(child, root, data)
+			
+			if !object is Node:
+				data[R_KEYS.IDENTITIES] = identity.get_unique_id()
+
+#static func _replication_parameters_get_vars_from(object: Object) -> Dictionary:
+	#var result: Dictionary = {}
+	#var config: SimusNetVarConfigHandler = SimusNetVarConfigHandler.find_in(object)
+	#
+	#return result
+#
+#static func _replication_parameters_put_vars(object: Object, root: Object, data: Dictionary) -> void:
+	#var identity: SimusNetIdentity = SimusNetIdentity.try_find_in(object)
+	#if identity:
+		#if identity.owner:
+			#if object is Node:
+				#var node: Node = object as Node
+				#var node_paths: Dictionary = data.get_or_add(R_KEYS.IDENTITIES, {})
+				#node_paths.set(root.get_path_to(node), identity.get_unique_id())
+				#
+				#for child in node.get_children():
+					#_replication_parameters_put_vars(child, root, data)
+			#
+			#if !object is Node:
+				#data[R_KEYS.VARS] = _replication_parameters_get_vars_from(object)
+
+
+static func serialize_object_network_parameters(object: Object) -> Dictionary:
+	var result: Dictionary = {}
+	_replication_parameters_put_identities(object, object, result)
+	#_replication_parameters_put_vars(object, object, result)
+	return result
+
+static func deserialize_object_network_parameters_to(object: Object, data: Dictionary) -> void:
+	var identities: Variant = data.get(R_KEYS.IDENTITIES)
+	if object is Node:
+		_deserialize_node_identities(object, object, identities)
+		return
+	
+	var id: int = identities as int
+	SimusNetIdentity.register(object, id)
+
+static func _deserialize_node_identities(_node: Node, _root: Node, data: Dictionary) -> void:
+	for path: String in data:
+		var founded: Node = _root.get_node_or_null(path)
+		if !founded:
+			continue
+		
+		var id: int = data[path]
+		SimusNetIdentity.register(_node, id)

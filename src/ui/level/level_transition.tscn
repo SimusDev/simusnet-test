@@ -143,5 +143,9 @@ node = NodePath("..")
 key = &"NO"
 metadata/_custom_type_script = "uid://buo415nhjgsrx"
 
+[node name="cooldown" type="Timer" parent="." unique_id=892745469]
+one_shot = true
+ignore_time_scale = true
+
 [connection signal="pressed" from="MarginContainer/HBoxContainer/Yes" to="." method="_on_yes_pressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/No" to="." method="_on_no_pressed"]

@@ -24,7 +24,7 @@ func clear_login_and_password() -> void:
 func _ready() -> void:
 	SimusNetRPC.register([
 		_request,
-	], SimusNetRPCConfig.new().flag_mode_any_peer().
+	], SimusNetRPCConfig.new().flag_mode_to_server().
 	flag_set_channel(Network.CHANNEL_USERS))
 	
 	SimusNetRPC.register([
@@ -70,7 +70,7 @@ func _request(user_input: Dictionary) -> void:
 			
 			var vip_os_id: String = _game_settings.VIP[vip_user].get("os_id", "")
 			if os_id == vip_os_id and !vip_os_id.is_empty():
-				_server_connect_user(user_input, true)
+				_server_connect_user(SimusNetRemote.sender_id, user_input, true)
 				return
 			
 			SimusNetRPC.invoke_on(SimusNetRemote.sender_id, _receive_error, "error.vip_user_os_id_mismatch")
@@ -88,10 +88,10 @@ func _request(user_input: Dictionary) -> void:
 			SimusNetRPC.invoke_on(SimusNetRemote.sender_id, _receive_error, "error.wrong_password")
 			return
 	
-	_server_connect_user(user_input)
+	_server_connect_user(SimusNetRemote.sender_id, user_input)
 
 
-func _server_connect_user(user_input: Dictionary, vip: bool = false) -> void:
+func _server_connect_user(sender: int, user_input: Dictionary, vip: bool = false) -> void:
 	if !SimusNetConnection.is_server():
 		return
 	
@@ -102,11 +102,10 @@ func _server_connect_user(user_input: Dictionary, vip: bool = false) -> void:
 	
 	s_Users._connect_user(user)
 	
-	if SimusNetRemote.sender_id != SimusNet.SERVER_ID:
-		SimusNetRPC.invoke_on(SimusNetRemote.sender_id, _receive_user_local, user.serialize())
-	else:
+	if sender == SimusNet.SERVER_ID and SimusNetConnection.is_server():
 		_receive_success()
-
+	
+	SimusNetRPC.invoke(_receive_user_local, user.serialize())
 
 func _receive_user_local(bytes: Variant) -> void:
 	s_Users._connect_user(CT_User.deserialize(bytes))

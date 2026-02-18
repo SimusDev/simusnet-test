@@ -29,7 +29,7 @@ func _ready() -> void:
 	SimusNetRPC.register(
 		[
 			_request_transition_rpc
-		], SimusNetRPCConfig.new().flag_mode_server_only().flag_serialization()
+		], SimusNetRPCConfig.new().flag_mode_to_server().flag_serialization()
 	)
 	
 	_handle()
@@ -71,19 +71,18 @@ func _exit_tree() -> void:
 		level.unregister()
 		_registry.erase(level)
 
-func request_transition_to_level(level: R_Level) -> void:
+func request_transition_to_level() -> void:
 	var player: CT_Playable = CT_Playable.get_local()
 	if !player:
 		return
 	
-	SimusNetRPC.invoke_on_server(_request_transition_rpc, level)
+	SimusNetRPC.invoke_on_server(_request_transition_rpc)
 
-func _request_transition_rpc(level: R_Level) -> void:
-	if !level:
-		return
-	
+func _request_transition_rpc() -> void:
 	var playable: CT_Playable = CT_Playable.get_by_peer_id(SimusNetRemote.sender_id)
 	if !playable:
 		return
 	
-	
+	var transition: CT_LevelTransition3D = CT_LevelTransition3D.get_last_from(playable.get_playable_node())
+	if is_instance_valid(transition):
+		transition.try_teleport_entity(playable.get_playable_node())
