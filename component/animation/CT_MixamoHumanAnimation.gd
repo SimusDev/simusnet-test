@@ -32,7 +32,7 @@ func _ready() -> void:
 		_logger.debug("cant find W_AnimatedModel3D reference!", SD_ConsoleCategories.ERROR)
 		return
 	
-	#model.visible = !SimusNet.is_network_authority(model)
+	model.visible = !SimusNet.is_network_authority(model)
 	
 	_legs_playback = model.get_tree_parameter("parameters/Legs/playback")
 	_body_playback = model.get_tree_parameter("parameters/Body/playback")
