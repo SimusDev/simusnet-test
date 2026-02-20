@@ -1,0 +1,34 @@
+[gd_scene load_steps=3 format=3 uid="uid://c57fcs6xv6p1l"]
+
+[ext_resource type="Texture2D" uid="uid://fa3w6nwyvt3i" path="res://addons/gopilot_assist/textures/FolderBrowse.png" id="2_xpjgk"]
+
+[sub_resource type="GDScript" id="GDScript_huyij"]
+script/source = "@tool
+extends GopilotTool
+
+const DEFAULT_DEPTH:int = 7
+const DEPTH_GETTER_EXPRESSION:String = \"@\" + r\"Files\\((?<depth>\\d+)\\)\"
+var COMMON := preload(\"res://addons/gopilot_utils/scripts/common.gd\").new()
+
+
+func _run_tool(conversation:Array[Dictionary]) -> void:
+	var depth:int = DEFAULT_DEPTH
+	var prompt:String = conversation[-1][\"content\"]
+	var depth_regex := RegEx.create_from_string(DEPTH_GETTER_EXPRESSION)
+	var result = depth_regex.search(prompt)
+	if result:
+		var depth_string:String = result.get_string(\"depth\")
+		if depth_string:
+			depth = int(depth_string)
+	var file_tree:String = COMMON.directory_tree_to_string(\"res://\", depth, \"    \", \"\")
+	add_prefix(conversation, \"# File Tree\\n\" + file_tree + \"\\n\\n\")
+"
+
+[node name="Tool" type="Node"]
+script = SubResource("GDScript_huyij")
+tool_name = "file_tree"
+icon = ExtResource("2_xpjgk")
+is_retrieval_tool = true
+tool_description = "Gets the file tree based on the given depth (or defaults to 7 if none is given)"
+trigger_prompts = PackedStringArray("@Files(7)", "@Files")
+metadata/_custom_type_script = "uid://bvhnuqgn6v06u"

@@ -1,0 +1,145 @@
+[gd_scene load_steps=3 format=3 uid="uid://dl0wj8ek18w1t"]
+
+[ext_resource type="Script" uid="uid://brr3fsgmwwxxs" path="res://addons/gopilot_utils/classes/embed_requester.gd" id="1_cpbrc"]
+
+[sub_resource type="GDScript" id="GDScript_khc2h"]
+resource_name = "embedding_example"
+script/source = "extends Control
+
+@onready var embed_requester: EmbedRequester = $EmbedRequester
+@onready var input_field: LineEdit = $VBoxContainer/HBoxContainer/InputField
+@onready var search_btn: Button = $VBoxContainer/HBoxContainer/SearchBtn
+@onready var texts: VBoxContainer = $VBoxContainer/VBoxContainer/Texts
+@onready var output_texts: VBoxContainer = $VBoxContainer2/VBoxContainer/OutputTexts
+
+
+func _on_search_btn_pressed() -> void:
+	embed_requester.clear_embeddings()
+	# Adds all input texts to the inputs array
+	var text_collection:PackedStringArray = []
+	for i:LineEdit in texts.get_children():
+		if i.text == \"\":
+			continue
+		text_collection.append(i.text)
+	await embed_requester.embed_multiple(text_collection)
+	var sorted_embeds := await embed_requester.get_similar_to(input_field.text)
+	# Removes all existing output texts LineEdits
+	for i in output_texts.get_children():
+		output_texts.remove_child(i)
+	# Adds new line edits with the sorted embeddings
+	for embed in sorted_embeds:
+		var line_edit := LineEdit.new()
+		line_edit.text = str(embed.distance) + \": \" + embed.text
+		output_texts.add_child(line_edit)
+"
+
+[node name="EmbeddingExample" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_khc2h")
+
+[node name="EmbedRequester" type="Node" parent="."]
+script = ExtResource("1_cpbrc")
+model = "nomic-embed-text:latest"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 17.0
+offset_top = 100.0
+offset_right = 525.0
+offset_bottom = 473.0
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Inputs"
+
+[node name="VBoxContainer" type="ScrollContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Texts" type="VBoxContainer" parent="VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="LineEdit" type="LineEdit" parent="VBoxContainer/VBoxContainer/Texts"]
+layout_mode = 2
+text = "I love my little Kitty! She's the cutest in the word!"
+
+[node name="LineEdit2" type="LineEdit" parent="VBoxContainer/VBoxContainer/Texts"]
+layout_mode = 2
+text = "Floats are superior to Ints, get over it"
+
+[node name="LineEdit3" type="LineEdit" parent="VBoxContainer/VBoxContainer/Texts"]
+layout_mode = 2
+text = "Why use cups, when there are bottles?"
+
+[node name="LineEdit4" type="LineEdit" parent="VBoxContainer/VBoxContainer/Texts"]
+layout_mode = 2
+text = "Remember to fill my cup later"
+
+[node name="LineEdit5" type="LineEdit" parent="VBoxContainer/VBoxContainer/Texts"]
+layout_mode = 2
+text = "Task: Bring out the trash"
+
+[node name="LineEdit6" type="LineEdit" parent="VBoxContainer/VBoxContainer/Texts"]
+layout_mode = 2
+text = "When my spirit leaves my body, I will live on"
+
+[node name="LineEdit7" type="LineEdit" parent="VBoxContainer/VBoxContainer/Texts"]
+layout_mode = 2
+
+[node name="LineEdit8" type="LineEdit" parent="VBoxContainer/VBoxContainer/Texts"]
+layout_mode = 2
+
+[node name="LineEdit9" type="LineEdit" parent="VBoxContainer/VBoxContainer/Texts"]
+layout_mode = 2
+
+[node name="LineEdit10" type="LineEdit" parent="VBoxContainer/VBoxContainer/Texts"]
+layout_mode = 2
+
+[node name="LineEdit11" type="LineEdit" parent="VBoxContainer/VBoxContainer/Texts"]
+layout_mode = 2
+
+[node name="LineEdit12" type="LineEdit" parent="VBoxContainer/VBoxContainer/Texts"]
+layout_mode = 2
+
+[node name="LineEdit13" type="LineEdit" parent="VBoxContainer/VBoxContainer/Texts"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="InputField" type="LineEdit" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SearchBtn" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Search"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 576.0
+offset_top = 100.0
+offset_right = 1139.0
+offset_bottom = 473.0
+
+[node name="Label" type="Label" parent="VBoxContainer2"]
+layout_mode = 2
+text = "Outputs ordered my similarity"
+
+[node name="VBoxContainer" type="ScrollContainer" parent="VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="OutputTexts" type="VBoxContainer" parent="VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/SearchBtn" to="." method="_on_search_btn_pressed"]

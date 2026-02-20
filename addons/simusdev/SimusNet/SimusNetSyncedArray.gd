@@ -1,0 +1,2 @@
+extends SimusNetSyncedType
+class_name SimusNetSyncedArray

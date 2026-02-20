@@ -61,7 +61,7 @@ func _process(delta: float) -> void:
 	node.rotation.x = lerp_angle(node.rotation.x, r.x, i)
 	node.rotation.y = lerp_angle(node.rotation.y, r.y, i)
 	
-	if node.rotation is Vector3:
+	if typeof(node.rotation) == TYPE_VECTOR3:
 		node.rotation.z = lerp_angle(node.rotation.z, r.z, i)
 	
 	node.scale = node.scale.lerp(s, i)

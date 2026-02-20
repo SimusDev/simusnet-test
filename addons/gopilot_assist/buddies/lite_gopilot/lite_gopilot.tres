@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="GopilotBuddy" load_steps=4 format=3 uid="uid://vb0m83uvu63w"]
+
+[ext_resource type="PackedScene" uid="uid://bmaoeol88226l" path="res://addons/gopilot_assist/buddies/default_buddy/default_buddy.tscn" id="1_xuou8"]
+[ext_resource type="Texture2D" uid="uid://pb5w62qk3erj" path="res://addons/gopilot_utils/textures/sparkle.svg" id="2_fyaq0"]
+[ext_resource type="Script" uid="uid://c21wgr2asobn7" path="res://addons/gopilot_assist/scripts/classes/gopilot_buddy.gd" id="3_y0ed6"]
+
+[resource]
+script = ExtResource("3_y0ed6")
+name = "Lite Gopilot"
+icon = ExtResource("2_fyaq0")
+buddy = ExtResource("1_xuou8")
+system_prompt = "You are integrated Godot 4 assistant
+{{custom_instructions}}
+
+User \"{{name}}\" has pronouns {{pronouns}}"
+use_custom_temperature = false
+custom_temperature = 0.7
+custom_options = Dictionary[String, Variant]({})

@@ -1,0 +1,36 @@
+[gd_scene load_steps=2 format=3 uid="uid://txdl41u2pkgf"]
+
+[sub_resource type="GDScript" id="GDScript_7rbl8"]
+script/source = "@tool
+extends GopilotTool
+
+func _run_tool(conversation:Array[Dictionary]):
+	print(\"Test tool got executed correctly\")
+	var info := $TestToolInfo.duplicate()
+	info.show()
+	add_custom_control(info)
+	add_action_block(\"Test tool sucessfully executed\")
+	add_suffix(conversation, \"\\n<tool_result>The test tool initiated by '@run_test_tool' was executed successfully. Inform the user about it!</tool_result>\")
+"
+
+[node name="ExampleTool" type="Node"]
+script = SubResource("GDScript_7rbl8")
+tool_name = "test_tool"
+tool_description = "Tests out the tool functionality and inserts a func visual"
+trigger_prompts = PackedStringArray("@run_test_tool")
+is_active = false
+metadata/_custom_type_script = "uid://bvhnuqgn6v06u"
+
+[node name="TestToolInfo" type="RichTextLabel" parent="."]
+visible = false
+custom_minimum_size = Vector2(0, 23)
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+bbcode_enabled = true
+text = "[rainbow][wave]~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+scroll_active = false
+autowrap_mode = 0

@@ -1,0 +1,4 @@
+[gd_resource type="LabelSettings" format=3 uid="uid://w0eyysmkf5w3"]
+
+[resource]
+font_color = Color(1, 1, 0, 1)

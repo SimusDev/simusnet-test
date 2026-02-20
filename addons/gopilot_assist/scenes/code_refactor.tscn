@@ -1,0 +1,148 @@
+[gd_scene load_steps=10 format=3 uid="uid://cyntyq3dw1l3m"]
+
+[ext_resource type="Script" uid="uid://cj1r8th3bph5p" path="res://addons/gopilot_assist/scripts/code_refactor.gd" id="1_7jbuv"]
+[ext_resource type="Texture2D" uid="uid://1ggivegc7tao" path="res://addons/gopilot_utils/textures/Reset.png" id="2_54wy1"]
+[ext_resource type="Texture2D" uid="uid://v5omew4llxgs" path="res://addons/gopilot_utils/textures/Play.png" id="2_metli"]
+[ext_resource type="Texture2D" uid="uid://chw8x0p05hr03" path="res://addons/gopilot_utils/textures/Stop.png" id="3_3q1on"]
+[ext_resource type="PackedScene" uid="uid://dt4m5posjkuw4" path="res://addons/gopilot_utils/scenes/prompt_field.tscn" id="5_8aaax"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_grsdl"]
+
+[sub_resource type="GDScriptSyntaxHighlighter" id="GDScriptSyntaxHighlighter_7krtc"]
+
+[sub_resource type="GDScriptSyntaxHighlighter" id="GDScriptSyntaxHighlighter_5chnl"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_a6ap5"]
+
+[node name="CodeRefactorWindow" type="ConfirmationDialog"]
+title = "Refactor Code"
+initial_position = 4
+size = Vector2i(970, 610)
+exclusive = false
+popup_window = true
+ok_button_text = "Accept changes"
+dialog_hide_on_ok = false
+cancel_button_text = "Decline changes"
+script = ExtResource("1_7jbuv")
+refactor_prompts = PackedStringArray("Write Documentation\nAdd comments to complex parts of the code.\nFor global variables without indentation and functions, use ## for comments like this\n```gdscript\n## How many balls to spawn in [method spawn_balls]\nvar balls_to_spawn:int = 5\n\n## Spawns balls based on [member balls_to_spawn]. Sizes based on [param min_size] and [param max_size]\nfunc spawn_balls(min_size:float = 1.0, max_size:float = 3.0) -> void:\n\tfor i in balls_to_spawn:\n\t\tvar new_ball := BALL_EXAMPLE.duplicate()\n\t\tvar size:float = rand_rangef(min_size, max_size)\n\t\t# Sets the scale of the ball to a random value between mix_size and max_size\n\t\tnew_ball.scale = Vector2(size, size)\n\t\tballs.add_child(new_ball)\n```")
+RELOAD_ICON = ExtResource("2_54wy1")
+SEND_ICON = ExtResource("2_metli")
+STOP_ICON = ExtResource("3_3q1on")
+
+[node name="CodeRefactor" type="VBoxContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 9.0
+offset_top = 9.0
+offset_right = -9.0
+offset_bottom = -51.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="WarningLabel" type="Label" parent="CodeRefactor"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+label_settings = SubResource("LabelSettings_grsdl")
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HSplitContainer" parent="CodeRefactor"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CodeRefactor/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="CodeRefactor/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Original Code"
+horizontal_alignment = 1
+
+[node name="CodeBefore" type="CodeEdit" parent="CodeRefactor/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+editable = false
+syntax_highlighter = SubResource("GDScriptSyntaxHighlighter_7krtc")
+highlight_current_line = true
+draw_tabs = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CodeRefactor/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="BeforeLineCount" type="Label" parent="CodeRefactor/HBoxContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Lines: N/A"
+
+[node name="VSeparator" type="VSeparator" parent="CodeRefactor/HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="BeforeCharacterCount" type="Label" parent="CodeRefactor/HBoxContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Chars: N/A"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="CodeRefactor/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="CodeRefactor/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "Gopilots Code"
+horizontal_alignment = 1
+
+[node name="CodeAfter" type="CodeEdit" parent="CodeRefactor/HBoxContainer/VBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+syntax_highlighter = SubResource("GDScriptSyntaxHighlighter_5chnl")
+highlight_current_line = true
+draw_tabs = true
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="CodeRefactor/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="AfterLineCount" type="Label" parent="CodeRefactor/HBoxContainer/VBoxContainer2/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Lines: N/A"
+
+[node name="VSeparator2" type="VSeparator" parent="CodeRefactor/HBoxContainer/VBoxContainer2/HBoxContainer2"]
+layout_mode = 2
+
+[node name="AfterCharacterCount" type="Label" parent="CodeRefactor/HBoxContainer/VBoxContainer2/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Chars: N/A"
+
+[node name="StatusLabel" type="RichTextLabel" parent="CodeRefactor/HBoxContainer/VBoxContainer2/HBoxContainer2"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 10
+theme_override_styles/normal = SubResource("StyleBoxEmpty_a6ap5")
+bbcode_enabled = true
+text = "[pulse]Writing[wave freq=5 amp=30 connected=]..."
+fit_content = true
+autowrap_mode = 0
+
+[node name="PromptField" parent="CodeRefactor" instance=ExtResource("5_8aaax")]
+unique_name_in_owner = true
+layout_mode = 2
+placeholder_text = "Add this functionality..."
+clear_text_on_send = false
+accepted_dropped_data_types = PackedStringArray("Ctrl+Enter")
+clear_suggestions_when_submitted = false
+
+[connection signal="canceled" from="." to="." method="_on_canceled"]
+[connection signal="confirmed" from="." to="." method="_on_confirmed"]
+[connection signal="text_changed" from="CodeRefactor/HBoxContainer/VBoxContainer/CodeBefore" to="." method="_on_code_before_text_changed"]
+[connection signal="text_changed" from="CodeRefactor/HBoxContainer/VBoxContainer2/CodeAfter" to="." method="_on_code_after_text_changed"]
+[connection signal="text_set" from="CodeRefactor/HBoxContainer/VBoxContainer2/CodeAfter" to="." method="_on_code_after_text_changed"]
+[connection signal="prompt_submitted" from="CodeRefactor/PromptField" to="." method="_on_prompt_submitted"]
+[connection signal="stop_pressed" from="CodeRefactor/PromptField" to="." method="_on_prompt_field_stop_pressed"]

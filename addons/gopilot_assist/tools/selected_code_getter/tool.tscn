@@ -1,0 +1,47 @@
+[gd_scene load_steps=3 format=3 uid="uid://dfqireb5jxgeg"]
+
+[ext_resource type="Texture2D" uid="uid://cl3ikvuviln72" path="res://addons/gopilot_utils/textures/Script.png" id="1_bnxhr"]
+
+[sub_resource type="GDScript" id="GDScript_6ka1m"]
+script/source = "@tool
+extends GopilotTool
+
+
+var last_selection:String = \"\"
+
+
+func _run_tool(conversation:Array[Dictionary]) -> void:
+	var error_message:String = \"\"
+	var editor_root := EditorInterface.get_script_editor()
+	if !editor_root:
+		print(\"fial one\")
+		return
+	var script_editor := editor_root.get_current_editor()
+	if !script_editor:
+		print(\"fail 2\")
+		return
+	var selected_code:String = script_editor.get_base_editor().get_selected_text()
+	if selected_code:
+		print(\"GOT SELECTED CODE\")
+		if selected_code == last_selection:
+			var info_label := Label.new()
+			info_label.text = \"(Selected code not updated)\"
+			info_label.tooltip_text = \"Selection didn't change since last time\"
+			add_citation(info_label)
+			return
+		last_selection = selected_code
+		add_button_citation(\"Selected Code\", \"The code you had selected:\\n\" + selected_code)
+		add_prefix(conversation, \"# Selected Code\\n```gdscript\\n\" + selected_code + \"\\n```\\n\")
+
+
+func _is_elegible(_conv) -> bool:
+	return true
+"
+
+[node name="Tool" type="Node"]
+script = SubResource("GDScript_6ka1m")
+tool_name = "get_selected_code"
+icon = ExtResource("1_bnxhr")
+is_retrieval_tool = true
+tool_description = "Automatically places selected code into prompt, if any is selected"
+metadata/_custom_type_script = "uid://bvhnuqgn6v06u"

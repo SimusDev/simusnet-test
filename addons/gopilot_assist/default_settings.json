@@ -1,0 +1,73 @@
+{
+	"architect_model": {
+		"api_key": "",
+		"host": "http://127.0.0.1",
+		"model": "qwen2.5-coder:1.5b",
+		"override_temperature": false,
+		"port": 11434.0,
+		"provider": "ollama",
+		"temperature": 0.0
+	},
+	"chat_model": {
+		"api_key": "",
+		"host": "http://127.0.0.1",
+		"model": "qwen2.5-coder:1.5b",
+		"override_temperature": false,
+		"port": 11434.0,
+		"provider": "ollama",
+		"temperature": 0.0
+	},
+	"chat_shortcut": "Alt+C",
+	"code_model": {
+		"api_key": "",
+		"host": "http://127.0.0.1",
+		"model": "qwen2.5-coder:1.5b",
+		"override_temperature": false,
+		"port": 11434.0,
+		"provider": "ollama",
+		"temperature": 0.0
+	},
+	"completion_context_above": 40.0,
+	"completion_context_below": 40.0,
+	"current_buddy": "default_buddy",
+	"custom_instructions": "",
+	"document_prefix": "document: ",
+	"embedding_model": {
+		"api_key": "",
+		"host": "http://127.0.0.1",
+		"model": "llama3.2",
+		"override_temperature": false,
+		"port": 11434.0,
+		"provider": "ollama",
+		"reconnect_on_request": false,
+		"temperature": -0.01
+	},
+	"flash_model": {
+		"api_key": "",
+		"host": "http://127.0.0.1",
+		"model": "qwen2.5-coder:1.5b",
+		"override_temperature": false,
+		"port": 11434.0,
+		"provider": "ollama",
+		"temperature": 0.0
+	},
+	"generate_recommendations": false,
+	"multiline_completion": false,
+	"primary_shortcut": "Alt+E",
+	"pronouns": "they/them",
+	"query_prefix": "question: ",
+	"refactor_prompts": {
+		"Add Comments": "Add comments to every part which might not be understandable at first glance. Add comments like this.\n```gdscript\n# This code does this...\n<the code>\n```",
+		"Explain in comments": "Add a comment to every single line of code, explaining exactly what it does. Do not shy away from explaining simple code. Do not add empty newlines.",
+		"Optimize": "Whereever possible, improve the performance of the code. Add comments to the changes you made. Do not add comments to code which is unchaged.",
+		"Readability": "Improve the readablility of the code by seperating it into chunks by inserting empty newlines.",
+		"Shorten": "Make my code as compact and short as possible, even if it reduces readbility.",
+		"Type Hints": "Add type hints whereever it is possible. I don't want to see a single type-less variable or function! If a function doesn't return anything, write -> void at the end"
+	},
+	"secondary_shortcut": "Shift+Alt+E",
+	"show_buddy": true,
+	"show_welcome_message": true,
+	"tool_model_supports_function_calling": true,
+	"use_markdown_formatting": true,
+	"user_name": "Luca"
+}

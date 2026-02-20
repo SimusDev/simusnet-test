@@ -48,16 +48,19 @@ func _server_play_rpc(resource: R_SoundObject, from: Variant, properties: Dictio
 			sound.set(p, properties[p])
 
 func local_play(resource: R_SoundObject, from: Variant) -> SD_SoundInstance3D:
-	var position: Vector3 = LevelInstance.get_global_position_from(from)
-	
-	var sound: SD_SoundInstance3D = SD_SoundInstance3D.new()
-	sound.package = resource.package
-	sound.on_play_finish.connect(sound.queue_free)
-	sound.instance_autoplay = true
-	
-	if from is Node:
-		from.add_child(sound)
-	else:
-		sound.tree_entered.connect(func(): sound.global_position = position)
-		add_child(sound)
-	return sound
+	if SimusNetConnection.is_client():
+		
+		var position: Vector3 = LevelInstance.get_global_position_from(from)
+		
+		var sound: SD_SoundInstance3D = SD_SoundInstance3D.new()
+		sound.package = resource.package
+		sound.on_play_finish.connect(sound.queue_free)
+		sound.instance_autoplay = true
+		
+		if from is Node:
+			from.add_child(sound)
+		else:
+			sound.tree_entered.connect(func(): sound.global_position = position)
+			add_child(sound)
+		return sound
+	return null

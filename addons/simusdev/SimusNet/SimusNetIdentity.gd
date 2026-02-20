@@ -23,7 +23,7 @@ var _net_settings: SimusNetSettings
 
 const BYTE_SIZE: int = 2
 
-static func register(object: Object, settings: SimusNetIdentitySettings = null, from: SimusNetIdentity = null) -> SimusNetIdentity:
+static func register(object: Object, network_id: int = -1) -> SimusNetIdentity:
 	if object.has_meta("SimusNetIdentity"):
 		var variant: Variant = object.get_meta("SimusNetIdentity")
 		if is_instance_valid(variant):
@@ -31,14 +31,12 @@ static func register(object: Object, settings: SimusNetIdentitySettings = null, 
 				if variant.owner == object:
 					return variant
 	
-	var identity: SimusNetIdentity = from
-	if !identity:
-		identity = SimusNetIdentity.new()
+	var identity: SimusNetIdentity = SimusNetIdentity.new()
+	identity._unique_id = network_id
 	
 	object.set_meta("SimusNetIdentity", identity)
 	
 	identity.owner = object
-	identity.settings = settings
 	
 	identity._initialize()
 	return identity

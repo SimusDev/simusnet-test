@@ -1,0 +1,252 @@
+[gd_scene load_steps=16 format=3 uid="uid://q0tot0eolplg"]
+
+[ext_resource type="Script" uid="uid://d34axxtoricyx" path="res://addons/gopilot_utils/scripts/chat_entry_sample.gd" id="1_15rh3"]
+[ext_resource type="Texture2D" uid="uid://cl3ikvuviln72" path="res://addons/gopilot_utils/textures/Script.png" id="3_5nln8"]
+[ext_resource type="LabelSettings" uid="uid://cs30td4mcvoxn" path="res://addons/gopilot_utils/resources/role_label_settings.tres" id="3_gaa7v"]
+[ext_resource type="Texture2D" uid="uid://dtnk5offplrhs" path="res://addons/gopilot_utils/textures/Edit.png" id="3_jvqca"]
+[ext_resource type="Texture2D" uid="uid://1ggivegc7tao" path="res://addons/gopilot_utils/textures/Reset.png" id="3_sxg73"]
+[ext_resource type="Texture2D" uid="uid://csth1wjypb564" path="res://addons/gopilot_utils/textures/Remove.png" id="4_x864v"]
+[ext_resource type="Texture2D" uid="uid://cg24v4y3hj16h" path="res://addons/gopilot_utils/textures/ActionCopy.png" id="5_rhqut"]
+[ext_resource type="Script" uid="uid://basods63f16kv" path="res://addons/gopilot_utils/classes/markdown_container.gd" id="9_ydk3f"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gaa7v"]
+bg_color = Color(0, 0, 0, 0.301961)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 0.435294)
+border_blend = true
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ydk3f"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gaa7v"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_34ryw"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sodbr"]
+content_margin_top = 10.0
+
+[sub_resource type="GDScriptSyntaxHighlighter" id="GDScriptSyntaxHighlighter_gaa7v"]
+
+[sub_resource type="GDScript" id="GDScript_ydk3f"]
+script/source = "@tool
+extends Control
+
+var front_spaces_finder := RegEx.create_from_string(r\"(?:\\n|^)\")
+
+func _pressed() -> void:
+	var code:String = get_parent().text.replace(\"    \", \"\\t\")
+	
+	DisplayServer.clipboard_set(code)
+"
+
+[node name="ChatEntrySample" type="MarginContainer" node_paths=PackedStringArray("text_control")]
+offset_right = 249.0
+offset_bottom = 25.0
+script = ExtResource("1_15rh3")
+script_icon = ExtResource("3_5nln8")
+text_control = NodePath("List/PanelContainer/VBoxContainer/MarginContainer/MarkdownContainer")
+
+[node name="List" type="VBoxContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="List"]
+layout_mode = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_gaa7v")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="List/PanelContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Role" type="Label" parent="List/PanelContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 0
+mouse_filter = 1
+text = "User"
+label_settings = ExtResource("3_gaa7v")
+
+[node name="Buttons" type="HBoxContainer" parent="List/PanelContainer/VBoxContainer/Role"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -78.0
+offset_top = -24.0
+grow_horizontal = 0
+grow_vertical = 0
+alignment = 2
+
+[node name="RegenerateBtn" type="Button" parent="List/PanelContainer/VBoxContainer/Role/Buttons"]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "Regenerate this message"
+mouse_filter = 1
+icon = ExtResource("3_sxg73")
+flat = true
+
+[node name="EditBtn" type="Button" parent="List/PanelContainer/VBoxContainer/Role/Buttons"]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "Edit this message"
+mouse_filter = 1
+icon = ExtResource("3_jvqca")
+flat = true
+
+[node name="CopyBtn" type="Button" parent="List/PanelContainer/VBoxContainer/Role/Buttons"]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "Copy the content of this message"
+mouse_filter = 1
+icon = ExtResource("5_rhqut")
+flat = true
+
+[node name="RemoveBtn" type="Button" parent="List/PanelContainer/VBoxContainer/Role/Buttons"]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "Remove this message"
+mouse_filter = 1
+icon = ExtResource("4_x864v")
+flat = true
+
+[node name="MarginContainer" type="MarginContainer" parent="List/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="MarkdownContainer" type="VBoxContainer" parent="List/PanelContainer/VBoxContainer/MarginContainer" node_paths=PackedStringArray("code_edit", "richtext_label")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+script = ExtResource("9_ydk3f")
+code_edit = NodePath("../../CodeEdit")
+richtext_label = NodePath("../../RichTextLabel")
+metadata/_custom_type_script = "uid://basods63f16kv"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="List/PanelContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+focus_mode = 2
+mouse_filter = 1
+theme_override_styles/fill = SubResource("StyleBoxEmpty_ydk3f")
+theme_override_styles/background = SubResource("StyleBoxEmpty_gaa7v")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_34ryw")
+bbcode_enabled = true
+fit_content = true
+scroll_active = false
+context_menu_enabled = true
+selection_enabled = true
+
+[node name="CodeEdit" type="CodeEdit" parent="List/PanelContainer/VBoxContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_readonly_color = Color(0, 0, 0, 1)
+theme_override_constants/line_spacing = -4
+theme_override_font_sizes/font_size = 12
+theme_override_styles/read_only = SubResource("StyleBoxEmpty_sodbr")
+text = "func my_example_func
+hello world"
+editable = false
+wrap_mode = 1
+indent_wrapped_lines = true
+scroll_fit_content_height = true
+syntax_highlighter = SubResource("GDScriptSyntaxHighlighter_gaa7v")
+highlight_all_occurrences = true
+draw_tabs = true
+
+[node name="CopyBtn" type="Button" parent="List/PanelContainer/VBoxContainer/CodeEdit"]
+visible = false
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -8.0
+offset_bottom = 8.0
+grow_horizontal = 0
+icon = ExtResource("5_rhqut")
+flat = true
+script = SubResource("GDScript_ydk3f")
+
+[node name="ProgBar" type="ProgressBar" parent="List"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+mouse_filter = 1
+show_percentage = false
+
+[node name="CitationCon" type="ScrollContainer" parent="List"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+vertical_scroll_mode = 0
+
+[node name="Citations" type="HBoxContainer" parent="List/CitationCon"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="CitationSample" type="Button" parent="List/CitationCon"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+tooltip_text = "Click to see the source"
+mouse_filter = 1
+theme_override_constants/h_separation = 0
+theme_override_font_sizes/font_size = 12
+text = "example_citation.gd"
+icon = ExtResource("3_5nln8")
+flat = true
+
+[node name="EditPopup" type="PopupPanel" parent="."]
+unique_name_in_owner = true
+size = Vector2i(320, 200)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="EditPopup"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 316.0
+offset_bottom = 196.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="EditText" type="TextEdit" parent="EditPopup/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+placeholder_text = "Your edited message here..."
+wrap_mode = 1
+
+[node name="AcceptEditBtn" type="Button" parent="EditPopup/VBoxContainer"]
+layout_mode = 2
+text = "Accept"
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
+[connection signal="pressed" from="List/PanelContainer/VBoxContainer/Role/Buttons/EditBtn" to="." method="_on_edit_btn_pressed"]
+[connection signal="pressed" from="List/PanelContainer/VBoxContainer/Role/Buttons/CopyBtn" to="." method="_on_copy_btn_pressed"]
+[connection signal="pressed" from="List/PanelContainer/VBoxContainer/Role/Buttons/RemoveBtn" to="." method="_on_remove_btn_pressed"]
+[connection signal="mouse_entered" from="List/PanelContainer/VBoxContainer/CodeEdit" to="List/PanelContainer/VBoxContainer/CodeEdit/CopyBtn" method="show"]
+[connection signal="mouse_exited" from="List/PanelContainer/VBoxContainer/CodeEdit" to="List/PanelContainer/VBoxContainer/CodeEdit/CopyBtn" method="hide"]
+[connection signal="pressed" from="EditPopup/VBoxContainer/AcceptEditBtn" to="." method="_on_accept_edit_btn_pressed"]
