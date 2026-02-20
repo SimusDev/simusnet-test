@@ -43,7 +43,6 @@ config/name="simusnet-test"
 config/version="v0-05a"
 run/main_scene="uid://bqy2338pry4q6"
 config/features=PackedStringArray("4.6", "GL Compatibility")
-config/icon="res://icon.svg"
 
 [audio]
 
@@ -279,6 +278,7 @@ common/physics_interpolation=true
 [rendering]
 
 rendering_device/driver.windows="d3d12"
+textures/vram_compression/import_etc2_astc=true
 
 [shader_globals]
 

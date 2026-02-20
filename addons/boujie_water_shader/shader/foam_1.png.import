@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://bk6tootchx5gx"
 path.s3tc="res://.godot/imported/foam_1.png-b755cf04e9dac2b932f03aadbcd758f3.s3tc.ctex"
+path.etc2="res://.godot/imported/foam_1.png-b755cf04e9dac2b932f03aadbcd758f3.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://addons/boujie_water_shader/shader/foam_1.png"
-dest_files=["res://.godot/imported/foam_1.png-b755cf04e9dac2b932f03aadbcd758f3.s3tc.ctex"]
+dest_files=["res://.godot/imported/foam_1.png-b755cf04e9dac2b932f03aadbcd758f3.s3tc.ctex", "res://.godot/imported/foam_1.png-b755cf04e9dac2b932f03aadbcd758f3.etc2.ctex"]
 
 [params]
 

@@ -1,7 +1,5 @@
 class_name SimusNetServerListener extends Node
 
-# Signals emitted when a server is discovered or removed.
-# The dictionary passed contains: "ip", "port", "name", "player_count", "max_players", "last_seen"
 signal server_discovered(server_info: Dictionary)
 signal server_removed(ip: String)
 
@@ -10,10 +8,12 @@ signal server_removed(ip: String)
 @export var server_timeout: float = 5.0
 
 var _udp: PacketPeerUDP = PacketPeerUDP.new()
-var _servers: Dictionary = {}  # key: ip (String), value: Dictionary with server info
+var _servers: Dictionary = {} 
 var _cleanup_timer: Timer
 
 func _ready():
+	if SimusNetConnection.is_dedicated_server():
+		return
 	_servers.clear()
 	
 	# Setup UDP socket
@@ -35,6 +35,8 @@ func _ready():
 
 
 func _process(_delta):
+	if SimusNetConnection.is_dedicated_server():
+		return
 	while _udp.get_available_packet_count() > 0:
 		var packet_ip: String = _udp.get_packet_ip()
 		var packet_port: int = _udp.get_packet_port()
@@ -57,10 +59,11 @@ func _process(_delta):
 			continue
 		
 		if server_info.has("image_data"):
-			var img = Image.new()
-			var error = img.load_jpg_from_buffer(server_info["image_data"])
-			if error == OK:
-				server_info["texture"] = ImageTexture.create_from_image(img)
+			if not DisplayServer.get_name() == "headless":
+				var img = Image.new()
+				var error = img.load_jpg_from_buffer(server_info["image_data"])
+				if error == OK:
+					server_info["texture"] = ImageTexture.create_from_image(img)
 		
 		var required_fields = ["port", "name"]
 		var missing = false

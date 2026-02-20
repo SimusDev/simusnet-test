@@ -20,6 +20,8 @@ var _image: Image
 
 var _last: R_ServerInfo
 
+var is_headless:bool = DisplayServer.get_name() == "headless"
+
 func get_last() -> R_ServerInfo:
 	return _last
 
@@ -61,6 +63,8 @@ func reload_config() -> void:
 		return
 	
 	_image.resize(256, 256)
+	if is_headless:
+		return
 	_image.compress(Image.COMPRESS_ETC2)
 	
 
@@ -91,6 +95,9 @@ func _request_update_rpc() -> void:
 		SimusNetRPC.invoke_on_sender(_receive_update_rpc, data, _image)
 
 func _receive_update_rpc(data: Dictionary, image: Image) -> void:
+	if is_headless:
+		return
+	
 	var info: R_ServerInfo = R_ServerInfo.new()
 	info._ping = Time.get_ticks_msec() - _request_time
 	info._max_players = data.max_players

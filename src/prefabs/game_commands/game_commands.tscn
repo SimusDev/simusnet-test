@@ -4,9 +4,14 @@
 [ext_resource type="Script" uid="uid://bptu8uuecjoc5" path="res://addons/simusdev/console/SD_NodeCommandObject.gd" id="2_t5gg4"]
 [ext_resource type="Script" uid="uid://mtgs568pxn5x" path="res://addons/simusdev/console/SD_NodeCommandObjectBind.gd" id="3_mrpuw"]
 
+[sub_resource type="Resource" id="Resource_jl485"]
+script = ExtResource("3_mrpuw")
+metadata/_custom_type_script = "uid://mtgs568pxn5x"
+
 [sub_resource type="Resource" id="Resource_kepqv"]
 script = ExtResource("2_t5gg4")
 code = "player.kill"
+binds = Array[ExtResource("3_mrpuw")]([SubResource("Resource_jl485")])
 metadata/_custom_type_script = "uid://bptu8uuecjoc5"
 
 [sub_resource type="Resource" id="Resource_tdymj"]

@@ -8,6 +8,6 @@ script = ExtResource("1_e1l8b")
 [node name="Label3D" type="Label3D" parent="." unique_id=1399928566]
 visibility_range_end = 2.5
 billboard = 1
-modulate = Color(1, 1, 1, 0.63411427)
+modulate = Color(1, 1, 1, 0.54726976)
 text = "zxcvlxd or simusdev))"
 outline_size = 0

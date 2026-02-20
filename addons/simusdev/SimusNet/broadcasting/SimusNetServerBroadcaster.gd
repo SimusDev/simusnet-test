@@ -32,14 +32,15 @@ func _ready() -> void:
 func _prepare_packet():
 	var packet_data = serverInfo.duplicate()
 	
-	var img_path = serverInfo.get("image", "")
-	if img_path != "" and FileAccess.file_exists(img_path):
-		var img = Image.load_from_file(img_path)
-		if img:
-			img.resize(64, 64, Image.INTERPOLATE_TRILINEAR)
-			
-			var buffer = img.save_jpg_to_buffer(0.75)
-			packet_data["image_data"] = buffer
+	if DisplayServer.get_name() != "headless":
+		var img_path = serverInfo.get("image", "")
+		if img_path != "" and FileAccess.file_exists(img_path):
+			var img = Image.load_from_file(img_path)
+			if img:
+				img.resize(64, 64, Image.INTERPOLATE_TRILINEAR)
+				
+				var buffer = img.save_jpg_to_buffer(0.75)
+				packet_data["image_data"] = buffer
 	
 	_cached_packet = var_to_bytes(packet_data)
 

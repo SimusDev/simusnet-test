@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://dxc7r5q71f8n5"
 path.s3tc="res://.godot/imported/rpg78_model_0.png-47e4f324dc704802b87a00a16f0f80a2.s3tc.ctex"
+path.etc2="res://.godot/imported/rpg78_model_0.png-47e4f324dc704802b87a00a16f0f80a2.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://src/objects/item/weapon/rpg78/model/rpg78_model_0.png"
-dest_files=["res://.godot/imported/rpg78_model_0.png-47e4f324dc704802b87a00a16f0f80a2.s3tc.ctex"]
+dest_files=["res://.godot/imported/rpg78_model_0.png-47e4f324dc704802b87a00a16f0f80a2.s3tc.ctex", "res://.godot/imported/rpg78_model_0.png-47e4f324dc704802b87a00a16f0f80a2.etc2.ctex"]
 
 [params]
 

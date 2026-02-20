@@ -42,10 +42,16 @@ func _ready() -> void:
 		await entity.ready
 		movement = SD_ECS.find_first_component_by_script(entity, [W_FPCSourceLikeMovement])
 	
-	
+	SimusNetRPC.register(
+		[
+			do_footstep
+		],
+		SimusNetRPCConfig.new()
+			.flag_mode_any_peer()
+	)
 
 func do_footstep_net() -> void:
-	pass
+	SimusNetRPC.invoke_all(do_footstep)
 
 func do_footstep() -> void:
 	if not model:

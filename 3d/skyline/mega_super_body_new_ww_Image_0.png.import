@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://bb7k0tnlrricr"
 path.s3tc="res://.godot/imported/mega_super_body_new_ww_Image_0.png-b5a91c25e4cf3a644ac9ea8d05436a09.s3tc.ctex"
+path.etc2="res://.godot/imported/mega_super_body_new_ww_Image_0.png-b5a91c25e4cf3a644ac9ea8d05436a09.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://3d/skyline/mega_super_body_new_ww_Image_0.png"
-dest_files=["res://.godot/imported/mega_super_body_new_ww_Image_0.png-b5a91c25e4cf3a644ac9ea8d05436a09.s3tc.ctex"]
+dest_files=["res://.godot/imported/mega_super_body_new_ww_Image_0.png-b5a91c25e4cf3a644ac9ea8d05436a09.s3tc.ctex", "res://.godot/imported/mega_super_body_new_ww_Image_0.png-b5a91c25e4cf3a644ac9ea8d05436a09.etc2.ctex"]
 
 [params]
 

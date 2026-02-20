@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://c2gie0jd6g25g"
 path.s3tc="res://.godot/imported/low_poly_tree_scene_free_7.png-5c2078b8e1c031e99b6189f4543bfc0e.s3tc.ctex"
+path.etc2="res://.godot/imported/low_poly_tree_scene_free_7.png-5c2078b8e1c031e99b6189f4543bfc0e.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://3d/menu_lake/low_poly_tree_scene_free_7.png"
-dest_files=["res://.godot/imported/low_poly_tree_scene_free_7.png-5c2078b8e1c031e99b6189f4543bfc0e.s3tc.ctex"]
+dest_files=["res://.godot/imported/low_poly_tree_scene_free_7.png-5c2078b8e1c031e99b6189f4543bfc0e.s3tc.ctex", "res://.godot/imported/low_poly_tree_scene_free_7.png-5c2078b8e1c031e99b6189f4543bfc0e.etc2.ctex"]
 
 [params]
 

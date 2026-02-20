@@ -6,7 +6,7 @@
 [ext_resource type="Script" uid="uid://bbfomib82eucq" path="res://component/animation/CT_AnimationEventsCharacter.gd" id="2_cy1pa"]
 [ext_resource type="PackedScene" uid="uid://bb30gdt6q8ij" path="res://addons/simusdev/components/fp_controller/source_like/W_FPCSourceLikeCamera.tscn" id="3_j7lg1"]
 [ext_resource type="Script" uid="uid://dfok55wn4kqd2" path="res://component/player/CT_Playable.gd" id="3_rlttd"]
-[ext_resource type="Script" path="res://component/health/CT_DestroyOnDeath.gd" id="4_10txx"]
+[ext_resource type="Script" uid="uid://b0jl432eesuju" path="res://component/health/CT_DestroyOnDeath.gd" id="4_10txx"]
 [ext_resource type="PackedScene" uid="uid://be7h2lkvpihn3" path="res://addons/simusdev/components/fp_controller/source_like/W_FPCSourceLikeMovement.tscn" id="4_d5u4l"]
 [ext_resource type="Script" uid="uid://dpblk4cnhdonv" path="res://component/viewmodel/ViewModelRoot3D.gd" id="4_heeeb"]
 [ext_resource type="PackedScene" uid="uid://cmmrufl5ygbop" path="res://component/inventory/prefabs/inventory.tscn" id="4_wdfrp"]
@@ -62,7 +62,6 @@ metadata/_custom_type_script = "uid://dfok55wn4kqd2"
 
 [node name="CT_VoiceChat" type="Node" parent="CT_Playable" unique_id=151902650 node_paths=PackedStringArray("_output_player")]
 script = ExtResource("6_5kqjh")
-input_volume_threshold = 0.1
 spatial_mode = 2
 _output_player = NodePath("../../Camera/voice")
 metadata/_custom_type_script = "uid://cris7ktsgfk7j"
@@ -110,6 +109,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.64549553, 0)
 body = NodePath("..")
 
 [node name="Camera3D" parent="Camera" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.4)
 fov = 60.0
 metadata/SD_ECS = Array[Node]([])
 
@@ -196,13 +196,62 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.9, 0)
 [node name="Character" parent="." unique_id=772143695 instance=ExtResource("19_10txx")]
 transform = Transform3D(1.09, 0, 0, 0, 1.09, 0, 0, 0, 1.09, 0, -1.0005379, 0)
 
+[node name="Skeleton3D" parent="Character/AnimatedModel" parent_id_path=PackedInt32Array(772143695, 103228816) index="1" unique_id=1510655066]
+bones/0/rotation = Quaternion(-0.032381643, -0.07001357, -0.03113884, 0.996534)
+bones/1/rotation = Quaternion(-0.038270913, -0.007821741, 0.035621017, 0.9986017)
+bones/2/rotation = Quaternion(0.0010105176, -0.013658621, 0.04189471, 0.99902815)
+bones/3/rotation = Quaternion(0.0013406799, -0.012775354, 0.04218187, 0.9990274)
+bones/4/rotation = Quaternion(0.06796303, 0.0025570446, -0.024637565, 0.9973803)
+bones/5/rotation = Quaternion(0.105769515, 0.02174203, -0.08444719, 0.9905599)
+bones/7/rotation = Quaternion(-0.5571824, -0.4160313, 0.6171153, -0.3682857)
+bones/8/rotation = Quaternion(0.51294404, 0.15215217, -0.027748093, 0.84437454)
+bones/9/rotation = Quaternion(0.010578251, -0.0027918012, 0.1815924, 0.9833131)
+bones/10/rotation = Quaternion(0.054041497, 0.020032268, -0.021127854, 0.99811417)
+bones/23/rotation = Quaternion(0.12650505, 0.01627527, 0.036551617, 0.9911588)
+bones/24/rotation = Quaternion(0.28386286, -1.2270183e-07, -0.03169354, 0.95834106)
+bones/25/rotation = Quaternion(0.21628097, 3.2247065e-08, -0.024147986, 0.9760325)
+bones/27/rotation = Quaternion(0.13916305, 0.009543442, 0.006220857, 0.990204)
+bones/28/rotation = Quaternion(0.18431471, 0.008046471, 0.017260177, 0.9826829)
+bones/29/rotation = Quaternion(0.37167546, -0.0055006123, -0.038806237, 0.9275351)
+bones/31/rotation = Quaternion(0.6082241, -0.37221986, 0.59753305, 0.36670193)
+bones/32/rotation = Quaternion(0.3681062, -0.11868037, 0.082261644, 0.91850203)
+bones/33/rotation = Quaternion(0.008016088, 0.0028431318, -0.13723455, 0.9905021)
+bones/34/rotation = Quaternion(0.026162831, 0.065178834, 0.08283163, 0.99408567)
+bones/35/rotation = Quaternion(0.17648526, -0.034434143, -0.23942627, 0.95411867)
+bones/36/rotation = Quaternion(-0.06932855, -0.092084266, 0.17571214, 0.97767043)
+bones/37/rotation = Quaternion(-0.045249976, 0.08173663, 0.20026448, 0.97527725)
+bones/39/rotation = Quaternion(0.085042685, 0.0013109605, -0.043338075, 0.99543357)
+bones/40/rotation = Quaternion(0.11285683, 0.0011118752, 0.022638887, 0.9933527)
+bones/41/rotation = Quaternion(0.09269888, -0.0011044323, 0.020580225, 0.99548095)
+bones/43/rotation = Quaternion(0.10058681, -0.0008255237, -0.036754593, 0.9942488)
+bones/44/rotation = Quaternion(0.20506522, 0.0008464734, 0.0278086, 0.97835284)
+bones/45/rotation = Quaternion(-0.057828832, -0.00017070852, -0.0006420312, 0.9983263)
+bones/47/rotation = Quaternion(0.10858199, -0.014138866, -0.03603378, 0.9933336)
+bones/48/rotation = Quaternion(0.21324365, 8.335344e-08, 0.023502968, 0.9767164)
+bones/49/rotation = Quaternion(-0.002474092, -4.5334822e-05, -0.00027256383, 0.9999969)
+bones/51/rotation = Quaternion(0.09156594, -0.013950161, -0.038731072, 0.9949478)
+bones/52/rotation = Quaternion(0.20714508, 0.0009389978, 0.013964874, 0.9782102)
+bones/53/rotation = Quaternion(-0.019049427, -0.00018728865, 0.008438309, 0.9997829)
+bones/55/rotation = Quaternion(0.14165801, 0.16347717, 0.969254, -0.11728149)
+bones/56/rotation = Quaternion(-0.18291377, 0.022381602, 0.020592367, 0.98265845)
+bones/57/rotation = Quaternion(0.45150423, -0.09100711, -0.04238004, 0.8866035)
+bones/58/rotation = Quaternion(0.28401893, 0.04439658, -0.013586109, 0.957694)
+bones/60/rotation = Quaternion(-0.084815964, 0.030608596, 0.994937, -0.044382993)
+bones/61/rotation = Quaternion(-0.24288413, 0.040012553, 0.009237407, 0.9691858)
+bones/62/rotation = Quaternion(0.6193144, 0.04270716, -0.040630333, 0.7829272)
+bones/63/rotation = Quaternion(0.30068916, -0.041302588, 0.013006953, 0.95273876)
+
+[node name="BoneAttachment3D" parent="Character/AnimatedModel" parent_id_path=PackedInt32Array(772143695, 103228816) index="2" unique_id=1276280431]
+transform = Transform3D(-4.7887654, -15.724362, 98.639824, -16.111898, -97.33831, -16.299091, 98.57723, -16.673271, 2.1278112, -0.25568718, 0.93974656, -0.063071005)
+
 [node name="PlayerNicknameSimple" parent="." unique_id=1215346871 instance=ExtResource("22_5kqjh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, 0)
 
 [node name="Label3D" parent="PlayerNicknameSimple" index="0" unique_id=1399928566]
 visibility_range_end = 3.0
-modulate = Color(1, 1, 1, 0.46325418)
+modulate = Color(1, 1, 1, 0)
 
 [editable path="Camera"]
 [editable path="Character"]
+[editable path="Character/AnimatedModel"]
 [editable path="PlayerNicknameSimple"]

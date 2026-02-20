@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://bw4p8knfl6wkr"
 path.s3tc="res://.godot/imported/ussr_military_box_2.png-fef9bde031243651fcef2866857a3a09.s3tc.ctex"
+path.etc2="res://.godot/imported/ussr_military_box_2.png-fef9bde031243651fcef2866857a3a09.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://3d/ussr_military_box/ussr_military_box_2.png"
-dest_files=["res://.godot/imported/ussr_military_box_2.png-fef9bde031243651fcef2866857a3a09.s3tc.ctex"]
+dest_files=["res://.godot/imported/ussr_military_box_2.png-fef9bde031243651fcef2866857a3a09.s3tc.ctex", "res://.godot/imported/ussr_military_box_2.png-fef9bde031243651fcef2866857a3a09.etc2.ctex"]
 
 [params]
 

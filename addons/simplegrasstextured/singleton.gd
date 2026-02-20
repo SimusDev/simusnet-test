@@ -62,6 +62,11 @@ var _timer_debug : Timer = null
 
 
 func _ready() -> void:
+	if DisplayServer.get_name() == "headless":
+		set_process(false)
+		set_physics_process(false)
+		interactive = false
+		return 
 	if ProjectSettings.has_setting("SimpleGrassTextured/General/interactive_resolution"):
 		_RESOLUTION = ProjectSettings.get_setting_with_override("SimpleGrassTextured/General/interactive_resolution")
 	elif OS.get_name() == "Android" or OS.get_name() == "iOS":

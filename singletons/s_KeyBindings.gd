@@ -11,6 +11,9 @@ signal on_action_bind(action: StringName)
 signal on_action_reset(action: StringName)
 
 func _ready() -> void:
+	if DisplayServer.get_name() == "headless":
+		return
+	
 	var binds: Dictionary = _data.get_value_or_add("binds", {})
 	
 	for action: StringName in get_actions():

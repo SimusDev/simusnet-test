@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://ck8actk0jt6f8"
 path.s3tc="res://.godot/imported/metall010-new-tileable-nm.png-e578c815a95c385ed8de061fc12bcb70.s3tc.ctex"
+path.etc2="res://.godot/imported/metall010-new-tileable-nm.png-e578c815a95c385ed8de061fc12bcb70.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://src/textures/general/metal/metall010-new-tileable-nm.png"
-dest_files=["res://.godot/imported/metall010-new-tileable-nm.png-e578c815a95c385ed8de061fc12bcb70.s3tc.ctex"]
+dest_files=["res://.godot/imported/metall010-new-tileable-nm.png-e578c815a95c385ed8de061fc12bcb70.s3tc.ctex", "res://.godot/imported/metall010-new-tileable-nm.png-e578c815a95c385ed8de061fc12bcb70.etc2.ctex"]
 
 [params]
 

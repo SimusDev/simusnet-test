@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://dvngdwcw1ab2h"
 path.s3tc="res://.godot/imported/metal_0.jpeg-89248a09d97092dc9bfa078fba68bde4.s3tc.ctex"
+path.etc2="res://.godot/imported/metal_0.jpeg-89248a09d97092dc9bfa078fba68bde4.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://src/textures/general/metal/metal_0.jpeg"
-dest_files=["res://.godot/imported/metal_0.jpeg-89248a09d97092dc9bfa078fba68bde4.s3tc.ctex"]
+dest_files=["res://.godot/imported/metal_0.jpeg-89248a09d97092dc9bfa078fba68bde4.s3tc.ctex", "res://.godot/imported/metal_0.jpeg-89248a09d97092dc9bfa078fba68bde4.etc2.ctex"]
 
 [params]
 

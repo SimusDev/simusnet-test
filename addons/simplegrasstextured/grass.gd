@@ -143,6 +143,8 @@ var _wrng_deprec_windpatt = true
 
 
 func _init():
+	if DisplayServer.get_name() == "headless":
+		return
 	if Engine.is_editor_hint():
 		if collision_mask == pow(2, 32) - 1:
 			collision_mask = ProjectSettings.get_setting("SimpleGrassTextured/General/default_terrain_physics_layer", pow(2, 32) -1)
@@ -157,6 +159,11 @@ func _init():
 
 
 func _ready():
+	if DisplayServer.get_name() == "headless":
+		set_process(false)
+		set_physics_process(false)
+		return
+
 	if Engine.is_editor_hint():
 		set_process(true)
 	else:
