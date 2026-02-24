@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="R_Entity" format=3 uid="uid://2ok352n5r88o"]
+
+[ext_resource type="Script" uid="uid://xyrhpbr2knft" path="res://component/object/R_Entity.gd" id="1_tfina"]
+[ext_resource type="Script" uid="uid://cqdfkwb1galvp" path="res://component/viewmodel/R_ViewModel.gd" id="2_ae1od"]
+[ext_resource type="PackedScene" uid="uid://ccuffktk6p7ej" path="res://src/objects/entity/zombi/ZombiWorld.tscn" id="3_5bxdv"]
+
+[sub_resource type="Resource" id="Resource_8rk7n"]
+script = ExtResource("2_ae1od")
+world = ExtResource("3_5bxdv")
+metadata/_custom_type_script = "uid://cqdfkwb1galvp"
+
+[resource]
+script = ExtResource("1_tfina")
+viewmodel = SubResource("Resource_8rk7n")
+metadata/_custom_type_script = "uid://xyrhpbr2knft"

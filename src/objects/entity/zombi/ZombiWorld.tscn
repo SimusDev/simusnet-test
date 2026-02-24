@@ -1,0 +1,81 @@
+[gd_scene format=3 uid="uid://ccuffktk6p7ej"]
+
+[ext_resource type="PackedScene" uid="uid://dxhiysx5kd8x4" path="res://src/prefabs/entity/LivingEntity.tscn" id="1_v0q02"]
+[ext_resource type="Script" uid="uid://d1jwapkumdp1u" path="res://addons/simusdev/SimusNet/SimusNetTransform.gd" id="2_4787e"]
+[ext_resource type="PackedScene" uid="uid://ci143ms4a1i3p" path="res://src/objects/entity/zombi/model/minecraft_animated_mutant_zombie.glb" id="2_uk5jt"]
+[ext_resource type="Script" uid="uid://bfvmikvjmhnii" path="res://component/entity/CT_EntityHead.gd" id="3_h4tf0"]
+[ext_resource type="Script" uid="uid://d1rs65k2sdmp8" path="res://addons/simusdev/components/state_machine/SD_FiniteStateMachine.gd" id="3_ivnqf"]
+[ext_resource type="Script" uid="uid://cxo53n4htprnj" path="res://component/ai/EntityAI.gd" id="3_kpiov"]
+[ext_resource type="Script" uid="uid://c7udlgip4axd" path="res://addons/simusdev/components/state_machine/SD_FiniteState.gd" id="4_txspx"]
+[ext_resource type="Script" uid="uid://5iiffw6ilrpy" path="res://component/CT_Tick.gd" id="7_h4tf0"]
+[ext_resource type="Script" uid="uid://6lxkpjr1hsn2" path="res://component/ai/AI_Movement.gd" id="7_yr4hg"]
+[ext_resource type="Script" uid="uid://ctf37nhw0bwfh" path="res://component/ai/AI_Targeting.gd" id="8_h82im"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_uk5jt"]
+size = Vector3(2.1767578, 2.4414673, 1)
+
+[node name="Zombi" unique_id=1233817812 instance=ExtResource("1_v0q02")]
+
+[node name="SimusNetTransform" type="Node" parent="." index="0" unique_id=1109785810 node_paths=PackedStringArray("node")]
+script = ExtResource("2_4787e")
+node = NodePath("..")
+metadata/_custom_type_script = "uid://d1jwapkumdp1u"
+
+[node name="CT_EntityHead" type="Node" parent="." index="1" unique_id=1393436539 node_paths=PackedStringArray("_entity", "_eyes")]
+script = ExtResource("3_h4tf0")
+_entity = NodePath("..")
+_eyes = NodePath("../Model/Camera3D")
+metadata/_custom_type_script = "uid://bfvmikvjmhnii"
+
+[node name="EntityAI" type="Node" parent="." index="2" unique_id=573754035 node_paths=PackedStringArray("root", "state_machine", "ct_tick")]
+script = ExtResource("3_kpiov")
+root = NodePath("..")
+state_machine = NodePath("StateMachine")
+ct_tick = NodePath("CT_Tick")
+metadata/_custom_type_script = "uid://cxo53n4htprnj"
+
+[node name="CT_Tick" type="Node" parent="EntityAI" index="0" unique_id=1842396401]
+script = ExtResource("7_h4tf0")
+metadata/_custom_type_script = "uid://5iiffw6ilrpy"
+
+[node name="AI_Targeting" type="Node" parent="EntityAI" index="1" unique_id=168470792 node_paths=PackedStringArray("entity_ai")]
+script = ExtResource("8_h82im")
+entity_ai = NodePath("..")
+metadata/_custom_type_script = "uid://ctf37nhw0bwfh"
+
+[node name="AI_Movement" type="Node" parent="EntityAI" index="2" unique_id=642638146 node_paths=PackedStringArray("entity_ai")]
+script = ExtResource("7_yr4hg")
+entity_ai = NodePath("..")
+metadata/_custom_type_script = "uid://6lxkpjr1hsn2"
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="EntityAI/AI_Movement" index="0" unique_id=1221531856]
+
+[node name="StateMachine" type="Node" parent="EntityAI" index="3" unique_id=1874892620 node_paths=PackedStringArray("_initial_state")]
+script = ExtResource("3_ivnqf")
+_initial_state = NodePath("Idle")
+metadata/_custom_type_script = "uid://d1rs65k2sdmp8"
+
+[node name="Idle" type="Node" parent="EntityAI/StateMachine" index="0" unique_id=11739585]
+script = ExtResource("4_txspx")
+metadata/_custom_type_script = "uid://c7udlgip4axd"
+
+[node name="Walk" type="Node" parent="EntityAI/StateMachine" index="1" unique_id=346382474]
+script = ExtResource("4_txspx")
+metadata/_custom_type_script = "uid://c7udlgip4axd"
+
+[node name="Run" type="Node" parent="EntityAI/StateMachine" index="2" unique_id=1158579913]
+script = ExtResource("4_txspx")
+metadata/_custom_type_script = "uid://c7udlgip4axd"
+
+[node name="Attack" type="Node" parent="EntityAI/StateMachine" index="3" unique_id=528917392]
+script = ExtResource("4_txspx")
+metadata/_custom_type_script = "uid://c7udlgip4axd"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." index="3" unique_id=1262004095]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.022949219, 1.2247009, 0)
+shape = SubResource("BoxShape3D_uk5jt")
+
+[node name="Model" parent="." index="4" unique_id=1907046004 instance=ExtResource("2_uk5jt")]
+
+[node name="Camera3D" type="Camera3D" parent="Model" index="2" unique_id=805392796]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -0.97906995)

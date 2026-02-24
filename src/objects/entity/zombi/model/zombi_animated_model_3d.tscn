@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://ckejad64ny04l"]
+
+[ext_resource type="Script" uid="uid://pf622qfdiljm" path="res://addons/simusdev/components/animated_model/W_AnimatedModel3D.gd" id="1_bmcgq"]
+
+[node name="W_AnimatedModel3D" type="Node3D" unique_id=236482373 node_paths=PackedStringArray("root")]
+script = ExtResource("1_bmcgq")
+root = NodePath("")
+metadata/_custom_type_script = "uid://pf622qfdiljm"

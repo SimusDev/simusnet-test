@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://dxhiysx5kd8x4"]
+
+[ext_resource type="PackedScene" uid="uid://c1nqrgurku11l" path="res://src/prefabs/entity/Entity.tscn" id="1_j7nqu"]
+
+[node name="LivingEntity" unique_id=1233817812 instance=ExtResource("1_j7nqu")]

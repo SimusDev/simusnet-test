@@ -7,7 +7,7 @@
 [ext_resource type="Script" uid="uid://hmy2t684xhdx" path="res://component/entity/CT_Seat.gd" id="5_0tcb7"]
 [ext_resource type="PackedScene" uid="uid://cc0cnju0at7p8" path="res://scenes/prefabs/weapon_test_stand.tscn" id="6_vjnfq"]
 [ext_resource type="Script" uid="uid://blgj77kwvpiwc" path="res://component/level/CT_LevelTransition3D.gd" id="7_mh64b"]
-[ext_resource type="PackedScene" uid="uid://bgb5py1jpd054" path="res://scenes/prefabs/characters/godette/mixamo.scn" id="8_s5xlg"]
+[ext_resource type="PackedScene" uid="uid://ccuffktk6p7ej" path="res://src/objects/entity/zombi/ZombiWorld.tscn" id="8_s5xlg"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_0tcb7"]
 size = Vector3(1, 0.6230469, 0.711853)
@@ -61,7 +61,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28.237453, 1.3784833, 0)
 monitorable = false
 script = ExtResource("7_mh64b")
 level = "uid://cebiccjge2f1l"
-spawn_point3d_name = &"domik"
+spawn_point3d_name = "domik"
 metadata/_custom_type_script = "uid://blgj77kwvpiwc"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CT_LevelTransition3D" unique_id=1058075454]
@@ -70,5 +70,5 @@ shape = SubResource("BoxShape3D_mh64b")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="CT_LevelTransition3D" unique_id=375710842]
 mesh = SubResource("BoxMesh_s5xlg")
 
-[node name="Mixamo" parent="." unique_id=103228816 instance=ExtResource("8_s5xlg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.19610691, 0)
+[node name="Zombi" parent="." unique_id=1233817812 instance=ExtResource("8_s5xlg")]
+transform = Transform3D(0.17357942, 0, -0.9848199, 0, 1, 0, 0.9848199, 0, 0.17357942, -13.195196, -2.0868096, 0)

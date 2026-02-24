@@ -28,9 +28,10 @@ key_boost = "sprint"
 key_slowdown = "crouch"
 metadata/_custom_type_script = "uid://ct47lcyahk7tn"
 
-[node name="CT_Playable" type="Node" parent="." unique_id=685880430 node_paths=PackedStringArray("node")]
+[node name="CT_Playable" type="Node" parent="." unique_id=685880430 node_paths=PackedStringArray("node", "voice_chat_output")]
 script = ExtResource("2_f7y36")
 node = NodePath("..")
+voice_chat_output = NodePath("../voice")
 metadata/_custom_type_script = "uid://dfok55wn4kqd2"
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1764139555]
@@ -42,3 +43,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
 material_override = SubResource("StandardMaterial3D_qewxx")
 mesh = SubResource("TubeTrailMesh_lu47e")
+
+[node name="voice" type="AudioStreamPlayer3D" parent="." unique_id=620137511]
+max_distance = 50.0
