@@ -24,6 +24,8 @@ func set_strength(value: float) -> Explosion:
 
 func _explode(local: bool) -> Explosion:
 	var instance: Node3D
+	if not _level:
+		return null
 	if local:
 		instance = I_WorldObject.new(_level, OBJECT).instantiate_local().get_instance()
 	else:
@@ -32,6 +34,9 @@ func _explode(local: bool) -> Explosion:
 	instance._scale = _scale
 	instance._strength = _strength
 	instance.global_position = _global_position
+	
+	apply_damage()
+	
 	return self
 
 func explode() -> Explosion:
@@ -39,3 +44,24 @@ func explode() -> Explosion:
 
 func explode_local() -> Explosion:
 	return _explode(true)
+
+func apply_damage() -> void:
+	var space_state = _level.get_world_3d().direct_space_state
+	
+	var query = PhysicsShapeQueryParameters3D.new()
+	query.collide_with_areas = true
+	query.collide_with_bodies = false
+	query.shape = SphereShape3D.new()
+	query.shape.radius = 23.0 * _scale
+	query.transform = Transform3D(Basis(), _global_position)
+	
+	var results = space_state.intersect_shape(query)
+	
+	var damage = R_Damage.new()
+	damage.set_value(_strength * 32.0)
+	
+	for dict in results:
+		var collider = dict["collider"]
+		print(collider)
+		if collider is CT_Hitbox:
+			damage.apply(collider.health)

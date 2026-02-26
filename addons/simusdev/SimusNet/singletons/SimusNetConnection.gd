@@ -109,6 +109,8 @@ static func is_client() -> bool:
 	return !is_dedicated_server()
 
 static func get_peer() -> MultiplayerPeer:
+	if Engine.is_editor_hint():
+		return null
 	return singleton.api.multiplayer_peer
 
 static func set_peer(peer: MultiplayerPeer) -> SimusNetConnection:

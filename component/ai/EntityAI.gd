@@ -1,10 +1,20 @@
+@tool
 class_name EntityAI extends Node
 
 @export var root:Node3D
 
-@export var state_machine:SD_FiniteStateMachine
+@export var ai_targeting:AI_Targeting :
+	set(val):
+		ai_targeting = val
+
+@export var ai_movement:AI_Movement :
+	set(val):
+		ai_movement = val
+
+@export var state_machine:CT_StateMachineSimple
 @export var ct_tick:CT_Tick
 
+@export var look_range:float = 15.0
 @export_range(-1, 1) var look_direction:int = -1
 
 var _logger:SD_Logger
@@ -20,10 +30,10 @@ func _ready() -> void:
 		_logger.debug("ct_tick is null", SD_ConsoleCategories.CATEGORY.ERROR)
 		return
 	
-	ct_tick.tick.connect(_on_tick)
-	EVENT.on_player_spawned.listen(_create_ray_for_peer)
 	
-
+	if not Engine.is_editor_hint():
+		ct_tick.tick.connect(_on_tick)
+		EVENT.on_player_spawned.listen(_create_ray_for_peer)
 
 func _create_ray_for_peer() -> void:
 	var peer:int = EVENT.on_player_spawned.playable.get_peer_id()
@@ -49,11 +59,23 @@ func _create_ray_for_peer() -> void:
 	else:
 		root.add_child(new_ray)
 	
-	new_ray.target_position = Vector3(0.0, 0.0, 5.0 * look_direction)
+	new_ray.target_position = Vector3(0.0, 0.0, look_range * look_direction)
 	new_ray.target_peer = peer
 	eye_rays.append(new_ray)
 	ct_tick.tick.connect(new_ray.update)
 
 
 func _on_tick() -> void:
-	pass
+	if not ai_targeting:
+		return
+	if not ai_movement:
+		return
+	
+	ai_targeting.pick_target(root, eye_rays)
+	
+	if not ai_targeting.target:
+		ai_movement.stop()
+		return
+	
+	ai_movement.move_to_target(ai_targeting.target)
+	

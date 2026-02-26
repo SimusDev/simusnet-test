@@ -1,5 +1,17 @@
 [gd_scene format=3 uid="uid://dxhiysx5kd8x4"]
 
 [ext_resource type="PackedScene" uid="uid://c1nqrgurku11l" path="res://src/prefabs/entity/Entity.tscn" id="1_j7nqu"]
+[ext_resource type="Script" uid="uid://bwwpj2rkss4cf" path="res://component/health/CT_Health.gd" id="2_5ihjs"]
+[ext_resource type="Script" uid="uid://dvlnhvdrc3dy6" path="res://component/hitbox/CT_Hitbox.gd" id="3_kwg10"]
 
 [node name="LivingEntity" unique_id=1233817812 instance=ExtResource("1_j7nqu")]
+
+[node name="CT_Health" type="Node" parent="." index="0" unique_id=1177777035 node_paths=PackedStringArray("root")]
+script = ExtResource("2_5ihjs")
+root = NodePath("..")
+metadata/_custom_type_script = "uid://bwwpj2rkss4cf"
+
+[node name="CT_Hitbox" type="Area3D" parent="." index="1" unique_id=1158320170 node_paths=PackedStringArray("health")]
+script = ExtResource("3_kwg10")
+health = NodePath("../CT_Health")
+metadata/_custom_type_script = "uid://dvlnhvdrc3dy6"

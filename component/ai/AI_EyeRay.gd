@@ -7,6 +7,11 @@ var target_peer:int = -1 :
 
 var target:Node3D
 
+func _ready() -> void:
+	collide_with_areas = true
+	collide_with_bodies = false
+	collision_mask = 0
+	set_collision_mask_value(8, true)
 
 func _update_target() -> void:
 	if target_peer < 0:
@@ -30,4 +35,5 @@ func update() -> void:
 	if not target:
 		_update_target()
 	
-	look_at(target.global_position)
+	if is_instance_valid(target):
+		look_at(target.global_position)

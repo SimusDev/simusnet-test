@@ -568,6 +568,14 @@ _data = {
 &"Walk": SubResource("Animation_qk1j3")
 }
 
+[sub_resource type="GDScript" id="GDScript_yr4hg"]
+resource_name = "sexsex"
+script/source = "extends Label3D
+
+func _process(delta: float) -> void:
+	text = str($\"../EntityAI/AI_Targeting\".target) + \"\\n\" + str($\"../EntityAI/StateMachine\".get_current_state())
+"
+
 [node name="Zombi" unique_id=1233817812 instance=ExtResource("1_v0q02")]
 
 [node name="SimusNetTransform" type="Node" parent="." index="0" unique_id=1109785810 node_paths=PackedStringArray("node")]
@@ -655,7 +663,13 @@ libraries/ = SubResource("AnimationLibrary_4hj7e")
 [node name="Camera3D" type="Camera3D" parent="Model" index="2" unique_id=805392796]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -0.97906995)
 
-[node name="CT_Health" parent="." index="5" unique_id=1177777035]
+[node name="Label3D" type="Label3D" parent="." index="5" unique_id=1673196795]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.8139408, 0)
+billboard = 1
+text = "sex"
+script = SubResource("GDScript_yr4hg")
+
+[node name="CT_Health" parent="." index="6" unique_id=1177777035]
 value = 560.0
 value_max = 560.0
 

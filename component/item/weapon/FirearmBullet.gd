@@ -155,7 +155,6 @@ func _apply_damage(collider: Node, speed_at_impact: float) -> void:
 		var dmg = R_Damage.new()
 		dmg.set_value(final_damage)
 		dmg.apply(collider.health)
-		print(dmg.get_value())
 
 func _calculate_thickness(entry_pos: Vector3, travel_dir: Vector3, _target: Node, max_p_depth: float) -> float:
 	var space_state = get_world_3d().direct_space_state

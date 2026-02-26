@@ -4,5 +4,5 @@
 
 [node name="W_AnimatedModel3D" type="Node3D" unique_id=236482373 node_paths=PackedStringArray("root")]
 script = ExtResource("1_bmcgq")
-root = NodePath("")
+root = NodePath("..")
 metadata/_custom_type_script = "uid://pf622qfdiljm"

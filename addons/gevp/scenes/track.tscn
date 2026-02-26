@@ -9,6 +9,10 @@
 [ext_resource type="Script" uid="uid://2juaclm8gc1n" path="res://addons/simplegrasstextured/grass.gd" id="7_qq663"]
 [ext_resource type="Texture2D" uid="uid://d26gsgqpifqq6" path="res://src/textures/general/grass_texture_1.png" id="9_qq663"]
 
+[sub_resource type="NavigationMesh" id="NavigationMesh_p2gjv"]
+vertices = PackedVector3Array(-499.5, 0.4089327, -3.25, -25.75, 0.4089327, -3, -25.5, 0.4089327, -4.75, -18.5, 0.4089327, -8.5, -18.5, 0.4089327, -499.5, -499.5, 0.4089327, -499.5, -11.75, 0.4089327, -5, -11.25, 0.4089327, -4.5, 499.5, 0.4089327, -3.25, 499.5, 0.4089327, -499.5, -11.25, 0.4089327, -3, -21.25, -3.3410673, 5.5, -19, -3.3410673, 6.75, -18, -3.3410673, 6.75, -24.75, -3.3410673, 3.25, -12.25, -3.3410673, -4, -18, -3.3410673, -7.25, -19, -3.3410673, -7.25, -24.75, -3.3410673, -3.75, -12.25, -3.3410673, 3.5, -499.5, 0.4089327, 2.75, -25.75, 0.4089327, 2.5, -11.25, 0.4089327, 2.5, 499.5, 0.4089327, 2.75, -25.5, 0.4089327, 4.25, -18.5, 0.4089327, 8, -499.5, 0.4089327, 499.5, -18.5, 0.4089327, 499.5, -11.75, 0.4089327, 4.5, -11.25, 0.4089327, 4, 499.5, 0.4089327, 499.5)
+polygons = [PackedInt32Array(2, 1, 0), PackedInt32Array(2, 0, 3), PackedInt32Array(3, 0, 4), PackedInt32Array(4, 0, 5), PackedInt32Array(6, 3, 4), PackedInt32Array(6, 4, 7), PackedInt32Array(7, 4, 8), PackedInt32Array(8, 4, 9), PackedInt32Array(8, 10, 7), PackedInt32Array(12, 11, 13), PackedInt32Array(13, 11, 14), PackedInt32Array(17, 16, 15), PackedInt32Array(18, 17, 14), PackedInt32Array(14, 17, 13), PackedInt32Array(13, 17, 19), PackedInt32Array(19, 17, 15), PackedInt32Array(21, 20, 1), PackedInt32Array(1, 20, 0), PackedInt32Array(10, 8, 22), PackedInt32Array(22, 8, 23), PackedInt32Array(20, 21, 24), PackedInt32Array(24, 25, 20), PackedInt32Array(20, 25, 27), PackedInt32Array(20, 27, 26), PackedInt32Array(27, 25, 28), PackedInt32Array(28, 29, 27), PackedInt32Array(27, 29, 23), PackedInt32Array(27, 23, 30), PackedInt32Array(29, 22, 23)]
+
 [sub_resource type="Curve3D" id="Curve3D_p2gjv"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 500, 0, 0, 0, 0, 0, 0, 0, 0, -500),
@@ -90,10 +94,13 @@ buffer = PackedFloat32Array(0.07972682, 0, -0.99681675, 2.3735301, 0, 1, 0, 0, 0
 
 [node name="Demo" type="Node3D" unique_id=1566065310]
 
-[node name="Path3D" type="Path3D" parent="." unique_id=1303114424]
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=1616041936]
+navigation_mesh = SubResource("NavigationMesh_p2gjv")
+
+[node name="Path3D" type="Path3D" parent="NavigationRegion3D" unique_id=1303114424]
 curve = SubResource("Curve3D_p2gjv")
 
-[node name="CSGPolygon3D" type="CSGPolygon3D" parent="Path3D" unique_id=87490938 groups=["Road"]]
+[node name="CSGPolygon3D" type="CSGPolygon3D" parent="NavigationRegion3D/Path3D" unique_id=87490938 groups=["Road"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.1525574e-07, 0)
 use_collision = true
 polygon = PackedVector2Array(-8, -0.1, -4, 0.1, 4, 0.1, 8, -0.1)
@@ -111,13 +118,13 @@ path_joined = false
 material = SubResource("StandardMaterial3D_c4708")
 metadata/MetadataMaterial = ExtResource("2_mbdu3")
 
-[node name="MeshInstance3D" type="CSGMesh3D" parent="." unique_id=460475598]
+[node name="MeshInstance3D" type="CSGMesh3D" parent="NavigationRegion3D" unique_id=460475598]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.0910673, 0)
 use_collision = true
 mesh = SubResource("BoxMesh_h2wbr")
 metadata/MetadataMaterial = ExtResource("3_k046m")
 
-[node name="CSGMesh3D" type="CSGMesh3D" parent="MeshInstance3D" unique_id=377832449]
+[node name="CSGMesh3D" type="CSGMesh3D" parent="NavigationRegion3D/MeshInstance3D" unique_id=377832449]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.463312, 0.8808632, -0.2374692)
 operation = 2
 mesh = SubResource("TubeTrailMesh_p2gjv")

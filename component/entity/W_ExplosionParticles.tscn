@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cr22jafyio3wp"]
 
-[ext_resource type="Script" uid="uid://htg1krk4pbq1" path="res://component/entity/W_ExplosionParticles.gd" id="1_uq66t"]
+[ext_resource type="Script" path="res://component/entity/W_ExplosionParticles.gd" id="1_uq66t"]
 [ext_resource type="Script" uid="uid://c0pedqo2h5vch" path="res://addons/simusdev/audio/SD_SoundInstance3D.gd" id="2_0delj"]
 [ext_resource type="Resource" uid="uid://d01ccyvwmokpx" path="res://src/objects/sound/explosion/small_package.tres" id="3_2wait"]
 [ext_resource type="Texture2D" uid="uid://c8ar3u7877pt6" path="res://scenes/prefabs/object/explosion/placeholder.png" id="3_qjdpy"]
