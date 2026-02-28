@@ -28,6 +28,8 @@ func _ready() -> void:
 
 func sex() -> void:
 	var explosion = Explosion.new(LevelInstance.get_current(), global_position)
+	explosion.set_scale(0.8)
+	explosion.set_strength(0.7)
 	get_tree().root.add_child(explosion)
 	explosion.explode()
 
@@ -588,6 +590,7 @@ ai_targeting = NodePath("AI_Targeting")
 ai_movement = NodePath("AI_Movement")
 state_machine = NodePath("StateMachine")
 ct_tick = NodePath("CT_Tick")
+look_range = 40.0
 metadata/_custom_type_script = "uid://cxo53n4htprnj"
 
 [node name="CT_Tick" type="Node" parent="EntityAI" index="0" unique_id=1842396401]
@@ -629,25 +632,22 @@ script = SubResource("GDScript_hcvt5")
 state_machine = NodePath("../EntityAI/StateMachine")
 
 [node name="Body_13" parent="Model/Sketchfab_model/root/GLTF_SceneRootNode/All_22" parent_id_path=PackedInt32Array(345438452, 1518026561) index="0" unique_id=1600968743]
-transform = Transform3D(1, 0, 0, 0, 0.96592563, 0.258819, 0, -0.258819, 0.96592563, 0, 0.9375, 0.34375)
+transform = Transform3D(1, 0, 0, 0, 0.9659256, 0.25881895, 0, -0.25881895, 0.9659256, 0, 0.9375, 0.34375)
 
 [node name="Body2_12" parent="Model/Sketchfab_model/root/GLTF_SceneRootNode/All_22/Body_13" index="1" unique_id=409823499]
 transform = Transform3D(1, 0, 0, 0, 0.81915194, 0.5735763, 0, -0.5735763, 0.81915194, 0, 0.6875, 0)
 
-[node name="head_3" parent="Model/Sketchfab_model/root/GLTF_SceneRootNode/All_22/Body_13/Body2_12" index="1" unique_id=245770582]
-transform = Transform3D(1, 0, 0, 0, 0.6427875, -0.7660445, 0, 0.7660445, 0.6427875, 0, 0.75, -0.3125)
-
 [node name="Arm3_7" parent="Model/Sketchfab_model/root/GLTF_SceneRootNode/All_22/Body_13/Body2_12" index="2" unique_id=705571582]
-transform = Transform3D(0.9063077, 0.2988363, -0.29883623, -0.42261827, 0.6408564, -0.6408564, -2.980232e-08, 0.70710677, 0.70710677, -0.8125, 0.40625, 0.03125)
+transform = Transform3D(0.90630776, 0.2988363, -0.29883626, -0.42261827, 0.6408564, -0.6408564, 0, 0.7071068, 0.70710677, -0.8125, 0.40625, 0.03125)
 
 [node name="Arm4_6" parent="Model/Sketchfab_model/root/GLTF_SceneRootNode/All_22/Body_13/Body2_12/Arm3_7" index="1" unique_id=213875564]
-transform = Transform3D(1, 0, 0, 0, 0.6427875, -0.7660445, 0, 0.7660445, 0.6427875, 0, -0.75, 0)
+transform = Transform3D(1, 0, 0, 0, 0.64278764, -0.76604444, 0, 0.76604444, 0.64278764, 0, -0.75, 0)
 
 [node name="Arm_11" parent="Model/Sketchfab_model/root/GLTF_SceneRootNode/All_22/Body_13/Body2_12" index="3" unique_id=230277085]
 transform = Transform3D(0.9396926, -0.24184476, 0.24184476, 0.34202015, 0.6644629, -0.66446304, 0, 0.7071067, 0.70710677, 0.8125, 0.40625, 0.03125)
 
 [node name="Arm2_10" parent="Model/Sketchfab_model/root/GLTF_SceneRootNode/All_22/Body_13/Body2_12/Arm_11" index="1" unique_id=688092816]
-transform = Transform3D(1, 0, 0, 0, 0.6427875, -0.7660445, 0, 0.7660445, 0.6427875, 0, -0.75, 0)
+transform = Transform3D(1, 0, 0, 0, 0.64278764, -0.76604444, 0, 0.76604444, 0.64278764, 0, -0.75, 0)
 
 [node name="AnimationPlayer" parent="Model" index="1" unique_id=1514303143]
 libraries/ = SubResource("AnimationLibrary_4hj7e")

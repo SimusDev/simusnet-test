@@ -8,10 +8,11 @@
 [ext_resource type="Script" uid="uid://bkhjaq3ccadol" path="res://component/object/spawn/R_SpawnTag.gd" id="4_31nm7"]
 [ext_resource type="Script" uid="uid://cvh6l86iib7cw" path="res://component/object/spawn/R_SpawnTagStackSize.gd" id="5_31nm7"]
 [ext_resource type="Script" uid="uid://cgxdi4cljlv7m" path="res://component/object/spawn/R_SpawnTagFreeze.gd" id="5_snhrs"]
-[ext_resource type="Resource" path="res://src/metadata_material/Metal.tres" id="6_ln63a"]
+[ext_resource type="Resource" uid="uid://uey8a88a0p4j" path="res://src/metadata_material/Metal.tres" id="6_ln63a"]
 [ext_resource type="Resource" uid="uid://dt2tx25ql5rtp" path="res://src/objects/item/ammo/5_45x39.tres" id="6_snhrs"]
 [ext_resource type="Resource" uid="uid://cd6q0ankueu8w" path="res://src/objects/item/ammo/5_56x45.tres" id="7_7xe81"]
 [ext_resource type="Resource" uid="uid://cot7al6h7h866" path="res://src/objects/item/weapon/sr_ak74/sr_ak74.tres" id="8_5qusa"]
+[ext_resource type="Resource" uid="uid://qkb15w603oit" path="res://src/objects/item/weapon/rpg78/rpg78.tres" id="9_32wv5"]
 [ext_resource type="Resource" uid="uid://r7fprqqkevp8" path="res://src/objects/item/ammo/9x39.tres" id="10_fsq02"]
 [ext_resource type="Resource" uid="uid://bt56qumboolp7" path="res://src/objects/item/ammo/7_62x54.tres" id="11_qsmbf"]
 
@@ -155,6 +156,30 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2653921, -0.43068695, 0.761
 script = ExtResource("2_inqea")
 object = ExtResource("8_5qusa")
 tags = Array[ExtResource("4_31nm7")]([SubResource("Resource_7xe81")])
+metadata/_custom_type_script = "uid://dgp0pmmh5blth"
+
+[node name="CT_ObjectSpawn" type="Node3D" parent="weapons" unique_id=373223699]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.29603642, 0.9060788, 2.2744558)
+script = ExtResource("2_inqea")
+object = ExtResource("9_32wv5")
+metadata/_custom_type_script = "uid://dgp0pmmh5blth"
+
+[node name="CT_ObjectSpawn2" type="Node3D" parent="weapons" unique_id=443786672]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.29603642, 0.50607884, 2.2744558)
+script = ExtResource("2_inqea")
+object = ExtResource("9_32wv5")
+metadata/_custom_type_script = "uid://dgp0pmmh5blth"
+
+[node name="CT_ObjectSpawn3" type="Node3D" parent="weapons" unique_id=542607740]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.29603642, 0.10607886, 2.2744558)
+script = ExtResource("2_inqea")
+object = ExtResource("9_32wv5")
+metadata/_custom_type_script = "uid://dgp0pmmh5blth"
+
+[node name="CT_ObjectSpawn4" type="Node3D" parent="weapons" unique_id=929528157]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.29603642, -0.2939211, 2.2744558)
+script = ExtResource("2_inqea")
+object = ExtResource("9_32wv5")
 metadata/_custom_type_script = "uid://dgp0pmmh5blth"
 
 [node name="ammo" type="CSGBox3D" parent="." unique_id=10618076]

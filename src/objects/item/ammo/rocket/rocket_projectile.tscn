@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://bialhomi3la32"]
+
+[ext_resource type="Script" uid="uid://cpk0btypil2ra" path="res://component/item/weapon/FirearmBullet.gd" id="1_n2g6g"]
+[ext_resource type="PackedScene" uid="uid://btri8m1bc1h2x" path="res://src/objects/item/ammo/rocket/rocket_model.tscn" id="2_7hq2q"]
+
+[node name="RocketProjectile" type="Node3D" unique_id=1059190935]
+script = ExtResource("1_n2g6g")
+metadata/_custom_type_script = "uid://cpk0btypil2ra"
+
+[node name="rocket_model" parent="." unique_id=1187547136 instance=ExtResource("2_7hq2q")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
+
+[node name="4d2d6410_obj" parent="rocket_model" index="0" unique_id=1088586901]
+visibility_range_begin = 1.0
+
+[editable path="rocket_model"]

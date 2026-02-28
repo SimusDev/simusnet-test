@@ -7,7 +7,8 @@
 [ext_resource type="Script" uid="uid://hmy2t684xhdx" path="res://component/entity/CT_Seat.gd" id="5_0tcb7"]
 [ext_resource type="PackedScene" uid="uid://cc0cnju0at7p8" path="res://scenes/prefabs/weapon_test_stand.tscn" id="6_vjnfq"]
 [ext_resource type="Script" uid="uid://blgj77kwvpiwc" path="res://component/level/CT_LevelTransition3D.gd" id="7_mh64b"]
-[ext_resource type="PackedScene" uid="uid://ccuffktk6p7ej" path="res://src/objects/entity/zombi/ZombiWorld.tscn" id="8_s5xlg"]
+[ext_resource type="Script" uid="uid://dgp0pmmh5blth" path="res://component/object/CT_ObjectSpawn.gd" id="8_aacr8"]
+[ext_resource type="Resource" uid="uid://2ok352n5r88o" path="res://src/objects/entity/zombi/zombi.tres" id="9_v5wjw"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_0tcb7"]
 size = Vector3(1, 0.6230469, 0.711853)
@@ -70,122 +71,62 @@ shape = SubResource("BoxShape3D_mh64b")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="CT_LevelTransition3D" unique_id=375710842]
 mesh = SubResource("BoxMesh_s5xlg")
 
-[node name="Zombi" parent="." unique_id=1233817812 instance=ExtResource("8_s5xlg")]
-transform = Transform3D(-1, 0, 6.982684e-05, 0, 1, 0, -6.982684e-05, 0, -1, -5.8352118, 0.14613736, -26.826778)
+[node name="CT_ObjectSpawn" type="Node3D" parent="." unique_id=1728699205]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -5.7, 0.2, -110)
+script = ExtResource("8_aacr8")
+object = ExtResource("9_v5wjw")
+metadata/_custom_type_script = "uid://dgp0pmmh5blth"
 
-[node name="Zombi2" parent="." unique_id=1297447148 instance=ExtResource("8_s5xlg")]
-transform = Transform3D(-1, 0, 6.982684e-05, 0, 1, 0, -6.982684e-05, 0, -1, -2.8352118, 0.14613736, -26.826778)
+[node name="CT_ObjectSpawn2" type="Node3D" parent="." unique_id=1935443676]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -2.7, 0.2, -110)
+script = ExtResource("8_aacr8")
+object = ExtResource("9_v5wjw")
+metadata/_custom_type_script = "uid://dgp0pmmh5blth"
 
-[node name="Zombi3" parent="." unique_id=646122841 instance=ExtResource("8_s5xlg")]
-transform = Transform3D(-1, 0, 6.982684e-05, 0, 1, 0, -6.982684e-05, 0, -1, 0.16478825, 0.14613736, -26.826778)
+[node name="CT_ObjectSpawn3" type="Node3D" parent="." unique_id=110981761]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0.3, 0.2, -110)
+script = ExtResource("8_aacr8")
+object = ExtResource("9_v5wjw")
+metadata/_custom_type_script = "uid://dgp0pmmh5blth"
 
-[node name="Zombi4" parent="." unique_id=433743419 instance=ExtResource("8_s5xlg")]
-transform = Transform3D(-1, 0, 6.982684e-05, 0, 1, 0, -6.982684e-05, 0, -1, 3.1647882, 0.14613736, -26.826778)
+[node name="CT_ObjectSpawn4" type="Node3D" parent="." unique_id=1316208698]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 3.3, 0.2, -110)
+script = ExtResource("8_aacr8")
+object = ExtResource("9_v5wjw")
+metadata/_custom_type_script = "uid://dgp0pmmh5blth"
 
-[node name="Zombi5" parent="." unique_id=2097121549 instance=ExtResource("8_s5xlg")]
-transform = Transform3D(-1, 0, 6.982684e-05, 0, 1, 0, -6.982684e-05, 0, -1, 6.1647882, 0.14613736, -26.826778)
+[node name="CT_ObjectSpawn5" type="Node3D" parent="." unique_id=899083870]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 6.3, 0.2, -110)
+script = ExtResource("8_aacr8")
+object = ExtResource("9_v5wjw")
+metadata/_custom_type_script = "uid://dgp0pmmh5blth"
 
-[node name="Zombi6" parent="." unique_id=1840032904 instance=ExtResource("8_s5xlg")]
-transform = Transform3D(-1, 0, 6.982684e-05, 0, 1, 0, -6.982684e-05, 0, -1, -5.8352118, 0.14613736, -29.826778)
+[node name="CT_ObjectSpawn6" type="Node3D" parent="." unique_id=1431978004]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -5.7, 0.2, -112)
+script = ExtResource("8_aacr8")
+object = ExtResource("9_v5wjw")
+metadata/_custom_type_script = "uid://dgp0pmmh5blth"
 
-[node name="Zombi7" parent="." unique_id=1900798976 instance=ExtResource("8_s5xlg")]
-transform = Transform3D(-1, 0, 6.982684e-05, 0, 1, 0, -6.982684e-05, 0, -1, -2.8352118, 0.14613736, -29.826778)
+[node name="CT_ObjectSpawn7" type="Node3D" parent="." unique_id=2056832557]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -2.7, 0.2, -112)
+script = ExtResource("8_aacr8")
+object = ExtResource("9_v5wjw")
+metadata/_custom_type_script = "uid://dgp0pmmh5blth"
 
-[node name="Zombi8" parent="." unique_id=143483885 instance=ExtResource("8_s5xlg")]
-transform = Transform3D(-1, 0, 6.982684e-05, 0, 1, 0, -6.982684e-05, 0, -1, 0.16478825, 0.14613736, -29.826778)
+[node name="CT_ObjectSpawn8" type="Node3D" parent="." unique_id=856328622]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0.3, 0.2, -112)
+script = ExtResource("8_aacr8")
+object = ExtResource("9_v5wjw")
+metadata/_custom_type_script = "uid://dgp0pmmh5blth"
 
-[node name="Zombi9" parent="." unique_id=1438234438 instance=ExtResource("8_s5xlg")]
-transform = Transform3D(-1, 0, 6.982684e-05, 0, 1, 0, -6.982684e-05, 0, -1, 3.1647882, 0.14613736, -29.826778)
+[node name="CT_ObjectSpawn9" type="Node3D" parent="." unique_id=1045586969]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 3.3, 0.2, -112)
+script = ExtResource("8_aacr8")
+object = ExtResource("9_v5wjw")
+metadata/_custom_type_script = "uid://dgp0pmmh5blth"
 
-[node name="Zombi10" parent="." unique_id=2108959445 instance=ExtResource("8_s5xlg")]
-transform = Transform3D(-1, 0, 6.982684e-05, 0, 1, 0, -6.982684e-05, 0, -1, 6.1647882, 0.14613736, -29.826778)
-
-[node name="Zombi11" parent="." unique_id=1583879114 instance=ExtResource("8_s5xlg")]
-transform = Transform3D(-1, 0, 6.982684e-05, 0, 1, 0, -6.982684e-05, 0, -1, -5.8352118, 0.14613736, -32.82678)
-
-[node name="Zombi12" parent="." unique_id=417167779 instance=ExtResource("8_s5xlg")]
-transform = Transform3D(-1, 0, 6.982684e-05, 0, 1, 0, -6.982684e-05, 0, -1, -2.8352118, 0.14613736, -32.82678)
-
-[node name="Zombi13" parent="." unique_id=866112594 instance=ExtResource("8_s5xlg")]
-transform = Transform3D(-1, 0, 6.982684e-05, 0, 1, 0, -6.982684e-05, 0, -1, 0.16478825, 0.14613736, -32.82678)
-
-[node name="Zombi14" parent="." unique_id=1380750834 instance=ExtResource("8_s5xlg")]
-transform = Transform3D(-1, 0, 6.982684e-05, 0, 1, 0, -6.982684e-05, 0, -1, 3.1647882, 0.14613736, -32.82678)
-
-[node name="Zombi15" parent="." unique_id=314028106 instance=ExtResource("8_s5xlg")]
-transform = Transform3D(-1, 0, 6.982684e-05, 0, 1, 0, -6.982684e-05, 0, -1, 6.1647882, 0.14613736, -32.82678)
-
-[node name="Zombi16" parent="." unique_id=1626261827 instance=ExtResource("8_s5xlg")]
-transform = Transform3D(-1, 0, 6.982684e-05, 0, 1, 0, -6.982684e-05, 0, -1, -5.8352118, 0.14613736, -35.82678)
-
-[node name="Zombi17" parent="." unique_id=1439726557 instance=ExtResource("8_s5xlg")]
-transform = Transform3D(-1, 0, 6.982684e-05, 0, 1, 0, -6.982684e-05, 0, -1, -2.8352118, 0.14613736, -35.82678)
-
-[node name="Zombi18" parent="." unique_id=1300614450 instance=ExtResource("8_s5xlg")]
-transform = Transform3D(-1, 0, 6.982684e-05, 0, 1, 0, -6.982684e-05, 0, -1, 0.16478825, 0.14613736, -35.82678)
-
-[node name="Zombi19" parent="." unique_id=697917090 instance=ExtResource("8_s5xlg")]
-transform = Transform3D(-1, 0, 6.982684e-05, 0, 1, 0, -6.982684e-05, 0, -1, 3.1647882, 0.14613736, -35.82678)
-
-[node name="Zombi20" parent="." unique_id=2046891742 instance=ExtResource("8_s5xlg")]
-transform = Transform3D(-1, 0, 6.982684e-05, 0, 1, 0, -6.982684e-05, 0, -1, 6.1647882, 0.14613736, -35.82678)
-
-[node name="Zombi21" parent="." unique_id=1210591123 instance=ExtResource("8_s5xlg")]
-transform = Transform3D(-1, 0, 6.982684e-05, 0, 1, 0, -6.982684e-05, 0, -1, -5.8352118, 0.14613736, -38.82678)
-
-[node name="Zombi22" parent="." unique_id=1573422560 instance=ExtResource("8_s5xlg")]
-transform = Transform3D(-1, 0, 6.982684e-05, 0, 1, 0, -6.982684e-05, 0, -1, -2.8352118, 0.14613736, -38.82678)
-
-[node name="Zombi23" parent="." unique_id=957606319 instance=ExtResource("8_s5xlg")]
-transform = Transform3D(-1, 0, 6.982684e-05, 0, 1, 0, -6.982684e-05, 0, -1, 0.16478825, 0.14613736, -38.82678)
-
-[node name="Zombi24" parent="." unique_id=1491162385 instance=ExtResource("8_s5xlg")]
-transform = Transform3D(-1, 0, 6.982684e-05, 0, 1, 0, -6.982684e-05, 0, -1, 3.1647882, 0.14613736, -38.82678)
-
-[node name="Zombi25" parent="." unique_id=1977489852 instance=ExtResource("8_s5xlg")]
-transform = Transform3D(-1, 0, 6.982684e-05, 0, 1, 0, -6.982684e-05, 0, -1, 6.1647882, 0.14613736, -38.82678)
-
-[node name="Zombi26" parent="." unique_id=613368668 instance=ExtResource("8_s5xlg")]
-transform = Transform3D(-1, 0, 6.982684e-05, 0, 1, 0, -6.982684e-05, 0, -1, -5.8352118, 0.14613736, -41.82678)
-
-[node name="Zombi27" parent="." unique_id=1524158616 instance=ExtResource("8_s5xlg")]
-transform = Transform3D(-1, 0, 6.982684e-05, 0, 1, 0, -6.982684e-05, 0, -1, -2.8352118, 0.14613736, -41.82678)
-
-[node name="Zombi28" parent="." unique_id=1337568564 instance=ExtResource("8_s5xlg")]
-transform = Transform3D(-1, 0, 6.982684e-05, 0, 1, 0, -6.982684e-05, 0, -1, 0.16478825, 0.14613736, -41.82678)
-
-[node name="Zombi29" parent="." unique_id=1381265965 instance=ExtResource("8_s5xlg")]
-transform = Transform3D(-1, 0, 6.982684e-05, 0, 1, 0, -6.982684e-05, 0, -1, 3.1647882, 0.14613736, -41.82678)
-
-[node name="Zombi30" parent="." unique_id=628562794 instance=ExtResource("8_s5xlg")]
-transform = Transform3D(-1, 0, 6.982684e-05, 0, 1, 0, -6.982684e-05, 0, -1, 6.1647882, 0.14613736, -41.82678)
-
-[node name="Zombi31" parent="." unique_id=403932577 instance=ExtResource("8_s5xlg")]
-transform = Transform3D(-1, 0, 6.982684e-05, 0, 1, 0, -6.982684e-05, 0, -1, -5.8352118, 0.14613736, -44.82678)
-
-[node name="Zombi32" parent="." unique_id=985578668 instance=ExtResource("8_s5xlg")]
-transform = Transform3D(-1, 0, 6.982684e-05, 0, 1, 0, -6.982684e-05, 0, -1, -2.8352118, 0.14613736, -44.82678)
-
-[node name="Zombi33" parent="." unique_id=1076413676 instance=ExtResource("8_s5xlg")]
-transform = Transform3D(-1, 0, 6.982684e-05, 0, 1, 0, -6.982684e-05, 0, -1, 0.16478825, 0.14613736, -44.82678)
-
-[node name="Zombi34" parent="." unique_id=921779201 instance=ExtResource("8_s5xlg")]
-transform = Transform3D(-1, 0, 6.982684e-05, 0, 1, 0, -6.982684e-05, 0, -1, 3.1647882, 0.14613736, -44.82678)
-
-[node name="Zombi35" parent="." unique_id=458537554 instance=ExtResource("8_s5xlg")]
-transform = Transform3D(-1, 0, 6.982684e-05, 0, 1, 0, -6.982684e-05, 0, -1, 6.1647882, 0.14613736, -44.82678)
-
-[node name="Zombi36" parent="." unique_id=851537233 instance=ExtResource("8_s5xlg")]
-transform = Transform3D(-1, 0, 6.982684e-05, 0, 1, 0, -6.982684e-05, 0, -1, -5.8352118, 0.14613736, -47.82678)
-
-[node name="Zombi37" parent="." unique_id=1406713460 instance=ExtResource("8_s5xlg")]
-transform = Transform3D(-1, 0, 6.982684e-05, 0, 1, 0, -6.982684e-05, 0, -1, -2.8352118, 0.14613736, -47.82678)
-
-[node name="Zombi38" parent="." unique_id=520891186 instance=ExtResource("8_s5xlg")]
-transform = Transform3D(-1, 0, 6.982684e-05, 0, 1, 0, -6.982684e-05, 0, -1, 0.16478825, 0.14613736, -47.82678)
-
-[node name="Zombi39" parent="." unique_id=1141685553 instance=ExtResource("8_s5xlg")]
-transform = Transform3D(-1, 0, 6.982684e-05, 0, 1, 0, -6.982684e-05, 0, -1, 3.1647882, 0.14613736, -47.82678)
-
-[node name="Zombi40" parent="." unique_id=128050614 instance=ExtResource("8_s5xlg")]
-transform = Transform3D(-1, 0, 6.982684e-05, 0, 1, 0, -6.982684e-05, 0, -1, 6.1647882, 0.14613736, -47.82678)
+[node name="CT_ObjectSpawn10" type="Node3D" parent="." unique_id=1282963544]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 6.3, 0.2, -112)
+script = ExtResource("8_aacr8")
+object = ExtResource("9_v5wjw")
+metadata/_custom_type_script = "uid://dgp0pmmh5blth"

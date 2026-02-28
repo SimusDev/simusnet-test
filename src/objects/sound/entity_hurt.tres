@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="R_SoundObject" format=3 uid="uid://46srgwfsfmui"]
+
+[ext_resource type="Script" uid="uid://cpwjwfhig01jj" path="res://addons/simusdev/audio/SD_SoundData3D.gd" id="1_5hb4a"]
+[ext_resource type="Texture2D" uid="uid://cenc1qc1vy3dn" path="res://component/icons/health_1.png" id="1_gqvtu"]
+[ext_resource type="AudioStream" uid="uid://cblntyohb33mu" path="res://audio/hl2/physics/flesh/flesh_impact_bullet1.wav" id="2_gqvtu"]
+[ext_resource type="AudioStream" uid="uid://vveni31yjbmd" path="res://audio/hl2/physics/flesh/flesh_impact_bullet2.wav" id="3_id674"]
+[ext_resource type="AudioStream" uid="uid://p0185rphsnhs" path="res://audio/hl2/physics/flesh/flesh_impact_bullet3.wav" id="4_gimmk"]
+[ext_resource type="AudioStream" uid="uid://cvi2jhn54tf6i" path="res://audio/hl2/physics/flesh/flesh_impact_bullet4.wav" id="5_vn45m"]
+[ext_resource type="AudioStream" uid="uid://dfqj03ejkksu4" path="res://audio/hl2/physics/flesh/flesh_impact_bullet5.wav" id="6_alm8g"]
+[ext_resource type="Script" path="res://addons/simusdev/audio/SD_SoundPackage3D.gd" id="7_oofoa"]
+[ext_resource type="Script" uid="uid://comfyg2dac6fj" path="res://component/object/sound/R_SoundObject.gd" id="8_esqtj"]
+
+[sub_resource type="Resource" id="Resource_qxhmc"]
+script = ExtResource("1_5hb4a")
+streams = Array[AudioStream]([ExtResource("2_gqvtu"), ExtResource("3_id674"), ExtResource("4_gimmk"), ExtResource("5_vn45m"), ExtResource("6_alm8g")])
+metadata/_custom_type_script = "uid://cpwjwfhig01jj"
+
+[sub_resource type="Resource" id="Resource_qde28"]
+script = ExtResource("7_oofoa")
+data = Array[ExtResource("1_5hb4a")]([SubResource("Resource_qxhmc")])
+
+[resource]
+script = ExtResource("8_esqtj")
+package = SubResource("Resource_qde28")
+icon = ExtResource("1_gqvtu")
+metadata/_custom_type_script = "uid://comfyg2dac6fj"

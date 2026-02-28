@@ -13,7 +13,7 @@ func _ready() -> void:
 		.flag_mode_server_only()
 	)
 
-func server_try_play(resource: R_SoundObject, from: Variant, properties: Dictionary[StringName, Variant], exclude_peers: PackedInt32Array = []) -> void:
+func server_try_play(resource: R_SoundObject, from: Variant, properties: Dictionary[StringName, Variant] = {}, exclude_peers: PackedInt32Array = []) -> void:
 	if !SimusNetConnection.is_server():
 		_logger.debug("server_try_play(), only server can play sounds!: %s" % resource, SD_ConsoleCategories.ERROR)
 		return

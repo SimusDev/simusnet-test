@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://btri8m1bc1h2x"]
+
+[ext_resource type="PackedScene" uid="uid://cqjh3w7yxppfq" path="res://src/objects/item/ammo/rocket/rocket_model.glb" id="1_ub7d8"]
+
+[node name="rocket_model" unique_id=1187547136 instance=ExtResource("1_ub7d8")]
+
+[node name="4d2d6410_obj" parent="." index="0" unique_id=1088586901]
+transform = Transform3D(18.871, 0, 0, 0, 18.871, 0, 0, 0, 18.871, -0.15397444, -0.0054029804, -0.007803023)

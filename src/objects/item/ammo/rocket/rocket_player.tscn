@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://baeh0gk4yalpb"]
+
+[ext_resource type="PackedScene" uid="uid://btri8m1bc1h2x" path="res://src/objects/item/ammo/rocket/rocket_model.tscn" id="1_3mosu"]
+[ext_resource type="Script" uid="uid://d0q02rkjl2np2" path="res://component/item/W_Item.gd" id="1_wqogn"]
+
+[node name="RocketPlayer" type="Node3D" unique_id=752410940]
+script = ExtResource("1_wqogn")
+metadata/_custom_type_script = "uid://d0q02rkjl2np2"
+
+[node name="rocket_model" parent="." unique_id=1187547136 instance=ExtResource("1_3mosu")]
+transform = Transform3D(-0.8028129, -0.46303272, 0.3756224, 0.35921276, 0.12720393, 0.92454606, -0.47587574, 0.87716585, 0.06420631, 0.165, -0.26, -0.435)
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1682745348]
+current = true

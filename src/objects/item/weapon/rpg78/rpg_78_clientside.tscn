@@ -3,18 +3,118 @@
 [ext_resource type="PackedScene" uid="uid://bjmjplnwg57bk" path="res://src/objects/item/weapon/rpg78/rpg_78_model.tscn" id="1_g01kx"]
 [ext_resource type="Script" uid="uid://dre0iiwrqbrvg" path="res://component/animation/firearm_clientside_animator.gd" id="2_sid50"]
 
+[sub_resource type="Animation" id="Animation_dcl36"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../rpg78Model/Sketchfab_Scene:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0.005, 0.035)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../rpg78Model/Sketchfab_Scene:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_g01kx"]
+resource_name = "idle"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../rpg78Model/Sketchfab_Scene:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../rpg78Model/Sketchfab_Scene:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_sid50"]
+resource_name = "pickup"
+
+[sub_resource type="Animation" id="Animation_odylw"]
+resource_name = "reload"
+
+[sub_resource type="Animation" id="Animation_5oh2q"]
+resource_name = "shoot"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../rpg78Model/Sketchfab_Scene:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.06666667, 0.53333336),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0.005, 0.035), Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../rpg78Model/Sketchfab_Scene:rotation")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.06666667, 0.42000002),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0.07853982, 0, 0), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dcl36"]
+_data = {
+&"RESET": SubResource("Animation_dcl36"),
+&"idle": SubResource("Animation_g01kx"),
+&"pickup": SubResource("Animation_sid50"),
+&"reload": SubResource("Animation_odylw"),
+&"shoot": SubResource("Animation_5oh2q")
+}
+
 [node name="rpg78Clientside" type="Node3D" unique_id=1220721481]
 
 [node name="rpg78Model" parent="." unique_id=1478454903 instance=ExtResource("1_g01kx")]
-transform = Transform3D(0.9998432, -0.017701922, 0, 0.017699365, 0.9996987, -0.01699918, 0.00030091815, 0.016996514, 0.9998555, 0.0030000003, -0.11299999, -0.17999999)
+transform = Transform3D(0.9999999, 0, 0, 0, 0.9999999, 0, 0, 0, 1, 0.126, -0.092, -0.175)
 
-[node name="Camera3D" type="Camera3D" parent="." unique_id=1140419613]
+[node name="Sketchfab_Scene" parent="rpg78Model" index="0" unique_id=116862612]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.005, 0.035)
 
 [node name="FirearmClientSideAnimator" type="Node" parent="." unique_id=811473098 node_paths=PackedStringArray("animation_player", "root")]
 script = ExtResource("2_sid50")
 animation_player = NodePath("AnimationPlayer")
+anim_pickup = Array[StringName]([&"pickup"])
+anim_idle = Array[StringName]([&"idle"])
+anim_shoot = Array[StringName]([&"shoot"])
+anim_reload = Array[StringName]([&"reload"])
 editor_process = true
-is_aiming = true
 root = NodePath("../rpg78Model")
 default_position = Vector3(0.126, -0.092, -0.175)
 aim_position = Vector3(0.003, -0.113, -0.18)
@@ -22,6 +122,9 @@ aim_rotation = Vector3(0.017, 0, 44)
 metadata/_custom_type_script = "uid://dre0iiwrqbrvg"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="FirearmClientSideAnimator" unique_id=967049026]
+libraries/ = SubResource("AnimationLibrary_dcl36")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1140419613]
 
 [editable path="rpg78Model"]
 [editable path="rpg78Model/Sketchfab_Scene"]

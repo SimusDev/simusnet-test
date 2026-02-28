@@ -1,10 +1,29 @@
 [gd_resource type="Resource" script_class="R_Ammo" format=3 uid="uid://cqqevnorstrvr"]
 
+[ext_resource type="PackedScene" uid="uid://bialhomi3la32" path="res://src/objects/item/ammo/rocket/rocket_projectile.tscn" id="1_0q1pe"]
 [ext_resource type="Script" uid="uid://bxy1kdk7uqaew" path="res://component/item/ammo/R_Ammo.gd" id="1_s83v7"]
+[ext_resource type="Script" uid="uid://cqdfkwb1galvp" path="res://component/viewmodel/R_ViewModel.gd" id="3_4aipf"]
+[ext_resource type="PackedScene" uid="uid://baeh0gk4yalpb" path="res://src/objects/item/ammo/rocket/rocket_player.tscn" id="3_eqp7i"]
+[ext_resource type="PackedScene" uid="uid://btri8m1bc1h2x" path="res://src/objects/item/ammo/rocket/rocket_model.tscn" id="5_5qbde"]
+[ext_resource type="PackedScene" uid="uid://di1iec1ndcu7s" path="res://src/objects/item/ammo/rocket/rocket_world.tscn" id="6_hh2nh"]
+
+[sub_resource type="Resource" id="Resource_eqp7i"]
+script = ExtResource("3_4aipf")
+world = ExtResource("6_hh2nh")
+view = ExtResource("5_5qbde")
+player = ExtResource("3_eqp7i")
+metadata/_custom_type_script = "uid://cqdfkwb1galvp"
 
 [resource]
 script = ExtResource("1_s83v7")
-base_damage = 0.0
-ricochet_chance = 0.0
+prefab_override = ExtResource("1_0q1pe")
+base_damage = 10.0
+muzzle_velocity = 250.0
+air_friction = 0.0855
+mass = 2.0
+penetration_power = 0.0
+ricochet_chance = 0.05
 explosive = true
+explosive_scale = 2.0
+viewmodel = SubResource("Resource_eqp7i")
 metadata/_custom_type_script = "uid://bxy1kdk7uqaew"

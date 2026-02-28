@@ -52,7 +52,7 @@ func apply_damage() -> void:
 	query.collide_with_areas = true
 	query.collide_with_bodies = false
 	query.shape = SphereShape3D.new()
-	query.shape.radius = 23.0 * _scale
+	query.shape.radius = 5.5 * _scale
 	query.transform = Transform3D(Basis(), _global_position)
 	
 	var results = space_state.intersect_shape(query)
