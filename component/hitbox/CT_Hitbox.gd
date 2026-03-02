@@ -2,8 +2,8 @@
 class_name CT_Hitbox extends Area3D
 
 @export var damage_multiplier:float = 1.0
-
 @export var health:CT_Health
+
 
 func _init() -> void:
 	collision_layer = 0

@@ -2,6 +2,7 @@ class_name FirearmBullet extends Node3D
 
 signal setup
 
+
 var weapon: R_WeaponFirearm
 var ammo: R_Ammo
 
@@ -79,12 +80,19 @@ func _physics_process(delta: float) -> void:
 	query.exclude = exclude_rids
 	query.collide_with_areas = true
 	
+	
+	
 	var result = space_state.intersect_ray(query)
-	if result:
+	if is_result_valid(result):
 		_on_hit(result)
 	else:
 		global_position += step
+
+func is_result_valid(result:Dictionary) -> bool:
+	if not result:
+		return false
 	
+	return true
 
 func _on_hit(result: Dictionary) -> void:
 	var collider = result.get("collider") as Node3D
@@ -165,6 +173,9 @@ func _apply_physics_impulse(collider: Node, v_before: Vector3, v_after: Vector3,
 func _apply_damage(collider: Node, speed_at_impact: float) -> void:
 	if not SimusNetConnection.is_server():
 		return
+	
+	print(collider)
+	
 	if collider is CT_Hitbox:
 		var speed_ratio = speed_at_impact / _initial_speed
 		var final_damage = ammo.base_damage * collider.damage_multiplier * speed_ratio
