@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://hxf5ql0livrm"]
+
+[ext_resource type="PackedScene" uid="uid://dlfffdl3la5ic" path="res://src/objects/general/radio78/radio78_model.tscn" id="1_8yq20"]
+[ext_resource type="Script" uid="uid://blcw2mgs40q48" path="res://src/objects/general/radio78/CT_Radio.gd" id="1_b0gc6"]
+[ext_resource type="Script" uid="uid://dmmtiqx85a6oj" path="res://src/objects/interact/CT_NodeInteractions.gd" id="2_yorof"]
+[ext_resource type="Script" uid="uid://ux3hdo53vt4p" path="res://component/interaction/R_InteractAction.gd" id="3_b0gc6"]
+[ext_resource type="Resource" uid="uid://due4g44uoo6yw" path="res://src/objects/general/radio78/actions/play.tres" id="5_05um4"]
+[ext_resource type="Resource" uid="uid://b7cakpttrqqnh" path="res://src/objects/general/radio78/actions/stop.tres" id="6_442mc"]
+[ext_resource type="Resource" uid="uid://dgtfkpw1j738j" path="res://src/objects/general/radio78/actions/next.tres" id="7_rkp5a"]
+[ext_resource type="Resource" uid="uid://d2tj6732ri0n6" path="res://src/objects/general/radio78/actions/prev.tres" id="8_8g67i"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mk1hp"]
+size = Vector3(0.8293457, 0.5966797, 0.23638916)
+
+[node name="Radio78World" type="RigidBody3D" unique_id=16707030]
+
+[node name="CT_Radio" type="Node" parent="." unique_id=1953580000 node_paths=PackedStringArray("root", "audio_player")]
+script = ExtResource("1_b0gc6")
+root = NodePath("..")
+audio_player = NodePath("../AudioStreamPlayer3D")
+metadata/_custom_type_script = "uid://blcw2mgs40q48"
+
+[node name="Radio78Model" parent="." unique_id=1637499369 instance=ExtResource("1_8yq20")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=362133515]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.01159668, 0.29833984, -0.053863525)
+shape = SubResource("BoxShape3D_mk1hp")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="." unique_id=1858367384]
+
+[node name="CT_NodeInteractions" type="Node" parent="." unique_id=2139635283 node_paths=PackedStringArray("target")]
+script = ExtResource("2_yorof")
+target = NodePath("..")
+list = Array[ExtResource("3_b0gc6")]([ExtResource("5_05um4"), ExtResource("6_442mc"), ExtResource("7_rkp5a"), ExtResource("8_8g67i")])
+metadata/_custom_type_script = "uid://dmmtiqx85a6oj"

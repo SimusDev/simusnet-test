@@ -18,6 +18,7 @@ func set_object(ref: R_WorldObject) -> void:
 	if is_instance_valid(_preview):
 		_preview.queue_free()
 	
+	
 	if !is_instance_valid(object):
 		return
 	

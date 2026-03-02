@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://sxw4kufd66cf"]
+
+[ext_resource type="Script" uid="uid://d0q02rkjl2np2" path="res://component/item/W_Item.gd" id="1_o6r35"]
+[ext_resource type="PackedScene" uid="uid://dlfffdl3la5ic" path="res://src/objects/general/radio78/radio78_model.tscn" id="2_tigkg"]
+
+[node name="Radio78Player" type="Node3D" unique_id=957916283]
+script = ExtResource("1_o6r35")
+metadata/_custom_type_script = "uid://d0q02rkjl2np2"
+
+[node name="Radio78Model" parent="." unique_id=1637499369 instance=ExtResource("2_tigkg")]
+transform = Transform3D(0.22495104, -0.034005024, 0.9737765, 0, 0.99939084, 0.034899496, -0.97437006, -0.007850678, 0.22481401, 0.38, -0.28, -0.193)
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1212523272]

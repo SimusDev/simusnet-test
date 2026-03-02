@@ -139,11 +139,28 @@ func _on_hit(result: Dictionary) -> void:
 		_destroy()
 
 func _apply_physics_impulse(collider: Node, v_before: Vector3, v_after: Vector3, hit_pos: Vector3) -> void:
-	if not SimusNetConnection.is_server():
+	if not SimusNetConnection.is_server(): 
 		return
-	if collider is RigidBody3D:
-		var impulse = (v_before - v_after) * ammo.mass
-		collider.apply_impulse(impulse, hit_pos - collider.global_position)
+		
+	var rb = collider as RigidBody3D
+	if not rb:
+		return
+
+	var speed_sq = v_before.length_squared()
+	var kinetic_energy = 0.5 * ammo.mass * speed_sq
+	
+	var deformation_threshold = 2000.0
+	var absorption_factor = clamp(kinetic_energy / (kinetic_energy + deformation_threshold), 0.1, 0.9)
+	
+	var impulse_vector = (v_before - v_after) * ammo.mass * (1.0 - absorption_factor)
+	
+	if rb.mass < ammo.mass:
+		impulse_vector *= (rb.mass / ammo.mass)
+
+	var center_of_mass_world = rb.global_transform.origin + (rb.center_of_mass if "center_of_mass" in rb else Vector3.ZERO)
+	var lever_arm = hit_pos - center_of_mass_world
+	
+	rb.apply_impulse(impulse_vector, lever_arm)
 
 func _apply_damage(collider: Node, speed_at_impact: float) -> void:
 	if not SimusNetConnection.is_server():

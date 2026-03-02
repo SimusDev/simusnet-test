@@ -1,0 +1,9 @@
+[gd_resource type="Resource" format=3 uid="uid://d2tj6732ri0n6"]
+
+[ext_resource type="Script" uid="uid://bmbkjpjhaf8u7" path="res://src/objects/general/radio78/actions/prev.gd" id="1_3fvyj"]
+
+[resource]
+resource_name = "Prev"
+script = ExtResource("1_3fvyj")
+name = "Prev"
+metadata/_custom_type_script = "uid://ux3hdo53vt4p"

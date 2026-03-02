@@ -15,6 +15,12 @@
 [node name="Game" type="Node3D" unique_id=1979558274]
 script = ExtResource("1_yqjtg")
 
+[node name="Water" parent="." unique_id=443045665 instance=ExtResource("12_dinhu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.58, 0)
+
+[node name="MeshInstance3D" parent="Water" index="0" unique_id=2003374163]
+gi_mode = 2
+
 [node name="SpawnableObjects" type="Node3D" parent="." unique_id=1077681083]
 script = ExtResource("3_kvpfn")
 metadata/_custom_type_script = "uid://c5qulw0wtcu7e"
@@ -62,11 +68,5 @@ target = NodePath("..")
 input_action = "game.main_menu"
 metadata/_custom_type_script = "uid://d1l1jkmj6s53f"
 
-[node name="Water" parent="." unique_id=443045665 instance=ExtResource("12_dinhu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.58, 0)
-
-[node name="MeshInstance3D" parent="Water" index="0" unique_id=2003374163]
-gi_mode = 2
-
-[editable path="Sky3D"]
 [editable path="Water"]
+[editable path="Sky3D"]

@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://d0ndflg40vrie" path="res://component/object/world_default_prefab.gd" id="1_16jr7"]
 [ext_resource type="Texture2D" uid="uid://jd2nmbvoduv8" path="res://component/icons/error.png" id="2_qokjr"]
+[ext_resource type="PackedScene" uid="uid://down662wcumoe" path="res://3d/error/error.glb" id="3_jxb2b"]
 
 [sub_resource type="Animation" id="Animation_jxb2b"]
 length = 0.001
@@ -39,14 +40,15 @@ _data = {
 &"idle": SubResource("Animation_78ars")
 }
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_rioss"]
-size = Vector3(0.4570923, 0.49328613, 0.46777344)
+[sub_resource type="BoxShape3D" id="BoxShape3D_jxb2b"]
+size = Vector3(0.12631837, 0.4565735, 0.8255615)
 
 [node name="WorldDefaultPrefab" type="RigidBody3D" unique_id=1074031434]
 collision_layer = 0
 script = ExtResource("1_16jr7")
 
 [node name="Sprite3D" type="Sprite3D" parent="." unique_id=1783979748]
+visible = false
 pixel_size = 0.0025
 billboard = 1
 texture = ExtResource("2_qokjr")
@@ -54,6 +56,9 @@ texture = ExtResource("2_qokjr")
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=272655853]
 libraries/ = SubResource("AnimationLibrary_45n06")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=619140005]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0038146973, 0.0020141602, 0.0012207031)
-shape = SubResource("BoxShape3D_rioss")
+[node name="error" parent="." unique_id=1867122695 instance=ExtResource("3_jxb2b")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=81543592]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0087646395, 0.04234314, -0.0335083)
+shape = SubResource("BoxShape3D_jxb2b")

@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="R_WorldObject" format=3 uid="uid://bb6oil7vlr575"]
+
+[ext_resource type="Texture2D" uid="uid://d4djjqee7e30t" path="res://src/objects/entity/buildings/plane/icon.png" id="1_5uwcl"]
+[ext_resource type="Script" uid="uid://cxyhi06aga6j1" path="res://component/object/R_WorldObject.gd" id="1_p8vu8"]
+[ext_resource type="PackedScene" uid="uid://d2e38m4m0hkce" path="res://src/objects/entity/buildings/plane/plane_player.tscn" id="2_bfh4a"]
+[ext_resource type="Script" uid="uid://cqdfkwb1galvp" path="res://component/viewmodel/R_ViewModel.gd" id="2_bn1ba"]
+[ext_resource type="PackedScene" uid="uid://dica0iv6t13do" path="res://src/objects/entity/buildings/plane/plane_world.tscn" id="3_bfh4a"]
+[ext_resource type="PackedScene" uid="uid://dolrgxr4y86p3" path="res://src/objects/entity/buildings/plane/plane_model.tscn" id="5_uff6g"]
+
+[sub_resource type="Resource" id="Resource_5uwcl"]
+script = ExtResource("2_bn1ba")
+world = ExtResource("3_bfh4a")
+view = ExtResource("5_uff6g")
+player = ExtResource("2_bfh4a")
+metadata/_custom_type_script = "uid://cqdfkwb1galvp"
+
+[resource]
+script = ExtResource("1_p8vu8")
+viewmodel = SubResource("Resource_5uwcl")
+icon = ExtResource("1_5uwcl")
+metadata/_custom_type_script = "uid://cxyhi06aga6j1"

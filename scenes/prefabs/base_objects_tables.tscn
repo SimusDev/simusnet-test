@@ -13,6 +13,7 @@
 [ext_resource type="Resource" uid="uid://crron1r60u25h" path="res://src/objects/general/mechanical_arm/mechanical_arm.tres" id="6_vrnhv"]
 [ext_resource type="Resource" uid="uid://ce1e2a4kac0ar" path="res://src/objects/item/coal/coal.tres" id="7_x5rrb"]
 [ext_resource type="Resource" uid="uid://blrx7kglr2oec" path="res://src/objects/item/weapon/sr_pb/sr_pb.tres" id="11_61k8a"]
+[ext_resource type="Resource" uid="uid://qvy65el3oovp" path="res://src/objects/general/radio78/radio78.tres" id="14_2sg61"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_6rygw"]
 size = Vector3(2, 1, 4)
@@ -215,6 +216,12 @@ metadata/MetadataMaterial = ExtResource("2_2mjuu")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5834217, 0.9837179, 1.4298055)
 script = ExtResource("2_n32yt")
 object = ExtResource("11_61k8a")
+metadata/_custom_type_script = "uid://dgp0pmmh5blth"
+
+[node name="CT_ObjectSpawn2" type="Node3D" parent="table10" unique_id=331192039]
+transform = Transform3D(-0.64278764, 0, 0.76604444, 0, 1, 0, -0.76604444, 0, -0.64278764, 0.11395264, 0.9837179, -0.7701943)
+script = ExtResource("2_n32yt")
+object = ExtResource("14_2sg61")
 metadata/_custom_type_script = "uid://dgp0pmmh5blth"
 
 [node name="CT_ObjectSpawn" type="Node3D" parent="." unique_id=829456367]

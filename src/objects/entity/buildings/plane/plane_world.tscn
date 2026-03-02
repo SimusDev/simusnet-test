@@ -1,0 +1,98 @@
+[gd_scene format=3 uid="uid://dica0iv6t13do"]
+
+[ext_resource type="PackedScene" uid="uid://dj0l5fgui8pub" path="res://src/objects/entity/buildings/base_building.tscn" id="1_54sne"]
+[ext_resource type="Script" uid="uid://cuovsxm5u3lwh" path="res://component/building/CT_BuildSnapPoint.gd" id="2_ryu0i"]
+[ext_resource type="Script" uid="uid://ci4scrngwr3fg" path="res://component/building/types/R_BuildingType.gd" id="3_eiqok"]
+[ext_resource type="Script" uid="uid://dd848h1doaedh" path="res://component/building/types/BuidlingPlaneType.gd" id="4_ryu0i"]
+[ext_resource type="PackedScene" uid="uid://dolrgxr4y86p3" path="res://src/objects/entity/buildings/plane/plane_model.tscn" id="5_o1g86"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mwvr1"]
+
+[sub_resource type="Resource" id="Resource_eiqok"]
+script = ExtResource("4_ryu0i")
+metadata/_custom_type_script = "uid://dd848h1doaedh"
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ryu0i"]
+size = Vector3(0.06390381, 1, 1)
+
+[node name="Plane" unique_id=451849337 instance=ExtResource("1_54sne")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CT_Hitbox" parent_id_path=PackedInt32Array(1399160198) index="0" unique_id=1353724382]
+shape = SubResource("BoxShape3D_mwvr1")
+
+[node name="PlaneSnapPoint" type="Area3D" parent="." index="2" unique_id=2130091087]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
+collision_layer = 16
+collision_mask = 16
+script = ExtResource("2_ryu0i")
+allowed_types = Array[ExtResource("3_eiqok")]([SubResource("Resource_eiqok")])
+metadata/_custom_type_script = "uid://cuovsxm5u3lwh"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PlaneSnapPoint" index="0" unique_id=1937483625]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4680481, 0, 0)
+shape = SubResource("BoxShape3D_ryu0i")
+
+[node name="PlaneSnapPoint2" type="Area3D" parent="." index="3" unique_id=1781853084]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+collision_layer = 16
+collision_mask = 16
+script = ExtResource("2_ryu0i")
+allowed_types = Array[ExtResource("3_eiqok")]([SubResource("Resource_eiqok")])
+metadata/_custom_type_script = "uid://cuovsxm5u3lwh"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PlaneSnapPoint2" index="0" unique_id=2028394699]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0.468)
+shape = SubResource("BoxShape3D_ryu0i")
+
+[node name="PlaneSnapPoint3" type="Area3D" parent="." index="4" unique_id=1872217298]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
+collision_layer = 16
+collision_mask = 16
+script = ExtResource("2_ryu0i")
+allowed_types = Array[ExtResource("3_eiqok")]([SubResource("Resource_eiqok")])
+metadata/_custom_type_script = "uid://cuovsxm5u3lwh"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PlaneSnapPoint3" index="0" unique_id=959990501]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -0.468, 0, 0)
+shape = SubResource("BoxShape3D_ryu0i")
+
+[node name="PlaneSnapPoint4" type="Area3D" parent="." index="5" unique_id=377371557]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+collision_layer = 16
+collision_mask = 16
+script = ExtResource("2_ryu0i")
+allowed_types = Array[ExtResource("3_eiqok")]([SubResource("Resource_eiqok")])
+metadata/_custom_type_script = "uid://cuovsxm5u3lwh"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PlaneSnapPoint4" index="0" unique_id=1705573819]
+transform = Transform3D(1.3113416e-07, 0, 1, 0, 1, 0, -1, 0, 1.3113416e-07, 0, 0, -0.468)
+shape = SubResource("BoxShape3D_ryu0i")
+
+[node name="PlaneSnapPoint5" type="Area3D" parent="." index="6" unique_id=2088693052]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+collision_layer = 16
+collision_mask = 16
+script = ExtResource("2_ryu0i")
+allowed_types = Array[ExtResource("3_eiqok")]([SubResource("Resource_eiqok")])
+metadata/_custom_type_script = "uid://cuovsxm5u3lwh"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PlaneSnapPoint5" index="0" unique_id=1980399741]
+transform = Transform3D(1.3113416e-07, 0, 1, -1, -4.371139e-08, 1.3113416e-07, 4.371139e-08, -1, -5.732056e-15, 0, -0.468, 0)
+shape = SubResource("BoxShape3D_ryu0i")
+
+[node name="PlaneSnapPoint6" type="Area3D" parent="." index="7" unique_id=973133233]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+collision_layer = 16
+collision_mask = 16
+script = ExtResource("2_ryu0i")
+allowed_types = Array[ExtResource("3_eiqok")]([SubResource("Resource_eiqok")])
+metadata/_custom_type_script = "uid://cuovsxm5u3lwh"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PlaneSnapPoint6" index="0" unique_id=1532383848]
+transform = Transform3D(1.3113416e-07, 0, 1, -1, -4.371139e-08, 1.3113416e-07, 4.371139e-08, -1, -5.732056e-15, 0, 0.468, 0)
+shape = SubResource("BoxShape3D_ryu0i")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." index="8" unique_id=1343740115]
+shape = SubResource("BoxShape3D_mwvr1")
+
+[node name="PlaneModel" parent="." index="9" unique_id=778509893 instance=ExtResource("5_o1g86")]

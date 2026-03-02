@@ -49,12 +49,6 @@ func set_value(new: float) -> CT_Health:
 	value = new
 	on_value_changed.emit()
 	
-	if root is Entity:
-		if new < value:
-			var res = R_WorldObject.find_in(root)
-			if res:
-				if res is R_Entity:
-					s_Sounds.server_try_play(res.hurt_sound, root.global_position)
 	
 	return self
 

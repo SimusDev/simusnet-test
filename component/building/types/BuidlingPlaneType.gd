@@ -1,0 +1,1 @@
+class_name BuidlingPlaneType extends R_BuildingType

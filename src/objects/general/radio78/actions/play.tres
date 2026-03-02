@@ -1,0 +1,9 @@
+[gd_resource type="Resource" format=3 uid="uid://due4g44uoo6yw"]
+
+[ext_resource type="Script" uid="uid://dd44g648r6to7" path="res://src/objects/general/radio78/actions/play.gd" id="1_jvv7p"]
+
+[resource]
+resource_name = "Play"
+script = ExtResource("1_jvv7p")
+name = "Play"
+metadata/_custom_type_script = "uid://ux3hdo53vt4p"

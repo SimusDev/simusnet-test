@@ -1,0 +1,9 @@
+[gd_resource type="Resource" format=3 uid="uid://b7cakpttrqqnh"]
+
+[ext_resource type="Script" uid="uid://dcqed3ic0dimd" path="res://src/objects/general/radio78/actions/stop.gd" id="1_fpcmp"]
+
+[resource]
+resource_name = "Stop"
+script = ExtResource("1_fpcmp")
+name = "Stop"
+metadata/_custom_type_script = "uid://ux3hdo53vt4p"

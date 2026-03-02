@@ -8,6 +8,7 @@ class_name CT_Placeable extends Node
 var item:W_Item
 
 var current_ghost:Node3D = null
+var ghost_offset: Vector3 = Vector3.ZERO
 
 @onready var level_instance = LevelInstance.find_above(self)
 
@@ -58,54 +59,29 @@ func _place() -> void:
 	#item.stack.quantity -= 1 #if survival ))
 
 func _physics_process(_delta: float) -> void:
-	if not is_inside_tree() or not is_instance_valid(item) or not is_instance_valid(current_ghost):
+	if not is_instance_valid(current_ghost) or not is_instance_valid(item):
 		return
-	
-	var eyes: Node3D = item.entity_head.get_eyes()
+
+	var eyes = item.entity_head.get_eyes()
 	var space_state = item.get_world_3d().direct_space_state
 	
 	var origin = eyes.global_position
-	var direction = -eyes.global_transform.basis.z
-	var target = origin + direction * placeable.place_range
+	var target = origin - eyes.global_transform.basis.z * placeable.place_range
 	
 	var query = PhysicsRayQueryParameters3D.create(origin, target)
+	query.collide_with_areas = true
+	
 	query.exclude = [item.entity_head.get_entity()]
 	
 	var result = space_state.intersect_ray(query)
-
+	
 	if result:
-		var pos = result.position
-		var normal = result.normal
-		
-		var geometries = current_ghost.find_children("*", "GeometryInstance3D")
-		
-		if not geometries.is_empty():
-			var total_aabb: AABB
-			var has_aabb = false
-			
-			for geo in geometries:
-				if geo is GeometryInstance3D:
-					var local_aabb = geo.get_aabb()
-					var rel_transform = current_ghost.global_transform.affine_inverse() * geo.global_transform
-					var transformed_aabb = rel_transform * local_aabb
-					
-					if not has_aabb:
-						total_aabb = transformed_aabb
-						has_aabb = true
-					else:
-						total_aabb = total_aabb.merge(transformed_aabb)
-			
-			if has_aabb:
-				var bottom_center = Vector3(total_aabb.get_center().x, total_aabb.position.y, total_aabb.get_center().z)
-				
-				current_ghost.global_position = pos - (current_ghost.global_transform.basis * bottom_center)
-				current_ghost.global_position += normal * 0.001
+		if result.collider is CT_BuildSnapPoint:
+			current_ghost.global_position = result.collider.global_position
 		else:
-			current_ghost.global_position = pos
+			current_ghost.global_position = result.position + (result.normal * 0.001) - (current_ghost.global_transform.basis * ghost_offset)
 	else:
 		current_ghost.global_position = target
-			
-
 
 
 func _delete_ghost() -> void:
@@ -114,36 +90,47 @@ func _delete_ghost() -> void:
 	current_ghost = null
 
 func _spawn_ghost() -> void:
-	if not is_placeable_valid():
-		return
-	
 	_delete_ghost()
-	var model:Variant = placeable.get_model()
+	if not is_placeable_valid(): return
+
+	var model = placeable.get_model()
 	if model is Mesh:
-		current_ghost = Node3D.new()
-		add_child(current_ghost)
-		
-		var mesh_inst:MeshInstance3D = MeshInstance3D.new()
-		mesh_inst.mesh = model
-		
-		current_ghost.add_child(mesh_inst)
-	
+		current_ghost = MeshInstance3D.new()
+		current_ghost.mesh = model
 	elif model is PackedScene:
 		current_ghost = model.instantiate()
-		add_child(current_ghost)
 	
-	current_ghost.set("cast_shadow", false)
-	_apply_shader_to_meshes()
+	if not current_ghost: return
 	
+	add_child(current_ghost)
+	_setup_ghost_visuals(current_ghost)
+	_calculate_ghost_offset()
 
-func _apply_shader_to_meshes() -> void:
-	if not is_placeable_valid():
-		return
+func _setup_ghost_visuals(node: Node) -> void:
+	var mat = placeable.shader_material.duplicate()
+	current_ghost.set("material_override", mat)
+	for child in node.find_children("*", "GeometryInstance3D", true, false):
+		child.set("material_override", mat)
+		child.set("cast_shadow", GeometryInstance3D.SHADOW_CASTING_SETTING_OFF)
+
+func _calculate_ghost_offset() -> void:
+	var total_aabb: AABB
+	var first = true
 	
-	var sm = placeable.shader_material.duplicate()
+	var geometries = current_ghost.find_children("*", "GeometryInstance3D", true, false)
+	if current_ghost is GeometryInstance3D: geometries.push_back(current_ghost)
+
+	for geo in geometries:
+		var local_aabb = geo.get_aabb()
+		var rel_tf = current_ghost.global_transform.affine_inverse() * geo.global_transform
+		if first:
+			total_aabb = rel_tf * local_aabb
+			first = false
+		else:
+			total_aabb = total_aabb.merge(rel_tf * local_aabb)
 	
-	for child in current_ghost.find_children("*", "GeometryInstance3D"):
-		child.set("material_override", sm)
+	if not first:
+		ghost_offset = Vector3(total_aabb.get_center().x, total_aabb.position.y, total_aabb.get_center().z)
 
 
 func is_placeable_valid() -> bool:

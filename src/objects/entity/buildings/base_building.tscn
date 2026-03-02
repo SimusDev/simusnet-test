@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://dj0l5fgui8pub"]
+
+[ext_resource type="Script" uid="uid://bwwpj2rkss4cf" path="res://component/health/CT_Health.gd" id="1_7voxf"]
+[ext_resource type="Script" uid="uid://dvlnhvdrc3dy6" path="res://component/hitbox/CT_Hitbox.gd" id="2_8vioa"]
+
+[node name="BaseBuilding" type="StaticBody3D" unique_id=144211108]
+
+[node name="CT_Health" type="Node" parent="." unique_id=1170428858 node_paths=PackedStringArray("root")]
+script = ExtResource("1_7voxf")
+root = NodePath("..")
+metadata/_custom_type_script = "uid://bwwpj2rkss4cf"
+
+[node name="CT_Hitbox" type="Area3D" parent="." unique_id=1399160198 node_paths=PackedStringArray("health")]
+script = ExtResource("2_8vioa")
+health = NodePath("../CT_Health")
+metadata/_custom_type_script = "uid://dvlnhvdrc3dy6"

@@ -1,6 +1,8 @@
 class_name R_PlaceableSettings extends Resource
 
 @export var place_range:float = 5.0
+@export var type:R_BuildingType = R_BuildingType.new()
+
 
 @export_group("Model")
 @export var model_mesh:Mesh
