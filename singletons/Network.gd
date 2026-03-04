@@ -128,7 +128,7 @@ func create_server(port: int = -1, dedicated: bool = false) -> void:
 		add_child(server_broadcaster)
 
 
-#region SERVER (ОТПРАВКА)
+#region SERVER
 
 func sync_content_to_peer(peer_id: int):
 	on_sync_started.emit()
