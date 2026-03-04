@@ -9,6 +9,7 @@ var _max_players: int = 78
 
 var _image: ImageTexture
 
+
 func get_data() -> Dictionary:
 	return _cfg_data
 
@@ -26,6 +27,9 @@ func get_players() -> PackedStringArray:
 
 func get_max_players() -> int:
 	return _max_players
+
+func get_content_path() -> String:
+	return _cfg_data.get("server_content", "res://local_data/server/content/")
 
 func get_name() -> String:
 	return _cfg_data.get("name", "")

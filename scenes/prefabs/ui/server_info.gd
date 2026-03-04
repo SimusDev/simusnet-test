@@ -11,6 +11,8 @@ extends Control
 @onready var _disable_input_ui: Panel = $_DisableInputUI
 @onready var _disabled_label: Label = $_DisableInputUI/_DisabledLabel
 
+@onready var loading_content: Panel = $LoadingContent
+
 var server_uri:String 
 
 func _ready() -> void:
@@ -18,6 +20,8 @@ func _ready() -> void:
 	_name.text = ""
 	
 	Network.server_info.on_update_received.connect(_on_update_received)
+	Network.on_sync_started.connect(_on_network_sync_started)
+	Network.on_sync_finished.connect(_on_network_sync_finished)
 	
 	SimusNetEvents.event_disconnected.listen(_disconnected)
 	SimusNetEvents.event_connecting.listen(_connecting)
@@ -29,6 +33,13 @@ func _ready() -> void:
 		_disconnected()
 	
 	
+
+func _on_network_sync_started() -> void:
+	loading_content.show()
+
+func _on_network_sync_finished() -> void:
+	await get_tree().create_timer(5.0).timeout
+	loading_content.hide()
 
 func _on_update_received() -> void:
 	var info: R_ServerInfo = Network.server_info.get_last()
@@ -62,6 +73,7 @@ func _connected() -> void:
 		Network.server_info.request_update()
 	
 	_on_update_received()
+	
 
 func _on_join_pressed() -> void:
 	if s_SceneChanger.is_ingame_state():

@@ -189,6 +189,24 @@ theme_override_font_sizes/font_size = 32
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="LoadingContent" type="Panel" parent="." unique_id=591985520]
+visible = false
+layout_mode = 0
+offset_top = 512.0
+offset_right = 448.0
+offset_bottom = 544.0
+
+[node name="Label" type="Label" parent="LoadingContent" unique_id=356534240]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Loading Content"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [connection signal="pressed" from="CenterContainer/HBoxContainer/Join" to="." method="_on_join_pressed"]
 [connection signal="pressed" from="CenterContainer/HBoxContainer/Quit" to="." method="_on_quit_pressed"]
 [connection signal="pressed" from="CenterContainer/HBoxContainer/Web" to="." method="_on_web_pressed"]

@@ -11,6 +11,7 @@ const INFO_KEYS: Dictionary = {
 	"description": "My Description.",
 	"image": "icon.svg",
 	"web_site": "https://contract.gosuslugi.ru/",
+	"server_content": "res://local_data/server/content/",
 	"max_players": 32,
 }
 
