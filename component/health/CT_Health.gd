@@ -45,6 +45,12 @@ static func find_above(node:Node3D) -> CT_Health:
 	return null
 
 func set_value(new: float) -> CT_Health:
+	if new <= 0:
+		if root is Entity:
+			s_Sounds.server_try_play(
+				(I_WorldObject.find_in(root).get_object() as R_Entity).death_sound,
+				root.global_position
+			)
 	value = clamp(value, 0.0, value_max)
 	value = new
 	on_value_changed.emit()

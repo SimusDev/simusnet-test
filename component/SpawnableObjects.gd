@@ -44,12 +44,14 @@ static func request_spawn_from_camera(object: R_WorldObject, quantity: int = 1, 
 	
 	
 	var result: Dictionary = SD_Raycasting3D.intersect_ray_from_node(camera, CAMERA_RAYCAST_RANGE)
-	if result:
-		var collider: Object = result.collider
-		if collider:
-			var pos: Vector3 = result.position
-			request_spawn(object, pos, quantity, inventory)
-			return
+	var pos: Vector3
+
+	if result and result.get("collider"):
+		pos = result.position
+	else:
+		pos = camera.global_position - camera.global_transform.basis.z * 5.0
+	
+	request_spawn(object, pos, quantity, inventory)
 
 static func request_spawn(object: R_WorldObject, global_position: Vector3, quantity: int = 1, inventory: bool = false) -> void:
 	var user: CT_User = CT_User.get_local()

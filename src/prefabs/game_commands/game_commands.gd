@@ -14,7 +14,17 @@ func _ready() -> void:
 	on_executed.connect(_on_command_executed)
 
 func _on_command_executed(command:SD_ConsoleCommand) -> void:
-	match command.get_code():
+	var code:String = command.get_code()
+	var args:Array = command.get_arguments()
+	var args_size:int = args.size()
+	
+	match code:
+		"weapon.infinity_ammo":
+			if not args_size == 1:
+				return
+			var value:bool = command.get_value_as_bool()
+			W_Game.i().infinity_ammo = value
+			console.write_info("Infinity ammo: %s" % [value])
 		"suicide":
 			if command.get_arguments().size() > 0:
 				return
@@ -23,7 +33,7 @@ func _on_command_executed(command:SD_ConsoleCommand) -> void:
 				return
 			SimusNetRPC.invoke_on_server(
 				_player_kill,
-				user
+				user.get_nickname()
 			)
 			return
 		

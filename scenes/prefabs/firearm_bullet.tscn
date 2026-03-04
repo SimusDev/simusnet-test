@@ -2,14 +2,54 @@
 
 [ext_resource type="Script" uid="uid://cpk0btypil2ra" path="res://component/item/weapon/FirearmBullet.gd" id="1_6ynwm"]
 
+[sub_resource type="Shader" id="Shader_6ynwm"]
+code = "shader_type spatial;
+
+uniform vec3 heat_color : source_color = vec3(1.0, 0.2, 0.0); // Оранжево-красный
+uniform vec3 core_color : source_color = vec3(1.0, 0.8, 0.4); // Бело-желтый центр
+uniform float intensity : hint_range(1.0, 50.0) = 15.0;      // Общая яркость
+uniform float roughness : hint_range(0.0, 1.0) = 0.15;
+
+void fragment() {
+    // 1. Металлические свойства
+    ALBEDO = vec3(0.02); // Почти черный металл
+    METALLIC = 0.9;
+    ROUGHNESS = roughness;
+
+    // 2. Эффект Френеля (свечение по краям)
+    float fresnel = pow(1.0 - dot(NORMAL, VIEW), 2.5);
+    
+    // 3. Градиент нагрева от носа к хвосту
+    // Предполагается, что пуля летит вдоль оси Z, UV.y распределен вдоль меша
+    float heat_map = smoothstep(1.0, 0.0, UV.y); 
+    
+    // 4. Смешивание цветов нагрева
+    vec3 hot_glow = mix(heat_color, core_color, heat_map * 0.5);
+    
+    // Итоговое свечение (Emission)
+    // Добавляем микро-мерцание (шум) для эффекта горения
+    float noise = sin(TIME * 20.0) * 0.05 + 0.95;
+    EMISSION = hot_glow * intensity * (fresnel + heat_map) * noise;
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tqmkn"]
+render_priority = 0
+shader = SubResource("Shader_6ynwm")
+shader_parameter/heat_color = Color(1, 0.2, 0, 1)
+shader_parameter/core_color = Color(0.98828125, 0.28272298, 0.06562805, 1)
+shader_parameter/intensity = 15.0
+shader_parameter/roughness = 1.0
+
 [sub_resource type="Curve" id="Curve_6ynwm"]
-_data = [Vector2(0, 0.055712223), 0.0, 1.7805984, 0, 0, Vector2(0.32246378, 0.2023977), 0.0, 0.0, 0, 0, Vector2(0.6702899, 0.2207334), -0.20242618, -0.20242618, 0, 0, Vector2(0.9130435, 0.2482369), -1.7517631, -1.7517631, 0, 0, Vector2(1, 0.23013502), -26.968622, 0.0, 0, 0]
+_data = [Vector2(0, 0.055712223), 0.0, 1.7805984, 0, 0, Vector2(0.32246378, 0.2023977), 0.0, 0.0, 0, 0, Vector2(0.6702899, 0.2207334), -0.20242618, -0.20242618, 0, 0, Vector2(0.89949745, 0.22000003), -1.7517631, -1.7517631, 0, 0, Vector2(1, 0.12325585), -12.032505, 0.0, 0, 0]
 point_count = 5
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6ynwm"]
 vertex_color_use_as_albedo = true
 vertex_color_is_srgb = true
 metallic = 1.0
+metallic_specular = 1.0
 roughness = 0.0
 emission_enabled = true
 emission = Color(1, 1, 0.11372549, 1)
@@ -25,4 +65,7 @@ script = ExtResource("1_6ynwm")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1465195711]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0.5)
+material_override = SubResource("ShaderMaterial_tqmkn")
+cast_shadow = 0
+visibility_range_begin = 0.5
 mesh = SubResource("TubeTrailMesh_tqmkn")

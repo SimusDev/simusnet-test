@@ -16,7 +16,7 @@ var wind_direction: Vector3 = Vector3.ZERO
 var life_time: float = 15.0
 
 const RICOCHET_SOUND = preload("res://src/objects/sound/ricochet_sound.tres")
-var bounces_left: int = 78
+var bounces_left: int = 2
 
 var _initial_speed: float = 0.0
 
@@ -79,7 +79,7 @@ func _physics_process(delta: float) -> void:
 	var query = PhysicsRayQueryParameters3D.create(global_position, global_position + step)
 	query.exclude = exclude_rids
 	query.collide_with_areas = true
-	
+	query.collision_mask = 5
 	
 	
 	var result = space_state.intersect_ray(query)
@@ -174,7 +174,6 @@ func _apply_damage(collider: Node, speed_at_impact: float) -> void:
 	if not SimusNetConnection.is_server():
 		return
 	
-	print(collider)
 	
 	if collider is CT_Hitbox:
 		var speed_ratio = speed_at_impact / _initial_speed

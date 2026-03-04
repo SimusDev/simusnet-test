@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="R_SoundObject" format=3 uid="uid://cwejl6gr1e2uj"]
+
+[ext_resource type="Script" uid="uid://cpwjwfhig01jj" path="res://addons/simusdev/audio/SD_SoundData3D.gd" id="1_ms52f"]
+[ext_resource type="AudioStream" uid="uid://c8qdrb3o1iq14" path="res://audio/gm_death.mp3" id="2_b7jym"]
+[ext_resource type="Script" path="res://addons/simusdev/audio/SD_SoundPackage3D.gd" id="2_vkfjv"]
+[ext_resource type="Script" uid="uid://comfyg2dac6fj" path="res://component/object/sound/R_SoundObject.gd" id="3_b7jym"]
+
+[sub_resource type="Resource" id="Resource_8ecr7"]
+script = ExtResource("1_ms52f")
+streams = Array[AudioStream]([ExtResource("2_b7jym")])
+max_distance = 25.0
+metadata/_custom_type_script = "uid://cpwjwfhig01jj"
+
+[sub_resource type="Resource" id="Resource_xcffs"]
+script = ExtResource("2_vkfjv")
+data = Array[ExtResource("1_ms52f")]([SubResource("Resource_8ecr7")])
+
+[resource]
+script = ExtResource("3_b7jym")
+package = SubResource("Resource_xcffs")
+metadata/_custom_type_script = "uid://comfyg2dac6fj"

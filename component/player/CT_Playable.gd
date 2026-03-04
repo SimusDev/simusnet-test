@@ -70,7 +70,7 @@ func _ready() -> void:
 			_voice.name = "voice"
 			_voice._muted = true
 			_voice.set_multiplayer_authority(get_multiplayer_authority())
-			add_child(_voice)
+			node.add_child(_voice)
 		_voice.set_output_player(voice_chat_output)
 	else:
 		printerr(get_path(), ": ", "voice chat is not configured.")

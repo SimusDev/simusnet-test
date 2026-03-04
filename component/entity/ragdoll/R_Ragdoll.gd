@@ -1,0 +1,1 @@
+class_name R_Ragdoll extends R_WorldObject

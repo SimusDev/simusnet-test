@@ -4,6 +4,8 @@ class_name R_Entity
 @export var hurt_sound:R_SoundObject
 @export var death_sound:R_SoundObject
 
+@export var ragdoll:R_Ragdoll
+
 static var _entities: Dictionary[String, R_Entity]
 
 func _get_group() -> String:

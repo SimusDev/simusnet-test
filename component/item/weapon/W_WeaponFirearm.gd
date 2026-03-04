@@ -44,6 +44,7 @@ func _ready() -> void:
 		[
 			_request_reload_receive,
 			_fire_local,
+			unload_ammo,
 		],
 		SimusNetRPCConfig.new().flag_set_channel("item").flag_serialization().flag_mode_server_only()
 	)
@@ -136,12 +137,17 @@ func fire() -> void:
 	
 	SimusNetRPC.invoke_all(_fire_local)
 
+func unload_ammo(value:int, infinity_ammo:bool) -> void:
+	if infinity_ammo:
+		return
+	_get_stack().bullets -= value
+
 func _fire_local() -> void:
 	if _get_stack().bullets <= 0:
 		return
 	
 	if SimusNetConnection.is_server():
-		_get_stack().bullets -= 1
+		unload_ammo(1, false)
 	
 	cooldown_timer.start()
 	if muzzle_flash:

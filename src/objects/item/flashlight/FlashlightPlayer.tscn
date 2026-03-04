@@ -1,10 +1,11 @@
 [gd_scene format=3 uid="uid://c04w24gdmfpdp"]
 
-[ext_resource type="Script" uid="uid://d0q02rkjl2np2" path="res://component/item/W_Item.gd" id="1_8l7gp"]
+[ext_resource type="Script" uid="uid://d3560dng0mv45" path="res://src/objects/item/flashlight/flashlight.gd" id="1_8l7gp"]
 [ext_resource type="PackedScene" uid="uid://cqtc65hr88bam" path="res://src/objects/item/flashlight/FlashlightModel.tscn" id="2_ji0gm"]
 
-[node name="FlashlightPlayer" type="Node3D" unique_id=901255195]
+[node name="FlashlightPlayer" type="Node3D" unique_id=901255195 node_paths=PackedStringArray("light")]
 script = ExtResource("1_8l7gp")
+light = NodePath("FlashlightModel/OmniLight3D")
 metadata/_custom_type_script = "uid://d0q02rkjl2np2"
 
 [node name="FlashlightModel" parent="." unique_id=697831538 instance=ExtResource("2_ji0gm")]

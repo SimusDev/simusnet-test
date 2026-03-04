@@ -13,6 +13,7 @@
 [sub_resource type="Resource" id="Resource_qxhmc"]
 script = ExtResource("1_5hb4a")
 streams = Array[AudioStream]([ExtResource("2_gqvtu"), ExtResource("3_id674"), ExtResource("4_gimmk"), ExtResource("5_vn45m"), ExtResource("6_alm8g")])
+max_distance = 25.0
 metadata/_custom_type_script = "uid://cpwjwfhig01jj"
 
 [sub_resource type="Resource" id="Resource_qde28"]

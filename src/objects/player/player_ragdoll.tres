@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="R_Ragdoll" format=3 uid="uid://s5146fbwls2d"]
+
+[ext_resource type="Script" uid="uid://pv5md21rffef" path="res://component/entity/ragdoll/R_Ragdoll.gd" id="1_dy75h"]
+[ext_resource type="Script" uid="uid://cqdfkwb1galvp" path="res://component/viewmodel/R_ViewModel.gd" id="2_dfl1d"]
+[ext_resource type="PackedScene" uid="uid://s1dqq3pjm8dg" path="res://scenes/prefabs/characters/godette/physical_body.tscn" id="3_adk4q"]
+
+[sub_resource type="Resource" id="Resource_ru7pt"]
+script = ExtResource("2_dfl1d")
+world = ExtResource("3_adk4q")
+metadata/_custom_type_script = "uid://cqdfkwb1galvp"
+
+[resource]
+script = ExtResource("1_dy75h")
+viewmodel = SubResource("Resource_ru7pt")
+metadata/_custom_type_script = "uid://pv5md21rffef"

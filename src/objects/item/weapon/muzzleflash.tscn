@@ -11,6 +11,7 @@ shading_mode = 0
 vertex_color_use_as_albedo = true
 vertex_color_is_srgb = true
 albedo_texture = ExtResource("1_g8385")
+stencil_flags = 2
 
 [sub_resource type="Curve" id="Curve_g8385"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -29,15 +30,16 @@ curve = SubResource("Curve_pk6ih")
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_qu5lf"]
 gravity = Vector3(0, 0, 0)
 scale_curve = SubResource("CurveTexture_qipbx")
-color = Color(1.35, 1.1676753, 0.9232166, 1)
+color = Color(1.314, 1.0932819, 0.7969754, 1)
 alpha_curve = SubResource("CurveTexture_7dkqj")
 
 [node name="Muzzleflash" type="GPUParticles3D" unique_id=443736027]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
 material_override = SubResource("StandardMaterial3D_pk6ih")
 emitting = false
-amount = 1
+amount = 2
 lifetime = 0.05
+interp_to_end = 0.5
 one_shot = true
 randomness = 1.0
 fixed_fps = 60
