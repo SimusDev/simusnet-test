@@ -24,6 +24,8 @@ func _ready() -> void:
 		icon_texture_rect.texture = server_info["texture"]
 
 func _pressed() -> void:
+	if SimusNetConnection.is_active():
+		return
 	var ip = server_info.get("ip", "")
 	var port = server_info.get("port", 8080)
 	
