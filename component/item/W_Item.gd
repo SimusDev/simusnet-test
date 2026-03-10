@@ -35,6 +35,7 @@ var inventory: CT_Inventory
 var stack: CT_ItemStack : get = _get_stack
 var playable: CT_Playable
 var state_machine: CT_StateMachineSimple
+var movement:W_FPCSourceLikeMovement
 
 var level: LevelInstance
 
@@ -52,6 +53,8 @@ func _ready() -> void:
 	stack = SD_ECS.find_first_component_by_script(self, [CT_ItemStack])
 	
 	inventory = SD_ECS.node_find_above_by_component(self, CT_Inventory)
+	
+	movement = SD_ECS.node_find_above_by_component(self, W_FPCSourceLikeMovement)
 	
 	if !inventory:
 		_logger.debug("INVENTORY COMPONENT WAS NOT FOUND!", SD_ConsoleCategories.ERROR)

@@ -1,6 +1,9 @@
 extends Resource
 class_name SimusNetSettings
 
+@export_group("Server", "server")
+@export var server_info:SimusNetServerInfo = SimusNetServerInfo.new()
+
 @export_group("Synchronization", "synchronization")
 @export var synchronization_transform_tickrate: float = 32.0
 #@export var synchronization_vars_tickrate: float = 40.0

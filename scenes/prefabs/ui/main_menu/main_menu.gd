@@ -29,7 +29,6 @@ func _ready() -> void:
 		for i in _show_ingame:
 			i.show()
 		
-		_switch_popup("ServerInfo")
 
 func _switch_buttons_screen(_name: String) -> void:
 	SD_Nodes.set_children_visibility(_screens_container, false)

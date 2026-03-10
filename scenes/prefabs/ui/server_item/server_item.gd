@@ -1,25 +1,35 @@
 extends Button
 
-var info:Dictionary
-var server_ip_addr:String
-var server_port:int
+@onready var name_label: RichTextLabel = $ServerName
+@onready var description_label: RichTextLabel = $Description
+@onready var icon_texture_rect: TextureRect = $Icon
+
+
 var server_listener:SimusNetServerListener
-
-@onready var server_name: RichTextLabel = $ServerName
-@onready var description: RichTextLabel = $Description
-@onready var server_icon: TextureRect = $Icon
-
+var server_info:Dictionary
 
 func _ready() -> void:
-	server_name.text = info.get("name", "<empty_name>")
-	description.text = info.get("description", "<empty_description>")
-	server_icon.texture = info.get("texture", load("res://addons/boujie_water_shader/icons/water_shader_avatar.png"))
-	if server_listener:
-		server_listener.server_removed.connect(_on_server_removed)
-
-func _on_server_removed(ip:String) -> void:
-	if ip == server_ip_addr:
-		queue_free()
+	if not server_info:
+		return
+	if not is_instance_valid(server_listener):
+		return
+	
+	server_listener.server_removed.connect(_server_removed)
+	
+	name_label.text = server_info.get("name", "Unknown Server")
+	description_label.text = server_info.get("description", "Empty Description")
+	
+	
+	if server_info.has("texture"):
+		icon_texture_rect.texture = server_info["texture"]
 
 func _pressed() -> void:
-	Network.connect_to_server(server_ip_addr, server_port)
+	var ip = server_info.get("ip", "")
+	var port = server_info.get("port", 8080)
+	
+	Network.connect_to_server(ip, port)
+	s_SceneChanger.queue_change_scene_with_base_path("loading")
+
+func _server_removed(ip:String) -> void:
+	if ip == server_info.get("ip", ""):
+		queue_free()

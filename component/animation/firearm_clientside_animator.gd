@@ -69,6 +69,7 @@ func _process(delta: float) -> void:
 	if !Engine.is_editor_hint():
 		if is_instance_valid(_item):
 			is_aiming = _item.is_using_alt
+			#print(is_aiming, _item.is_using_alt)
 	
 	var target_position: Vector3 = default_position
 	var target_rotation: Vector3 = default_rotation

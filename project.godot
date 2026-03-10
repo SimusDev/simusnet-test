@@ -43,6 +43,7 @@ config/name="simusnet-test"
 config/version="v0-05a"
 run/main_scene="uid://bqy2338pry4q6"
 config/features=PackedStringArray("4.6", "GL Compatibility")
+run/max_fps=144
 
 [audio]
 
@@ -67,6 +68,7 @@ SimpleGrass="*uid://bfq0snth8sj3h"
 
 window/size/viewport_width=1280
 window/size/viewport_height=720
+window/vsync/vsync_mode=0
 
 [dotnet]
 

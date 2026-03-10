@@ -32,15 +32,15 @@ class_name CameraShake extends Node3D
 var bob_frequency:float = 0.0
 
 @export_subgroup("Bob Amplitude")
-@export var crouch_bob_amplitude:Vector2 = Vector2(0.005, 0.005)
-@export var walk_bob_amplitude:Vector2 = Vector2(0.01, 0.01)
-@export var sprint_bob_amplitude:Vector2 = Vector2(0.025, 0.025)
+@export var crouch_bob_amplitude:Vector2 = Vector2(0.005, 0.01)
+@export var walk_bob_amplitude:Vector2 = Vector2(0.01, 0.02)
+@export var sprint_bob_amplitude:Vector2 = Vector2(0.015, 0.03)
 
 var bob_amplitude = walk_bob_amplitude
 
 @export var crouch_offset:Vector3 = Vector3(0.0, 0.05, 0.05)
-@export var walk_offset:Vector3 = Vector3(0.0, 0.0, 0.0)
-@export var sprint_offset:Vector3 = Vector3(0.0, 0.0, 0.0)
+@export var walk_offset:Vector3 = Vector3(0.0, -0.025, 0.025)
+@export var sprint_offset:Vector3 = Vector3(0.0, -0.05, 0.075)
 var viewmodel_offset:Vector3 = Vector3.ZERO
 
 var time_elapsed: float = 0.0

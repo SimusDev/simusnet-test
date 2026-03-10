@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://gkpe7xci8on3" path="res://scenes/prefabs/ui/main_menu/main_menu.gd" id="1_026n6"]
 [ext_resource type="Script" uid="uid://dotjiengj0hqs" path="res://addons/simusdev/ui/SD_UINodeExitButton.gd" id="2_da2ht"]
 [ext_resource type="PackedScene" uid="uid://clinvld10jut" path="res://scenes/prefabs/ui/main_menu/settings/settings.tscn" id="3_5h2bh"]
-[ext_resource type="PackedScene" uid="uid://prodeloqtcwu" path="res://scenes/prefabs/ui/server_info.tscn" id="5_f41q6"]
 [ext_resource type="PackedScene" uid="uid://bohfn8vx8tq8p" path="res://scenes/prefabs/ui/server_list.tscn" id="6_w676r"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5h2bh"]
@@ -239,19 +238,6 @@ grow_vertical = 2
 [node name="ServerList" parent="Popups" unique_id=823416535 instance=ExtResource("6_w676r")]
 visible = false
 layout_mode = 1
-
-[node name="ServerInfo" parent="Popups" unique_id=614010673 instance=ExtResource("5_f41q6")]
-visible = false
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -256.0
-offset_top = -256.0
-offset_right = 256.0
-offset_bottom = 256.0
 
 [node name="version" type="Label" parent="." unique_id=1409942562]
 layout_mode = 1

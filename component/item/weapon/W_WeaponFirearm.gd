@@ -91,6 +91,12 @@ func _exit_tree() -> void:
 		var ui: Control = await _ammo_packs_ui.async_get_instance()
 		ui.hide()
 
+func can_aim() -> bool:
+	if movement:
+		if movement.is_sprinting:
+			return false
+	return true
+
 func request_reload() -> void:
 	if state_machine.get_current_state() == "idle":
 		if is_local() and _get_stack().can_reload():
@@ -105,6 +111,18 @@ func _request_reload_server() -> void:
 
 func _request_reload_receive() -> void:
 	state_machine.try_switch("reload").make_cooldown_and_switch_to(firearm_object.reload_time, "idle")
+
+func request_press_alt() -> void:
+	if not can_aim():
+		return
+	
+	super()
+
+func _pressed_alt_server() -> void:
+	if not can_aim():
+		return
+	
+	super()
 
 func request_press() -> void:
 	super()

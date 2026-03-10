@@ -3,29 +3,37 @@ class_name SimusNetServerListener extends Node
 signal server_discovered(server_info: Dictionary)
 signal server_removed(ip: String)
 
-@export var listen_port: int = 4241
-@export var cleanup_interval: float = 3.0
-@export var server_timeout: float = 5.0
+var simusnet_settings:SimusNetSettings
 
 var _udp: PacketPeerUDP = PacketPeerUDP.new()
 var _servers: Dictionary = {} 
 var _cleanup_timer: Timer
 
+var should_listen:bool = true
+var listening:bool = true
+
 func _ready():
+	simusnet_settings = SimusNetSettings.get_or_create()
+	
+	var parent = get_parent()
+	if parent is Control:
+		parent.visibility_changed.connect(_update)
+		_update()
+	
 	if SimusNetConnection.is_dedicated_server():
 		return
 	_servers.clear()
 	
-	# Setup UDP socket
-	var err = _udp.bind(listen_port)
+	var broadcasting_port:int = simusnet_settings.server_info.broadcasting_port
+	var err = _udp.bind(broadcasting_port)
 	if err != OK:
-		push_error("SimusNetServerListener: Failed to bind UDP port %d. Error code: %d" % [listen_port, err])
+		push_error("SimusNetServerListener: Failed to bind UDP port %d. Error code: %d" % [broadcasting_port, err])
 		return
 	
 	
 	# Setup cleanup timer
 	_cleanup_timer = Timer.new()
-	_cleanup_timer.wait_time = cleanup_interval
+	_cleanup_timer.wait_time = simusnet_settings.server_info.broadcasting_cleanup_interval
 	_cleanup_timer.one_shot = false
 	_cleanup_timer.autostart = true
 	_cleanup_timer.timeout.connect(_cleanup)
@@ -33,10 +41,22 @@ func _ready():
 	
 	set_process(true)
 
+func _update() -> void:
+	var should_listen:bool = true
+	
+	var parent = get_parent()
+	if parent is Control:
+		should_listen = parent.visible
+	
 
 func _process(_delta):
 	if SimusNetConnection.is_dedicated_server():
 		return
+	
+	if not (listening and should_listen):
+		return
+
+	
 	while _udp.get_available_packet_count() > 0:
 		var packet_ip: String = _udp.get_packet_ip()
 		var packet_port: int = _udp.get_packet_port()
@@ -83,6 +103,7 @@ func _process(_delta):
 			# New server discovered
 			_servers[packet_ip] = server_info
 			server_discovered.emit(server_info)
+			SimusDev.console.write_info("[SimusNetServerListener] Found Server '%s'" % packet_ip)
 		else:
 			# Update existing server info (optional: merge only last_seen and maybe other fields)
 			var existing = _servers[packet_ip]
@@ -96,7 +117,7 @@ func _cleanup():
 	
 	for ip in _servers:
 		var last_seen = _servers[ip].get("last_seen", 0)
-		if now - last_seen > server_timeout:
+		if now - last_seen > simusnet_settings.server_info.broadcasting_server_timeout:
 			to_remove.append(ip)
 	
 	for ip in to_remove:

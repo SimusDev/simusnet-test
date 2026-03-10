@@ -1,6 +1,11 @@
 [gd_resource type="Resource" script_class="SimusNetSettings" format=3 uid="uid://bbedwqoxg5hha"]
 
 [ext_resource type="Script" uid="uid://mvkfnwik8m3v" path="res://addons/simusdev/SimusNet/SimusNetSettings.gd" id="1_dey0v"]
+[ext_resource type="Script" path="res://addons/simusdev/SimusNet/SimusNetServerInfo.gd" id="2_ab4t6"]
+
+[sub_resource type="Resource" id="Resource_v3cy0"]
+script = ExtResource("2_ab4t6")
 
 [resource]
 script = ExtResource("1_dey0v")
+server_info = SubResource("Resource_v3cy0")

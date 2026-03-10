@@ -1,11 +1,15 @@
+
+example Network.gd singleton:
+
+``` gdscript
 #Network.gd singleton
 extends Node
 
-@onready var CHANNEL_USERS: String = SimusNetChannels.register("users")
-@onready var CHANNEL_INVENTORY: String = SimusNetChannels.register("inventory")
-@onready var CHANNEL_INTERACTABLES: String = SimusNetChannels.register("interactables")
-@onready var CHANNEL_STATES: String = SimusNetChannels.register("states")
-@onready var CHANNEL_ENVIRONMENT: String = SimusNetChannels.register("environment")
+@onready var CHANNEL_USERS: String = SimusNetChannels.register("users") #example channel
+@onready var CHANNEL_INVENTORY: String = SimusNetChannels.register("inventory") #example channel
+@onready var CHANNEL_INTERACTABLES: String = SimusNetChannels.register("interactables") #example channel
+@onready var CHANNEL_STATES: String = SimusNetChannels.register("states") #example channel 
+@onready var CHANNEL_ENVIRONMENT: String = SimusNetChannels.register("environment") #example channel
 
 var _logger:SD_Logger
 
@@ -69,7 +73,6 @@ func try_disconnect() -> void:
 		server_broadcaster.broadcasting = false
 
 func connect_to_server(ip: String, port: int = -1) -> void:
-	print("Connecting to %s:%s" % [ip, port])
 	if port == -1:
 		port = simusnet_settings.server_info.port
 	SimusNetConnectionENet.create_client(ip, port)
@@ -92,3 +95,4 @@ func create_server(port: int = -1, dedicated: bool = false) -> void:
 	else:
 		_logger.debug("Error creating server. Error code: %s" % server)
 		pass
+```
