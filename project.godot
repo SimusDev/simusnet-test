@@ -44,6 +44,7 @@ config/version="v0-05a"
 run/main_scene="uid://bqy2338pry4q6"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 run/max_fps=144
+config/icon="res://icon.svg"
 
 [audio]
 
@@ -283,6 +284,7 @@ common/physics_interpolation=true
 
 rendering_device/driver.windows="d3d12"
 textures/vram_compression/import_etc2_astc=true
+occlusion_culling/use_occlusion_culling=true
 
 [shader_globals]
 

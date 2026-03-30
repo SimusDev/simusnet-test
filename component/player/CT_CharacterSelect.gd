@@ -46,20 +46,20 @@ func _send_spawn_locations() -> void:
 	var result: Array = []
 	for spawn in CT_SpawnPoint3D.get_list():
 		var location: R_LocationPoint = R_LocationPoint.create_from_spawnpoint(spawn)
-		result.append(location.serialize())
+		result.append(location)
 	SimusNetRPC.invoke_on_sender(_receive_spawn_locations, result)
 
 func _receive_spawn_locations(locations: Array) -> void:
 	_synced_locations.clear()
 	for serialized in locations:
-		_synced_locations.append(R_LocationPoint.deserialize(serialized))
+		_synced_locations.append(serialized)
 	_synced_locations_changed.emit()
 
 static func request_spawn(location: R_LocationPoint, player: R_Player) -> void:
 	if location and player:
-		SimusNetRPC.invoke_on_server(_instance._request_spawn_server, location.serialize(), player)
+		SimusNetRPC.invoke_on_server(_instance._request_spawn_server, location, player)
 
-func _request_spawn_server(location_s: Variant, player: R_Player) -> void:
+func _request_spawn_server(location: R_LocationPoint, player: R_Player) -> void:
 	var user: CT_User = CT_User.find_by_peer(SimusNetRemote.sender_id)
 	if !user:
 		return
@@ -67,7 +67,6 @@ func _request_spawn_server(location_s: Variant, player: R_Player) -> void:
 	if user.get_player_node():
 		return
 	
-	var location: R_LocationPoint = R_LocationPoint.deserialize(location_s)
 	var spawn: CT_SpawnPoint3D = location.to_spawnpoint(location.level.get_instance())
 	var world_object: I_WorldObject = I_WorldObject.new(spawn.get_level(), player)
 	var player_node: Node = world_object.create_instance().get_instance()

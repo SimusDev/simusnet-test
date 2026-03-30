@@ -10,17 +10,15 @@ static func create_from_spawnpoint(point: CT_SpawnPoint3D) -> R_LocationPoint:
 	new.name = point.name
 	return new
 
-func serialize() -> Dictionary:
-	var result: Dictionary = {}
-	result[0] = SimusNetSerializer.parse_resource(level)
-	result[1] = name
-	return result
+func simusnet_serialize(serializer: SimusNetCustomSerialization) -> void:
+	serializer.pack(level)
+	serializer.pack(name)
 
-static func deserialize(data: Dictionary) -> R_LocationPoint:
-	var result := R_LocationPoint.new()
-	result.level = SimusNetDeserializer.parse_resource(data[0])
-	result.name = data[1]
-	return result
+static func simusnet_deserialize(serializer: SimusNetCustomSerialization) -> void:
+	var result: R_LocationPoint = R_LocationPoint.new()
+	result.level = serializer.unpack()
+	result.name = serializer.unpack()
+	serializer.set_result(result)
 
 func to_spawnpoint(_level: LevelInstance) -> CT_SpawnPoint3D:
 	for spawn in _level.get_spawnpoints():
