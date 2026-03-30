@@ -125,12 +125,12 @@ func serialize() -> Dictionary:
 	var data: Dictionary = {}
 	data[-2] = _metadata
 	data[-1] = SimusNetIdentity.server_serialize_instance(self)
-	data[0] = SimusNetSerializer.parse_resource(get_script())
+	data[0] = get_script().resource_path
 	
 	name = name.validate_node_name()
 	data[1] = name
 	if object:
-		data[2] = SimusNetSerializer.parse_resource(object)
+		data[2] = object.resource_path
 	serialize_custom(data)
 	return data
 
@@ -138,7 +138,7 @@ func serialize_custom(data: Dictionary) -> void:
 	pass
 
 static func deserialize(data: Dictionary) -> CT_ItemStack:
-	var script: GDScript = SimusNetDeserializer.parse_resource(data.get(0, CT_ItemStack))
+	var script: GDScript = load(data[0])
 	if !is_instance_valid(script):
 		script = CT_ItemStack
 	
@@ -149,7 +149,7 @@ static func deserialize(data: Dictionary) -> CT_ItemStack:
 	
 	var _object: Variant = data.get(2, null)
 	if _object:
-		item.object = SimusNetDeserializer.parse_resource(_object)
+		item.object = load(_object)
 	
 	deserialize_custom(data, item)
 	return item

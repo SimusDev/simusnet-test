@@ -43,7 +43,8 @@ func _handle(array: Array[SimusNetIdentity], creation: bool) -> void:
 func _parse_identities(array: Array[SimusNetIdentity]) -> Variant:
 	var result: Array = []
 	for i in array:
-		result.append(i.get_unique_id())
+		if is_instance_valid(i):
+			result.append(i.get_unique_id())
 	return SimusNetCompressor.parse_if_necessary(result)
 
 func _parse_identities_from_packet(packet: Variant) -> Array[SimusNetIdentity]:
