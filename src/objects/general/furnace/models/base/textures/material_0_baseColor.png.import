@@ -4,16 +4,15 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://cotrxte4rjocx"
 path.s3tc="res://.godot/imported/material_0_baseColor.png-b292b61ac87798204c36f2a0dc0fe604.s3tc.ctex"
-path.etc2="res://.godot/imported/material_0_baseColor.png-b292b61ac87798204c36f2a0dc0fe604.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://src/objects/general/furnace/models/base/textures/material_0_baseColor.png"
-dest_files=["res://.godot/imported/material_0_baseColor.png-b292b61ac87798204c36f2a0dc0fe604.s3tc.ctex", "res://.godot/imported/material_0_baseColor.png-b292b61ac87798204c36f2a0dc0fe604.etc2.ctex"]
+dest_files=["res://.godot/imported/material_0_baseColor.png-b292b61ac87798204c36f2a0dc0fe604.s3tc.ctex"]
 
 [params]
 

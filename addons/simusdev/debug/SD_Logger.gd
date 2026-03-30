@@ -8,14 +8,16 @@ var _console: SD_TrunkConsole
 func _init(name: Variant) -> void:
 	_console = SimusDev.console
 	_name = str(name)
-	
+	_initialize(name)
+
+func _initialize(name: Variant) -> void:
 	if name is Object:
 		_name = name.get_class()
 		if name.get_script():
 			_name = name.get_script().get_global_name()
 		if name is Node:
+			await name.tree_entered
 			_name += ", " + str(name)
-	
 	
 
 static func variant_to_string(variant: Variant) -> String:

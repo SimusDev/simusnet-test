@@ -4,9 +4,8 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://ds66tkm4umy5v"
 path.s3tc="res://.godot/imported/rocket_model_Map #170-Map #170.png-739ebdd2d5469e4b55d3fa9b6baaa9aa.s3tc.ctex"
-path.etc2="res://.godot/imported/rocket_model_Map #170-Map #170.png-739ebdd2d5469e4b55d3fa9b6baaa9aa.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -16,7 +15,7 @@ generator_parameters={
 [deps]
 
 source_file="res://src/objects/item/ammo/rocket/rocket_model_Map #170-Map #170.png"
-dest_files=["res://.godot/imported/rocket_model_Map #170-Map #170.png-739ebdd2d5469e4b55d3fa9b6baaa9aa.s3tc.ctex", "res://.godot/imported/rocket_model_Map #170-Map #170.png-739ebdd2d5469e4b55d3fa9b6baaa9aa.etc2.ctex"]
+dest_files=["res://.godot/imported/rocket_model_Map #170-Map #170.png-739ebdd2d5469e4b55d3fa9b6baaa9aa.s3tc.ctex"]
 
 [params]
 

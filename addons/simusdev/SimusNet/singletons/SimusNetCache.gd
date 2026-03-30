@@ -21,7 +21,6 @@ static func data_get_or_add(key: String, default: Variant = null) -> Variant:
 	
 	dict.set(key, default)
 	return default
-	
 
 static func clear() -> void:
 	get_data().clear()
@@ -50,7 +49,7 @@ func _process(delta: float) -> void:
 	if _unique_id_queue.is_empty() or SimusNetConnection.is_server():
 		return
 	
-	_unique_id_request_rpc.rpc_id(SimusNet.SERVER_ID, SimusNetCompressor.parse(_unique_id_queue))
+	_unique_id_request_rpc.rpc_id(SimusNet.SERVER_ID, SimusNetCompressor.parse_if_necessary(_unique_id_queue))
 	_unique_id_queue.clear()
 
 @rpc("any_peer", "call_remote", "reliable", SimusNetChannels.BUILTIN.IDENTITY)
@@ -59,7 +58,7 @@ func _unique_id_request_rpc(serialized: Variant) -> void:
 		return
 	
 	var packet: Dictionary = {}
-	var id_list: Array = SimusNetDecompressor.parse(serialized)
+	var id_list: Array = SimusNetDecompressor.parse_if_necessary(serialized)
 	
 	for id: Variant in id_list:
 		var identity: SimusNetIdentity = SimusNetIdentity.get_dictionary_by_generated_id().get(id)
@@ -69,15 +68,16 @@ func _unique_id_request_rpc(serialized: Variant) -> void:
 			logger.debug_error("(peer: %s) requested generated id was not found: %s" % [multiplayer.get_remote_sender_id(), id])
 	
 	if !packet.is_empty():
-		_unique_id_request_receive.rpc_id(multiplayer.get_remote_sender_id(), SimusNetCompressor.parse(packet))
+		_unique_id_request_receive.rpc_id(multiplayer.get_remote_sender_id(), SimusNetCompressor.parse_if_necessary(packet))
 	
+	#print(id_list, " - ", "compressed: ", serialized.size(), ", uncompressed: ", var_to_bytes(id_list).size())
 
 @rpc("authority", "call_remote", "reliable", SimusNetChannels.BUILTIN.IDENTITY)
 func _unique_id_request_receive(serialized: Variant) -> void:
 	if SimusNetConnection.is_server():
 		return
 	
-	var dict: Dictionary = SimusNetDecompressor.parse(serialized)
+	var dict: Dictionary = SimusNetDecompressor.parse_if_necessary(serialized)
 	for generated_id: Variant in dict:
 		var unique_id: Variant = dict[generated_id]
 		on_unique_id_received.emit(generated_id, unique_id)

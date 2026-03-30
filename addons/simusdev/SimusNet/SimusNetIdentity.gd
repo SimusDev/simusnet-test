@@ -4,9 +4,12 @@ class_name SimusNetIdentity
 var owner: Object : get = get_owner
 
 func get_owner() -> Object:
-	if !is_instance_valid(owner):
-		owner = null
-	return owner
+	if !_owner_weak_ref or !is_instance_valid(_owner_weak_ref.get_ref()):
+		return null
+	
+	return _owner_weak_ref.get_ref()
+
+var _owner_weak_ref: WeakRef
 
 var settings: SimusNetIdentitySettings
 
@@ -23,7 +26,7 @@ var _net_settings: SimusNetSettings
 
 const BYTE_SIZE: int = 2
 
-static func register(object: Object, network_id: int = -1) -> SimusNetIdentity:
+static func __register__(object: Object, network_id: int, generated_id: Variant) -> SimusNetIdentity:
 	if object.has_meta("SimusNetIdentity"):
 		var variant: Variant = object.get_meta("SimusNetIdentity")
 		if is_instance_valid(variant):
@@ -32,14 +35,22 @@ static func register(object: Object, network_id: int = -1) -> SimusNetIdentity:
 					return variant
 	
 	var identity: SimusNetIdentity = SimusNetIdentity.new()
+	identity.settings = SimusNetIdentitySettings.new()
+	identity._generated_unique_id = generated_id
 	identity._unique_id = network_id
 	
 	object.set_meta("SimusNetIdentity", identity)
 	
-	identity.owner = object
+	identity._owner_weak_ref = weakref(object)
 	
 	identity._initialize()
 	return identity
+
+static func register(object: Object, network_id: int = -1) -> SimusNetIdentity:
+	return __register__(object, network_id, null)
+
+static func register_with_generated_id(object: Object, id: Variant = null) -> SimusNetIdentity:
+	return __register__(object, -1, id)
 
 func _initialize() -> void:
 	if !is_instance_valid(settings):
@@ -48,9 +59,6 @@ func _initialize() -> void:
 	SimusNetEvents.event_disconnected.listen(_deinitialize_dynamic)
 	
 	_net_settings = SimusNetSettings.get_or_create()
-	
-	if SimusNetConnection.is_server():
-		_unique_id = SimusNetIdentitySettings._generate_instance_int()
 	
 	if owner is Node:
 		if !owner.is_node_ready():
@@ -63,6 +71,9 @@ func _initialize() -> void:
 	_initialize_dynamic()
 	
 
+static func generate_instance_unique_id_int() -> int:
+	return SimusNetIdentitySettings._generate_instance_int()
+
 func _renamed() -> void:
 	get_dictionary_by_generated_id().erase(get_generated_unique_id())
 	_try_generate_generated_id()
@@ -71,6 +82,10 @@ func _renamed() -> void:
 func _initialize_dynamic() -> void:
 	if !SimusNetConnection.is_active():
 		await SimusNetEvents.event_connected.published
+	
+	if SimusNetConnection.is_server():
+		if _unique_id == -1:
+			_unique_id = SimusNetIdentitySettings._generate_instance_int()
 	
 	if is_initialized and _unique_id > -1:
 		return
@@ -118,7 +133,8 @@ func _try_generate_generated_id() -> void:
 			if !owner.is_node_ready():
 				await owner.ready
 			
-			_generated_unique_id = owner.get_path()
+			if !owner.get_path().is_empty():
+				_generated_unique_id = owner.get_path()
 	else:
 		_generated_unique_id = settings.get_unique_id()
 	
@@ -146,23 +162,16 @@ func _set_ready() -> void:
 func _tree_exited() -> void:
 	is_initialized = false
 	
-	_parse_and_clear_identities_with_no_owner()
-	
 	get_dictionary_by_generated_id().erase(get_generated_unique_id())
 	#if SimusNetConnection.is_server():
 		#print("removing: ", get_generated_unique_id())
 	
-	if owner:
-		SimusNetVisibility._local_identity_delete(self)
+	SimusNetVisibility._local_identity_delete(self)
 	
 
-static func _parse_and_clear_identities_with_no_owner() -> void:
-	var i: Dictionary[int, SimusNetIdentity] = get_dictionary_by_unique_id()
-	for id: int in i:
-		var identity: SimusNetIdentity = i[id]
-		if !identity.owner:
-			i.erase(id)
-			
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_PREDELETE:
+		SimusNetVisibility._local_identity_delete(self)
 
 func get_generated_unique_id() -> Variant:
 	return _generated_unique_id
@@ -209,5 +218,7 @@ static func deserialize_unique_id_into_int(bytes: PackedByteArray) -> int:
 static func try_find_in(object: Variant) -> SimusNetIdentity:
 	if object is Object:
 		if object.has_meta("SimusNetIdentity"):
-			return object.get_meta("SimusNetIdentity")
+			var i: SimusNetIdentity = object.get_meta("SimusNetIdentity")
+			if i.owner:
+				return i 
 	return null

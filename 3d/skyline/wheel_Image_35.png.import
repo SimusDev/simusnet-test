@@ -4,9 +4,8 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://gamtc8jjjb7x"
 path.s3tc="res://.godot/imported/wheel_Image_35.png-9ebfbfcec2912daef7239002b470cbb1.s3tc.ctex"
-path.etc2="res://.godot/imported/wheel_Image_35.png-9ebfbfcec2912daef7239002b470cbb1.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -16,7 +15,7 @@ generator_parameters={
 [deps]
 
 source_file="res://3d/skyline/wheel_Image_35.png"
-dest_files=["res://.godot/imported/wheel_Image_35.png-9ebfbfcec2912daef7239002b470cbb1.s3tc.ctex", "res://.godot/imported/wheel_Image_35.png-9ebfbfcec2912daef7239002b470cbb1.etc2.ctex"]
+dest_files=["res://.godot/imported/wheel_Image_35.png-9ebfbfcec2912daef7239002b470cbb1.s3tc.ctex"]
 
 [params]
 

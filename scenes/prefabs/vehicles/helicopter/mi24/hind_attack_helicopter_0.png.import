@@ -4,9 +4,8 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://dl80eomkeprnd"
 path.s3tc="res://.godot/imported/hind_attack_helicopter_0.png-101800aede71bc6ff9ee0c93eb0f7dba.s3tc.ctex"
-path.etc2="res://.godot/imported/hind_attack_helicopter_0.png-101800aede71bc6ff9ee0c93eb0f7dba.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -16,7 +15,7 @@ generator_parameters={
 [deps]
 
 source_file="res://scenes/prefabs/vehicles/helicopter/mi24/hind_attack_helicopter_0.png"
-dest_files=["res://.godot/imported/hind_attack_helicopter_0.png-101800aede71bc6ff9ee0c93eb0f7dba.s3tc.ctex", "res://.godot/imported/hind_attack_helicopter_0.png-101800aede71bc6ff9ee0c93eb0f7dba.etc2.ctex"]
+dest_files=["res://.godot/imported/hind_attack_helicopter_0.png-101800aede71bc6ff9ee0c93eb0f7dba.s3tc.ctex"]
 
 [params]
 

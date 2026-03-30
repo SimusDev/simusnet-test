@@ -102,8 +102,6 @@ func _transition_requested_net(state_id: int) -> void:
 		return
 	
 	var state: SD_FiniteState = get_state_by_id(state_id)
-	if not state:
-		return
 	if state.enabled:
 		_try_transition(state)
 

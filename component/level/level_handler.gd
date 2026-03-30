@@ -62,9 +62,10 @@ func _handle() -> void:
 		for file in SD_FileSystem.get_all_files_with_extension_from_directory(base_path.path_join(directory), SD_FileExtensions.EC_RESOURCE):
 			var resource:Resource = load(file)
 			if resource is R_Level:
-				var status: bool = resource.register()
-				if status:
-					_registry.append(resource)
+				if resource.enabled:
+					var status: bool = resource.register()
+					if status:
+						_registry.append(resource)
 
 func _exit_tree() -> void:
 	for level in _registry:

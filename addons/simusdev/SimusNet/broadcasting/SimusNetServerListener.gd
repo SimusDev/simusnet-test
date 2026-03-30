@@ -7,6 +7,7 @@ var simusnet_settings:SimusNetSettings
 
 var _udp: PacketPeerUDP = PacketPeerUDP.new()
 var _servers: Dictionary = {} 
+var _tick_timer:Timer
 var _cleanup_timer: Timer
 
 var should_listen:bool = true
@@ -19,6 +20,9 @@ func _ready():
 	if parent is Control:
 		parent.visibility_changed.connect(_update)
 		_update()
+		
+		while not parent.visible:
+			await parent.visibility_changed
 	
 	if SimusNetConnection.is_dedicated_server():
 		return
@@ -30,26 +34,29 @@ func _ready():
 		push_error("SimusNetServerListener: Failed to bind UDP port %d. Error code: %d" % [broadcasting_port, err])
 		return
 	
+	_tick_timer = Timer.new()
+	_tick_timer.wait_time = simusnet_settings.server_info.listener_listening_interval
+	_tick_timer.one_shot = false
+	_tick_timer.autostart = true
+	_tick_timer.timeout.connect(_tick)
+	add_child(_tick_timer)
 	
 	# Setup cleanup timer
 	_cleanup_timer = Timer.new()
-	_cleanup_timer.wait_time = simusnet_settings.server_info.broadcasting_cleanup_interval
+	_cleanup_timer.wait_time = simusnet_settings.server_info.listener_cleanup_interval
 	_cleanup_timer.one_shot = false
 	_cleanup_timer.autostart = true
 	_cleanup_timer.timeout.connect(_cleanup)
 	add_child(_cleanup_timer)
-	
-	set_process(true)
 
 func _update() -> void:
-	var should_listen:bool = true
 	
 	var parent = get_parent()
 	if parent is Control:
 		should_listen = parent.visible
 	
 
-func _process(_delta):
+func _tick() -> void:
 	if SimusNetConnection.is_dedicated_server():
 		return
 	
@@ -117,7 +124,7 @@ func _cleanup():
 	
 	for ip in _servers:
 		var last_seen = _servers[ip].get("last_seen", 0)
-		if now - last_seen > simusnet_settings.server_info.broadcasting_server_timeout:
+		if now - last_seen > simusnet_settings.server_info.listener_server_timeout:
 			to_remove.append(ip)
 	
 	for ip in to_remove:

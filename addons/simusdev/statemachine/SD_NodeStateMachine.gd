@@ -4,6 +4,7 @@ class_name SD_NodeStateMachine
 
 @export var initial_state: SD_State
 @export var network_channel: String = "state_machine"
+@export var debug: bool = false
 
 var _states: Dictionary[String, SD_State] = {}
 var _current_state: SD_State
@@ -13,6 +14,16 @@ var _current_state_name: String = ""
 signal transitioned(from: SD_State, to: SD_State)
 signal state_enter(state: SD_State)
 signal state_exit(state: SD_State)
+
+signal trying_switch_to(from: SD_State, to: SD_State)
+
+var _logger: SD_Logger = SD_Logger.new(self)
+
+var _is_switch_cancelled: bool = false
+
+func cancel_switch() -> SD_NodeStateMachine:
+	_is_switch_cancelled = true
+	return self
 
 static func find(node: Node) -> SD_NodeStateMachine:
 	return node.get_meta("SD_NodeStateMachine", null)
@@ -77,6 +88,9 @@ func _on_child_state_transitioned(to_state: SD_State) -> void:
 	state_enter.emit(to_state)
 	
 	transitioned.emit(prev_state, to_state)
+	if debug:
+		_logger.debug("(current state is %s) state switched from %s, to %s" % [to_state, prev_state, to_state])
+	
 
 
 func switch(to_state: SD_State) -> void:
@@ -87,6 +101,11 @@ func switch(to_state: SD_State) -> void:
 		return
 	
 	if _current_state == to_state:
+		return
+	
+	trying_switch_to.emit(get_current_state(), to_state)
+	if _is_switch_cancelled:
+		_is_switch_cancelled = false
 		return
 	
 	SimusNetRPC.invoke_all(_switch_net, to_state.get_index())

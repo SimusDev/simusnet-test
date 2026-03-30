@@ -1,0 +1,2 @@
+extends SimusNetConfigBase
+class_name SimusNetCustomSerializationConfig

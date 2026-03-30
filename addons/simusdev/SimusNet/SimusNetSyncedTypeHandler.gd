@@ -3,10 +3,18 @@ class_name SimusNetSyncedTypeHandler
 
 const _META: StringName = &"NetSyncedTypesHandler"
 
-var _object: Object
+var _object: Object : get = get_object
 var _identity: SimusNetIdentity
 
 var _list: Array[SimusNetSyncedType] = []
+
+func get_object() -> Object:
+	if !is_instance_valid(_object):
+		_object = null
+	return _object
+
+func get_synced_type_by_id(id: int) -> SimusNetSyncedType:
+	return _list.get(id)
 
 func _initialize() -> void:
 	SimusNetVars.get_instance().on_tick.connect(_tick)

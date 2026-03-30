@@ -4,16 +4,15 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://blhjdeoxbdn02"
 path.s3tc="res://.godot/imported/Brown_leather_metallicRoughness.png-c980ed980f0270d2d7a26e23ca888eeb.s3tc.ctex"
-path.etc2="res://.godot/imported/Brown_leather_metallicRoughness.png-c980ed980f0270d2d7a26e23ca888eeb.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://scenes/prefabs/seats/car/textures/Brown_leather_metallicRoughness.png"
-dest_files=["res://.godot/imported/Brown_leather_metallicRoughness.png-c980ed980f0270d2d7a26e23ca888eeb.s3tc.ctex", "res://.godot/imported/Brown_leather_metallicRoughness.png-c980ed980f0270d2d7a26e23ca888eeb.etc2.ctex"]
+dest_files=["res://.godot/imported/Brown_leather_metallicRoughness.png-c980ed980f0270d2d7a26e23ca888eeb.s3tc.ctex"]
 
 [params]
 

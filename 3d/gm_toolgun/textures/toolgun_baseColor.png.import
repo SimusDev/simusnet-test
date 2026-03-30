@@ -4,16 +4,15 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://dpaq2fdv6syjo"
 path.s3tc="res://.godot/imported/toolgun_baseColor.png-9acabb20448bf001974b0a0c38b77bfb.s3tc.ctex"
-path.etc2="res://.godot/imported/toolgun_baseColor.png-9acabb20448bf001974b0a0c38b77bfb.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://3d/gm_toolgun/textures/toolgun_baseColor.png"
-dest_files=["res://.godot/imported/toolgun_baseColor.png-9acabb20448bf001974b0a0c38b77bfb.s3tc.ctex", "res://.godot/imported/toolgun_baseColor.png-9acabb20448bf001974b0a0c38b77bfb.etc2.ctex"]
+dest_files=["res://.godot/imported/toolgun_baseColor.png-9acabb20448bf001974b0a0c38b77bfb.s3tc.ctex"]
 
 [params]
 

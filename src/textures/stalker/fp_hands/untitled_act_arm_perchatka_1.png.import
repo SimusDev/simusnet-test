@@ -4,9 +4,8 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://cxqusoningw72"
 path.s3tc="res://.godot/imported/untitled_act_arm_perchatka_1.png-11655df947f5cfef973690a6e247126a.s3tc.ctex"
-path.etc2="res://.godot/imported/untitled_act_arm_perchatka_1.png-11655df947f5cfef973690a6e247126a.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -16,7 +15,7 @@ generator_parameters={
 [deps]
 
 source_file="res://src/textures/stalker/fp_hands/untitled_act_arm_perchatka_1.png"
-dest_files=["res://.godot/imported/untitled_act_arm_perchatka_1.png-11655df947f5cfef973690a6e247126a.s3tc.ctex", "res://.godot/imported/untitled_act_arm_perchatka_1.png-11655df947f5cfef973690a6e247126a.etc2.ctex"]
+dest_files=["res://.godot/imported/untitled_act_arm_perchatka_1.png-11655df947f5cfef973690a6e247126a.s3tc.ctex"]
 
 [params]
 

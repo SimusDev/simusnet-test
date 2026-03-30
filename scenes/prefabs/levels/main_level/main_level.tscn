@@ -38,7 +38,7 @@ uv1_triplanar = true
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jk8u2"]
 emission_enabled = true
 emission = Color(1, 1, 1, 1)
-emission_energy_multiplier = 0.09644991
+emission_energy_multiplier = 0.0060281134
 
 [sub_resource type="BoxMesh" id="BoxMesh_p870i"]
 
@@ -131,8 +131,8 @@ mesh = SubResource("BoxMesh_n0uqs")
 surface_material_override/0 = SubResource("StandardMaterial3D_jk8u2")
 
 [node name="OmniLight3D" parent="CubeLight" unique_id=2105551723 instance=ExtResource("16_jk8u2")]
-light_energy = 0.09644991
-light_indirect_energy = 0.09644991
+light_energy = 0.0060281134
+light_indirect_energy = 0.0060281134
 
 [node name="cLampComponent" parent="CubeLight/OmniLight3D" index="0" unique_id=1203643786 node_paths=PackedStringArray("MeshInstances")]
 Lit = true
@@ -167,7 +167,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.286501, 1.9279871, -12.081
 monitorable = false
 script = ExtResource("8_6rygw")
 level = "uid://bq60pep62nfs6"
-spawn_point3d_name = &"player"
+spawn_point3d_name = "player"
 metadata/_custom_type_script = "uid://blgj77kwvpiwc"
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="CT_LevelTransition3D" unique_id=1110481197]

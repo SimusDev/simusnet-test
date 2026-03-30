@@ -4,9 +4,8 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://c1r1kfd3ina3h"
 path.s3tc="res://.godot/imported/original_Tex_Godette.png-f72c91c31dda62f0fee91bf53f473d05.s3tc.ctex"
-path.etc2="res://.godot/imported/original_Tex_Godette.png-f72c91c31dda62f0fee91bf53f473d05.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -16,7 +15,7 @@ generator_parameters={
 [deps]
 
 source_file="res://scenes/prefabs/characters/godette/original_Tex_Godette.png"
-dest_files=["res://.godot/imported/original_Tex_Godette.png-f72c91c31dda62f0fee91bf53f473d05.s3tc.ctex", "res://.godot/imported/original_Tex_Godette.png-f72c91c31dda62f0fee91bf53f473d05.etc2.ctex"]
+dest_files=["res://.godot/imported/original_Tex_Godette.png-f72c91c31dda62f0fee91bf53f473d05.s3tc.ctex"]
 
 [params]
 

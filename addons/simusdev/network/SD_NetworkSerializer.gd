@@ -12,9 +12,9 @@ const TYPES: Array[int] = [
 enum PACKET_TYPE {
 	ARRAY,
 	DICTIONARY,
-	OBJECT,
-	NODE,
 	RESOURCE,
+	NODE,
+	OBJECT,
 	
 }
 
@@ -84,7 +84,6 @@ static func parse(variant: Variant) -> Variant:
 	
 	if variant is Node:
 		type_string = "Node"
-	
 	
 	if _PARSER_CALLABLES.has(type_string):
 		var arguments: Array = _PARSER_CALLABLES[type_string]

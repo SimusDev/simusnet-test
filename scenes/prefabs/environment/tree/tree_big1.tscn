@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://c6fh8eylivi7o"]
+
+[ext_resource type="ArrayMesh" uid="uid://qkm0fkixtnfw" path="res://scenes/prefabs/environment/tree/tree_big1.mesh" id="1_e0jt5"]
+
+[node name="tree_big1" type="Node3D" unique_id=381549578]
+
+[node name="mesh" type="MeshInstance3D" parent="." unique_id=988190600]
+transform = Transform3D(0.0031606888, -0.00047106578, -0.0094756605, 0.0005177298, 0.009981347, -0.00032351183, 0.009473225, -0.0003883312, 0.003179182, 0, 0, 0)
+mesh = ExtResource("1_e0jt5")

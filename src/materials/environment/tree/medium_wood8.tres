@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://c4gmkfk8raxjp"]
+
+[ext_resource type="Texture2D" uid="uid://cd35khkh3e42" path="res://src/materials/environment/tree/texture/map_wood_8.png" id="1_o881r"]
+
+[resource]
+resource_name = "materials/models/zavod_yantar/wood_8"
+cull_mode = 2
+albedo_texture = ExtResource("1_o881r")
+roughness = 0.9

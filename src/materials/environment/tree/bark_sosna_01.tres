@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://scr6jmg5xmdh"]
+
+[ext_resource type="Texture2D" uid="uid://7m1v8r4ad5wd" path="res://src/materials/environment/tree/texture/map_trees_bark_sosna_01.png" id="1_ovik5"]
+
+[resource]
+resource_name = "materials/models/stcop_sosna_01/trees_bark_sosna_01"
+cull_mode = 2
+albedo_texture = ExtResource("1_ovik5")
+roughness = 0.9

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="R_Level" format=3 uid="uid://b1yiyiusk1nno"]
+
+[ext_resource type="Script" uid="uid://d1rhnuo4fnolv" path="res://component/level/r_level.gd" id="1_s2id5"]
+
+[resource]
+script = ExtResource("1_s2id5")
+enabled = false
+code = &"sr_cordon"
+prefabs = Array[String](["uid://dqluc3n7mbbbh"])
+position = Vector3(0, -200, 0)
+metadata/_custom_type_script = "uid://d1rhnuo4fnolv"

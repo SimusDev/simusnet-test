@@ -1,12 +1,13 @@
-extends RefCounted
+extends SimusNetConfigBase
 class_name SimusNetVarConfig
 
-var _channel: int = SimusNetChannels.BUILTIN.VARS_SEND_RELIABLE
-var _reliable: bool = true
+@export var _channel: int = SimusNetChannels.DEFAULT_ID
+@export var _reliable: bool = true
 
-var _replication: bool = false
-var _replicate_on_spawn: bool = true
-var _serialize: bool = false
+@export var _replication: bool = false
+@export var _replicate_on_spawn: bool = false
+@export var _serialize: bool = true
+
 
 enum MODE {
 	AUTHORITY,
@@ -14,9 +15,9 @@ enum MODE {
 	TO_SERVER,
 }
 
-var _mode: MODE = MODE.AUTHORITY
+@export var _mode: MODE = MODE.AUTHORITY
 
-var _tickrate: float = 0.0
+@export var _tickrate: float = 0.0
 
 func flag_replication(on_spawn: bool = true, value: bool = true) -> SimusNetVarConfig:
 	_replicate_on_spawn = on_spawn
@@ -65,6 +66,11 @@ func flag_mode_to_server() -> SimusNetVarConfig:
 	_mode = MODE.TO_SERVER
 	return self
 
+@export var __send_to_owner: bool = false
+func flag_send_to_owner(value: bool = false) -> SimusNetVarConfig:
+	__send_to_owner = value
+	return self
+
 func _is_network_authority(handler: SimusNetVarConfigHandler) -> bool:
 	if _mode == MODE.SERVER_ONLY:
 		return SimusNetConnection.is_server()
@@ -75,12 +81,23 @@ func _get_network_authority(handler: SimusNetVarConfigHandler) -> int:
 	return SimusNet.get_network_authority(handler.get_identity().owner)
 
 func _validate_send(handler: SimusNetVarConfigHandler, to_peer: int) -> bool:
+	if SimusNetConnection.is_server():
+		return true
+	
 	if _mode == MODE.TO_SERVER:
 		return to_peer == SimusNet.SERVER_ID
 	
-	return _is_network_authority(handler)
+	var authority: bool = _is_network_authority(handler)
+	
+	if authority and __send_to_owner:
+		return _get_network_authority(handler) == to_peer
+	
+	return authority 
 
 func _validate_send_receive(handler: SimusNetVarConfigHandler, from_peer: int) -> bool:
+	if from_peer == SimusNetConnection.SERVER_ID:
+		return true
+	
 	if _mode == MODE.TO_SERVER:
 		return SimusNetConnection.is_server()
 	
@@ -106,15 +123,25 @@ func _process_sync(handler: SimusNetVarConfigHandler) -> void:
 	if _mode == MODE.SERVER_ONLY and !SimusNetConnection.is_server():
 		return
 	
+	
+	var changed_properties: Dictionary[StringName, Variant] = SimusNetSynchronization.get_changed_properties(handler.get_object())
 	if handler.get_object():
-		SimusNetVars.send(handler.get_object(), handler.get_properties_for(self), _reliable)
+		for property: String in handler.get_properties_for(self):
+			if _reliable:
+				if SimusNetVars._hook_snapshot(changed_properties, property, handler.get_object()):
+					return
+			
+			SimusNetVars.send(handler.get_object(), property)
 
 func _network_ready(handler: SimusNetVarConfigHandler) -> void:
 	if !handler.get_object():
 		return
 	
-	if _replication and _replicate_on_spawn and !_mode == MODE.TO_SERVER:
-		SimusNetVars.replicate(handler.get_object(), handler.get_properties_for(self), _reliable)
+	await _async_apply_channel(_channel)
+	
+	if _replicate_on_spawn and !_mode == MODE.TO_SERVER:
+		for property: String in handler.get_properties_for(self):
+			SimusNetVars.replicate(handler.get_object(), property)
 
 func _network_disconnect(handler: SimusNetVarConfigHandler) -> void:
 	pass

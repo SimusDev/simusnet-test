@@ -4,9 +4,8 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://tgsjbxer36xv"
 path.s3tc="res://.godot/imported/crowbar_model_2.png-b3617c9eca1e1893b925283a4f1f33d2.s3tc.ctex"
-path.etc2="res://.godot/imported/crowbar_model_2.png-b3617c9eca1e1893b925283a4f1f33d2.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -16,7 +15,7 @@ generator_parameters={
 [deps]
 
 source_file="res://3d/crowbar/crowbar_model_2.png"
-dest_files=["res://.godot/imported/crowbar_model_2.png-b3617c9eca1e1893b925283a4f1f33d2.s3tc.ctex", "res://.godot/imported/crowbar_model_2.png-b3617c9eca1e1893b925283a4f1f33d2.etc2.ctex"]
+dest_files=["res://.godot/imported/crowbar_model_2.png-b3617c9eca1e1893b925283a4f1f33d2.s3tc.ctex"]
 
 [params]
 

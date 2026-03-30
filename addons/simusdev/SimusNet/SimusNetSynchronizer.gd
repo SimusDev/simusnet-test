@@ -6,7 +6,8 @@ class_name SimusNetSynchronizer
 
 func _ready() -> void:
 	for sync in data:
-		_initialize(sync)
+		if is_instance_valid(sync):
+			_initialize(sync)
 
 func _initialize(sync: SimusNetSync) -> void:
 	if sync.node.is_empty():

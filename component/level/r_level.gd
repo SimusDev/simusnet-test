@@ -1,10 +1,9 @@
 class_name R_Level extends Resource
 
+@export var enabled: bool = true
 @export var icon: Texture
 
 @export var code:StringName = "Level"
-
-@export var prefab:PackedScene
 
 @export_file("*.tscn", "*.scn") var prefabs: Array[String]
 @export_file("*.tscn", "*.scn") var server_prefabs: Array[String]

@@ -36,6 +36,16 @@ static func async_queue_free(node: Node) -> void:
 	node.queue_free()
 	await node.tree_exited
 
+static func is_node_queued_to_free(node: Node) -> bool:
+	if node == SimusDev.get_tree().root:
+		return false
+	
+	var queued: bool = node.is_queued_for_deletion()
+	if queued:
+		return true
+	
+	return is_node_queued_to_free(node.get_parent())
+
 static func async_for_ready(node: Node) -> void:
 	if !node.is_node_ready():
 		await node.ready

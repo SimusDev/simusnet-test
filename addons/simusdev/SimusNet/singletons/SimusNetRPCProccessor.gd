@@ -17,7 +17,7 @@ func _generate_code() -> void:
 func _recieve(peer: int, channel: int, identity: Variant, method: Variant, args: Variant = null) -> void:
 	get_parent()._processor_recieve_rpc_from_peer(peer, channel, identity, method, args)
 
-func _parse_and_get_function(channel: int, transfer: SimusNetRPC.TRANSFER_MODE) -> String:
+static func _parse_and_get_function(channel: int, transfer: SimusNetRPC.TRANSFER_MODE) -> String:
 	return "_rpc_%s_%s" % [transfer, channel]
 
 #//////////////////////////////////////////////////////////////////////////////////////////////////

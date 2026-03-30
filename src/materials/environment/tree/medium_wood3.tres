@@ -1,0 +1,12 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://dcpeldw06sxw8"]
+
+[ext_resource type="Texture2D" uid="uid://r3sp7bbrtngl" path="res://src/materials/environment/tree/texture/map_wood_3.png" id="1_hsoxh"]
+
+[resource]
+resource_name = "materials/models/zavod_yantar/wood_3"
+transparency = 2
+alpha_scissor_threshold = 0.7
+alpha_antialiasing_mode = 0
+cull_mode = 2
+albedo_texture = ExtResource("1_hsoxh")
+roughness = 0.9

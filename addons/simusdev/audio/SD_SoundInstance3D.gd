@@ -96,14 +96,9 @@ func _ready() -> void:
 	_update_states()
 
 static func _get_camera() -> Camera3D:
-	if SimusNetConnection.is_dedicated_server():
-		return null
-	
-	#if OS.has_feature("editor"):
-		#if Engine.is_editor_hint():
-			#var viewport = EditorInterface.get_editor_viewport_3d(0)
-			#return viewport.get_camera_3d()
-
+	if Engine.is_editor_hint():
+		var viewport: SubViewport = EditorInterface.get_editor_viewport_3d(0)
+		return viewport.get_camera_3d()
 	return SimusDev.get_viewport().get_camera_3d()
 
 #@export_group("Private")

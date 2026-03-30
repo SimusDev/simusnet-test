@@ -4,9 +4,8 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://bam6ecdwru5e3"
 path.s3tc="res://.godot/imported/untitled_wpn_pb.png-14f6326f17051e65527473f239a3f5ae.s3tc.ctex"
-path.etc2="res://.godot/imported/untitled_wpn_pb.png-14f6326f17051e65527473f239a3f5ae.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -16,7 +15,7 @@ generator_parameters={
 [deps]
 
 source_file="res://src/objects/item/weapon/sr_pb/untitled_wpn_pb.png"
-dest_files=["res://.godot/imported/untitled_wpn_pb.png-14f6326f17051e65527473f239a3f5ae.s3tc.ctex", "res://.godot/imported/untitled_wpn_pb.png-14f6326f17051e65527473f239a3f5ae.etc2.ctex"]
+dest_files=["res://.godot/imported/untitled_wpn_pb.png-14f6326f17051e65527473f239a3f5ae.s3tc.ctex"]
 
 [params]
 

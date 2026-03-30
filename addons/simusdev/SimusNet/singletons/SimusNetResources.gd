@@ -36,7 +36,7 @@ static func cache(resource: Resource) -> void:
 		
 		_instance._cache_rpc.rpc(path)
 
-@rpc("authority", "call_local", "reliable", SimusNetChannels.BUILTIN.CACHE)
+@rpc("authority", "call_local", "reliable", 0)
 func _cache_rpc(path: String) -> void:
 	get_cached().append(path)
 
@@ -51,6 +51,6 @@ static func uncache(resource: Resource) -> void:
 		
 		_instance._uncache_rpc.rpc(path)
 
-@rpc("authority", "call_local", "reliable", SimusNetChannels.BUILTIN.CACHE)
+@rpc("authority", "call_local", "reliable", 0)
 func _uncache_rpc(path: String) -> void:
 	get_cached().erase(path)

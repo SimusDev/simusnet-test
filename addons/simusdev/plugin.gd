@@ -12,6 +12,16 @@ const _view_scene: PackedScene = preload("uid://qyvoef4qc0xg")
 
 var _view: Control
 
+func _enable_plugin() -> void:
+	return
+	for s in AUTOLOAD:
+		add_autoload_singleton(s, AUTOLOAD[s])
+
+func _disable_plugin() -> void:
+	return
+	for s in AUTOLOAD:
+		remove_autoload_singleton(s)
+
 func _enter_tree() -> void:
 	# Initialization of the plugin goes here.
 	if editor_plugins == null:

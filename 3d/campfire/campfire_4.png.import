@@ -4,9 +4,8 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://dfb55wi5fgw0m"
 path.s3tc="res://.godot/imported/campfire_4.png-0a1fadfeef758cce9e945165800bf685.s3tc.ctex"
-path.etc2="res://.godot/imported/campfire_4.png-0a1fadfeef758cce9e945165800bf685.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -16,7 +15,7 @@ generator_parameters={
 [deps]
 
 source_file="res://3d/campfire/campfire_4.png"
-dest_files=["res://.godot/imported/campfire_4.png-0a1fadfeef758cce9e945165800bf685.s3tc.ctex", "res://.godot/imported/campfire_4.png-0a1fadfeef758cce9e945165800bf685.etc2.ctex"]
+dest_files=["res://.godot/imported/campfire_4.png-0a1fadfeef758cce9e945165800bf685.s3tc.ctex"]
 
 [params]
 

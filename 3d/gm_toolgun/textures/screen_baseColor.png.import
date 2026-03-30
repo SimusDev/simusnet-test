@@ -4,16 +4,15 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://beknyaik0eujq"
 path.s3tc="res://.godot/imported/screen_baseColor.png-ef65bdc54abe405c26a48d59cfe4fa1f.s3tc.ctex"
-path.etc2="res://.godot/imported/screen_baseColor.png-ef65bdc54abe405c26a48d59cfe4fa1f.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://3d/gm_toolgun/textures/screen_baseColor.png"
-dest_files=["res://.godot/imported/screen_baseColor.png-ef65bdc54abe405c26a48d59cfe4fa1f.s3tc.ctex", "res://.godot/imported/screen_baseColor.png-ef65bdc54abe405c26a48d59cfe4fa1f.etc2.ctex"]
+dest_files=["res://.godot/imported/screen_baseColor.png-ef65bdc54abe405c26a48d59cfe4fa1f.s3tc.ctex"]
 
 [params]
 

@@ -58,6 +58,12 @@ static func cache(callable: Callable) -> void:
 			return
 		_instance._cache_rpc.rpc(callable.get_method())
 
+static func cache_by_name(method: String) -> void:
+	if SimusNetConnection.is_server():
+		if get_cached().has(method):
+			return
+		_instance._cache_rpc.rpc(method)
+
 @rpc("authority", "call_local", "reliable", SimusNetChannels.BUILTIN.CACHE)
 func _cache_rpc(method: String) -> void:
 	get_cached().append(method)

@@ -24,7 +24,7 @@ var _visibility_received: int = 0
 var _ping: int = 0
 
 var _timer: Timer
-var _timer_tickrate: float = 1.0
+var _timer_tickrate: float = 1
 
 var _rpcs_profiler: Dictionary[String, Dictionary] = {}
 var _vars_profiler: Dictionary[String, Dictionary] = {}
@@ -69,6 +69,7 @@ func _on_disconnected() -> void:
 
 func _put_total_traffic(size: int) -> void:
 	_total_traffic += size
+	
 
 func _put_up_traffic(size: int) -> void:
 	_up_traffic += size
@@ -175,6 +176,7 @@ func _put_var_traffic(size: int, identity: Variant, property: Variant, receive: 
 		on_var_profiler_add.emit(key, data)
 
 func _timer_tick() -> void:
+	_timer.wait_time = _timer_tickrate
 	_up_packets /= 2
 	_down_packets /= 2
 	_down_traffic /= 2

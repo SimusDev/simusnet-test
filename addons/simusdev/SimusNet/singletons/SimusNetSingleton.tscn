@@ -17,10 +17,12 @@
 [ext_resource type="Script" uid="uid://s54mtevhf8la" path="res://addons/simusdev/SimusNet/singletons/SimusNetSynchronization.gd" id="14_y0guf"]
 [ext_resource type="Script" uid="uid://0tyljhh5ik53" path="res://addons/simusdev/SimusNet/singletons/SimusNetVarsProccessorSend.gd" id="15_gopxb"]
 [ext_resource type="Script" uid="uid://dorvy1fd2kil5" path="res://addons/simusdev/SimusNet/singletons/SimusNetProfiler.gd" id="17_b41hy"]
+[ext_resource type="Script" uid="uid://clrsykc84a5uy" path="res://addons/simusdev/SimusNet/singletons/SimusNetGarbageCollector.gd" id="18_vjcj1"]
 
-[node name="SimusNetSingleton" type="Node" unique_id=1723475864 node_paths=PackedStringArray("profiler", "events", "cache", "channels", "connection", "time", "handshake", "methods", "RPC", "RPCgodot", "visibility", "resources", "vars", "synchronization")]
+[node name="SimusNetSingleton" type="Node" unique_id=1723475864 node_paths=PackedStringArray("garbage_collector", "profiler", "events", "cache", "channels", "connection", "time", "handshake", "methods", "RPC", "RPCgodot", "visibility", "resources", "vars", "synchronization")]
 process_mode = 4
 script = ExtResource("1_6nds0")
+garbage_collector = NodePath("GarbageCollector")
 profiler = NodePath("Profiler")
 events = NodePath("Events")
 cache = NodePath("Cache")
@@ -35,6 +37,15 @@ visibility = NodePath("Visibility")
 resources = NodePath("Resources")
 vars = NodePath("Vars")
 synchronization = NodePath("Synchronization")
+
+[node name="GarbageCollector" type="Node" parent="." unique_id=518720478 node_paths=PackedStringArray("_timer")]
+script = ExtResource("18_vjcj1")
+_timer = NodePath("Timer")
+metadata/_custom_type_script = "uid://clrsykc84a5uy"
+
+[node name="Timer" type="Timer" parent="GarbageCollector" unique_id=364795469]
+process_callback = 0
+ignore_time_scale = true
 
 [node name="Profiler" type="Node" parent="." unique_id=1747636756]
 script = ExtResource("17_b41hy")

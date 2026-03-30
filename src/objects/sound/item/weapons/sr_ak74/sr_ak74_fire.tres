@@ -6,7 +6,7 @@
 [ext_resource type="AudioStream" uid="uid://bdmw3fnhd0l77" path="res://src/objects/sound/item/weapons/sr_ak74/ak74_shot_1.wav" id="3_uf6l0"]
 [ext_resource type="AudioStream" uid="uid://ch0076ptl3mdx" path="res://src/objects/sound/item/weapons/sr_ak74/ak74_shot_2.wav" id="4_hrl7u"]
 [ext_resource type="AudioStream" uid="uid://cn33tk0myfnam" path="res://src/objects/sound/item/weapons/sr_ak74/ak74_shot_3.wav" id="5_xwu8i"]
-[ext_resource type="Script" path="res://addons/simusdev/audio/SD_SoundPackage3D.gd" id="6_a46sg"]
+[ext_resource type="Script" uid="uid://b7fflt0r416ip" path="res://addons/simusdev/audio/SD_SoundPackage3D.gd" id="6_a46sg"]
 
 [sub_resource type="Resource" id="Resource_1mvoy"]
 script = ExtResource("1_3njrt")

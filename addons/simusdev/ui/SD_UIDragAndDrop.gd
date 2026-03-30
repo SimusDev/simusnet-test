@@ -28,7 +28,10 @@ func _ready() -> void:
 	_canvas = CanvasLayer.new()
 	add_child(_canvas)
 	_canvas.layer = canvas_layer
-	input_node.gui_input.connect(_on_input_node_gui_input)
+	
+	if input_node:
+		input_node.gui_input.connect(_on_input_node_gui_input)
+	
 	SimusDev.console.visibility_changed.connect(
 		func():
 			drop()

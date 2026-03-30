@@ -4,16 +4,15 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://cmnuihtipyixw"
 path.s3tc="res://.godot/imported/Brown_leather_normal.jpeg-0df0f2224893cb652de7c623a5db40da.s3tc.ctex"
-path.etc2="res://.godot/imported/Brown_leather_normal.jpeg-0df0f2224893cb652de7c623a5db40da.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://scenes/prefabs/seats/car/textures/Brown_leather_normal.jpeg"
-dest_files=["res://.godot/imported/Brown_leather_normal.jpeg-0df0f2224893cb652de7c623a5db40da.s3tc.ctex", "res://.godot/imported/Brown_leather_normal.jpeg-0df0f2224893cb652de7c623a5db40da.etc2.ctex"]
+dest_files=["res://.godot/imported/Brown_leather_normal.jpeg-0df0f2224893cb652de7c623a5db40da.s3tc.ctex"]
 
 [params]
 

@@ -4,9 +4,8 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://b5eddpn0hu4bm"
 path.s3tc="res://.godot/imported/minecraft_animated_mutant_zombie_0.png-3aabc484c96a8e57b17c5e22435dedbf.s3tc.ctex"
-path.etc2="res://.godot/imported/minecraft_animated_mutant_zombie_0.png-3aabc484c96a8e57b17c5e22435dedbf.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -16,7 +15,7 @@ generator_parameters={
 [deps]
 
 source_file="res://src/objects/entity/zombi/model/minecraft_animated_mutant_zombie_0.png"
-dest_files=["res://.godot/imported/minecraft_animated_mutant_zombie_0.png-3aabc484c96a8e57b17c5e22435dedbf.s3tc.ctex", "res://.godot/imported/minecraft_animated_mutant_zombie_0.png-3aabc484c96a8e57b17c5e22435dedbf.etc2.ctex"]
+dest_files=["res://.godot/imported/minecraft_animated_mutant_zombie_0.png-3aabc484c96a8e57b17c5e22435dedbf.s3tc.ctex"]
 
 [params]
 
